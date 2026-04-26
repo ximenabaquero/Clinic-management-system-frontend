@@ -92,27 +92,116 @@ const HistoriaClinicaPdf = forwardRef<HTMLDivElement, Props>(
               <div><p style={label}>Edad</p><p style={value}>{evaluation.patient_age_at_evaluation} años</p></div>
               <div><p style={label}>Sexo biológico</p><p style={value}>{patient.biological_sex}</p></div>
               <div><p style={label}>Celular</p><p style={value}>{patient.cellphone}</p></div>
+              {patient.address && <div><p style={label}>Dirección</p><p style={value}>{patient.address}</p></div>}
+              {patient.email && <div><p style={label}>Correo electrónico</p><p style={value}>{patient.email}</p></div>}
+              {patient.family_member_name && <div><p style={label}>Familiar</p><p style={value}>{patient.family_member_name}</p></div>}
               <div><p style={label}>Remitente</p><p style={value}>{evaluation.referrer_name ?? "—"}</p></div>
             </div>
           </div>
 
-          {/* Evaluación clínica */}
-          <div style={{ marginBottom: "24px" }}>
-            <p style={sectionTitle}>Evaluación clínica</p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "12px", fontSize: "12px", marginBottom: "12px" }}>
-              <div><p style={label}>Peso</p><p style={value}>{evaluation.weight} kg</p></div>
-              <div><p style={label}>Estatura</p><p style={value}>{evaluation.height} m</p></div>
-              <div><p style={label}>IMC</p><p style={value}>{evaluation.bmi}</p></div>
-              <div><p style={label}>Estado IMC</p><p style={value}>{evaluation.bmi_status}</p></div>
-            </div>
-            <div>
-              <p style={label}>Antecedentes médicos</p>
-              <div style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "10px", fontSize: "12px", color: "#374151", lineHeight: 1.6 }}>
-                {evaluation.medical_background}
+          {/* Antecedentes personales */}
+          {(evaluation.antecedentes_patologicos || evaluation.antecedentes_quirurgicos || evaluation.antecedentes_farmacologicos || evaluation.antecedentes_alergicos || evaluation.antecedentes_toxicos || evaluation.antecedentes_gineco_obstetricos || evaluation.antecedentes_otros) && (
+            <div style={{ marginBottom: "24px" }}>
+              <p style={sectionTitle}>Antecedentes personales</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", fontSize: "12px" }}>
+                {[
+                  { l: "Patológicos", v: evaluation.antecedentes_patologicos },
+                  { l: "Quirúrgicos", v: evaluation.antecedentes_quirurgicos },
+                  { l: "Farmacológicos", v: evaluation.antecedentes_farmacologicos },
+                  { l: "Alérgicos", v: evaluation.antecedentes_alergicos },
+                  { l: "Tóxicos", v: evaluation.antecedentes_toxicos },
+                  { l: "Gineco-obstétricos", v: evaluation.antecedentes_gineco_obstetricos },
+                  { l: "Otros", v: evaluation.antecedentes_otros },
+                ].filter(({ v }) => v).map(({ l, v }) => (
+                  <div key={l}><p style={label}>{l}</p><p style={value}>{v}</p></div>
+                ))}
               </div>
+            </div>
+          )}
+
+          {/* Factores de riesgo */}
+          <div style={{ marginBottom: "24px" }}>
+            <p style={sectionTitle}>Factores de riesgo</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "8px", fontSize: "12px" }}>
+              {[
+                { l: "Anticoagulado", v: evaluation.anticoagulado },
+                { l: "En Diálisis", v: evaluation.en_dialisis },
+                { l: "VIH/SIDA", v: evaluation.vih_sida },
+                { l: "En embarazo", v: evaluation.en_embarazo },
+                { l: "Trat. CA", v: evaluation.en_tratamiento_ca },
+                { l: "Otros", v: evaluation.otros_riesgo },
+              ].map(({ l, v }) => (
+                <div key={l} style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+                  <p style={label}>{l}:</p>
+                  <p style={{ ...value, color: v ? "#dc2626" : "#374151" }}>{v ? "SI" : "NO"}</p>
+                </div>
+              ))}
             </div>
           </div>
 
+          {/* Motivo de consulta */}
+          {evaluation.motivo_consulta && (
+            <div style={{ marginBottom: "24px" }}>
+              <p style={sectionTitle}>Motivo de consulta</p>
+              <div style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "10px", fontSize: "12px", color: "#374151", lineHeight: 1.6 }}>
+                {evaluation.motivo_consulta}
+              </div>
+            </div>
+          )}
+
+          {/* Examen físico */}
+          <div style={{ marginBottom: "24px" }}>
+            <p style={sectionTitle}>Examen físico</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: "8px", fontSize: "12px", marginBottom: "8px" }}>
+              {[
+                { l: "Onicomicosis", v: evaluation.onicomicosis },
+                { l: "Onicogrifosis", v: evaluation.onicogrifosis },
+                { l: "Onicocriptosis", v: evaluation.onicocriptosis },
+                { l: "Resequedad", v: evaluation.resequedad },
+                { l: "Exostosis", v: evaluation.exostosis },
+                { l: "Edemas", v: evaluation.edemas },
+                { l: "Hiperqueratosis", v: evaluation.hiperqueratosis },
+                { l: "Verruga", v: evaluation.verruga },
+              ].map(({ l, v }) => (
+                <div key={l} style={{ display: "flex", gap: "4px", alignItems: "center" }}>
+                  <p style={label}>{l}:</p>
+                  <p style={{ ...value, color: v ? "#b45309" : "#374151" }}>{v ? "SI" : "NO"}</p>
+                </div>
+              ))}
+            </div>
+            {evaluation.talla && (
+              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <p style={label}>Talla:</p>
+                <p style={value}>{evaluation.talla}</p>
+              </div>
+            )}
+            {evaluation.tipo_pie && (
+              <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "4px" }}>
+                <p style={label}>Tipo de pie:</p>
+                <p style={value}>{evaluation.tipo_pie}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Tratamiento indicado */}
+          {evaluation.tratamiento_indicado && (
+            <div style={{ marginBottom: "24px" }}>
+              <p style={sectionTitle}>Tratamiento indicado</p>
+              <div style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "10px", fontSize: "12px", color: "#374151", lineHeight: 1.6 }}>
+                {evaluation.tratamiento_indicado}
+              </div>
+            </div>
+          )}
+
+          {/* Seguimiento */}
+          {evaluation.seguimiento && (
+            <div style={{ marginBottom: "24px" }}>
+              <p style={sectionTitle}>Seguimiento</p>
+              <div style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "10px", fontSize: "12px", color: "#374151", lineHeight: 1.6 }}>
+                {evaluation.seguimiento}
+              </div>
+            </div>
+          )}
           {/* Procedimientos */}
           {procedures.map((proc, idx) => (
             <div key={proc.id ?? idx} style={{ marginBottom: "24px" }}>

@@ -36,6 +36,9 @@ export async function createPatient(data: {
   cedula: string;
   cellphone: string;
   biological_sex: string;
+  address?: string;
+  email?: string;
+  family_member_name?: string;
 }): Promise<number> {
   const res = await fetch(`${apiBaseUrl}/api/v1/patients`, {
     method: "POST",
@@ -55,9 +58,32 @@ export async function createPatient(data: {
 
 export async function createMedicalEvaluation(data: {
   patient_id: number;
-  weight: number;
-  height: number;
-  medical_background: string;
+  antecedentes_patologicos?: string;
+  antecedentes_quirurgicos?: string;
+  antecedentes_farmacologicos?: string;
+  antecedentes_alergicos?: string;
+  antecedentes_toxicos?: string;
+  antecedentes_gineco_obstetricos?: string;
+  antecedentes_otros?: string;
+  anticoagulado?: boolean;
+  en_dialisis?: boolean;
+  vih_sida?: boolean;
+  en_embarazo?: boolean;
+  en_tratamiento_ca?: boolean;
+  otros_riesgo?: boolean;
+  motivo_consulta?: string;
+  onicomicosis?: boolean;
+  onicogrifosis?: boolean;
+  onicocriptosis?: boolean;
+  resequedad?: boolean;
+  exostosis?: boolean;
+  edemas?: boolean;
+  hiperqueratosis?: boolean;
+  verruga?: boolean;
+  talla?: string;
+  tipo_pie?: string;
+  tratamiento_indicado?: string;
+  seguimiento?: string;
 }): Promise<number> {
   const res = await fetch(`${apiBaseUrl}/api/v1/medical-evaluations`, {
     method: "POST",
@@ -108,11 +134,37 @@ export async function registerPatient(params: {
     cedula: string;
     cellphone: string;
     biological_sex: string;
+    address?: string;
+    email?: string;
+    family_member_name?: string;
   };
   evaluation: {
-    weight: number;
-    height: number;
-    medical_background: string;
+    antecedentes_patologicos?: string;
+    antecedentes_quirurgicos?: string;
+    antecedentes_farmacologicos?: string;
+    antecedentes_alergicos?: string;
+    antecedentes_toxicos?: string;
+    antecedentes_gineco_obstetricos?: string;
+    antecedentes_otros?: string;
+    anticoagulado?: boolean;
+    en_dialisis?: boolean;
+    vih_sida?: boolean;
+    en_embarazo?: boolean;
+    en_tratamiento_ca?: boolean;
+    otros_riesgo?: boolean;
+    motivo_consulta?: string;
+    onicomicosis?: boolean;
+    onicogrifosis?: boolean;
+    onicocriptosis?: boolean;
+    resequedad?: boolean;
+    exostosis?: boolean;
+    edemas?: boolean;
+    hiperqueratosis?: boolean;
+    verruga?: boolean;
+    talla?: string;
+    tipo_pie?: string;
+    tratamiento_indicado?: string;
+    seguimiento?: string;
   };
   procedures: {
     notes: string;

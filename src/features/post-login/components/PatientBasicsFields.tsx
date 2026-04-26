@@ -2,8 +2,6 @@ import ValidatedInput from "./ValidatedInput";
 import PhoneInputField from "./PhoneInputField";
 import SelectField from "./SelectField";
 import DateOfBirthPicker from "./DateOfBirthPicker";
-import "react-phone-input-2/lib/style.css";
-
 const DOCUMENT_TYPES = [
   "Cédula de Ciudadanía",
   "Cédula de Extranjería",
@@ -19,6 +17,9 @@ export type PatientBasicData = {
   cedula: string;
   cellphone: string;
   biologicalSex: string;
+  address: string;
+  email: string;
+  familyMemberName: string;
 };
 
 type PatientBasicsFieldsProps = {
@@ -122,6 +123,38 @@ export default function PatientBasicsFields({
           value={data.cellphone}
           onChange={set("cellphone")}
           onDirty={onDirty}
+        />
+      </div>
+
+      {/* Dirección */}
+      <div className="mt-4">
+        <ValidatedInput
+          id="address"
+          label="Dirección"
+          placeholder="Dirección del paciente"
+          value={data.address}
+          onChange={set("address")}
+          maxLength={200}
+        />
+      </div>
+
+      {/* Correo electrónico y Nombre del familiar */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <ValidatedInput
+          id="email"
+          label="Correo electrónico"
+          placeholder="correo@ejemplo.com"
+          value={data.email}
+          onChange={set("email")}
+          maxLength={150}
+        />
+        <ValidatedInput
+          id="family_member_name"
+          label="Nombre del familiar"
+          placeholder="Nombre del familiar"
+          value={data.familyMemberName}
+          onChange={set("familyMemberName")}
+          maxLength={150}
         />
       </div>
     </>

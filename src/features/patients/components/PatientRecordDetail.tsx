@@ -35,11 +35,8 @@ interface Props {
   evaluationId: number;
 }
 
-const STATUS_CONFIG = {
-  EN_ESPERA: { label: "En espera", classes: "bg-yellow-100 text-yellow-700" },
-  CONFIRMADO: { label: "Confirmado", classes: "bg-emerald-100 text-emerald-700" },
-  CANCELADO: { label: "Cancelado", classes: "bg-red-100 text-red-600" },
-} as const;
+type RecordStatus = "EN_ESPERA" | "CONFIRMADO" | "CANCELADO";
+
 
 export default function PatientRecordDetail({ patientId, evaluationId }: Props) {
   const [currentYear] = useState(new Date().getFullYear());
@@ -112,8 +109,7 @@ export default function PatientRecordDetail({ patientId, evaluationId }: Props) 
   }
 
   const evaluation = data.data;
-  const status: keyof typeof STATUS_CONFIG = evaluation.status ?? "EN_ESPERA";
-  const statusCfg = STATUS_CONFIG[status] ?? STATUS_CONFIG.EN_ESPERA;
+  const status: RecordStatus = (evaluation.status as RecordStatus) ?? "EN_ESPERA";
   const isConfirmed = status === "CONFIRMADO";
   const isCanceled = status === "CANCELADO";
 
@@ -291,9 +287,32 @@ export default function PatientRecordDetail({ patientId, evaluationId }: Props) 
         <EditarEvaluacionModal
           evaluationId={evaluationId}
           initialData={{
-            weight: String(evaluation.weight ?? ""),
-            height: String(evaluation.height ?? ""),
-            medical_background: evaluation.medical_background ?? "",
+            antecedentesPatologicos: evaluation.antecedentes_patologicos ?? "",
+            antecedentesQuirurgicos: evaluation.antecedentes_quirurgicos ?? "",
+            antecedentesFarmacologicos: evaluation.antecedentes_farmacologicos ?? "",
+            antecedentesAlergicos: evaluation.antecedentes_alergicos ?? "",
+            antecedentesToxicos: evaluation.antecedentes_toxicos ?? "",
+            antecedentesGinecoObstetricos: evaluation.antecedentes_gineco_obstetricos ?? "",
+            antecedentesOtros: evaluation.antecedentes_otros ?? "",
+            anticoagulado: evaluation.anticoagulado ?? false,
+            enDialisis: evaluation.en_dialisis ?? false,
+            vihSida: evaluation.vih_sida ?? false,
+            enEmbarazo: evaluation.en_embarazo ?? false,
+            enTratamientoCA: evaluation.en_tratamiento_ca ?? false,
+            otrosRiesgo: evaluation.otros_riesgo ?? false,
+            motivoConsulta: evaluation.motivo_consulta ?? "",
+            onicomicosis: evaluation.onicomicosis ?? false,
+            onicogrifosis: evaluation.onicogrifosis ?? false,
+            onicocriptosis: evaluation.onicocriptosis ?? false,
+            resequedad: evaluation.resequedad ?? false,
+            exostosis: evaluation.exostosis ?? false,
+            edemas: evaluation.edemas ?? false,
+            hiperqueratosis: evaluation.hiperqueratosis ?? false,
+            verruga: evaluation.verruga ?? false,
+            talla: evaluation.talla ?? "",
+            tipoPie: evaluation.tipo_pie ?? "",
+            tratamientoIndicado: evaluation.tratamiento_indicado ?? "",
+            seguimiento: evaluation.seguimiento ?? "",
           }}
           onClose={() => setShowEditEval(false)}
           onSaved={() => mutate()}

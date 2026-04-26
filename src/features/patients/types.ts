@@ -19,16 +19,46 @@ export type Patient = {
   date_of_birth: string;
   biological_sex: string;
   cellphone: string;
+  address?: string;
+  email?: string;
+  family_member_name?: string;
 };
 
 export type EvaluationData = {
   patient: Patient;
   patient_age_at_evaluation: number;
-  weight: number;
-  height: number;
-  bmi: number;
-  bmi_status: string;
-  medical_background: string;
+  // Antecedentes personales
+  antecedentes_patologicos?: string;
+  antecedentes_quirurgicos?: string;
+  antecedentes_farmacologicos?: string;
+  antecedentes_alergicos?: string;
+  antecedentes_toxicos?: string;
+  antecedentes_gineco_obstetricos?: string;
+  antecedentes_otros?: string;
+  // Factores de riesgo (SI/NO)
+  anticoagulado?: boolean;
+  en_dialisis?: boolean;
+  vih_sida?: boolean;
+  en_embarazo?: boolean;
+  en_tratamiento_ca?: boolean;
+  otros_riesgo?: boolean;
+  // Motivo de consulta
+  motivo_consulta?: string;
+  // Examen físico (SI/NO)
+  onicomicosis?: boolean;
+  onicogrifosis?: boolean;
+  onicocriptosis?: boolean;
+  resequedad?: boolean;
+  exostosis?: boolean;
+  edemas?: boolean;
+  hiperqueratosis?: boolean;
+  verruga?: boolean;
+  // Otros hallazgos
+  talla?: string;
+  tipo_pie?: string;
+  tratamiento_indicado?: string;
+  seguimiento?: string;
+  // Metadatos
   procedures: Procedure[];
   patient_signature?: string;
   confirmed_at?: string;

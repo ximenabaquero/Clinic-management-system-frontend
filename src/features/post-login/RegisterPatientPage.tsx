@@ -28,10 +28,36 @@ type ProcedureItem = {
 const INITIAL_PATIENT: PatientBasicData = {
   firstName: "", lastName: "", dateOfBirth: "",
   documentType: "", cedula: "", cellphone: "", biologicalSex: "",
+  address: "", email: "", familyMemberName: "",
 };
 
 const INITIAL_CLINICAL: ClinicalData = {
-  weightKg: "", heightM: "", medicalBackground: "",
+  antecedentesPatologicos: "",
+  antecedentesQuirurgicos: "",
+  antecedentesFarmacologicos: "",
+  antecedentesAlergicos: "",
+  antecedentesToxicos: "",
+  antecedentesGinecoObstetricos: "",
+  antecedentesOtros: "",
+  anticoagulado: false,
+  enDialisis: false,
+  vihSida: false,
+  enEmbarazo: false,
+  enTratamientoCA: false,
+  otrosRiesgo: false,
+  motivoConsulta: "",
+  onicomicosis: false,
+  onicogrifosis: false,
+  onicocriptosis: false,
+  resequedad: false,
+  exostosis: false,
+  edemas: false,
+  hiperqueratosis: false,
+  verruga: false,
+  talla: "",
+  tipoPie: "",
+  tratamientoIndicado: "",
+  seguimiento: "",
 };
 
 export default function RegisterPatientPage() {
@@ -43,8 +69,6 @@ export default function RegisterPatientPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [validationError, setValidationError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
-  const [hasTriedSubmit, setHasTriedSubmit] = useState(false);
 
   const [patientData, setPatientData] = useState<PatientBasicData>(INITIAL_PATIENT);
   const [clinicalData, setClinicalData] = useState<ClinicalData>(INITIAL_CLINICAL);
@@ -54,14 +78,13 @@ export default function RegisterPatientPage() {
   const updatePatient = (field: keyof PatientBasicData, value: string) =>
     setPatientData((prev) => ({ ...prev, [field]: value }));
 
-  const updateClinical = (field: keyof ClinicalData, value: string) =>
+  const updateClinical = (field: keyof ClinicalData, value: string | boolean) =>
     setClinicalData((prev) => ({ ...prev, [field]: value }));
 
   useEffect(() => {
-    const p1 = Object.values(patientData).every((v) => v.trim() !== "");
-    const w = parseFloat(clinicalData.weightKg) > 0;
-    const h = parseFloat(clinicalData.heightM) > 0;
-    const p2 = w && h && clinicalData.medicalBackground.trim() !== "";
+    const requiredPatient: (keyof PatientBasicData)[] = ["firstName", "lastName", "dateOfBirth", "documentType", "cedula", "cellphone", "biologicalSex"];
+    const p1 = requiredPatient.every((k) => (patientData[k] as string).trim() !== "");
+    const p2 = clinicalData.motivoConsulta.trim() !== "";
     const p3 = procedureItems.length > 0 && procedureNotes.trim().length > 0;
     setStepCompleted([p1, p2, p3]);
   }, [patientData, clinicalData, procedureItems, procedureNotes]);
@@ -80,7 +103,6 @@ export default function RegisterPatientPage() {
   const handleDirty = () => setSubmitError(null);
 
   const handleSaveClick = () => {
-    setHasTriedSubmit(true);
     const valid = procedureItems.length > 0 && procedureNotes.trim().length > 0;
     if (!valid) {
       setValidationError("⚠️​ Complete todos los pasos antes de guardar el registro.");
@@ -113,11 +135,37 @@ export default function RegisterPatientPage() {
             cedula: patientData.cedula,
             cellphone: patientData.cellphone,
             biological_sex: patientData.biologicalSex,
+            address: patientData.address,
+            email: patientData.email,
+            family_member_name: patientData.familyMemberName,
           },
           evaluation: {
-            weight: parseFloat(clinicalData.weightKg),
-            height: parseFloat(clinicalData.heightM),
-            medical_background: clinicalData.medicalBackground,
+            antecedentes_patologicos: clinicalData.antecedentesPatologicos,
+            antecedentes_quirurgicos: clinicalData.antecedentesQuirurgicos,
+            antecedentes_farmacologicos: clinicalData.antecedentesFarmacologicos,
+            antecedentes_alergicos: clinicalData.antecedentesAlergicos,
+            antecedentes_toxicos: clinicalData.antecedentesToxicos,
+            antecedentes_gineco_obstetricos: clinicalData.antecedentesGinecoObstetricos,
+            antecedentes_otros: clinicalData.antecedentesOtros,
+            anticoagulado: clinicalData.anticoagulado,
+            en_dialisis: clinicalData.enDialisis,
+            vih_sida: clinicalData.vihSida,
+            en_embarazo: clinicalData.enEmbarazo,
+            en_tratamiento_ca: clinicalData.enTratamientoCA,
+            otros_riesgo: clinicalData.otrosRiesgo,
+            motivo_consulta: clinicalData.motivoConsulta,
+            onicomicosis: clinicalData.onicomicosis,
+            onicogrifosis: clinicalData.onicogrifosis,
+            onicocriptosis: clinicalData.onicocriptosis,
+            resequedad: clinicalData.resequedad,
+            exostosis: clinicalData.exostosis,
+            edemas: clinicalData.edemas,
+            hiperqueratosis: clinicalData.hiperqueratosis,
+            verruga: clinicalData.verruga,
+            talla: clinicalData.talla,
+            tipo_pie: clinicalData.tipoPie,
+            tratamiento_indicado: clinicalData.tratamientoIndicado,
+            seguimiento: clinicalData.seguimiento,
           },
           procedure: {
             notes: procedureNotes,
@@ -219,14 +267,12 @@ export default function RegisterPatientPage() {
                     Registro clínico del paciente
                   </h1>
                   <p className="mt-2 text-sm text-gray-600">
-                    Complete y verifique la información antes de guardarla. El
-                    índice de masa corporal (IMC) se registrará automáticamente.
+                    Complete y verifique la información antes de guardarla.
                   </p>
 
                   <form className="space-y-5 mt-6" onSubmit={(e) => e.preventDefault()}>
                     {validationError && <FormAlert variant="warning" message={validationError} />}
                     {submitError    && <FormAlert variant="error"   message={submitError} />}
-                    {submitSuccess  && <FormAlert variant="success" message={submitSuccess} />}
 
                     {currentStep === 0 && (
                       <RegisterCard
@@ -243,8 +289,8 @@ export default function RegisterPatientPage() {
 
                     {currentStep === 1 && (
                       <RegisterCard
-                        title="Evaluación clínica"
-                        subtitle="Peso, estatura, índice de masa corporal (IMC) y antecedentes médicos relevantes."
+                        title="Historia Clínica"
+                        subtitle="Antecedentes personales, factores de riesgo, motivo de consulta y examen físico."
                       >
                         <ClinicalInfoFields
                           data={clinicalData}

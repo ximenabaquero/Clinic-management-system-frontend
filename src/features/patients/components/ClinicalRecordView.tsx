@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import Image from "next/image";
-import { CheckBadgeIcon, CheckCircleIcon, ClockIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import type { Procedure, EvaluationData } from "../types";
 
@@ -28,43 +28,6 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
           return f.charAt(0).toUpperCase() + f.slice(1);
         })()
       : "";
-
-    // Configuración de estados
-    const getStatusConfig = (currentStatus: string) => {
-      const configs = {
-        EN_ESPERA: {
-          label: "En espera",
-          icon: ClockIcon,
-          bgColor: "bg-yellow-50",
-          borderColor: "border-yellow-200",
-          textColor: "text-yellow-700",
-          iconColor: "text-yellow-500",
-          description: "Este registro está pendiente de confirmación"
-        },
-        CONFIRMADO: {
-          label: "Confirmado",
-          icon: CheckCircleIcon,
-          bgColor: "bg-emerald-50",
-          borderColor: "border-emerald-200",
-          textColor: "text-emerald-700",
-          iconColor: "text-emerald-500",
-          description: "Este registro ha sido confirmado y aprobado"
-        },
-        CANCELADO: {
-          label: "Cancelado",
-          icon: XCircleIcon,
-          bgColor: "bg-red-50",
-          borderColor: "border-red-200",
-          textColor: "text-red-700",
-          iconColor: "text-red-500",
-          description: "Este registro ha sido cancelado"
-        }
-      };
-      return configs[currentStatus as keyof typeof configs] || configs.EN_ESPERA;
-    };
-
-    const currentStatus = getStatusConfig(status);
-    const StatusIcon = currentStatus.icon;
 
     return (
       <div
@@ -128,6 +91,9 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
                 { label: "Edad", value: `${evaluation.patient_age_at_evaluation} años` },
                 { label: "Sexo biológico", value: patient.biological_sex },
                 { label: "Celular", value: patient.cellphone },
+                ...(patient.address ? [{ label: "Dirección", value: patient.address }] : []),
+                ...(patient.email ? [{ label: "Correo electrónico", value: patient.email }] : []),
+                ...(patient.family_member_name ? [{ label: "Familiar", value: patient.family_member_name }] : []),
               ].map(({ label, value }) => (
                 <div key={label}>
                   <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">{label}</p>
@@ -155,33 +121,126 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
               )}
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm mb-4">
-              <div>
-                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Peso</p>
-                <p className="font-medium">{evaluation.weight} kg</p>
-                <div className="border-t border-gray-100 mt-2" />
+              {evaluation.talla && (
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Talla</p>
+                  <p className="font-medium">{evaluation.talla}</p>
+                  <div className="border-t border-gray-100 mt-2" />
+                </div>
+              )}
+              {evaluation.tipo_pie && (
+                <div>
+                  <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Tipo de pie</p>
+                  <span className="inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
+                    {evaluation.tipo_pie}
+                  </span>
+                  <div className="border-t border-gray-100 mt-2" />
+                </div>
+              )}
+            </div>
+
+            {/* Antecedentes personales */}
+            {(evaluation.antecedentes_patologicos || evaluation.antecedentes_quirurgicos || evaluation.antecedentes_farmacologicos || evaluation.antecedentes_alergicos || evaluation.antecedentes_toxicos || evaluation.antecedentes_gineco_obstetricos || evaluation.antecedentes_otros) && (
+              <div className="mb-4">
+                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Antecedentes personales</p>
+                <div className="bg-gray-50 rounded-xl p-4 text-sm space-y-2">
+                  {[
+                    { label: "Patológicos", value: evaluation.antecedentes_patologicos },
+                    { label: "Quirúrgicos", value: evaluation.antecedentes_quirurgicos },
+                    { label: "Farmacológicos", value: evaluation.antecedentes_farmacologicos },
+                    { label: "Alérgicos", value: evaluation.antecedentes_alergicos },
+                    { label: "Tóxicos", value: evaluation.antecedentes_toxicos },
+                    { label: "Gineco-obstétricos", value: evaluation.antecedentes_gineco_obstetricos },
+                    { label: "Otros", value: evaluation.antecedentes_otros },
+                  ].filter(({ value }) => value).map(({ label, value }) => (
+                    <div key={label}>
+                      <span className="font-semibold text-gray-600">{label}: </span>
+                      <span className="text-gray-700">{value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div>
-                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Estatura</p>
-                <p className="font-medium">{evaluation.height} m</p>
-                <div className="border-t border-gray-100 mt-2" />
-              </div>
-              <div>
-                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">IMC</p>
-                <p className="font-semibold text-blue-600">{evaluation.bmi}</p>
-                <div className="border-t border-gray-100 mt-2" />
-              </div>
-              <div>
-                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-0.5">Estado IMC</p>
-                <span className="inline-block mt-1 rounded-full bg-blue-100 px-2 py-0.5 text-[11px] font-bold text-blue-600">
-                  {evaluation.bmi_status}
-                </span>
-                <div className="border-t border-gray-100 mt-2" />
+            )}
+
+            {/* Factores de riesgo */}
+            <div className="mb-4">
+              <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Factores de riesgo</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "Anticoagulado", value: evaluation.anticoagulado },
+                  { label: "En Diálisis", value: evaluation.en_dialisis },
+                  { label: "VIH/SIDA", value: evaluation.vih_sida },
+                  { label: "En embarazo", value: evaluation.en_embarazo },
+                  { label: "Trat. CA", value: evaluation.en_tratamiento_ca },
+                  { label: "Otros", value: evaluation.otros_riesgo },
+                ].map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      value ? "bg-red-100 text-red-700" : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {label}: {value ? "SI" : "NO"}
+                  </span>
+                ))}
               </div>
             </div>
-            <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Antecedentes médicos</p>
-            <div className="bg-gray-50 rounded-xl p-4 text-sm">
-              <p className="text-gray-700">{evaluation.medical_background}</p>
+
+            {/* Motivo de consulta */}
+            {evaluation.motivo_consulta && (
+              <div className="mb-4">
+                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Motivo de consulta</p>
+                <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700">
+                  {evaluation.motivo_consulta}
+                </div>
+              </div>
+            )}
+
+            {/* Examen físico */}
+            <div className="mb-4">
+              <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Examen físico</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "Onicomicosis", value: evaluation.onicomicosis },
+                  { label: "Onicogrifosis", value: evaluation.onicogrifosis },
+                  { label: "Onicocriptosis", value: evaluation.onicocriptosis },
+                  { label: "Resequedad", value: evaluation.resequedad },
+                  { label: "Exostosis", value: evaluation.exostosis },
+                  { label: "Edemas", value: evaluation.edemas },
+                  { label: "Hiperqueratosis", value: evaluation.hiperqueratosis },
+                  { label: "Verruga", value: evaluation.verruga },
+                ].map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      value ? "bg-amber-100 text-amber-700" : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {label}: {value ? "SI" : "NO"}
+                  </span>
+                ))}
+              </div>
             </div>
+
+            {/* Tratamiento indicado */}
+            {evaluation.tratamiento_indicado && (
+              <div className="mb-4">
+                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Tratamiento indicado</p>
+                <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700">
+                  {evaluation.tratamiento_indicado}
+                </div>
+              </div>
+            )}
+
+            {/* Seguimiento */}
+            {evaluation.seguimiento && (
+              <div>
+                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">Seguimiento</p>
+                <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700">
+                  {evaluation.seguimiento}
+                </div>
+              </div>
+            )}
           </section>
 
           {/* Procedimientos */}

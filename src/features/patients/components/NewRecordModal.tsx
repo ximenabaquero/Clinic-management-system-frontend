@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import ProceduresSelector from "../../post-login/components/ProceduresSelector";
 import NotesField from "../../post-login/components/NotesField";
+import ClinicalInfoFields, { type ClinicalData } from "../../post-login/components/ClinicalInfoFields";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -24,20 +25,39 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
   const [step, setStep] = useState<1 | 2>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Step 1 — Evaluación clínica
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [medicalBackground, setMedicalBackground] = useState("");
+  // Step 1 — Historia clínica
+  const [clinicalData, setClinicalData] = useState<ClinicalData>({
+    antecedentesPatologicos: "",
+    antecedentesQuirurgicos: "",
+    antecedentesFarmacologicos: "",
+    antecedentesAlergicos: "",
+    antecedentesToxicos: "",
+    antecedentesGinecoObstetricos: "",
+    antecedentesOtros: "",
+    anticoagulado: false,
+    enDialisis: false,
+    vihSida: false,
+    enEmbarazo: false,
+    enTratamientoCA: false,
+    otrosRiesgo: false,
+    motivoConsulta: "",
+    onicomicosis: false,
+    onicogrifosis: false,
+    onicocriptosis: false,
+    resequedad: false,
+    exostosis: false,
+    edemas: false,
+    hiperqueratosis: false,
+    verruga: false,
+    talla: "",
+    tipoPie: "",
+    tratamientoIndicado: "",
+    seguimiento: "",
+  });
 
   // Step 2 — Procedimientos
   const [notes, setNotes] = useState("");
   const [items, setItems] = useState<ProcedureItem[]>([]);
-
-  // BMI preview
-  const bmiValue =
-    parseFloat(weight) > 0 && parseFloat(height) > 0
-      ? (parseFloat(weight) / (parseFloat(height) * parseFloat(height))).toFixed(2)
-      : null;
 
   const clearSubmitError = () => {};
 
@@ -74,9 +94,32 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
           },
           body: JSON.stringify({
             evaluation: {
-              weight: parseFloat(weight),
-              height: parseFloat(height),
-              medical_background: medicalBackground,
+              antecedentes_patologicos: clinicalData.antecedentesPatologicos,
+              antecedentes_quirurgicos: clinicalData.antecedentesQuirurgicos,
+              antecedentes_farmacologicos: clinicalData.antecedentesFarmacologicos,
+              antecedentes_alergicos: clinicalData.antecedentesAlergicos,
+              antecedentes_toxicos: clinicalData.antecedentesToxicos,
+              antecedentes_gineco_obstetricos: clinicalData.antecedentesGinecoObstetricos,
+              antecedentes_otros: clinicalData.antecedentesOtros,
+              anticoagulado: clinicalData.anticoagulado,
+              en_dialisis: clinicalData.enDialisis,
+              vih_sida: clinicalData.vihSida,
+              en_embarazo: clinicalData.enEmbarazo,
+              en_tratamiento_ca: clinicalData.enTratamientoCA,
+              otros_riesgo: clinicalData.otrosRiesgo,
+              motivo_consulta: clinicalData.motivoConsulta,
+              onicomicosis: clinicalData.onicomicosis,
+              onicogrifosis: clinicalData.onicogrifosis,
+              onicocriptosis: clinicalData.onicocriptosis,
+              resequedad: clinicalData.resequedad,
+              exostosis: clinicalData.exostosis,
+              edemas: clinicalData.edemas,
+              hiperqueratosis: clinicalData.hiperqueratosis,
+              verruga: clinicalData.verruga,
+              talla: clinicalData.talla,
+              tipo_pie: clinicalData.tipoPie,
+              tratamiento_indicado: clinicalData.tratamientoIndicado,
+              seguimiento: clinicalData.seguimiento,
             },
             procedure: {
               notes,
@@ -143,64 +186,11 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
         {/* Body */}
         <div className="px-6 py-5 space-y-4 overflow-y-auto flex-1">
           {step === 1 && (
-            <>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
-                    Peso (kg) *
-                  </label>
-                  <input
-                    type="number"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                    min={2}
-                    max={400}
-                    step="0.1"
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-                    placeholder="Ej. 70.5"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
-                    Estatura (m) *
-                  </label>
-                  <input
-                    type="number"
-                    value={height}
-                    onChange={(e) => setHeight(e.target.value)}
-                    min={1.2}
-                    max={2.5}
-                    step="0.01"
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-                    placeholder="Ej. 1.65"
-                  />
-                </div>
-              </div>
-
-              {bmiValue && (
-                <div className="flex items-center gap-3 rounded-lg bg-blue-50 border border-blue-100 px-4 py-3">
-                  <span className="text-xs uppercase font-bold text-blue-500 tracking-wide">
-                    IMC calculado:
-                  </span>
-                  <span className="text-lg font-bold text-blue-700">
-                    {bmiValue}
-                  </span>
-                </div>
-              )}
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
-                  Antecedentes médicos *
-                </label>
-                <textarea
-                  value={medicalBackground}
-                  onChange={(e) => setMedicalBackground(e.target.value)}
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none resize-none"
-                  placeholder="Describe los antecedentes médicos relevantes..."
-                />
-              </div>
-            </>
+            <ClinicalInfoFields
+              data={clinicalData}
+              onChange={(field, value) => setClinicalData((prev) => ({ ...prev, [field]: value }))}
+              onDirty={() => {}}
+            />
           )}
 
           {step === 2 && (
@@ -246,19 +236,7 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
                 Cancelar
               </button>
               <button
-                onClick={() => {
-                  if (
-                    !weight ||
-                    !height ||
-                    !medicalBackground.trim() ||
-                    parseFloat(weight) <= 0 ||
-                    parseFloat(height) <= 0
-                  ) {
-                    toast.error("Completa los campos de evaluación clínica");
-                    return;
-                  }
-                  setStep(2);
-                }}
+                onClick={() => setStep(2)}
                 className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium"
               >
                 Siguiente →
