@@ -1,45 +1,38 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, Brain, Shield, Sparkles, AlertCircle, Heart, Zap, ArrowRight } from 'lucide-react';
+import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Activity, Heart, Smartphone, ArrowRight } from 'lucide-react';
+import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const topics = [
   {
-    title: "¿Cómo se forma la fibrosis?",
-    body: "Tras un procedimiento, el tejido se inflama y puede generar fibras duras si no hay drenaje, compresión adecuada o movimiento suave. El control médico y el masaje correcto evitan que ese tejido cicatrice de forma irregular.",
-    icon: <AlertCircle className="w-6 h-6" />,
-    gradient: "from-emerald-400 to-blue-500",
-    tag: "Cuidado Post-tratamiento"
+    title: "¿Qué es la Onicocriptosis?",
+    body: "Es lo que comúnmente llamamos uña encarnada. En clínica, realizamos una matricectomía parcial, un procedimiento mínimamente invasivo que corrige la raíz de la uña para evitar que vuelva a enterrarse, garantizando una recuperación rápida y sin dolor.",
+    icon: <Footprints className="w-6 h-6" />,
+    gradient: "from-[#F285C1] to-[#BF2496]",
+    tag: "Patología Clínica"
   },
   {
-    title: "¿Por qué la grasa localizada no desaparece solo con ejercicio?",
-    body: "Los adipocitos en ciertas zonas tienen más receptores para almacenar que para liberar grasa. El ejercicio ayuda a reducir volumen general, pero la distribución depende de receptores hormonales y genética; por eso necesitamos tecnologías focalizadas como la lipólisis láser.",
-    icon: <Brain className="w-6 h-6" />,
-    gradient: "from-blue-400 to-emerald-500",
-    tag: "Ciencia Médica"
+    title: "La importancia del Pedicure Medicinal",
+    body: "A diferencia del estético, el pedicure medicinal es realizado por personal de enfermería capacitado. Utilizamos instrumental estéril para tratar hiperqueratosis (callos) y afecciones fúngicas, priorizando la salud y prevención de infecciones sobre la ornamentación.",
+    icon: <Microscope className="w-6 h-6" />,
+    gradient: "from-[#05F2DB] to-[#F285C1]",
+    tag: "Prevención"
   },
   {
-    title: "Beneficios de la faja en post-lipólisis",
-    body: "La compresión uniforme reduce inflamación, ayuda a que la piel se adhiera al nuevo contorno y disminuye el riesgo de seromas y fibrosis. Usarla según indicación médica acelera una recuperación más segura y estética.",
-    icon: <Shield className="w-6 h-6" />,
-    gradient: "from-blue-400 to-emerald-500",
-    tag: "Recuperación Óptima"
+    title: "Sueroterapia Post-Operatoria",
+    body: "Nuestros protocolos de sueroterapia ayudan a la regeneración de tejidos y fortalecimiento del sistema inmune. La administración endovenosa de vitamina C y oligoelementos optimiza los tiempos de cicatrización y desinflamación tras cualquier intervención.",
+    icon: <Activity className="w-6 h-6" />,
+    gradient: "from-[#BF2496] to-[#05F2DB]",
+    tag: "Recuperación"
   },
 ];
 
 export default function Education() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(() => topics.map(() => false));
-  const [floatingElements, setFloatingElements] = useState<Array<{
-    width: number;
-    height: number;
-    left: number;
-    top: number;
-    delay: number;
-    duration: number;
-  }>>([]);
+  const [floatingElements, setFloatingElements] = useState<Array<any>>([]);
 
-  // Generar elementos flotantes solo en el cliente
   useEffect(() => {
     setFloatingElements(
       [...Array(6)].map((_, i) => ({
@@ -51,20 +44,21 @@ export default function Education() {
         duration: Math.random() * 10 + 10,
       }))
     );
-  }, []);
 
-  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Number((entry.target as HTMLElement).dataset.index);
-            setVisibleCards(prev => prev.map((item, i) => i === index ? true : item));
-            observer.unobserve(entry.target);
+            setVisibleCards(prev => {
+              const newState = [...prev];
+              newState[index] = true;
+              return newState;
+            });
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.1 }
     );
 
     cardsRef.current.forEach((card) => {
@@ -75,272 +69,166 @@ export default function Education() {
   }, []);
 
   return (
-    <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Background with gradient and effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/40 via-white to-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/20 via-transparent to-transparent"></div>
+    <section className="relative py-24 overflow-hidden bg-white">
+      {/* Background decorativo - Soft Pink */}
+      <div className="absolute inset-0 bg-[#F285C1]/5 pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-[#F285C1]/10 to-transparent"></div>
       </div>
       
-      {/* Animated floating elements - SOLO en el cliente */}
-      {floatingElements.length > 0 && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {floatingElements.map((element, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-emerald-300/10 animate-float"
-              style={{
-                width: `${element.width}px`,
-                height: `${element.height}px`,
-                left: `${element.left}%`,
-                top: `${element.top}%`,
-                animationDelay: `${element.delay}s`,
-                animationDuration: `${element.duration}s`,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      {/* Elementos flotantes animados */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {floatingElements.map((element, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-[#F285C1]/10 blur-xl animate-float"
+            style={{
+              width: `${element.width}px`,
+              height: `${element.height}px`,
+              left: `${element.left}%`,
+              top: `${element.top}%`,
+              animationDelay: `${element.delay}s`,
+              animationDuration: `${element.duration}s`,
+            }}
+          />
+        ))}
+      </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-sm border border-emerald-100">
-            <BookOpen className="w-4 h-4 text-emerald-500" />
-            <span className="text-sm font-semibold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              Educación Médica
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="inline-flex items-center gap-2 bg-[#F285C1]/10 rounded-full px-5 py-2 mb-8 border border-[#F285C1]/20">
+            <BookOpen className="w-4 h-4 text-[#BF2496]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]">
+              Aula de Salud PodoCare
             </span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
-            <span className="text-gray-900">Educación</span>{' '}
-            <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              y Cuidado
-            </span>
+          <h2 className="text-4xl md:text-6xl font-serif italic text-gray-900 mb-6">
+            Ciencia al servicio de <span className="text-[#BF2496] not-italic font-bold font-sans">tus pies</span>
           </h2>
           
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Explicaciones claras, basadas en práctica médica, para que tomes decisiones seguras y tengas una recuperación tranquila.
+          <p className="text-gray-500 text-lg font-light leading-relaxed">
+            Creemos que un paciente informado toma mejores decisiones. Conoce los fundamentos médicos de nuestros tratamientos más solicitados.
           </p>
         </div>
 
         {/* Education Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20 px-4 sm:px-0">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
           {topics.map((topic, index) => (
             <div
-              key={topic.title}
+              key={index}
               data-index={index}
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              className={`relative h-[420px] md:h-[450px] ${
-                visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              ref={(el) => { cardsRef.current[index] = el; }}
+              className={`relative h-[480px] perspective-1000 transition-all duration-1000 ${
+                visibleCards[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               }`}
-              style={{ 
-                transitionDelay: `${index * 150}ms`,
-                transition: 'opacity 0.5s, transform 0.5s',
-                perspective: '1500px'
-              }}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
-              {/* Flip Card Container */}
               <div className="flip-card-inner group relative w-full h-full cursor-pointer">
                 
-                {/* FRONT SIDE - Pregunta */}
-                <div className="flip-card-front absolute w-full h-full">
-                  {/* Glow effect on hover */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-700`}></div>
-                  
-                  <div className="relative w-full h-full bg-white rounded-3xl border-2 border-gray-100 shadow-xl overflow-hidden">
-                    {/* Decorative gradient bar top */}
-                    <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
+                {/* FRONT SIDE */}
+                <div className="flip-card-front absolute w-full h-full backface-hidden">
+                  <div className="relative w-full h-full bg-white rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden p-10 flex flex-col items-center text-center">
+                    <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${topic.gradient}`}></div>
                     
-                    {/* Content */}
-                    <div className="p-8 h-full flex flex-col">
-                      {/* Tag */}
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-xl border border-emerald-100 mb-6 self-start">
-                        <Heart className="w-4 h-4 text-emerald-600" />
-                        <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
-                          {topic.tag}
-                        </span>
-                      </div>
-
-                      {/* Icon Container - Centered */}
-                      <div className="flex justify-center mb-6">
-                        <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br ${topic.gradient} shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                          <div className="text-white scale-125">
-                            {topic.icon}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Title (Pregunta) - Centered */}
-                      <h3 className="text-2xl font-bold text-gray-900 text-center leading-tight mb-auto">
-                        {topic.title}
-                      </h3>
-
-                      {/* Hint para voltear - Mejorado */}
-                      <div className="mt-auto pt-6 border-t border-gray-100">
-                        <div className="flex items-center justify-center gap-2 text-emerald-600 group-hover:text-emerald-700 transition-colors">
-                          <span className="text-sm font-semibold">Ver respuesta</span>
-                          <div className="relative">
-                            <div className="absolute inset-0 bg-emerald-400 rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity"></div>
-                            <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </div>
-                      </div>
+                    <div className="mt-4 mb-8 inline-flex items-center gap-2 px-4 py-1.5 bg-gray-50 rounded-full border border-gray-100">
+                      <ShieldCheck className="w-3 h-3 text-[#BF2496]" />
+                      <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                        {topic.tag}
+                      </span>
                     </div>
 
-                    {/* Decorative corner accent */}
-                    <div className={`absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl ${topic.gradient} opacity-5 rounded-tl-[100px]`}></div>
+                    <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${topic.gradient} flex items-center justify-center text-white shadow-lg mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
+                      <div className="scale-[1.5]">{topic.icon}</div>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-auto">
+                      {topic.title}
+                    </h3>
+
+                    <div className="mt-8 flex items-center gap-2 text-[#BF2496] font-bold text-xs uppercase tracking-widest">
+                      Descubrir explicación <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                    </div>
                   </div>
                 </div>
 
-                {/* BACK SIDE - Respuesta */}
-                <div className="flip-card-back absolute w-full h-full">
-                  {/* Glow effect */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${topic.gradient} rounded-3xl blur-xl opacity-30`}></div>
-                  
-                  <div className={`relative w-full h-full bg-gradient-to-br from-white via-emerald-50/30 to-blue-50/30 rounded-3xl border-2 border-emerald-200 shadow-2xl overflow-hidden`}>
-                    {/* Decorative gradient bar top */}
-                    <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${topic.gradient}`}></div>
+                {/* BACK SIDE */}
+                <div className="flip-card-back absolute w-full h-full backface-hidden rotate-y-180">
+                  <div className="relative w-full h-full bg-gray-900 rounded-[3rem] p-10 flex flex-col overflow-hidden text-white">
+                    {/* Pattern sutil de fondo */}
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '30px 30px' }}></div>
                     
-                    {/* Pattern background */}
-                    <div className="absolute inset-0 opacity-5">
-                      <div className="absolute inset-0" style={{
-                        backgroundImage: 'radial-gradient(circle at 2px 2px, rgb(16 185 129) 1px, transparent 0)',
-                        backgroundSize: '40px 40px'
-                      }}></div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative p-8 h-full flex flex-col">
-                      {/* Tag en reverso */}
-                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-xl border border-emerald-200 shadow-sm mb-6 self-start">
-                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${topic.gradient} animate-pulse`}></div>
-                        <span className="text-xs font-bold tracking-wide text-emerald-700 uppercase">
-                          Respuesta
-                        </span>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center gap-3 mb-8">
+                        <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-[#05F2DB]">
+                          <Microscope size={16} />
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#05F2DB]">Consulta Clínica</span>
                       </div>
 
-                      {/* Body (Respuesta) - Mejorado */}
-                      <div className="flex-1 flex items-center">
-                        <p className="text-gray-800 leading-relaxed text-base font-medium">
-                          {topic.body}
-                        </p>
-                      </div>
+                      <p className="text-gray-300 leading-relaxed font-light text-lg italic">
+                        "{topic.body}"
+                      </p>
 
-                      {/* Footer con icono */}
-                      <div className="mt-6 pt-6 border-t border-emerald-200/50 flex items-center justify-between">
-                        <div className="text-xs text-emerald-700 font-semibold flex items-center gap-2">
-                          <Sparkles className="w-4 h-4" />
-                          <span>Información verificada</span>
+                      <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                           <Heart size={14} className="text-[#F285C1]" />
+                           <span className="text-[10px] font-bold uppercase tracking-tighter text-gray-400">PodoCare Mosquera</span>
                         </div>
-                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${topic.gradient} shadow-lg`}>
-                          <div className="text-white">
-                            {topic.icon}
-                          </div>
-                        </div>
+                        <Sparkles size={20} className="text-[#F285C1] opacity-50" />
                       </div>
                     </div>
-
-                    {/* Decorative corner accent */}
-                    <div className={`absolute top-0 left-0 w-24 h-24 bg-gradient-to-br ${topic.gradient} opacity-10 rounded-br-[80px]`}></div>
                   </div>
                 </div>
+
               </div>
             </div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="relative max-w-3xl mx-auto px-4 sm:px-0">
-          {/* Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
-          
-          {/* Main CTA Card */}
-          <div className="relative bg-gradient-to-br from-white via-white to-emerald-50/50 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-white/80 shadow-xl md:shadow-2xl overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-600 to-emerald-500"></div>
+        {/* CTA FINAL */}
+        <div className="relative max-w-4xl mx-auto">
+          <div className="bg-gray-50 rounded-[4rem] p-8 md:p-12 border border-gray-100 flex flex-col md:flex-row items-center gap-10 overflow-hidden relative">
+            {/* Decoración lateral */}
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#F285C1]/10 to-transparent"></div>
             
-            <div className="relative z-10 p-6 md:p-8 lg:p-10 text-center">
-              {/* Icon */}
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 mb-6">
-                <Sparkles className="w-8 h-8 text-white" />
-              </div>
-              
-              {/* Title */}
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-3 md:mb-4">
-                ¿Tienes más preguntas?
+            <div className="flex-1 relative z-10 text-center md:text-left">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                ¿Aún tienes dudas sobre tu tratamiento?
               </h3>
-              
-              {/* Description */}
-              <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
-                Nuestro equipo médico está listo para resolver todas tus dudas y guiarte hacia los mejores resultados.
+              <p className="text-gray-500 font-light max-w-md">
+                Agenda una valoración personalizada. Nuestro equipo médico evaluará tu caso específico con la tecnología adecuada.
               </p>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a
-                  href="#contacto"
-                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                >
-                  <Zap className="w-5 h-5" />
-                  <span>Consulta con nuestro médico</span>
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                
-                <a
-                  href="#faq"
-                  className="inline-flex items-center gap-2 text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-300 text-sm md:text-base"
-                >
-                  <span>Ver más preguntas frecuentes</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
+            <div className="relative z-10 w-full md:w-auto">
+              <a
+                href={generateWhatsAppURL("contact")}
+                target="_blank"
+                className="group flex items-center justify-center gap-4 bg-gray-900 text-white px-10 py-5 rounded-3xl hover:bg-[#BF2496] transition-all duration-500 shadow-xl"
+              >
+                <Smartphone className="w-5 h-5 group-hover:animate-bounce" />
+                <span className="font-black uppercase text-[10px] tracking-widest">Hablar con Especialista</span>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Floating animation and Flip Card CSS */}
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(180deg); }
+          50% { transform: translateY(-30px) rotate(5deg); }
         }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        /* Flip Card Styles - Professional Version */
+        .animate-float { animation: float 10s ease-in-out infinite; }
+        .perspective-1000 { perspective: 1000px; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
         .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
           transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
           transform-style: preserve-3d;
         }
-
-        .flip-card-inner:hover {
-          transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-          -moz-backface-visibility: hidden;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-        }
-
-        .flip-card-back {
-          transform: rotateY(180deg);
-        }
-
-        /* Smooth shadow transition on flip */
-        .flip-card-inner:hover .flip-card-front {
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
+        .flip-card-inner:hover { transform: rotateY(180deg); }
       `}</style>
     </section>
   );

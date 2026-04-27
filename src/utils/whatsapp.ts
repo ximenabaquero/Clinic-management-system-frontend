@@ -1,7 +1,7 @@
 // Configuración de WhatsApp con mensajes automáticos por sección
 // Cambia el número de teléfono aquí si es necesario
 
-export const WHATSAPP_NUMBER = "573001434089";
+export const WHATSAPP_NUMBER = "573232312333"; // Número de teléfono en formato internacional (sin signos ni espacios)
 
 // Mensajes predefinidos por sección
 export const whatsappMessages = {

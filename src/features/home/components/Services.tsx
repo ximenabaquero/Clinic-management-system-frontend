@@ -1,177 +1,133 @@
 "use client";
 
-import { Zap, Sparkles, Droplets, Scissors, Activity, Eye } from 'lucide-react';
-import { useState } from 'react';
-
-const services = [
+import { Check, Droplet, Footprints, Activity, Smartphone } from 'lucide-react';
+import { generateWhatsAppURL } from "@/utils/whatsapp";
+import ServicesHero from "@/app/servicios/components/hero";
+const serviceGroups = [
   {
-    title: "Lipólisis láser",
-    description: "Moldea y elimina grasa localizada con energía láser de precisión, sin cirugía ni incapacidad.",
-    benefit: "Resultados visibles desde la primera sesión",
-    icon: <Zap className="w-6 h-6" />,
-    gradient: "from-emerald-400 to-blue-500",
-    color: "pink",
-    highlight: true,
+    title: "Sueroterapia",
+    subtitle: "Bienestar Endovenoso",
+    icon: <Droplet className="text-[#F285C1]" size={32} />,
+    color: "#F285C1",
+    services: [
+      "Sueroterapia Détox",
+      "Fortalecimiento Inmunitario",
+      "Aumento de Energía",
+      "Rejuvenecimiento Celular",
+      "Apoyo en Pérdida de Peso",
+      "Mejora de Desempeño Deportivo",
+      "Mejora de Memoria y Enfoque"
+    ]
   },
   {
-    title: "Tensamax",
-    description: "Tecnología avanzada que estimula colágeno y elastina para una piel más firme y definida.",
-    benefit: "Efecto tensor inmediato y progresivo",
-    icon: <Sparkles className="w-6 h-6" />,
-    gradient: "from-blue-400 to-emerald-500",
-    color: "purple",
+    title: "Podología",
+    subtitle: "Cuidado del Pie",
+    icon: <Footprints className="text-[#05F2DB]" size={32} />,
+    color: "#05F2DB",
+    services: [
+      "Pedicure Medicinal",
+      "Tratamiento de Callos y Clavos",
+      "Ojos de Pescado (Verrugas)",
+      "Uñas Encarnadas (Onicocriptosis)",
+      "Pie de Atleta y Micosis",
+      "Plantillas Ortopédicas"
+    ]
   },
   {
-    title: "Ácido hialurónico",
-    description: "Hidratación profunda y volumen natural para armonizar rasgos sin perder expresividad.",
-    benefit: "Resultados naturales y seguros",
-    icon: <Droplets className="w-6 h-6" />,
-    gradient: "from-blue-400 to-emerald-500",
-    color: "blue",
-  },
-  {
-    title: "Hilos tensores",
-    description: "Reafirma y levanta tejidos con bioestimulación de colágeno, sin quirófano.",
-    benefit: "Efecto lifting y estimulación de colágeno",
-    icon: <Scissors className="w-6 h-6" />,
-    gradient: "from-emerald-400 to-blue-500",
-    color: "emerald",
-  },
-  {
-    title: "Plasma rico en plaquetas",
-    description: "Regenera y mejora textura cutánea con tus propios factores de crecimiento.",
-    benefit: "Mejora de textura y luminosidad",
-    icon: <Activity className="w-6 h-6" />,
-    gradient: "from-emerald-400 to-blue-500",
-    color: "amber",
-  },
-  {
-    title: "Botox",
-    description: "Suaviza líneas de expresión manteniendo gestos naturales con técnica precisa.",
-    benefit: "Resultados naturales y controlados",
-    icon: <Eye className="w-6 h-6" />,
-    gradient: "from-blue-500 to-emerald-400",
-    color: "violet",
-  },
+    title: "Enfermería",
+    subtitle: "Atención Técnica",
+    icon: <Activity className="text-[#D929AA]" size={32} />,
+    color: "#D929AA",
+    services: [
+      "Toma de Signos Vitales",
+      "Lavado de Oído Profesional",
+      "Inyectología Certificada",
+      "Retiro de Puntos",
+      "Cambio de Sondas",
+    ]
+  }
 ];
 
 export default function Services() {
-  // Cambiamos el tipo a number | null para poder almacenar el índice
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
   return (
-    <section className="relative py-24 bg-gradient-to-b from-white to-emerald-50 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-emerald-100/30 blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-blue-100/20 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl h-64 bg-gradient-to-r from-emerald-200/10 to-transparent rounded-full blur-2xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-2 mb-6 shadow-sm border border-emerald-100">
-            <span className="text-sm font-semibold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              Tecnología Avanzada
-            </span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="text-gray-900">Nuestros</span>{' '}
-            <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              Servicios
-            </span>
+    <section className="py-24 bg-white relative overflow-hidden">
+      
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
+        
+        {/* Encabezado de Sección */}
+        <div className="max-w-3xl mb-16">
+          <h2 className="text-5xl md:text-6xl font-serif italic text-gray-900 mb-6">
+            Nuestros <span className="text-[#BF2496] not-italic font-bold font-sans">Especialidades</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Tratamientos médicos con tecnología avanzada, enfoque personalizado y resultados visibles desde la primera sesión.
+          <p className="text-gray-500 text-lg font-light leading-relaxed">
+            Ofrecemos atención médica integral dividida en tres áreas clave para garantizar tu salud y comodidad.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={service.title}
-                className={`group relative h-full transition-all duration-500 ${
-                  hoveredCard === index ? 'transform -translate-y-2' : ''
-                }`}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                {/* Card Background */}
-                <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                
-                {/* Card */}
-                <div className="relative h-full bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-100 p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:border-emerald-100">
-                  {/* Icon */}
-                  <div className={`mb-6 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                    <div className="text-white">
-                      {service.icon}
-                    </div>
-                  </div>
-
-                  {/* Badge */}
-                  {service.highlight && (
-                    <div className="absolute top-6 right-6">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full blur animate-pulse"></div>
-                        <span className="relative px-3 py-1 text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-blue-600 rounded-full">
-                          MÁS POPULAR
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
-                    {service.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  {/* Benefit */}
-                  <div className="mt-auto pt-6 border-t border-gray-100">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient}`}></div>
-                      <span className={`font-semibold bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent`}>
-                        {service.benefit}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Hover effect line */}
-                  <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r ${service.gradient} group-hover:w-3/4 transition-all duration-500 rounded-full`}></div>
+        {/* Grid de 3 Columnas */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {serviceGroups.map((group, index) => (
+            <div 
+              key={index}
+              className="relative bg-white rounded-[3rem] border border-gray-100 p-10 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full"
+            >
+              {/* Icono y Título */}
+              <div className="mb-8 flex items-center gap-5">
+                <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                  {group.icon}
                 </div>
-
-                {/* Floating decorative element */}
-                <div className={`absolute -top-2 -right-2 w-20 h-20 rounded-full bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500 -z-10`}></div>
+                <div>
+                  <h3 className="text-3xl font-bold text-gray-900 leading-none">{group.title}</h3>
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold mt-2">{group.subtitle}</p>
+                </div>
               </div>
-            ))}
-          </div>
+
+              {/* Lista de Servicios */}
+              <ul className="space-y-4 mb-10 flex-grow">
+                {group.services.map((service, sIndex) => (
+                  <li key={sIndex} className="flex items-start gap-3 group/item">
+                    <div className="mt-1">
+                      <Check size={16} style={{ color: group.color }} strokeWidth={3} />
+                    </div>
+                    <span className="text-gray-600 font-medium text-sm group-hover/item:text-gray-900 transition-colors">
+                      {service}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Botón de Acción por Área */}
+              <a
+                href={generateWhatsAppURL("services")}
+                target="_blank"
+                className="w-full py-4 rounded-2xl bg-gray-50 text-gray-800 text-[10px] font-black uppercase tracking-widest text-center hover:bg-gray-900 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <Smartphone size={14} />
+                Consultar Área
+              </a>
+              
+              {/* Decoración sutil en el fondo de la tarjeta */}
+              <div 
+                className="absolute -bottom-4 -right-4 w-32 h-32 rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-700 pointer-events-none"
+                style={{ backgroundColor: group.color }}
+              ></div>
+            </div>
+          ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-20">
-          <div className="inline-block bg-gradient-to-r from-white to-emerald-50 rounded-2xl p-1 shadow-lg">
-            <div className="bg-white rounded-xl px-8 py-6">
-              <p className="text-gray-700 mb-6 text-lg font-medium">
-                ¿No estás segura de cuál tratamiento es ideal para ti?
-              </p>
-              <a
-                href="#contacto"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-              >
-                <span>Agenda una valoración personalizada</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
+        {/* Nota al pie */}
+        <div className="mt-16 p-8 rounded-[2rem] bg-[#F2F2F2] border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm">
+               <Check className="text-[#05F2DB]" />
             </div>
+            <p className="text-sm font-bold text-gray-700 uppercase tracking-tight">
+              Todos nuestros servicios incluyen valoración previa profesional.
+            </p>
           </div>
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center md:text-right">
+            PodoCare Mosquera <br /> Salud a cada paso
+          </p>
         </div>
       </div>
     </section>

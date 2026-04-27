@@ -1,75 +1,33 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import {
   Heart,
   MapPin,
   Phone,
-  Mail,
   Clock,
-  MessageCircle,
-  Facebook,
   Instagram,
+  Facebook,
+  Mail,
   ArrowUp,
 } from "lucide-react";
 import { useState } from "react";
 
 const quickLinks = [
-  { name: "Inicio", href: "#inicio" },
-  { name: "Servicios", href: "#servicios" },
-  { name: "Resultados", href: "#resultados" },
-  { name: "Testimonios", href: "#testimonios" },
-  { name: "Educación", href: "#educacion" },
+  { name: "Inicio", href: "#" },
+  { name: "Especialidades", href: "#servicios" },
+  { name: "Sobre Nosotros", href: "#nosotros" },
+  { name: "Preguntas Frecuentes", href: "#faq" },
   { name: "Contacto", href: "#contacto" },
 ];
 
-const services = [
-  { name: "Lipólisis Láser" },
-  { name: "Tensamax" },
-  { name: "Ácido Hialurónico" },
-  { name: "Hilos Tensores" },
-  { name: "Plasma Rico en Plaquetas" },
-  { name: "Botox" },
-];
-
-const contactInfo = [
-  {
-    icon: <Phone className="w-4 h-4" />,
-    text: "+57 (300) 143-4089",
-    href: "tel:+573001434089",
-  },
-  {
-    icon: <Mail className="w-4 h-4" />,
-    text: "info@coldesthetic.com",
-    href: "mailto:info@coldesthetic.com",
-  },
-  { icon: <MapPin className="w-4 h-4" />, text: "Bogotá, Colombia", href: "#" },
-  {
-    icon: <Clock className="w-4 h-4" />,
-    text: "Lun-Vie: 9AM - 7PM | Sáb: 9AM - 2PM",
-    href: "#",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: <MessageCircle className="w-5 h-5" />,
-    href: "https://wa.me/573001434089",
-    color: "bg-emerald-500 hover:bg-emerald-600",
-    name: "WhatsApp",
-  },
-  {
-    icon: <Facebook className="w-5 h-5" />,
-    href: "https://facebook.com/coldesthetic",
-    color: "bg-blue-600 hover:bg-blue-700",
-    name: "Facebook",
-  },
-  {
-    icon: <Instagram className="w-5 h-5" />,
-    href: "https://www.instagram.com/coldesthetic",
-    color:
-      "bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700",
-    name: "Instagram",
-  },
+const areas = [
+  { name: "Podología Clínica" },
+  { name: "Sueroterapia" },
+  { name: "Enfermería" },
+  { name: "Pedicure Medicinal" },
+  { name: "Análisis de Marcha" },
 ];
 
 export default function Footer() {
@@ -80,55 +38,53 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
+    <footer className="relative bg-[#F9F9F9] text-gray-800 overflow-hidden border-t border-gray-100">
+      
+      {/* Acento de color superior */}
+      <div className="h-1.5 w-full bg-gradient-to-r from-[#05F2DB] via-[#F285C1] to-[#D929AA]"></div>
 
-      {/* Top gradient accent */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-blue-600 to-emerald-500"></div>
-
-      {/* Main footer content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
-          {/* Brand & Description */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg">
-                <Heart className="w-6 h-6 text-white" />
+      <div className="container mx-auto px-6 lg:px-16 py-16 md:py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-16">
+          
+          {/* Columna 1: Logo y Marca (Actualizado) */}
+          <div className="space-y-8">
+            <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
+              <div className="relative h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/podocare/podocare.png"
+                  alt="PodoCare Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <div>
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-blue-300 bg-clip-text text-transparent">
-                  Coldesthetic
-                </h2>
-                <p className="text-sm text-gray-300">
-                  Estética Médica Avanzada
-                </p>
-              </div>
-            </div>
 
-            <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-              Especialistas en lipólisis láser sin cirugía, con tecnología
-              avanzada y resultados visibles desde la primera sesión.
+              <div className="flex flex-col justify-center">
+                <span className="text-2xl sm:text-4xl leading-none font-serif tracking-tight">
+                  <span className="text-[#F285C1] font-medium">Podo</span>
+                  <span className="text-[#BF2496] font-bold">Care</span>
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-bold text-[#05F2DB] mt-1 leading-none">
+                  Salud a cada paso
+                </span>
+              </div>
+            </Link>
+
+            <p className="text-sm text-gray-500 leading-relaxed font-light max-w-xs">
+              Líderes en salud podológica y bienestar integral en Mosquera. 
+              Cuidamos tus pasos con tecnología de vanguardia.
             </p>
 
-            {/* Social media */}
-            <div className="flex gap-3">
-              {socialLinks.map((social, index) => (
+            <div className="flex gap-4">
+              {[
+                { icon: <Instagram size={18} />, href: "#" },
+                { icon: <Facebook size={18} />, href: "#" },
+                { icon: <Mail size={18} />, href: "mailto:contacto@podocare.com" },
+              ].map((social, i) => (
                 <a
-                  key={index}
+                  key={i}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full flex items-center justify-center ${social.color} transition-all duration-300 hover:scale-110 hover:shadow-lg`}
-                  aria-label={social.name}
+                  className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D929AA] hover:border-[#D929AA]/20 hover:shadow-lg transition-all duration-300"
                 >
                   {social.icon}
                 </a>
@@ -136,132 +92,86 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Columna 2: Navegación */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 pb-3 border-b border-gray-700 flex items-center gap-2">
-              <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-                Enlaces Rápidos
-              </span>
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
-                  >
-                    <ArrowUp className="w-3 h-3 rotate-90 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span className="group-hover:translate-x-1 transition-transform">
-                      {link.name}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 pb-3 border-b border-gray-700">
-              <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-                Nuestros Servicios
-              </span>
-            </h3>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a
-                    href="#servicios"
-                    className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <span>{service.name}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 pb-3 border-b border-gray-700">
-              <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-                Contacto
-              </span>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#BF2496] mb-8">
+              Navegación
             </h3>
             <ul className="space-y-4">
-              {contactInfo.map((info, index) => (
-                <li key={index}>
-                  <a
-                    href={info.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-300 flex items-start gap-3 group"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-blue-600 transition-all">
-                      {info.icon}
-                    </div>
-                    <span className="text-sm md:text-base leading-relaxed">
-                      {info.text}
-                    </span>
+              {quickLinks.map((link, i) => (
+                <li key={i}>
+                  <a href={link.href} className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">
+                    {link.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
 
-        {/* Newsletter & CTA */}
-        <div className="mb-10 md:mb-16">
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/50">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-center md:text-left">
-                <h3 className="text-xl font-bold mb-2">
-                  ¿Lista para comenzar?
-                </h3>
-                <p className="text-gray-300">
-                  Recibe asesoría personalizada sin compromiso
+          {/* Columna 3: Especialidades */}
+          <div>
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#05F2DB] mb-8">
+              Áreas Médicas
+            </h3>
+            <ul className="space-y-4">
+              {areas.map((area, i) => (
+                <li key={i} className="text-sm text-gray-500 font-medium">
+                  {area.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 4: Contacto */}
+          <div className="space-y-6">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-900 mb-8">
+              Ubícanos
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="text-[#D929AA] shrink-0" size={18} />
+                <p className="text-sm text-gray-500 font-medium">
+                  Calle 1 #1-11 Cons. 202<br />Mosquera, Cundinamarca
                 </p>
               </div>
-              <a
-                href="https://wa.me/573001434089"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>Agendar Consulta Gratis</span>
-                <ArrowUp className="w-4 h-4 rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </a>
+              <div className="flex items-center gap-3">
+                <Clock className="text-[#D929AA] shrink-0" size={18} />
+                <p className="text-sm text-gray-500 font-medium">
+                  Lun - Sáb: 8:00 AM - 6:00 PM
+                </p>
+              </div>
+              <div className="pt-4">
+                <a 
+                  href="tel:+573232312333"
+                  className="inline-flex items-center gap-2 text-gray-900 font-bold hover:text-[#D929AA] transition-colors"
+                >
+                  <Phone size={18} />
+                  +57 323 231 2333
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright & Back to Top */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-gray-700">
-          <div className="text-center md:text-left">
-            <p className="text-gray-400 text-sm">
-              © {currentYear} Coldesthetic. Todos los derechos reservados.
-            </p>
-            <p className="text-gray-500 text-xs mt-1">
-              Diseñado con <Heart className="w-3 h-3 inline text-emerald-400" />{" "}
-              para tu bienestar
-            </p>
-          </div>
-
+        {/* Banner Inferior */}
+        <div className="pt-10 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center md:text-left">
+            © {currentYear} PodoCare • <span className="text-gray-300">Mosquera, Cundinamarca</span>
+          </p>
+          
           <button
             onClick={scrollToTop}
-            className="group flex items-center gap-2 text-gray-300 hover:text-white transition-colors duration-300"
-            aria-label="Volver arriba"
+            className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-gray-900 transition-all"
           >
-            <span className="text-sm">Volver arriba</span>
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-800 to-gray-700 group-hover:from-emerald-500 group-hover:to-blue-600 flex items-center justify-center transition-all">
-              <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
+            Volver al inicio
+            <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white transition-all">
+              <ArrowUp size={14} />
             </div>
           </button>
+
+
         </div>
       </div>
-
-      {/* Bottom decorative line */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700"></div>
     </footer>
   );
 }

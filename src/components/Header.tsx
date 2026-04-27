@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export default function Header() {
   const { user, logout, loading } = useAuth();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -28,136 +28,181 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white shadow-sm border-b border-gray-100"
-          : "bg-white/80 backdrop-blur-md border-b border-transparent"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 bg-white border-b ${scrolled ? "py-2 shadow-md border-[#F285C1]/20" : "py-4 border-transparent"
+        }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="flex items-center justify-between">
 
-          {/* Logo + usuario */}
-          <div className="flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="relative h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-400 to-blue-500 p-[2px] shadow-md group-hover:shadow-emerald-200 transition-shadow duration-300">
-                <div className="h-full w-full rounded-[10px] bg-white flex items-center justify-center overflow-hidden">
-                  <Image
-                    src="/coldestheticlogo.png"
-                    alt="Coldesthetic"
-                    width={32}
-                    height={32}
-                    className="h-full w-full object-contain"
-                    priority
-                  />
-                </div>
+          {/* Logo + Brand */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
+              {/* Logo con tamaño acorde a los textos */}
+              <div className="relative h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/podocare/podocare.png"
+                  alt="PodoCare Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-lg font-bold bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
-                Coldesthetic
-              </span>
+
+              <div className="flex flex-col justify-center">
+                <span className="text-2xl sm:text-4xl leading-none font-serif tracking-tight">
+                  <span className="text-[#F285C1] font-medium">Podo</span>
+                  <span className="text-[#BF2496] font-bold">Care</span>
+                </span>
+                {/* Slogan más corto y alineado al ancho del título */}
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] font-bold text-[#05F2DB] mt-1 leading-none">
+                  Salud a cada paso
+                </span>
+              </div>
             </Link>
 
+            {/* Navegación Desktop */}
+            <nav className="hidden lg:flex items-center gap-8 ml-8">
+              <Link
+                href="/"
+                className="text-sm font-bold text-gray-700 hover:text-[#BF2496] transition-colors uppercase tracking-widest"
+              >
+                Inicio
+              </Link>
+              <Link
+                href="/servicios"
+                className="text-sm font-bold text-gray-700 hover:text-[#BF2496] transition-colors uppercase tracking-widest"
+              >
+                Servicios
+              </Link>
+              <Link
+                href="/galeria"
+                className="text-sm font-bold text-gray-700 hover:text-[#BF2496] transition-colors uppercase tracking-widest"
+              >
+                Galería
+              </Link>
+              <Link
+                href="/contacto"
+                className="text-sm font-bold text-gray-700 hover:text-[#BF2496] transition-colors uppercase tracking-widest"
+              >
+                Contacto
+              </Link>
+            </nav>
+
+            {/* Perfil de Usuario (Desktop) */}
             {user && (
-              <div className="hidden sm:flex items-center gap-3">
-                <div className="w-px h-5 bg-gray-200" />
-                <div className="flex items-center gap-2.5">
-                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-emerald-400 to-blue-500 flex items-center justify-center shrink-0 shadow-sm">
-                    <span className="text-xs font-bold text-white uppercase">{user.name.charAt(0)}</span>
+              <div className="hidden md:flex items-center gap-3 ml-2 pl-6 border-l border-gray-100">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#F285C1] to-[#BF2496] p-[1.5px]">
+                  <div className="h-full w-full rounded-full bg-white flex items-center justify-center">
+                    <span className="text-xs font-bold text-[#BF2496] uppercase">{user.name.charAt(0)}</span>
                   </div>
-                  <div className="leading-tight">
-                    <p className="text-xs font-semibold text-gray-800 max-w-[150px] truncate">{user.name}</p>
-                    <p className="text-[10px] font-medium text-emerald-600">{user.role === "ADMIN" ? "Administrador" : "Remitente"}</p>
-                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-[11px] font-bold text-gray-800 tracking-tight leading-none">{user.name}</p>
+                  <p className="text-[9px] font-black uppercase text-gray-400 mt-1">
+                    {user.role === "ADMIN" ? "Admin" : "Paciente"}
+                  </p>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Right section */}
-          <div className="flex items-center gap-2">
-
-            {/* Phone */}
+          {/* Acciones */}
+          <div className="flex items-center gap-2 sm:gap-4">
             <a
-              href="tel:+573001434089"
-              className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200"
-              aria-label="Llamar"
+              href="tel:+573232312333"
+              className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-50 text-gray-600 hover:bg-[#05F2DB]/10 hover:text-[#04b09f] transition-all font-bold text-[10px] uppercase tracking-widest border border-gray-100"
             >
-              <Phone size={15} className="flex-shrink-0" />
-              <span className="text-sm font-medium">+57 300 143 4089</span>
+              <Phone size={14} className="text-[#05F2DB]" />
+              <span>Agendar</span>
             </a>
 
-            {/* Divider */}
-            <div className="hidden sm:block w-px h-5 bg-gray-200 mx-1" />
-
-            {/* Auth */}
             {user ? (
               <button
-                type="button"
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+                className="p-2.5 rounded-xl text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all"
+                title="Cerrar Sesión"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-                </svg>
-                <span className="hidden sm:inline">Cerrar sesión</span>
+                <LogOut size={20} />
               </button>
             ) : (
               <Link
                 href="/login"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-blue-600 shadow-sm hover:shadow-emerald-200 transition-all duration-300"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full text-[11px] font-bold text-white bg-[#D929AA] hover:bg-[#BF2496] transition-all shadow-sm active:scale-95"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span className="hidden sm:inline">Iniciar sesión</span>
+                <User size={14} />
+                <span className="uppercase tracking-widest">Entrar</span>
               </Link>
             )}
 
-            {/* Mobile menu button */}
+            {/* Menú Móvil */}
             <button
-              className="lg:hidden ml-1 p-2 rounded-lg text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200"
+              className="lg:hidden p-2 rounded-xl bg-gray-50 text-[#D929AA]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-3 pb-4">
-            <div className="flex flex-col gap-1">
-              <a
-                href="tel:+573001434089"
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200"
+          <div className="lg:hidden absolute top-full left-0 w-full p-4 bg-white border-b shadow-xl animate-in fade-in slide-in-from-top-2">
+            <div className="flex flex-col gap-2">
+              {/* Navegación Móvil */}
+              <Link
+                href="/"
+                className="flex items-center justify-between px-5 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase tracking-widest"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Phone size={17} />
-                <span className="font-medium text-sm">+57 300 143 4089</span>
+                <span>Inicio</span>
+              </Link>              <Link
+                href="/servicios"
+                className="flex items-center justify-between px-5 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase tracking-widest"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Servicios</span>
+              </Link>
+              <Link
+                href="/galeria"
+                className="flex items-center justify-between px-5 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase tracking-widest"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Galería</span>
+              </Link>
+              <Link
+                href="/contacto"
+                className="flex items-center justify-between px-5 py-4 rounded-xl bg-gray-50 text-gray-700 font-bold text-xs uppercase tracking-widest"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span>Contacto</span>
+              </Link>
+
+              <div className="border-t border-gray-100 my-2"></div>
+
+              <a
+                href="tel:+573232312333"
+                className="flex items-center justify-between px-5 py-4 rounded-xl bg-gray-50 text-gray-700"
+              >
+                <span className="font-bold text-xs uppercase tracking-widest">Llamar Ahora</span>
+                <Phone size={18} className="text-[#05F2DB]" />
               </a>
 
               {user ? (
                 <button
-                  type="button"
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:text-red-500 hover:bg-red-50 transition-all duration-200 text-left"
                   onClick={() => { setIsMenuOpen(false); handleLogout(); }}
+                  className="flex items-center justify-between px-5 py-4 rounded-xl bg-red-50 text-red-500 font-bold text-xs uppercase tracking-widest"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-                  </svg>
-                  <span className="font-medium text-sm">Cerrar sesión</span>
+                  <span>Cerrar Sesión</span>
+                  <LogOut size={18} />
                 </button>
               ) : (
                 <Link
                   href="/login"
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-emerald-600 hover:bg-emerald-50 transition-all duration-200 font-medium text-sm"
+                  className="flex items-center justify-between px-5 py-4 rounded-xl bg-[#D929AA] text-white font-bold text-xs uppercase tracking-widest"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <span>Iniciar sesión</span>
+                  <span>Iniciar Sesión</span>
+                  <User size={18} />
                 </Link>
               )}
             </div>

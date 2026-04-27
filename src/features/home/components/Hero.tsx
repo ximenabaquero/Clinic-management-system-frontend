@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { generateWhatsAppURL } from "@/utils/whatsapp";
-import { Sparkles, ArrowRight, Shield, Clock, CheckCircle } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Clock3, Award, Smartphone } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Link from "next/link";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,155 +13,100 @@ export default function Hero() {
     setIsVisible(true);
   }, []);
 
-  const benefits = [
-    { icon: <Shield size={20} />, text: "Tecnología láser certificada" },
-    { icon: <Clock size={20} />, text: "Procedimiento médico especializado" },
-    { icon: <CheckCircle size={20} />, text: "Recuperación controlada" },
+  const trustIndicators = [
+    { icon: <ShieldCheck size={22} />, text: "Podólogos Titulados" },
+    { icon: <Clock3 size={22} />, text: "Citas Puntuales" },
+    { icon: <Award size={22} />, text: "Tecnología Médica" },
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-blue-50">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-40 w-80 h-80 rounded-full bg-gradient-to-r from-emerald-200/20 to-blue-200/20 blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full bg-gradient-to-l from-emerald-200/20 to-blue-200/20 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-emerald-100/30"></div>
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
+      
+      {/* 1. FONDO CON IMAGEN Y OVERLAY SOFISTICADO */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/podocare/hero.jpg" 
+          alt="Clínica PodoCare - Especialistas en Podología"
+          fill
+          className="object-cover object-center transition-transform duration-[10s] ease-out"
+          style={{ transform: isVisible ? 'scale(1)' : 'scale(1.1)' }}
+          priority
+        />
+        
+        {/* Gradiente Elegante: Del blanco sólido al transparente para suavizar la imagen */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/30 to-transparent" />
+        
+        {/* Destello sutil de color de marca */}
+        <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#F285C1]/20 blur-[120px] rounded-full" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Content */}
-          <div className={`space-y-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-emerald-100">
-              <Sparkles className="w-4 h-4 text-emerald-500" />
-              <span className="text-sm font-semibold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-                Tecnología Médica Avanzada
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
+        <div className="max-w-3xl">
+          
+          <div className={`space-y-10 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            
+            {/* Tag Superior */}
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D929AA] opacity-40"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D929AA]"></span>
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500">
+                Experiencia Podológica Superior
               </span>
             </div>
 
-            {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="block text-gray-900">Lipólisis láser</span>
-              <span className="block bg-gradient-to-r from-emerald-500 via-blue-500 to-emerald-600 bg-clip-text text-transparent mt-2">
-                asistida por tecnología
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <div className="space-y-4">
-              <p className="text-xl text-gray-600 leading-relaxed">
-                <span className="font-semibold text-emerald-600">Procedimiento mínimamente invasivo</span> para reducción de grasa localizada. 
-                Estimulamos la producción de colágeno y promovemos el contorno corporal con tecnología láser médica certificada.
+            {/* Título Elegante */}
+            <div className="space-y-6">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif leading-[1.1] tracking-tight text-gray-900">
+                Tu salud comienza <br />
+                <span className="italic text-[#BF2496] font-medium">en cada paso.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 max-w-lg leading-relaxed font-light">
+                Somos especialistas en el cuidado de tus pies, contamos con diferentes terapias alternativas 
               </p>
-              
-              {/* Benefits */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                {benefits.map((benefit, index) => (
-                  <div 
-                    key={index}
-                    className={`flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border border-emerald-100 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                    style={{ transitionDelay: `${index * 100}ms` }}
-                  >
-                    <div className="text-emerald-500">{benefit.icon}</div>
-                    <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+            {/* Botones de Acción */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
                 href={generateWhatsAppURL("hero")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-blue-600 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:from-emerald-600 hover:to-blue-700"
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#D929AA] to-[#F285C1] text-white font-bold uppercase tracking-widest text-[11px] py-5 px-10 rounded-full shadow-xl shadow-[#D929AA]/20 hover:shadow-2xl hover:shadow-[#D929AA]/30 transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                </svg>
-                <span>Agenda tu valoración médica</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <Smartphone size={18} />
+                Agendar Consulta Online
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
               
-           
+              <Link href="/servicios" className="inline-flex items-center justify-center py-5 px-10 rounded-full bg-white border border-gray-200 text-gray-700 font-bold uppercase tracking-widest text-[11px] hover:bg-gray-50 transition-all shadow-sm">
+                Explorar Servicios
+              </Link>
             </div>
 
-            {/* Trust indicators */}
-            <div className="pt-8 border-t border-gray-100">
-              <div className="flex items-center gap-6 text-sm text-gray-500">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                  <span>100% Seguro</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-                  <span>Tecnología certificada</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
-                  <span>Resultados garantizados</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Image */}
-          <div className={`relative transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div className="relative mx-auto max-w-lg">
-              {/* Main image container */}
-              <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
-                  <Image
-                    src="/coldestheticlogo.png"
-                  alt="Coldesthetic - Lipólisis láser sin cirugía"
-                  width={600}
-                  height={600}
-                  className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700"
-                  priority
-                />
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
-              </div>
-
-              {/* Floating card 1 */}
-              <div className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-emerald-600" />
+            {/* Indicadores de Confianza */}
+            <div className="flex flex-wrap gap-x-12 gap-y-6 pt-8 border-t border-gray-100">
+              {trustIndicators.map((item, i) => (
+                <div key={i} className="flex items-center gap-4 group">
+                  <div className="text-[#05F2DB]">
+                    {item.icon}
                   </div>
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">Tecnología láser</div>
-                    <div className="text-xs text-emerald-600">Asistida por médico</div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-800">
+                      {item.text}
+                    </span>
+                    <span className="text-[9px] text-gray-400 font-medium uppercase mt-0.5">Certificación Médica</span>
                   </div>
                 </div>
-              </div>
-
-              {/* Floating card 2 */}
-              <div className="absolute -top-6 -right-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-blue-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">Reducción localizada</div>
-                    <div className="text-xs text-blue-600">Contorno controlado</div>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 rounded-full border-2 border-emerald-300 flex justify-center">
-          <div className="w-1 h-3 bg-emerald-400 rounded-full mt-2"></div>
-        </div>
-      </div>
+      {/* Acento lateral sutil (menos invasivo) */}
+      <div className="absolute bottom-0 right-0 w-1/3 h-1 bg-gradient-to-l from-[#05F2DB] to-transparent" />
     </section>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import useSWR from "swr";
 import Image from "next/image";
-import { CheckCircle, Target, Camera } from 'lucide-react';
+import { CheckCircle, Target, Camera, Sparkles } from 'lucide-react';
 import { endpoints, getImageUrl } from "../../control-images/services/ClinicalImagesService";
 import type { ClinicalImage } from "../../control-images/types/ClinicalImage";
 
@@ -21,10 +21,11 @@ function mulberry32(seed: number) {
   };
 }
 
+// Gradients alineados a la marca PodoCare
 const gradients = [
-  "from-emerald-400 to-blue-500",
-  "from-blue-400 to-emerald-500",
-  "from-emerald-500 to-blue-400",
+  "from-[#BF2496] to-[#F285C1]", // Magenta a Rosa
+  "from-[#05F2DB] to-[#BF2496]", // Cian a Magenta
+  "from-[#D929AA] to-[#05F2DB]", // Rosa fuerte a Cian
 ];
 
 export default function Gallery() {
@@ -40,6 +41,7 @@ export default function Gallery() {
       setVisible(images.map(() => false));
     }
   }, [images]);
+
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const floatStyles = useMemo<CSSProperties[]>(() => {
@@ -79,188 +81,155 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-emerald-50/20 to-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/10 via-transparent to-transparent"></div>
+    <section className="relative py-24 md:py-32 overflow-hidden bg-white">
+      {/* Fondo con gradientes sutiles de marca */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F285C1]/5 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#05F2DB]/5 blur-[120px] rounded-full" />
       </div>
 
-      {/* Floating elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Floating elements decorativos */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
         {floatStyles.map((style, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-emerald-300/10"
+            className="absolute rounded-full bg-[#BF2496]/5 border border-[#BF2496]/10"
             style={style}
           />
         ))}
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
         {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-sm border border-emerald-100">
-            <Camera className="w-4 h-4 text-emerald-500" />
-            <span className="text-sm font-semibold bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              Resultados Verificados
+        <div className="max-w-3xl mb-16 md:mb-24">
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 mb-8">
+            <Sparkles size={16} className="text-[#BF2496]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+              Casos de Éxito Clínico
             </span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
-            <span className="text-gray-900">Resultados</span>{' '}
-            <span className="bg-gradient-to-r from-emerald-500 to-blue-600 bg-clip-text text-transparent">
-              Reales
-            </span>
+          <h2 className="text-5xl md:text-6xl font-serif italic text-gray-900 leading-tight mb-8">
+            Resultados <span className="not-italic font-bold font-sans text-[#BF2496]">Reales</span>
           </h2>
           
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Descubre las transformaciones increíbles que hemos logrado con nuestros pacientes mediante tecnología láser de precisión.
+          <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl">
+            La evidencia de nuestro compromiso. Transformaciones logradas con tecnología de vanguardia y cuidado profesional.
           </p>
         </div>
 
-        {/* Loading State */}
+        {/* Loading / Error / Empty States */}
         {isLoading && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">Cargando imágenes...</p>
+          <div className="flex justify-center py-20">
+            <div className="w-12 h-12 border-4 border-[#05F2DB]/20 border-t-[#BF2496] rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Error State */}
         {error && (
-          <div className="text-center py-12">
-            <p className="text-red-500">Error al cargar las imágenes</p>
+          <div className="text-center py-12 px-8 bg-red-50 rounded-3xl border border-red-100">
+            <p className="text-red-600 font-bold uppercase tracking-widest text-xs">Error al sincronizar galería</p>
           </div>
         )}
 
-        {/* Empty State */}
         {images && images.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No hay imágenes disponibles</p>
+            <p className="text-gray-400 italic">No hay registros visuales en este momento.</p>
           </div>
         )}
 
         {/* Gallery Grid */}
         {images && images.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mb-16 md:mb-20 px-4 sm:px-0">
-          {images.map((item, index) => {
-            const gradient = gradients[index % gradients.length];
-            return (
-            <div
-              key={item.id}
-              data-index={index}
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              className="group relative"
-            >
-              {/* Hover Border Effect */}
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${gradient} rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`}></div>
-              
-              {/* Card */}
-              <div className={`relative h-full bg-white/95 backdrop-blur-sm rounded-2xl md:rounded-3xl border border-gray-100 p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-500 ${
-                visible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}>
-                
-                {/* Card Header - REORGANIZADO */}
-                <div className="mb-6 md:mb-7">
-                  {/* Area title with icon - AHORA EN LÍNEA */}
-                  <div className="flex items-center justify-start mb-4 gap-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ${gradient}`}>
-                      <Target className="w-5 h-5 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+            {images.map((item, index) => {
+              const gradient = gradients[index % gradients.length];
+              return (
+                <div
+                  key={item.id}
+                  data-index={index}
+                  ref={(el) => { cardsRef.current[index] = el; }}
+                  className={`group relative transition-all duration-1000 ease-out ${
+                    visible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  }`}
+                  style={{ transitionDelay: `${index * 150}ms` }}
+                >
+                  {/* Card Container */}
+                  <div className="relative h-full bg-white rounded-[2.5rem] border border-gray-100 p-6 md:p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+                    
+                    {/* Background Glow on Hover */}
+                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 rounded-full transition-opacity duration-700`} />
+
+                    {/* Card Header */}
+                    <div className="flex items-start gap-5 mb-8">
+                      <div className={`shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg shadow-gray-200`}>
+                        <Target className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900 leading-tight group-hover:text-[#BF2496] transition-colors">
+                          {item.title}
+                        </h3>
+                        {item.description && (
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-gray-400 mt-2">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
-                        {item.title}
-                      </h3>
-                      {item.description && (
-                        <p className="text-sm md:text-base text-gray-600 mt-1">
-                          {item.description}
-                        </p>
-                      )}
+
+                    {/* Before/After Comparison */}
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      {/* Before */}
+                      <div className="space-y-3">
+                        <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gray-100 border border-gray-50">
+                          <Image
+                            src={getImageUrl(item.before_image)}
+                            alt={`Antes - ${item.title}`}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute top-3 left-3">
+                            <span className="px-3 py-1 text-[9px] font-black tracking-widest bg-gray-900/80 backdrop-blur-sm text-white rounded-full">
+                              ANTES
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* After */}
+                      <div className="space-y-3">
+                        <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gray-100 border border-gray-50 shadow-inner">
+                          <Image
+                            src={getImageUrl(item.after_image)}
+                            alt={`Después - ${item.title}`}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute top-3 right-3">
+                            <span className={`px-3 py-1 text-[9px] font-black tracking-widest bg-gradient-to-r ${gradient} text-white rounded-full`}>
+                              DESPUÉS
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Verification Badges */}
+                    <div className="flex items-center justify-between pt-6 border-t border-gray-50">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-[#05F2DB]" />
+                        <span className="text-[9px] font-black uppercase tracking-tighter text-gray-500">Resultado Clínico</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Camera className="w-4 h-4 text-[#F285C1]" />
+                        <span className="text-[9px] font-black uppercase tracking-tighter text-gray-500">Sin Edición</span>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                {/* Before/After Comparison - ESPACIADO ADECUADO */}
-                <div className="mb-6 md:mb-7 relative">
-                  <div className="grid grid-cols-2 gap-4 md:gap-5">
-                    {/* Before */}
-                    <div className="relative">
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <span className="px-3 py-1 text-xs font-bold bg-gray-700 text-white rounded-full shadow-md">
-                          ANTES
-                        </span>
-                      </div>
-                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl h-44 md:h-52 shadow-inner bg-gradient-to-br from-gray-100 to-gray-200">
-                        <Image
-                          src={getImageUrl(item.before_image)}
-                          alt={`Antes - ${item.title}`}
-                          width={300}
-                          height={416}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        {/* Overlay gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                      </div>
-                    </div>
-
-                    {/* After */}
-                    <div className="relative">
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-emerald-500 to-blue-600 text-white rounded-full shadow-md">
-                          DESPUÉS
-                        </span>
-                      </div>
-                      <div className="relative overflow-hidden rounded-xl md:rounded-2xl h-44 md:h-52 shadow-inner bg-gradient-to-br from-emerald-50 to-blue-50">
-                        <Image
-                          src={getImageUrl(item.after_image)}
-                          alt={`Después - ${item.title}`}
-                          width={300}
-                          height={416}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                        {/* Overlay gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Verification Badge - POSICIONADO CLARAMENTE */}
-                <div className="pt-4 md:pt-5 border-t border-gray-100">
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 rounded-full border border-emerald-100">
-                      <CheckCircle className="w-4 h-4 text-emerald-500" />
-                      <span className="text-xs font-medium text-emerald-700">
-                        Verificado
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
-                      <Camera className="w-4 h-4 text-blue-500" />
-                      <span className="text-xs font-medium text-blue-700">
-                        Sin edición
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hover Indicator */}
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-600 group-hover:w-2/3 transition-all duration-500 rounded-full"></div>
-              </div>
-            </div>
-          );
-          })}
-        </div>
+              );
+            })}
+          </div>
         )}
-
-        {/* CTA Section */}
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-0">
-          {/* Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-xl md:blur-2xl rounded-2xl md:rounded-3xl"></div>
-          
-          
-        </div>
       </div>
     </section>
   );
