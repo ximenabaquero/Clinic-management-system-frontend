@@ -103,7 +103,7 @@ export default function BenefitsGrid() {
             </h3>
           </div>
           <p className="text-gray-500 font-light max-w-sm border-l-2 border-[#F285C1] pl-6 italic">
-            "Transformamos el cuidado de los pies en una experiencia clínica de alto nivel."
+            &ldquo;Transformamos el cuidado de los pies en una experiencia clínica de alto nivel.&rdquo;
           </p>
         </div>
 

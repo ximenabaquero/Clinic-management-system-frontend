@@ -167,7 +167,7 @@ export default function Education() {
                       </div>
 
                       <p className="text-gray-300 leading-relaxed font-light text-lg italic">
-                        "{topic.body}"
+                        &ldquo;{topic.body}&rdquo;
                       </p>
 
                       <div className="mt-auto pt-8 border-t border-white/10 flex items-center justify-between">
