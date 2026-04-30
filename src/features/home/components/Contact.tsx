@@ -25,11 +25,11 @@ const socialLinks = [
   },
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/podocare.mosquera/',
+    href: 'http://instagram.com/podocaremosquera/',
     icon: <Instagram className="w-6 h-6" />,
     color: 'bg-[#D929AA]',
     gradient: 'from-[#D929AA] to-[#05F2DB]',
-    description: '@podocare.mosquera'
+    description: '@podocaremosquera'
   },
   {
     name: 'Llamada',

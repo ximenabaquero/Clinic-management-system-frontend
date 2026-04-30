@@ -77,13 +77,15 @@ export default function Footer() {
 
             <div className="flex gap-4">
               {[
-                { icon: <Instagram size={18} />, href: "#" },
-                { icon: <Facebook size={18} />, href: "#" },
+                { icon: <Instagram size={18} />, href: "http://instagram.com/podocaremosquera/" },
+                { icon: <Facebook size={18} />, href: "https://www.facebook.com/share/1Dr6q7U41m/?mibextid=wwXIfr" },
                 { icon: <Mail size={18} />, href: "mailto:contacto@podocare.com" },
               ].map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D929AA] hover:border-[#D929AA]/20 hover:shadow-lg transition-all duration-300"
                 >
                   {social.icon}
