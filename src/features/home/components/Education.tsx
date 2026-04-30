@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Heart, Smartphone, ArrowRight } from 'lucide-react';
+import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Heart, Smartphone, ArrowRight, Layers, Droplet, Ruler } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const topics = [
@@ -26,6 +26,34 @@ const topics = [
     gradient: "from-[#BF2496] to-[#05F2DB]",
     tag: "Recuperación"
   }, */
+  {
+    title: "¿Qué es la Verruga Plantar?",
+    body: "Las verrugas plantares son causadas por el virus del papiloma humano (VPH). En PodoCare aplicamos ácido nítrico localizado para eliminarlas sin dañar el tejido sano circundante, con seguimiento clínico hasta su resolución completa.",
+    icon: <ShieldCheck className="w-6 h-6" />,
+    gradient: "from-[#05F2DB] to-[#BF2496]",
+    tag: "Patología Viral"
+  },
+  {
+    title: "¿Qué es el Heloma Plantar?",
+    body: "El heloma (callo plantar) es una acumulación de piel muerta provocada por presión repetida. El desbridamiento clínico lo realiza personal especializado con bisturí estéril, eliminando el núcleo sin causar sangrado ni riesgo de infección.",
+    icon: <Layers className="w-6 h-6" />,
+    gradient: "from-[#F285C1] to-[#05F2DB]",
+    tag: "Hiperqueratosis"
+  },
+  {
+    title: "¿Qué es la Fenolización?",
+    body: "La fenolización es el tratamiento definitivo para la uña encarnada recurrente. Aplicamos ácido fénico en la raíz de la uña para destruir de forma permanente la franja problemática, evitando recaídas sin necesidad de cirugía mayor.",
+    icon: <Droplet className="w-6 h-6" />,
+    gradient: "from-[#BF2496] to-[#F285C1]",
+    tag: "Procedimiento"
+  },
+  {
+    title: "¿Qué es la Ortonixia?",
+    body: "La ortonixia corrige la curvatura patológica de las uñas mediante sistemas de tracción especializados. Es un procedimiento no invasivo, sin dolor ni cortes, con resultados visibles desde la primera sesión y sin tiempo de recuperación.",
+    icon: <Ruler className="w-6 h-6" />,
+    gradient: "from-[#05F2DB] to-[#D929AA]",
+    tag: "Corrección"
+  },
 ];
 
 export default function Education() {
@@ -113,7 +141,7 @@ export default function Education() {
         </div>
 
         {/* Education Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
           {topics.map((topic, index) => (
             <div
               key={index}

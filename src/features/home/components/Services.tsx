@@ -114,7 +114,7 @@ export default function Services() {
               Nuestras <br className="md:hidden" /> <span className="text-[#BF2496] not-italic font-bold font-sans">Especialidades</span>
             </h2>
             <p className="text-gray-500 text-base md:text-lg font-light leading-relaxed">
-              Atención médica profesional dividida en tres áreas estratégicas diseñadas para tu recuperación y vitalidad.
+              Atención médica profesional en las áreas clave de podología y enfermería, diseñadas para tu recuperación y vitalidad.
             </p>
           </div>
 
