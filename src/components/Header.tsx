@@ -48,26 +48,26 @@ export default function Header() {
 
           {/* COLUMNA 1: LOGO */}
           <div className="flex justify-start">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className={`relative transition-all duration-300 ${
-                scrolled ? "h-12 w-12" : "h-14 w-14 sm:h-16 sm:w-16"
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+              <div className={`relative shrink-0 transition-all duration-300 ${
+                scrolled ? "h-11 w-11" : "h-12 w-12 sm:h-14 sm:w-14"
               } group-hover:scale-105`}>
                 <Image
-                  src="/podocare/podocare.png"
+                  src="/logopodocare.png"
                   alt="PodoCare Logo"
                   fill
                   className="object-contain"
                   priority
                 />
               </div>
-              <div className="flex flex-col justify-center">
-                <span className={`text-xl sm:text-2xl leading-none font-serif tracking-tight transition-colors duration-300 ${
-                  scrolled ? "text-gray-900" : "text-white"
+              <div className="flex flex-col justify-center leading-tight">
+                <span className={`text-lg sm:text-xl leading-none font-serif tracking-tight transition-colors duration-300 ${
+                  scrolled ? "text-gray-900" : "text-gray-900"
                 }`}>
                   <span className="text-[#F285C1] font-medium">Podo</span>
                   <span className="text-[#BF2496] font-bold">Care</span>
                 </span>
-                <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-[#05F2DB] mt-1">
+                <span className="text-[8px] sm:text-[9px] uppercase tracking-[0.15em] sm:tracking-[0.2em] font-bold text-[#05F2DB] mt-1">
                   Salud a cada paso
                 </span>
               </div>

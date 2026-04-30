@@ -90,7 +90,7 @@ export default function Contact() {
         {/* Capa de Imagen */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/consultorio.png" 
+            src="/consultorio2.png" 
             alt="PodoCare Background" 
             className={`w-full h-full object-cover object-center transition-transform duration-[10000ms] ${isLoaded ? 'scale-100' : 'scale-110'}`}
           />

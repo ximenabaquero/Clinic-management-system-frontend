@@ -129,7 +129,7 @@ export default function LoginPage() {
             <Link href="/" className="flex items-center gap-4 group">
               <div className="w-12 h-12 rounded-2xl    flex items-center justify-center overflow-hidden p-2 group-hover:scale-105 transition-all">
                 <Image
-                  src="/podocare/podocare.png"
+                  src="/logopodocare.png"
                   alt="PodoCare"
                   width={48}
                   height={48}

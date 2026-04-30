@@ -7,7 +7,7 @@ const serviceGroups = [
   /* {
     title: "Sueroterapia",
     subtitle: "Bienestar Endovenoso",
-    image: "/podocare/sueroterapia.jpg",
+    image: "/equipo2.png",
     icon: <Droplet className="text-[#F285C1]" size={28} />,
     color: "#F285C1",
     services: [
@@ -23,7 +23,7 @@ const serviceGroups = [
   {
     title: "Podología",
     subtitle: "Cuidado del Pie",
-    image: "/podocare/podologia.webp",
+    image: "/equipo2.png",
     icon: <Footprints className="text-[#05F2DB]" size={28} />,
     color: "#05F2DB",
     services: [
@@ -42,7 +42,7 @@ const serviceGroups = [
   {
     title: "Enfermería",
     subtitle: "Atención Técnica",
-    image: "/podocare/enfermeria.jpg",
+    image: "/consultorio2.png",
     icon: <Activity className="text-[#D929AA]" size={28} />,
     color: "#D929AA",
     services: [
@@ -56,7 +56,7 @@ const serviceGroups = [
   {
     title: "Tecnología Clínica",
     subtitle: "Diagnóstico y Tratamiento",
-    image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=800&auto=format&fit=crop",
+    image: "/equipo1.png",
     icon: <Zap className="text-[#BF2496]" size={28} />,
     color: "#BF2496",
     services: [

@@ -13,9 +13,11 @@ export const metadata: Metadata = {
   description:
     "Centro podológico especializado en Mosquera. Cuidamos tus pies con tecnología avanzada y atención personalizada.",
   icons: {
-    icon: "/podocare/podocare.png",
-    shortcut: "/podocare/podocare.png",
-    apple: "/podocare/podocare.png",
+    icon: [
+      { url: "/podocarelogo.svg?v=2", type: "image/svg+xml" },
+    ],
+    shortcut: ["/podocarelogo.svg?v=2"],
+    apple: ["/logopodocare.png"],
   },
   openGraph: {
     title: "PodoCare - Salud a Cada Paso",
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "PodoCare",
     images: [
       {
-        url: "/podocare/podocare.png",
+        url: "/podocarelogo.svg",
         width: 800,
         height: 800,
         alt: "PodoCare Logo",
