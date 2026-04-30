@@ -51,7 +51,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 group-hover:scale-105">
                 <Image
-                  src="/podocare/podocare.png"
+                  src="/logopodocare.png"
                   alt="PodoCare Logo"
                   fill
                   className="object-contain"

@@ -9,6 +9,7 @@ import { AuthProvider } from "@/features/auth/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: "PodoCare - Salud a Cada Paso",
   description:
     "Centro podológico especializado en Mosquera. Cuidamos tus pies con tecnología avanzada y atención personalizada.",

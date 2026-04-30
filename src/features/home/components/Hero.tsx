@@ -29,7 +29,6 @@ export default function Hero() {
             src="/saladeespera.png" 
             alt="Clínica PodoCare"
             fill
-            quality={100}
             sizes="(max-width: 1024px) 100vw, 80vw"
             // Ajuste responsive: object-center en móviles para capturar mejor la escena
             className="object-cover object-center md:object-right opacity-40 md:opacity-60 lg:opacity-100 transition-opacity duration-1000"
