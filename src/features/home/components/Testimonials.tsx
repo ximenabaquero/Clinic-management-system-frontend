@@ -1,9 +1,8 @@
 "use client";
 
-import { useMemo, type CSSProperties } from "react";
+import { useMemo } from "react";
+import { Star, ExternalLink, MessageCircle, ArrowRight } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
-import Image from "next/image";
-import { MessageCircle, Shield, Star, Sparkles, CheckCircle, ArrowRight, Zap, Heart } from 'lucide-react';
 
 const mulberry32 = (seed: number) => {
   return () => {
@@ -14,104 +13,91 @@ const mulberry32 = (seed: number) => {
   };
 };
 
-type ChatMessage = {
-  name: string;
-  time: string;
-  text: string;
-  highlight: string;
-  side: "left" | "right";
-  avatar?: string;
-  rating?: number;
-};
-
-const messages: ChatMessage[] = [
+const reviews = [
   {
-    name: "Ricardo M.",
-    time: "Hoy 09:15 a. m.",
-    text: "Increíble el cambio. Llevaba meses con ese dolor en la uña y en una sola cita me lo solucionaron. Cero dolor.",
-    highlight: "en una sola cita me lo solucionaron",
-    side: "left",
+    name: "Marcela Jiménez R.",
+    time: "Hace 9 meses",
     rating: 5,
+    text: "Me sentí muy muy bien atendida, excelente lugar muy acogedor muy limpio, mi experiencia excelente y me siento mucho mejor después de mi procedimiento. Los recomiendo ampliamente. 💯🙏❤️",
   },
   {
-    name: "Elena S.",
-    time: "Ayer 6:30 p. m.",
-    text: "Mi papá es diabético y nos daba miedo llevarlo a cualquier lado, pero la atención clínica aquí fue impecable. Muy profesionales.",
-    highlight: "atención clínica aquí fue impecable",
-    side: "left",
+    name: "Stephanie Ruiz",
+    time: "Hace 10 meses",
     rating: 5,
+    text: "Un lugar impecable, con espacios cómodos y muy limpios. La atención es cálida y profesional, y los procedimientos son detallados y efectivos. Excelente relación calidad-precio. ¡Totalmente recomendado!",
   },
   {
-    name: "Camilo R.",
-    time: "Lun 11:20 a. m.",
-    text: "Soy deportista y mis pies estaban destrozados. Después de la quiropodia siento que camino en nubes. ¡Recomendadísimos!",
-    highlight: "siento que camino en nubes",
-    side: "left",
+    name: "Laura Alarcón",
+    time: "Hace 10 meses",
     rating: 5,
+    text: "Excelente lugar, instalaciones acogedoras e higienizadas; atención amable por parte de los profesionales; procedimientos muy completos y acordes con su costo. Recomendado 100%.",
   },
   {
-    name: "PodoCare Mosquera",
-    time: "Lun 11:22 a. m.",
-    text: "¡Excelente Camilo! Recuerda que para deportistas recomendamos un chequeo mensual para prevenir lesiones.",
-    highlight: "chequeo mensual para prevenir lesiones",
-    side: "right",
+    name: "Laura Medina",
+    time: "Hace 11 meses",
+    rating: 5,
+    text: "Excelente atención, rápida respuesta, todo esterilizado y muy higiénico. La mejor opción para el cuidado de tus pies. Fui por una uña encarnada y la respuesta fue muy rápida, clara y precisa. Toda la información para cuidar y el seguimiento del procedimiento.",
+  },
+  {
+    name: "Gerardo Marcel Betancourt",
+    time: "Hace 10 meses",
+    rating: 5,
+    text: "Súper recomendado; excelente servicio; son muy profesionales en la atención.",
+  },
+  {
+    name: "Lesly Alfonso Lopez",
+    time: "Hace un año",
+    rating: 5,
+    text: "Un servicio excelente, muy buena atención al paciente, los especialistas están muy preparados para brindar la información. Volvería sin duda alguna.",
   },
 ];
 
-const Highlighted = ({ text, highlight }: { text: string; highlight: string }) => {
-  if (!highlight || !text.includes(highlight)) return <>{text}</>;
-  const parts = text.split(highlight);
-  return (
-    <>
-      {parts[0]}
-      <span className="font-bold bg-gradient-to-r from-[#BF2496] to-[#05F2DB] bg-clip-text text-transparent">
-        {highlight}
-      </span>
-      {parts[1]}
-    </>
-  );
-};
+const avatarColors = [
+  "bg-[#BF2496]",
+  "bg-[#D929AA]",
+  "bg-gray-700",
+  "bg-[#05F2DB]",
+  "bg-[#F285C1]",
+  "bg-[#BF2496]",
+];
 
-const RatingStars = ({ rating }: { rating: number }) => {
+function GoogleIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+    </svg>
+  );
+}
+
+function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[...Array(5)].map((_, i) => (
-        <Star
-          key={i}
-          className={`w-3 h-3 ${i < rating ? 'fill-[#BF2496] text-[#BF2496]' : 'text-gray-300'}`}
-        />
+        <Star key={i} className={`w-3.5 h-3.5 ${i < rating ? 'fill-[#F4B400] text-[#F4B400]' : 'fill-gray-200 text-gray-200'}`} />
       ))}
     </div>
   );
-};
+}
 
 export default function Testimonials() {
-  const delays = useMemo(() => messages.map((_, idx) => `${idx * 0.12}s`), []);
-  const bubbleStyles = useMemo<CSSProperties[]>(() => {
+  const bubbleStyles = useMemo(() => {
     const rand = mulberry32(123456);
-    return Array.from({ length: 6 }, () => {
-      const width = rand() * 60 + 30;
-      const height = rand() * 60 + 30;
-      const left = rand() * 100;
-      const top = rand() * 100;
-      return {
-        width: `${width}px`,
-        height: `${height}px`,
-        left: `${left}%`,
-        top: `${top}%`,
-      };
-    });
+    return Array.from({ length: 6 }, () => ({
+      width: `${rand() * 60 + 30}px`,
+      height: `${rand() * 60 + 30}px`,
+      left: `${rand() * 100}%`,
+      top: `${rand() * 100}%`,
+    }));
   }, []);
 
   return (
     <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-white">
-      {/* Background with PodoCare Tones */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#F285C1]/5 to-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#05F2DB]/10 via-transparent to-transparent"></div>
-      </div>
-
-      {/* Floating chat bubbles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Fondo suave */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#F285C1]/5 to-white pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {bubbleStyles.map((style, i) => (
           <div
             key={i}
@@ -122,146 +108,87 @@ export default function Testimonials() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section */}
+
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
-          <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-sm border border-[#F285C1]/20">
-            <MessageCircle className="w-4 h-4 text-[#BF2496]" />
-            <span className="text-sm font-semibold bg-gradient-to-r from-[#BF2496] to-[#05F2DB] bg-clip-text text-transparent">
-              Pacientes Reales
-            </span>
+          <div className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-2.5 mb-8 shadow-sm border border-gray-100">
+            <GoogleIcon size={18} />
+            <span className="text-sm font-bold text-gray-700">Google Reviews</span>
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3 h-3 fill-[#F4B400] text-[#F4B400]" />
+              ))}
+            </div>
+            <span className="text-sm font-bold text-gray-900">5.0</span>
           </div>
-          
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
-            <span className="text-gray-900">Opiniones en</span>{' '}
+            <span className="text-gray-900">Lo que dicen nuestros</span>{' '}
             <span className="bg-gradient-to-r from-[#BF2496] to-[#05F2DB] bg-clip-text text-transparent">
-              WhatsApp
+              pacientes
             </span>
           </h2>
-          
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-            La confianza de nuestros pacientes en Mosquera es nuestro mayor respaldo técnico y clínico.
+            Reseñas verificadas en Google de pacientes reales en Mosquera, Cundinamarca.
           </p>
         </div>
 
-        {/* Chat Container */}
-        <div className="max-w-4xl mx-auto">
-          {/* Chat Header */}
-          <div className="rounded-t-2xl md:rounded-t-3xl bg-gradient-to-r from-[#BF2496] to-[#F285C1] px-4 sm:px-6 py-4 shadow-lg">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 p-1">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center p-2">
-                    <img
-                      src="/podocare/podocare.png"
-                      alt="PodoCare"
-                      className="w-full h-full object-contain"
-                    />
+        {/* Grid de reseñas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+          {reviews.map((review, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+            >
+              {/* Encabezado del revisor */}
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-full ${avatarColors[idx % avatarColors.length]} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+                    {review.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900 text-sm leading-tight">{review.name}</p>
+                    <p className="text-gray-400 text-xs mt-0.5">{review.time}</p>
                   </div>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#05F2DB] border-2 border-white"></div>
+                <GoogleIcon size={18} />
               </div>
-              
-              <div className="flex-1">
-                <h3 className="text-white font-semibold text-lg md:text-xl">PodoCare Mosquera</h3>
-                <p className="text-white/90 text-sm flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#05F2DB] animate-pulse"></span>
-                  <span>Clínica Especializada • En línea</span>
-                </p>
-              </div>
-            </div>
-          </div>
 
-          {/* Chat Body */}
-          <div className="bg-gradient-to-br from-gray-50 to-white border-x border-gray-100 px-4 sm:px-6 py-6 md:py-8 space-y-4 md:space-y-6">
-            {messages.map((msg, idx) => (
-              <div
-                key={`${msg.name}-${msg.time}`}
-                className={`flex ${msg.side === "right" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`group relative max-w-md rounded-2xl px-4 py-3 md:px-5 md:py-4 shadow-lg transition-all duration-300 hover:shadow-xl ${
-                    msg.side === "right"
-                      ? "bg-gradient-to-r from-[#F285C1]/10 to-[#05F2DB]/10 border border-[#BF2496]/10"
-                      : "bg-white border border-gray-100"
-                  }`}
-                  style={{ animationDelay: delays[idx] }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center overflow-hidden ${
-                      msg.side === "right"
-                        ? "bg-white border border-[#BF2496]/20"
-                        : "bg-gray-200"
-                    }`}>
-                      {msg.side === "right" ? (
-                        <Image src="/podocare/podocare.png" alt="PodoCare" width={32} height={32} className="w-full h-full object-contain p-0.5" />
-                      ) : (
-                        <span className="text-gray-600 text-sm font-bold">{msg.name.charAt(0)}</span>
-                      )}
-                    </div>
-                    
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className={`font-semibold ${
-                          msg.side === "right" ? "text-[#BF2496]" : "text-gray-800"
-                        }`}>
-                          {msg.name}
-                        </span>
-                        <span className="text-xs text-gray-500">{msg.time}</span>
-                      </div>
-                      {msg.rating && <RatingStars rating={msg.rating} />}
-                    </div>
-                  </div>
+              {/* Estrellas */}
+              <Stars rating={review.rating} />
 
-                  <p className={`leading-relaxed text-sm md:text-base ${
-                    msg.side === "right" ? "text-gray-700" : "text-gray-600"
-                  }`}>
-                    <Highlighted text={msg.text} highlight={msg.highlight} />
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Chat Footer */}
-          <div className="rounded-b-2xl md:rounded-b-3xl bg-gradient-to-r from-white to-[#05F2DB]/5 border border-gray-100 border-t-0 px-4 sm:px-6 py-6 md:py-8 shadow-lg">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-              <div className="text-center lg:text-left">
-                <div className="flex items-center gap-2 mb-2 justify-center lg:justify-start">
-                  <Zap className="w-5 h-5 text-[#BF2496]" />
-                  <span className="text-gray-900 font-semibold text-lg">
-                    ¿Tus pies necesitan atención?
-                  </span>
-                </div>
-                <p className="text-gray-600 text-sm md:text-base">
-                  Agenda tu quiropodia clínica o valoración hoy mismo.
-                </p>
-              </div>
-              
-              <a
-                href={generateWhatsAppURL("contact")}
-                target="_blank"
-                className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-[#BF2496] to-[#F285C1] text-white font-semibold py-3 md:py-4 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span className="text-sm md:text-base">Agendar en PodoCare</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              {/* Texto */}
+              <p className="text-gray-600 text-sm leading-relaxed mt-3 flex-1 line-clamp-5">
+                {review.text}
+              </p>
             </div>
-            
-            <div className="mt-6 pt-6 border-t border-gray-100">
-              <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm text-gray-600">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-3 h-3 md:w-4 md:h-4 text-[#BF2496]" />
-                  <span>Personal de Enfermería</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-[#05F2DB]" />
-                  <span>Protocolos Clínicos</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-white border border-gray-200 text-gray-700 font-semibold py-4 px-8 rounded-full hover:shadow-md hover:border-[#BF2496]/30 transition-all duration-300 text-sm"
+          >
+            <GoogleIcon size={18} />
+            <span>Ver todas las reseñas</span>
+            <ExternalLink size={14} />
+          </a>
+          <a
+            href={generateWhatsAppURL("contact")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#BF2496] to-[#F285C1] text-white font-semibold py-4 px-8 rounded-full hover:shadow-lg hover:shadow-pink-200 transition-all duration-300 text-sm"
+          >
+            <MessageCircle size={18} />
+            <span>Agendar cita</span>
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+
       </div>
     </section>
   );

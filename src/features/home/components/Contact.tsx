@@ -210,6 +210,38 @@ export default function Contact() {
                   <p className="text-xl font-bold text-gray-900">+57 (323) 231-2333</p>
                 </div>
               </div>
+
+              <div className="flex gap-6">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
+                  <MapPin size={18} />
+                </div>
+                <div>
+                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-2">Dirección</h4>
+                  <p className="text-gray-900 font-bold">Mosquera, Cundinamarca</p>
+                  <p className="text-gray-500 text-sm">Colombia</p>
+                </div>
+              </div>
+
+              <div className="rounded-2xl overflow-hidden border border-gray-100">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500!2d-74.2302042!3d4.7031208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f77002089d93b%3A0x42c0d1393533479!2sPodoCare!5e0!3m2!1ses!2sco!4v1715000000000!5m2!1ses!2sco"
+                  width="100%"
+                  height="220"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Ubicación PodoCare Mosquera"
+                />
+                <a
+                  href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 py-3 bg-gray-50 text-[#BF2496] text-[10px] font-black uppercase tracking-widest hover:bg-[#BF2496] hover:text-white transition-all duration-300"
+                >
+                  <MapPin size={12} /> Cómo llegar
+                </a>
+              </div>
             </div>
           </div>
 
