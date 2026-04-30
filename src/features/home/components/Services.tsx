@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Droplet, Footprints, Activity, Smartphone, ChevronDown } from 'lucide-react';
+import { Check, Droplet, Footprints, Activity, Smartphone, ChevronDown, Zap } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const serviceGroups = [
@@ -51,6 +51,23 @@ const serviceGroups = [
       "Inyectología Certificada",
       "Retiro de Puntos",
       "Cambio de Sondas",
+    ]
+  },
+  {
+    title: "Tecnología Clínica",
+    subtitle: "Diagnóstico y Tratamiento",
+    image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=800&auto=format&fit=crop",
+    icon: <Zap className="text-[#BF2496]" size={28} />,
+    color: "#BF2496",
+    services: [
+      "Ozonoterapia",
+      "Láser Terapéutico",
+      "Alta Frecuencia",
+      "KOH — Diagnóstico de Hongos",
+      "Cultivo Micológico",
+      "Silonails — Reconstrucción de Uñas",
+      "Aceite de Ozono Medicinal",
+      "Urea 40% — Hiperqueratosis",
     ]
   }
 ];
@@ -114,19 +131,19 @@ export default function Services() {
               Nuestras <br className="md:hidden" /> <span className="text-[#BF2496] not-italic font-bold font-sans">Especialidades</span>
             </h2>
             <p className="text-gray-500 text-base md:text-lg font-light leading-relaxed">
-              Atención médica profesional en las áreas clave de podología y enfermería, diseñadas para tu recuperación y vitalidad.
+              Atención médica profesional en podología, enfermería y tecnología clínica, diseñadas para tu recuperación y vitalidad.
             </p>
           </div>
 
           {/* Grid: 1 columna en móvil, 2 en tablet, 3 en desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {serviceGroups.map((group, index) => (
               <div 
                 key={index}
                 className="relative bg-white rounded-[2.5rem] md:rounded-[3.5rem] border border-gray-100 shadow-sm hover:shadow-2xl lg:hover:-translate-y-2 transition-all duration-500 group flex flex-col h-full"
               >
                 {/* Imagen de Cabecera */}
-                <div className="relative h-48 md:h-64 w-full rounded-t-[2.5rem] md:rounded-t-[3.5rem] overflow-hidden transform-gpu">
+                <div className="relative h-56 md:h-72 w-full rounded-t-[2.5rem] md:rounded-t-[3.5rem] overflow-hidden transform-gpu">
                   <img 
                     src={group.image} 
                     alt={group.title}
