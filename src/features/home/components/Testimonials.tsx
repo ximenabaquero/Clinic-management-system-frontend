@@ -187,13 +187,13 @@ export default function Testimonials() {
                   style={{ animationDelay: delays[idx] }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      msg.side === "right" 
-                        ? "bg-[#BF2496]" 
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center overflow-hidden ${
+                      msg.side === "right"
+                        ? "bg-white border border-[#BF2496]/20"
                         : "bg-gray-200"
                     }`}>
                       {msg.side === "right" ? (
-                        <span className="text-white text-[10px] font-bold">PC</span>
+                        <Image src="/podocare/podocare.png" alt="PodoCare" width={32} height={32} className="w-full h-full object-contain p-0.5" />
                       ) : (
                         <span className="text-gray-600 text-sm font-bold">{msg.name.charAt(0)}</span>
                       )}
