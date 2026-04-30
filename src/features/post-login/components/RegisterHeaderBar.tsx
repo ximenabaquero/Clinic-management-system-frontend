@@ -22,14 +22,14 @@ export default function RegisterHeaderBar({
   const { user } = useAuth();
 
   const activeBtn =
-    "rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 bg-gradient-to-r from-[#BF2496] to-teal-500 text-white shadow-md shadow-[#BF2496]/30";
+    "rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-200";
 
   const inactiveBtn =
-    "rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 border border-gray-200 bg-white text-gray-600 hover:border-[#BF2496]/30 hover:text-[#BF2496] hover:shadow-md hover:shadow-[#BF2496]/20";
+    "rounded-lg px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 border border-gray-200 bg-white text-gray-600 hover:border-emerald-200 hover:text-emerald-700 hover:shadow-md hover:shadow-emerald-100";
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
-      <div className="hidden sm:inline-flex items-center gap-2 rounded-full bg-[#BF2496]/10 px-4 py-2 text-sm font-semibold text-[#BF2496] ring-1 ring-[#BF2496]/20">
+      <div className="hidden sm:inline-flex items-center gap-2 rounded-full bg-emerald-100/70 px-4 py-2 text-sm font-semibold text-emerald-800 ring-1 ring-emerald-200">
         Uso interno (doctor)
       </div>
 
@@ -54,7 +54,7 @@ export default function RegisterHeaderBar({
           </button>
         )}
 
-        {/* {user?.role === "ADMIN" && onStatsClick && (
+        {user?.role === "ADMIN" && onStatsClick && (
           <button
             type="button"
             onClick={onStatsClick}
@@ -62,9 +62,9 @@ export default function RegisterHeaderBar({
           >
             Estadísticas
           </button>
-        )} */}
+        )}
 
-        {onImagesClick && (
+        {user?.role === "ADMIN" && onImagesClick && (
           <button
             type="button"
             onClick={onImagesClick}
@@ -84,7 +84,7 @@ export default function RegisterHeaderBar({
           </button>
         )}
 
-        {/* {onInventoryClick && (
+        {user?.role === "ADMIN" && onInventoryClick && (
           <button
             type="button"
             onClick={onInventoryClick}
@@ -92,7 +92,7 @@ export default function RegisterHeaderBar({
           >
             Inventario
           </button>
-        )} */}
+        )}
       </div>
     </div>
   );
