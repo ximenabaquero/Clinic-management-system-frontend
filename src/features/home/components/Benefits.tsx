@@ -14,7 +14,7 @@ const benefits = [
   {
     title: "Esterilización Profesional",
     description: "Protocolos rigurosos de desinfección química y autoclave para cada herramienta. Tu seguridad es nuestra prioridad.",
-    tag: "Seguridad 100%",
+    tag: "Equipos",
     icon: <ShieldCheck className="w-6 h-6" />,
     bgColor: "bg-[#05F2DB]", 
     textColor: "text-gray-900",
@@ -22,7 +22,7 @@ const benefits = [
     image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" // Esterilización/Dental
   },
   {
-    title: "Tecnología",
+    title: "Equipos de alta tecnología",
     description: "Equipos de vanguardia para diagnósticos precisos.",
     tag: "Innovación",
     icon: <Microscope className="w-6 h-6" />,

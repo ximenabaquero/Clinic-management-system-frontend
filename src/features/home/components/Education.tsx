@@ -7,14 +7,14 @@ import { generateWhatsAppURL } from "@/utils/whatsapp";
 const topics = [
   {
     title: "¿Qué es la Onicocriptosis?",
-    body: "Es lo que comúnmente llamamos uña encarnada. En clínica, realizamos una matricectomía parcial, un procedimiento mínimamente invasivo que corrige la raíz de la uña para evitar que vuelva a enterrarse, garantizando una recuperación rápida y sin dolor.",
+    body: "Es lo que comúnmente llamamos uña encarnada. En clínica, realizamos una oniectomía parcial, un procedimiento mínimamente invasivo que corrige la raíz de la uña para evitar que vuelva a enterrarse, garantizando una recuperación rápida y sin dolor.",
     icon: <Footprints className="w-6 h-6" />,
     gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Patología Clínica"
   },
   {
     title: "La importancia del Pedicure Medicinal",
-    body: "A diferencia del estético, el pedicure medicinal es realizado por personal de enfermería capacitado. Utilizamos instrumental estéril para tratar hiperqueratosis (callos) y afecciones fúngicas, priorizando la salud y prevención de infecciones sobre la ornamentación.",
+    body: "A diferencia del estético, el pedicure medicinal es realizado por personal de enfermería capacitado. Utilizamos instrumental estéril para tratar hiperqueratosis (callos) y afecciones fúngicas. Priorizando la salud, previniendo y tratando infecciones de los pies.",
     icon: <Microscope className="w-6 h-6" />,
     gradient: "from-[#05F2DB] to-[#F285C1]",
     tag: "Prevención"
@@ -28,7 +28,7 @@ const topics = [
   }, */
   {
     title: "¿Qué es la Verruga Plantar?",
-    body: "Las verrugas plantares son causadas por el virus del papiloma humano (VPH). En PodoCare aplicamos ácido nítrico localizado para eliminarlas sin dañar el tejido sano circundante, con seguimiento clínico hasta su resolución completa.",
+    body: "Contamos con tratamientos personalizados, seguimiento clínico hasta la resolución de la patología.",
     icon: <ShieldCheck className="w-6 h-6" />,
     gradient: "from-[#05F2DB] to-[#BF2496]",
     tag: "Patología Viral"
