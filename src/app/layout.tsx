@@ -9,9 +9,31 @@ import { AuthProvider } from "@/features/auth/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Coldesthetic - Estética Médica Avanzada",
+  title: "PodoCare - Salud a Cada Paso",
   description:
-    "Lipólisis láser asistida. Procedimiento mínimamente invasivo para reducción de grasa localizada con tecnología médica certificada",
+    "Centro podológico especializado en Mosquera. Cuidamos tus pies con tecnología avanzada y atención personalizada.",
+  icons: {
+    icon: "/podocare/podocare.png",
+    shortcut: "/podocare/podocare.png",
+    apple: "/podocare/podocare.png",
+  },
+  openGraph: {
+    title: "PodoCare - Salud a Cada Paso",
+    description:
+      "Centro podológico especializado en Mosquera. Cuidamos tus pies con tecnología avanzada y atención personalizada.",
+    url: "https://www.podocareclinic.com",
+    siteName: "PodoCare",
+    images: [
+      {
+        url: "/podocare/podocare.png",
+        width: 800,
+        height: 800,
+        alt: "PodoCare Logo",
+      },
+    ],
+    locale: "es_CO",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
