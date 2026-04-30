@@ -1,9 +1,10 @@
 "use client";
 
-import { generateWhatsAppURL } from "@/utils/whatsapp";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { MessageCircle, Phone, MapPin, Mail, Clock, Sparkles, Heart, ArrowRight, Instagram, ShieldCheck } from 'lucide-react';
+import { MessageCircle, Phone, MapPin, Clock, ArrowRight, Instagram, ShieldCheck, Sparkles, ChevronDown } from 'lucide-react';
+import { generateWhatsAppURL } from "@/utils/whatsapp";
 
+// Generador de semillas para elementos decorativos
 function mulberry32(seed: number) {
   return function () {
     let t = (seed += 0x6d2b79f5);
@@ -17,231 +18,238 @@ const socialLinks = [
   {
     name: 'WhatsApp',
     href: generateWhatsAppURL("contact"),
-    icon: <MessageCircle className="w-6 h-6 md:w-7 md:h-7" />,
-    color: 'bg-gradient-to-br from-[#BF2496] to-[#D929AA]',
-    description: '+57 (323) 231-2333',
-    gradient: 'from-[#BF2496] to-[#F285C1]'
+    icon: <MessageCircle className="w-6 h-6" />,
+    color: 'bg-[#BF2496]',
+    gradient: 'from-[#BF2496] to-[#D929AA]',
+    description: '+57 (323) 231-2333'
   },
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/podocare.mosquera/', 
-    icon: <Instagram className="w-6 h-6 md:w-7 md:h-7" />,
-    color: 'bg-gradient-to-br from-[#D929AA] to-[#05F2DB]',
-    description: '@podocare.mosquera',
-    gradient: 'from-[#D929AA] to-[#05F2DB]'
+    href: 'https://www.instagram.com/podocare.mosquera/',
+    icon: <Instagram className="w-6 h-6" />,
+    color: 'bg-[#D929AA]',
+    gradient: 'from-[#D929AA] to-[#05F2DB]',
+    description: '@podocare.mosquera'
   },
   {
-    name: 'Atención Directa',
+    name: 'Llamada',
     href: 'tel:+573232312333',
-    icon: <Phone className="w-6 h-6 md:w-7 md:h-7" />,
-    color: 'bg-gradient-to-br from-[#05F2DB] to-[#BF2496]',
-    description: 'Llamada inmediata',
-    gradient: 'from-[#05F2DB] to-[#BF2496]'
+    icon: <Phone className="w-6 h-6" />,
+    color: 'bg-[#05F2DB]',
+    gradient: 'from-[#05F2DB] to-[#BF2496]',
+    description: 'Atención Directa'
   }
 ];
 
 export default function Contact() {
-  const [visible, setVisible] = useState<boolean[]>(() => socialLinks.map(() => false));
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(3).fill(false));
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  const floatStyles = useMemo<CSSProperties[]>(() => {
-    const rand = mulberry32(987654);
-    return Array.from({ length: 8 }, () => {
-      const size = rand() * 60 + 20;
-      const left = rand() * 100;
-      const top = rand() * 100;
-      return {
-        width: `${size}px`,
-        height: `${size}px`,
-        left: `${left}%`,
-        top: `${top}%`,
-      };
-    });
+  // Elementos flotantes calculados una sola vez
+  const particles = useMemo(() => {
+    const rand = mulberry32(42);
+    return Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      size: rand() * 100 + 50,
+      left: rand() * 100,
+      top: rand() * 100,
+      delay: rand() * 5,
+      duration: 15 + rand() * 10
+    }));
   }, []);
 
   useEffect(() => {
+    setIsLoaded(true);
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = Number((entry.target as HTMLElement).dataset.index);
-            setVisible((prev) => prev.map((v, i) => (i === index ? true : v)));
-            observer.unobserve(entry.target);
+            const index = Number(entry.target.getAttribute('data-index'));
+            setVisibleCards(prev => {
+              const newState = [...prev];
+              newState[index] = true;
+              return newState;
+            });
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.1 }
     );
 
-    cardsRef.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
+    cardsRef.current.forEach(card => card && observer.observe(card));
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-white" id="contacto">
-      {/* Fondo con acentos de marca */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#F285C1]/5 to-[#05F2DB]/5">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#BF2496]/5 via-transparent to-transparent"></div>
-      </div>
-
-      {/* Elementos flotantes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-        {floatStyles.map((style, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-[#BF2496]/5 border border-[#BF2496]/10"
-            style={style}
+    <div className="relative w-full bg-white">
+      
+      {/* 1. HERO SECTION CON IMAGEN DE FONDO */}
+      <section className="relative w-full h-[85vh] flex items-center justify-center overflow-hidden bg-gray-950">
+        {/* Capa de Imagen */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/podocare/herocontact.jpg" 
+            alt="PodoCare Background" 
+            className={`w-full h-full object-cover object-center transition-transform duration-[10000ms] ${isLoaded ? 'scale-100' : 'scale-110'}`}
           />
-        ))}
-      </div>
-
-      <div className="container mx-auto px-6 lg:px-16 relative z-10">
-        {/* Header Section */}
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white shadow-sm border border-gray-100 mb-8">
-            <MessageCircle size={16} className="text-[#BF2496]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
-              Estamos para escucharte
-            </span>
-          </div>
-          
-          <h2 className="text-5xl md:text-6xl font-serif italic text-gray-900 leading-tight mb-8">
-            Comienza tu <span className="not-italic font-bold font-sans text-[#BF2496]">Cuidado</span>
-          </h2>
-          
-          <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl">
-            Resuelve tus dudas o agenda tu cita. Nuestro equipo clínico está listo para brindarte una atención personalizada.
-          </p>
+          {/* Overlays: Uno oscuro para contraste y un gradiente para fundir con el blanco inferior */}
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
         </div>
 
-        {/* Contact Channels Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-          {socialLinks.map((link, index) => (
+        {/* Partículas Flotantes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          {particles.map((p) => (
+            <div
+              key={p.id}
+              className="absolute rounded-full bg-white/5 border border-white/10 blur-xl animate-pulse"
+              style={{
+                width: p.size,
+                height: p.size,
+                left: `${p.left}%`,
+                top: `${p.top}%`,
+                animationDelay: `${p.delay}s`,
+                animationDuration: `${p.duration}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Contenido Hero */}
+        <div className="container mx-auto px-6 relative z-20">
+          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
+              <Sparkles size={14} className="text-[#05F2DB]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white">Centro Podológico</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-8xl font-serif italic text-white leading-tight mb-6">
+              Comienza tu <br />
+              <span className="not-italic font-sans font-black text-transparent bg-clip-text bg-gradient-to-r from-[#05F2DB] to-[#F285C1]">
+                Cuidado
+              </span>
+            </h1>
+            
+            <p className="text-lg md:text-2xl text-gray-200 font-light max-w-2xl mx-auto mb-12">
+              Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
+            </p>
+
+            <a 
+              href="#canales" 
+              className="inline-flex items-center gap-3 bg-white text-gray-900 font-bold uppercase tracking-widest text-[11px] py-5 px-12 rounded-2xl hover:bg-[#BF2496] hover:text-white transition-all duration-300 group"
+            >
+              Ver canales de atención
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. CONTACT CHANNELS (GRID) */}
+      <section id="canales" className="relative z-30 -mt-24 pb-20 px-6 container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {socialLinks.map((link, i) => (
             <div
               key={link.name}
-              data-index={index}
-              ref={(el) => { cardsRef.current[index] = el; }}
-              className="group relative"
+              data-index={i}
+              ref={(el) => { cardsRef.current[i] = el; }}
+              className={`transition-all duration-700 transform ${visibleCards[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${i * 150}ms` }}
             >
-              <div className={`absolute -inset-0.5 bg-gradient-to-r ${link.gradient} rounded-[2rem] blur opacity-0 group-hover:opacity-20 transition duration-500`}></div>
-              
-              <a
+              <a 
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`relative block h-full bg-white rounded-[2rem] border border-gray-100 p-8 shadow-sm hover:shadow-xl transition-all duration-500 text-center ${
-                  visible[index] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                className="group block bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-gray-200/50 border border-gray-100 hover:-translate-y-2 transition-all duration-500 text-center"
               >
-                <div className={`relative w-20 h-20 rounded-2xl mx-auto mb-6 ${link.color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                  <div className="text-white">
-                    {link.icon}
-                  </div>
+                <div className={`w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center text-white shadow-lg ${link.color} group-hover:scale-110 transition-transform duration-500`}>
+                  {link.icon}
                 </div>
-
-                <h3 className="text-2xl font-bold text-gray-900 mb-3 uppercase tracking-tight">
-                  {link.name}
-                </h3>
-
-                <p className="text-gray-500 font-medium mb-6">
-                  {link.description}
-                </p>
-
-                <div className="inline-flex items-center gap-2 text-[#BF2496] font-black text-[10px] uppercase tracking-widest">
-                  <span>Contactar</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{link.name}</h3>
+                <p className="text-gray-500 text-sm mb-8">{link.description}</p>
+                <div className="inline-flex items-center gap-2 text-[#BF2496] font-black text-[10px] uppercase tracking-[0.2em]">
+                  Conectar ahora <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </a>
             </div>
           ))}
         </div>
 
-        {/* Info & CTA Split */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-stretch">
-          {/* Left: Info */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 md:p-10 shadow-sm h-full">
-              <h3 className="text-2xl font-bold text-gray-900 mb-10 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#05F2DB]/10 flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-[#05F2DB]" />
+        {/* 3. INFO & CTA FINAL */}
+        <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* Ubicación y Horarios */}
+          <div className="lg:col-span-5 bg-gray-50 rounded-[3rem] p-10 border border-gray-100">
+            <div className="flex items-center gap-4 mb-12">
+              <div className="w-12 h-12 rounded-2xl bg-[#05F2DB]/10 flex items-center justify-center text-[#05F2DB]">
+                <MapPin size={24} />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900">Visítanos</h3>
+            </div>
+            
+            <div className="space-y-10">
+              <div className="flex gap-6">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
+                  <Clock size={18} />
                 </div>
-                <span>Ubicación y Horarios</span>
+                <div>
+                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-3">Horario Clínico</h4>
+                  <p className="text-gray-900 font-bold mb-1">Lunes a Viernes</p>
+                  <p className="text-gray-500 text-sm mb-4">9:00 AM — 7:00 PM</p>
+                  <p className="text-gray-900 font-bold mb-1">Sábados</p>
+                  <p className="text-gray-500 text-sm">9:00 AM — 2:00 PM</p>
+                </div>
+              </div>
+
+              <div className="flex gap-6">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
+                  <Phone size={18} />
+                </div>
+                <div>
+                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-2">Teléfono</h4>
+                  <p className="text-xl font-bold text-gray-900">+57 (323) 231-2333</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Card CTA Final */}
+          <div className="lg:col-span-7 relative group overflow-hidden rounded-[3rem]">
+            <div className="absolute inset-0 bg-gray-900 transition-colors group-hover:bg-gray-800 duration-500" />
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#BF2496] to-[#05F2DB]" />
+            
+            <div className="relative p-10 md:p-16 h-full flex flex-col">
+              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-[#05F2DB] mb-10 border border-white/10">
+                <ShieldCheck size={32} />
+              </div>
+              
+              <h3 className="text-4xl md:text-6xl font-serif italic text-white mb-6">
+                Tu salud <br /> <span className="not-italic font-sans font-bold">no tiene que esperar.</span>
               </h3>
               
-              <div className="space-y-8">
-                <div className="flex items-start gap-5">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:text-[#BF2496] transition-colors">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Teléfono Central</h4>
-                    <a href="tel:+573232312333" className="text-lg font-bold text-gray-900 hover:text-[#BF2496] transition-colors">
-                      +57 (323) 231-2333
-                    </a>
-                  </div>
-                </div>
+              <p className="text-lg text-gray-400 font-light mb-12 max-w-md">
+                Escríbenos ahora mismo y recibe una respuesta inmediata de nuestro equipo especializado.
+              </p>
 
-                <div className="flex items-start gap-5">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-400">
-                    <Clock size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Horario Clínico</h4>
-                    <p className="text-gray-900 font-bold">Lunes a Viernes</p>
-                    <p className="text-gray-500 font-medium">9:00 AM - 7:00 PM</p>
-                    <p className="text-gray-900 font-bold mt-2">Sábados</p>
-                    <p className="text-gray-500 font-medium">9:00 AM - 2:00 PM</p>
-                  </div>
-                </div>
+              <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a 
+                  href={generateWhatsAppURL("general")}
+                  className="flex items-center justify-center gap-3 bg-[#BF2496] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-[#D929AA] transition-all duration-300"
+                >
+                  <MessageCircle size={18} /> WhatsApp
+                </a>
+                <a 
+                  href="tel:+573232312333"
+                  className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all duration-300"
+                >
+                  <Phone size={18} /> Llamar ahora
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Right: Big CTA */}
-          <div className="lg:col-span-3 relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#BF2496] to-[#05F2DB] blur-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-700 rounded-[2.5rem]" />
-            
-            <div className="relative bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden h-full flex flex-col shadow-sm">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#BF2496] via-[#F285C1] to-[#05F2DB]" />
-              
-              <div className="p-10 md:p-12 lg:p-16 flex flex-col h-full">
-                <div className="w-20 h-20 rounded-3xl bg-[#BF2496]/10 flex items-center justify-center mb-8">
-                  <ShieldCheck className="w-10 h-10 text-[#BF2496]" />
-                </div>
-                
-                <h3 className="text-4xl md:text-5xl font-serif italic text-gray-900 mb-6">
-                  Tu salud <span className="not-italic font-bold font-sans">no espera.</span>
-                </h3>
-                
-                <p className="text-xl text-gray-500 font-light leading-relaxed mb-10 max-w-md">
-                  Agenda hoy mismo tu valoración profesional y da el primer paso hacia unos pies sanos.
-                </p>
-
-                <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a
-                    href={generateWhatsAppURL("contact")}
-                    className="flex items-center justify-center gap-3 bg-gray-900 text-white font-bold uppercase tracking-widest text-[11px] py-5 px-8 rounded-2xl hover:bg-[#BF2496] transition-all duration-300"
-                  >
-                    <MessageCircle size={18} />
-                    WhatsApp
-                  </a>
-                  <a
-                    href="tel:+573232312333"
-                    className="flex items-center justify-center gap-3 bg-white border border-gray-200 text-gray-900 font-bold uppercase tracking-widest text-[11px] py-5 px-8 rounded-2xl hover:border-[#05F2DB] transition-all duration-300"
-                  >
-                    <Phone size={18} />
-                    Llamar
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

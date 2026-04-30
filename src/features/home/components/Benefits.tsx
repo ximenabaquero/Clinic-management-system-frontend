@@ -15,51 +15,61 @@ const benefits = [
     description: "Protocolos rigurosos de desinfección química y autoclave para cada herramienta. Tu seguridad es nuestra prioridad.",
     tag: "Seguridad 100%",
     icon: <ShieldCheck className="w-6 h-6" />,
-    bgColor: "bg-[#05F2DB]", // Cyan
+    bgColor: "bg-[#05F2DB]", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "http://googleusercontent.com/image_collection/image_retrieval/629634509902707308_0"
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" // Esterilización/Dental
   },
   {
     title: "Tecnología",
     description: "Equipos de vanguardia para diagnósticos precisos.",
     tag: "Innovación",
     icon: <Microscope className="w-6 h-6" />,
-    bgColor: "bg-[#BF2496]", // Magenta
+    bgColor: "bg-[#BF2496]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "http://googleusercontent.com/image_collection/image_retrieval/14901434410520198277_1"
+    image: "https://images.unsplash.com/photo-1579154235602-3c483d40ff0a?q=80&w=800&auto=format&fit=crop" // Laboratorio/Microscopio
   },
   {
     title: "Enfoque Clínico",
     description: "Personal de enfermería especializado en la salud de tus pies.",
     tag: "Especialistas",
     icon: <Stethoscope className="w-6 h-6" />,
-    bgColor: "bg-[#F285C1]", // Rosa
+    bgColor: "bg-[#F285C1]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-2",
-    image: "http://googleusercontent.com/image_collection/image_retrieval/5810956768333585590_0"
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop" // Médico/Enfermera
   },
   {
     title: "Resultados Garantizados",
-    description: "Alivio inmediato y planes de tratamiento con seguimiento continuo para tu bienestar.",
+    description: "Alivio inmediato y planes de tratamiento con seguimiento continuo.",
     tag: "Confianza",
     icon: <Award className="w-6 h-6" />,
-    bgColor: "bg-gray-900", // Negro
+    bgColor: "bg-gray-900", 
     textColor: "text-white",
-    gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "http://googleusercontent.com/image_collection/image_retrieval/8840330271708078692_0"
+    gridArea: "lg:col-span-1 lg:row-span-1",
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop" // Paciente feliz
+  },
+  {
+    title: "Atención Premium",
+    description: "Un espacio diseñado para tu comodidad y bienestar integral.",
+    tag: "Exclusividad",
+    icon: <ArrowUpRight className="w-6 h-6" />,
+    bgColor: "bg-gray-100", 
+    textColor: "text-gray-900",
+    gridArea: "lg:col-span-1 lg:row-span-1",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" // Clínica moderna
   },
     {
-    title: "Resultados Garantizados",
-    description: "Alivio inmediato y planes de tratamiento con seguimiento continuo para tu bienestar.",
-    tag: "Confianza",
-    icon: <Award className="w-6 h-6" />,
-    bgColor: "bg-gray-900", // Negro
-    textColor: "text-white",
+    title: "Esterilización Profesional",
+    description: "Protocolos rigurosos de desinfección química y autoclave para cada herramienta. Tu seguridad es nuestra prioridad.",
+    tag: "Seguridad 100%",
+    icon: <ShieldCheck className="w-6 h-6" />,
+    bgColor: "bg-[#05F2DB]", 
+    textColor: "text-gray-900",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "http://googleusercontent.com/image_collection/image_retrieval/8840330271708078692_0"
-  }
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" // Esterilización/Dental
+  },
 ];
 
 export default function BenefitsGrid() {
@@ -81,7 +91,7 @@ export default function BenefitsGrid() {
     <section ref={sectionRef} className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6">
         
-        {/* Header minimalista */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496] mb-4">
@@ -93,11 +103,11 @@ export default function BenefitsGrid() {
             </h3>
           </div>
           <p className="text-gray-500 font-light max-w-sm border-l-2 border-[#F285C1] pl-6 italic">
-            "Transformamos el cuidado de los pies en una experiencia clínica de alto nivel en Mosquera."
+            "Transformamos el cuidado de los pies en una experiencia clínica de alto nivel."
           </p>
         </div>
 
-        {/* Bento Grid con Imágenes de Internet */}
+        {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px]">
           {benefits.map((benefit, index) => (
             <div
@@ -107,16 +117,16 @@ export default function BenefitsGrid() {
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Imagen de fondo con efecto de mezcla */}
+              {/* Imagen de fondo corregida */}
               <div className="absolute inset-0 z-0">
                 <img 
                   src={benefit.image} 
                   alt={benefit.title}
-                  className="w-full h-full object-cover opacity-20 mix-blend-multiply grayscale group-hover:grayscale-0 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-110 transition-all duration-700"
                 />
               </div>
 
-              {/* Contenido Superior */}
+              {/* Contenido */}
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4">
                   <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/10 text-current">
@@ -131,7 +141,6 @@ export default function BenefitsGrid() {
                 </h4>
               </div>
 
-              {/* Contenido Inferior */}
               <div className="relative z-10 flex items-end justify-between">
                 <p className="text-sm font-medium leading-tight max-w-[75%] opacity-90">
                   {benefit.description}
@@ -143,22 +152,6 @@ export default function BenefitsGrid() {
             </div>
           ))}
         </div>
-
-        {/* Stats Footer */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-gray-100">
-          {[
-            { label: "Instrumental", value: "100% Estéril" },
-            { label: "Atención", value: "Personalizada" },
-            { label: "Ubicación", value: "Mosquera" },
-            { label: "Especialidad", value: "Podología" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496] mb-1">{stat.label}</p>
-              <p className="text-lg font-bold text-gray-900">{stat.value}</p>
-            </div>
-          ))}
-        </div>
-
       </div>
     </section>
   );
