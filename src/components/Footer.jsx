@@ -24,7 +24,7 @@ const quickLinks = [
 
 const areas = [
   { name: "Podología Clínica" },
-  { name: "Sueroterapia" },
+  // { name: "Sueroterapia" },
   { name: "Enfermería" },
   { name: "Pedicure Medicinal" },
   { name: "Análisis de Marcha" },

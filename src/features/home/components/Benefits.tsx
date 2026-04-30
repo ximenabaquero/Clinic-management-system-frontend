@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { 
-  ShieldCheck, 
-  Stethoscope, 
-  ArrowUpRight, 
+import {
+  ShieldCheck,
+  Stethoscope,
+  ArrowUpRight,
   Microscope,
-  Award
+  Award,
+  Ruler
 } from 'lucide-react';
 
 const benefits = [
@@ -60,15 +61,15 @@ const benefits = [
     gridArea: "lg:col-span-1 lg:row-span-1",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" // Clínica moderna
   },
-    {
-    title: "Esterilización Profesional",
-    description: "Protocolos rigurosos de desinfección química y autoclave para cada herramienta. Tu seguridad es nuestra prioridad.",
-    tag: "Seguridad 100%",
-    icon: <ShieldCheck className="w-6 h-6" />,
-    bgColor: "bg-[#05F2DB]", 
-    textColor: "text-gray-900",
+  {
+    title: "Ortesis a Medida",
+    description: "Plantillas y correctores biomecánicos personalizados para redistribuir presión, corregir la marcha y prevenir lesiones.",
+    tag: "Biomecánica",
+    icon: <Ruler className="w-6 h-6" />,
+    bgColor: "bg-[#D929AA]",
+    textColor: "text-white",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" // Esterilización/Dental
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
   },
 ];
 

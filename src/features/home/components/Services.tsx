@@ -4,7 +4,7 @@ import { Check, Droplet, Footprints, Activity, Smartphone, ChevronDown } from 'l
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const serviceGroups = [
-  {
+  /* {
     title: "Sueroterapia",
     subtitle: "Bienestar Endovenoso",
     image: "/podocare/sueroterapia.jpg",
@@ -19,7 +19,7 @@ const serviceGroups = [
       "Mejora de Desempeño Deportivo",
       "Mejora de Memoria y Enfoque"
     ]
-  },
+  }, */
   {
     title: "Podología",
     subtitle: "Cuidado del Pie",
@@ -27,12 +27,16 @@ const serviceGroups = [
     icon: <Footprints className="text-[#05F2DB]" size={28} />,
     color: "#05F2DB",
     services: [
-      "Pedicure Medicinal",
-      "Tratamiento de Callos y Clavos",
-      "Ojos de Pescado (Verrugas)",
-      "Uñas Encarnadas (Onicocriptosis)",
-      "Pie de Atleta y Micosis",
-      "Plantillas Ortopédicas"
+      "Quiropedia",
+      "Uña Encarnada (Onicocriptosis)",
+      "Verruga Plantar",
+      "Fenolización",
+      "Exostosis",
+      "Heloma Plantar",
+      "Bloqueo Anestésico",
+      "Ortonixia",
+      "Ortesis de Silicona",
+      "Plantillas Ortopédicas",
     ]
   },
   {
@@ -77,8 +81,11 @@ export default function Services() {
               Cuidado integral <br className="hidden sm:block" /> para tu {" "}
               <span className="text-[#F285C1] not-italic font-sans font-bold block sm:inline">salud y bienestar.</span>
             </h2>
-            <p className="text-gray-200 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 md:mb-10">
+            {/* <p className="text-gray-200 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 md:mb-10">
               Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología, enfermería y sueroterapia.
+            </p> */}
+            <p className="text-gray-200 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 md:mb-10">
+              Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
             </p>
             <div className="flex">
               <a 
@@ -112,7 +119,7 @@ export default function Services() {
           </div>
 
           {/* Grid: 1 columna en móvil, 2 en tablet, 3 en desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             {serviceGroups.map((group, index) => (
               <div 
                 key={index}

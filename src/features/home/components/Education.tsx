@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Activity, Heart, Smartphone, ArrowRight } from 'lucide-react';
+import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Heart, Smartphone, ArrowRight } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const topics = [
@@ -19,13 +19,13 @@ const topics = [
     gradient: "from-[#05F2DB] to-[#F285C1]",
     tag: "Prevención"
   },
-  {
+  /* {
     title: "Sueroterapia Post-Operatoria",
     body: "Nuestros protocolos de sueroterapia ayudan a la regeneración de tejidos y fortalecimiento del sistema inmune. La administración endovenosa de vitamina C y oligoelementos optimiza los tiempos de cicatrización y desinflamación tras cualquier intervención.",
     icon: <Activity className="w-6 h-6" />,
     gradient: "from-[#BF2496] to-[#05F2DB]",
     tag: "Recuperación"
-  },
+  }, */
 ];
 
 export default function Education() {
@@ -113,7 +113,7 @@ export default function Education() {
         </div>
 
         {/* Education Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
           {topics.map((topic, index) => (
             <div
               key={index}

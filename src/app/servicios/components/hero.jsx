@@ -29,8 +29,11 @@ export default function ServicesHero() {
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-xl mb-10 mx-auto lg:mx-0">
+            {/* <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-xl mb-10 mx-auto lg:mx-0">
               Desde podología especializada hasta sueroterapia avanzada. Unimos la técnica de enfermería con la calidez humana en Mosquera.
+            </p> */}
+            <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-xl mb-10 mx-auto lg:mx-0">
+              Especialistas en podología y enfermería. Unimos la técnica clínica con la calidez humana en Mosquera.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
