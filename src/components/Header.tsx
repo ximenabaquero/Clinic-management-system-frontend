@@ -15,10 +15,11 @@ export default function Header() {
   const { user, logout, loading } = useAuth();
 
   useEffect(() => {
+    setScrolled(window.scrollY > 20);
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   if (loading) return null;
 

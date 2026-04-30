@@ -136,13 +136,13 @@ export default function Contact() {
               Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
             </p>
 
-            <a 
+            {/* <a 
               href="#canales" 
               className="inline-flex items-center gap-3 bg-white text-gray-900 font-bold uppercase tracking-widest text-[11px] py-5 px-12 rounded-2xl hover:bg-[#BF2496] hover:text-white transition-all duration-300 group"
             >
               Ver canales de atención
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

@@ -44,7 +44,7 @@ export default function Footer() {
       <div className="h-1.5 w-full bg-gradient-to-r from-[#05F2DB] via-[#F285C1] to-[#D929AA]"></div>
 
       <div className="container mx-auto px-6 lg:px-16 py-16 md:py-20 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 mb-16">
           
           {/* Columna 1: Logo y Marca (Actualizado) */}
           <div className="space-y-8">
@@ -92,23 +92,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Columna 2: Navegación */}
-          <div>
-            <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#BF2496] mb-8">
-              Navegación
-            </h3>
-            <ul className="space-y-4">
-              {quickLinks.map((link, i) => (
-                <li key={i}>
-                  <a href={link.href} className="text-sm text-gray-500 hover:text-gray-900 transition-colors font-medium">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Columna 3: Especialidades */}
+          {/* Columna 2: Especialidades */}
           <div>
             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-[#05F2DB] mb-8">
               Áreas Médicas

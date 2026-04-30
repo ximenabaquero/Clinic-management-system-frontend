@@ -152,7 +152,7 @@ export default function Testimonials() {
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/20 p-1">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center p-2">
                     <img
-                      src="/logo.png" // Usa tu logo de PodoCare
+                      src="/podocare/podocare.png"
                       alt="PodoCare"
                       className="w-full h-full object-contain"
                     />
