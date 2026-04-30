@@ -19,7 +19,7 @@ const benefits = [
     bgColor: "bg-[#05F2DB]", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" // Esterilización/Dental
+    image: "/consultorio2.png"
   },
   {
     title: "Equipos de alta tecnología",
@@ -29,7 +29,7 @@ const benefits = [
     bgColor: "bg-[#BF2496]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1579154235602-3c483d40ff0a?q=80&w=800&auto=format&fit=crop" // Laboratorio/Microscopio
+    image: "/equipo1.png"
   },
   {
     title: "Enfoque Clínico",
@@ -39,7 +39,7 @@ const benefits = [
     bgColor: "bg-[#F285C1]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-2",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop" // Médico/Enfermera
+    image: "/equipo2.png"
   },
   {
     title: "Resultados Garantizados",
@@ -49,7 +49,7 @@ const benefits = [
     bgColor: "bg-gray-900", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop" // Paciente feliz
+    image: "/equipo1.png"
   },
   {
     title: "Atención Premium",
@@ -59,7 +59,7 @@ const benefits = [
     bgColor: "bg-gray-100", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop" // Clínica moderna
+    image: "/saladeespera.png"
   },
   {
     title: "Ortesis a Medida",
@@ -69,7 +69,7 @@ const benefits = [
     bgColor: "bg-[#D929AA]",
     textColor: "text-white",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
+    image: "/consultorio2.png"
   },
 ];
 

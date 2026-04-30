@@ -80,7 +80,7 @@ export default function Services() {
         {/* Imagen de Fondo con Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/podocare/heroservicios.avif" 
+            src="/saladeespera.png" 
             alt="PodoCare Services Hero"
             className="w-full h-full object-cover"
           />
