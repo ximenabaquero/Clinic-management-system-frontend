@@ -40,7 +40,7 @@ function SidebarItem({
   label,
   sub,
   badge,
-  badgeColor = "bg-purple-600",
+  badgeColor = "bg-[#BF2496]",
 }: SidebarItemProps) {
   return (
     <button
@@ -50,14 +50,14 @@ function SidebarItem({
         transition-all duration-150
         ${
           active
-            ? "bg-teal-50 text-teal-700"
+            ? "bg-[#BF2496]/10 text-[#BF2496]"
             : "bg-transparent text-gray-700 hover:bg-gray-50"
         }
       `}
     >
       <Icon
         className={`w-4 h-4 flex-shrink-0 ${
-          active ? "text-teal-600" : "text-gray-400"
+          active ? "text-[#BF2496]" : "text-gray-400"
         }`}
       />
       <div className="flex-1 min-w-0">

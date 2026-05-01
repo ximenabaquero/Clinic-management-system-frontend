@@ -21,10 +21,19 @@ export default function PaginationBar({
   isFirstPage,
   isLastPage,
 }: PaginationBarProps) {
-  if (totalPages <= 1) return null;
-
   const from = (currentPage - 1) * itemsPerPage + 1;
   const to = Math.min(currentPage * itemsPerPage, totalItems);
+
+  if (totalPages <= 1) {
+    return (
+      <div className="border-t border-gray-100 bg-white px-4 py-3">
+        <span className="text-xs text-gray-500">
+          <span className="font-semibold text-gray-700">{totalItems}</span>{" "}
+          resultado{totalItems !== 1 ? "s" : ""}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-between border-t border-gray-100 bg-white px-4 py-3">

@@ -49,13 +49,19 @@ export default function PatientsPage() {
 
   const [patients, setPatients] = useState<PatientRow[]>([]);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
-  const queryString = useMemo(() => {
-    const trimmed = search.trim();
-    return trimmed ? `?search=${encodeURIComponent(trimmed)}` : "";
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 300);
+    return () => clearTimeout(timer);
   }, [search]);
+
+  const queryString = useMemo(() => {
+    const trimmed = debouncedSearch.trim();
+    return trimmed ? `?search=${encodeURIComponent(trimmed)}` : "";
+  }, [debouncedSearch]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -200,7 +206,18 @@ export default function PatientsPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100 bg-white">
-                        {paginatedPatients.map((p) => {
+                        {isLoading
+                          ? Array.from({ length: 6 }).map((_, i) => (
+                              <tr key={i} className="animate-pulse">
+                                <td className="px-4 py-3"><div className="h-4 bg-gray-100 rounded w-36" /></td>
+                                <td className="px-4 py-3"><div className="h-4 bg-gray-100 rounded w-24" /></td>
+                                <td className="px-4 py-3"><div className="h-5 bg-gray-100 rounded w-10" /></td>
+                                <td className="px-4 py-3"><div className="h-4 bg-gray-100 rounded w-24" /></td>
+                                <td className="px-4 py-3"><div className="h-4 bg-gray-100 rounded w-20" /></td>
+                                <td className="px-4 py-3"><div className="h-6 bg-gray-100 rounded w-6 mx-auto" /></td>
+                              </tr>
+                            ))
+                          : paginatedPatients.map((p) => {
                           const fullName =
                             `${safeString(p.first_name)} ${safeString(p.last_name)}`.trim();
                           return (

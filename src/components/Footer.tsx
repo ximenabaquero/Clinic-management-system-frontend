@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Heart,
   MapPin,
   Phone,
   Clock,
@@ -31,6 +30,12 @@ const areas = [
   { name: "Análisis de Marcha" },
 ];
 
+const socials: { icon: React.ReactNode; href: string }[] = [
+  { icon: <Instagram size={18} />, href: "http://instagram.com/podocaremosquera/" },
+  { icon: <Facebook size={18} />, href: "https://www.facebook.com/share/1Dr6q7U41m/?mibextid=wwXIfr" },
+  { icon: <Mail size={18} />, href: "mailto:contacto@podocare.com" },
+];
+
 export default function Footer() {
   const { user } = useAuth();
   const [currentYear] = useState(new Date().getFullYear());
@@ -50,7 +55,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 lg:px-16 py-16 md:py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-8 mb-16">
           
-          {/* Columna 1: Logo y Marca (Actualizado) */}
+          {/* Columna 1: Logo y Marca */}
           <div className="space-y-8">
             <Link href="/" className="flex items-center gap-3 sm:gap-4 group">
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 transition-transform duration-300 group-hover:scale-105">
@@ -80,11 +85,7 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-4">
-              {[
-                { icon: <Instagram size={18} />, href: "http://instagram.com/podocaremosquera/" },
-                { icon: <Facebook size={18} />, href: "https://www.facebook.com/share/1Dr6q7U41m/?mibextid=wwXIfr" },
-                { icon: <Mail size={18} />, href: "mailto:contacto@podocare.com" },
-              ].map((social, i) => (
+              {socials.map((social, i) => (
                 <a
                   key={i}
                   href={social.href}
@@ -112,7 +113,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Columna 4: Contacto */}
+          {/* Columna 3: Contacto */}
           <div className="space-y-6">
             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-900 mb-8">
               Ubícanos
@@ -158,8 +159,6 @@ export default function Footer() {
               <ArrowUp size={14} />
             </div>
           </button>
-
-
         </div>
       </div>
     </footer>
