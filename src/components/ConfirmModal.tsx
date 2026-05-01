@@ -22,8 +22,8 @@ const VARIANT_STYLES = {
     button: "bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-500",
   },
   default: {
-    icon: "text-emerald-500 bg-emerald-100",
-    button: "bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500",
+    icon: "text-[#BF2496] bg-[#BF2496]/10",
+    button: "bg-[#BF2496] hover:bg-[#BF2496]/80 focus:ring-[#BF2496]",
   },
 };
 

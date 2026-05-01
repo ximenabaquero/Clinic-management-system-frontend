@@ -101,7 +101,7 @@ export default function RevenueForecastCard() {
             <span
               className={`text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 ${
                 r2 >= 0.8
-                  ? "bg-emerald-50 text-emerald-700"
+                  ? "bg-[#BF2496]/10 text-[#BF2496]"
                   : r2 >= 0.5
                     ? "bg-yellow-50 text-yellow-700"
                     : "bg-red-50 text-red-600"
@@ -123,11 +123,11 @@ export default function RevenueForecastCard() {
       {/* Legend */}
       <div className="flex items-center gap-4 mb-4 flex-wrap">
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
-          <span className="inline-block w-3 h-3 rounded-sm bg-emerald-400" />
+          <span className="inline-block w-3 h-3 rounded-sm bg-[#BF2496]" />
           Ingresos reales
         </div>
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
-          <span className="inline-block w-6 h-[2px] bg-emerald-600" />
+          <span className="inline-block w-6 h-[2px] bg-[#BF2496]" />
           Promedio móvil (SMA-3)
         </div>
         <div className="flex items-center gap-1.5 text-xs text-gray-500">

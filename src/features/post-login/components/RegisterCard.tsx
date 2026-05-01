@@ -13,7 +13,7 @@ export default function RegisterCard({
 }: RegisterCardProps) {
   return (
     <div className="mt-6 overflow-visible rounded-3xl border border-gray-100 bg-white/95 backdrop-blur-sm shadow-sm">
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-500 px-6 py-4 rounded-t-3xl">
+      <div className="bg-gradient-to-r from-[#BF2496] to-teal-500 px-6 py-4 rounded-t-3xl">
         <div className="text-sm font-semibold text-white/95">{title}</div>
         <div className="mt-0.5 text-xs text-white/80">{subtitle}</div>
       </div>

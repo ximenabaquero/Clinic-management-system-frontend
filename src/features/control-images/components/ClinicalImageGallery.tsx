@@ -38,7 +38,7 @@ export default function ClinicalImageGallery({ images, isAdmin, onEdit, onDelete
             <div className="relative aspect-square">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={getImageUrl(image.after_image)} alt={`${image.title} - Después`} className="w-full h-full object-cover" />
-              <span className="absolute top-2 left-2 bg-emerald-600/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full backdrop-blur-sm">DESPUÉS</span>
+              <span className="absolute top-2 left-2 bg-[#BF2496]/80 text-white text-[10px] font-bold px-2 py-0.5 rounded-full backdrop-blur-sm">DESPUÉS</span>
             </div>
           </div>
 

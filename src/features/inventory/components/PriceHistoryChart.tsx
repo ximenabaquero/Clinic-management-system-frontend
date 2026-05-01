@@ -71,7 +71,7 @@ export default function PriceHistoryChart({ history, product }: PriceHistoryChar
             className={`inline-flex px-2 py-1 text-xs font-bold rounded-full ${
               delta >= 0
                 ? "bg-red-100 text-red-700"
-                : "bg-emerald-100 text-emerald-700"
+                : "bg-[#BF2496]/10 text-[#BF2496]"
             }`}
           >
             {delta >= 0 ? "+" : ""}
@@ -154,7 +154,7 @@ export default function PriceHistoryChart({ history, product }: PriceHistoryChar
         </div>
         <div>
           <div className="text-xs text-gray-500 mb-1">Precio más bajo</div>
-          <div className="text-lg font-bold text-emerald-600 font-mono">
+          <div className="text-lg font-bold text-[#BF2496] font-mono">
             {fmt(minP)}
           </div>
         </div>

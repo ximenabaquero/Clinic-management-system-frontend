@@ -38,7 +38,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start px-4 sm:px-8 py-6 bg-white rounded-t-2xl gap-4">
           <div>
             <div className="mt-2 flex items-center gap-2">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-blue-500 p-[2px] shadow-sm">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#BF2496] to-blue-500 p-[2px] shadow-sm">
                 <div className="h-full w-full rounded-full bg-white flex items-center justify-center overflow-hidden">
                   <Image
                     src="/coldestheticlogo.png"
@@ -50,7 +50,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
                   />
                 </div>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent tracking-tight">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-[#BF2496] to-blue-500 bg-clip-text text-transparent tracking-tight">
                 {evaluation.user?.brand_name}
               </h1>
             </div>
@@ -62,7 +62,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
             <div className="flex flex-col items-start">
               <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">Remitente</p>
               <div className="flex items-center gap-1">
-                <CheckBadgeIcon className="w-4 h-4 text-emerald-500" />
+                <CheckBadgeIcon className="w-4 h-4 text-[#BF2496]" />
                 <span className="font-medium">{evaluation.referrer_name}</span>
               </div>
             </div>
@@ -80,7 +80,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
           {/* Datos personales */
           <section>
             <div className="flex items-center gap-2 mb-4">
-              <span className="h-5 w-1 bg-emerald-500 rounded-full" />
+              <span className="h-5 w-1 bg-[#BF2496] rounded-full" />
               <h3 className="text-lg font-semibold text-gray-800 tracking-tight">Datos personales</h3>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 rounded-xl border border-gray-200 bg-white p-4 text-sm">
@@ -131,7 +131,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
               {evaluation.tipo_pie && (
                 <div>
                   <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">Tipo de pie</p>
-                  <span className="inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
+                  <span className="inline-block rounded-full bg-[#BF2496]/10 px-2 py-0.5 text-[11px] font-bold text-[#BF2496]">
                     {evaluation.tipo_pie}
                   </span>
                   <div className="border-t border-gray-100 mt-2" />
@@ -247,13 +247,13 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
           <section>
             <div className="flex items-center justify-between gap-2 mb-4">
               <div className="flex items-center gap-2">
-                <span className="h-5 w-1 bg-emerald-500 rounded-full" />
+                <span className="h-5 w-1 bg-[#BF2496] rounded-full" />
                 <h3 className="text-lg font-semibold text-gray-800 tracking-tight">Procedimientos y precios</h3>
               </div>
               {onRegisterSupplies && status !== "CANCELADO" && (
                 <button
                   onClick={onRegisterSupplies}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-100 transition print:hidden"
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-[#BF2496]/10 text-[#BF2496] rounded-lg hover:bg-[#BF2496]/20 transition print:hidden"
                 >
                   <span className="text-base">💉</span>
                   Registrar insumos

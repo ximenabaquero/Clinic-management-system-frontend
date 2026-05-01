@@ -33,9 +33,9 @@ export default function SidebarSteps({
                 className={[
                   "absolute left-0 top-0 flex h-6 w-6 items-center justify-center rounded-full border-2 text-sm font-semibold",
                   isCompleted
-                    ? "border-emerald-600 bg-emerald-600 text-white"
+                    ? "border-[#BF2496] bg-[#BF2496] text-white"
                     : isActive
-                      ? "border-emerald-600 bg-white text-emerald-600"
+                      ? "border-[#BF2496] bg-white text-[#BF2496]"
                       : "border-gray-300 bg-white text-gray-400",
                 ].join(" ")}
               >
@@ -57,7 +57,7 @@ export default function SidebarSteps({
                   className={[
                     "absolute left-2.5 top-6 h-8 w-0.5",
                     steps[index + 1].completed || isCompleted
-                      ? "bg-emerald-500"
+                      ? "bg-[#BF2496]"
                       : "bg-gray-200",
                   ].join(" ")}
                 />
@@ -75,7 +75,7 @@ export default function SidebarSteps({
                 className={[
                   "w-full text-left text-base font-medium rounded-lg px-3 py-2 transition",
                   isActive
-                    ? "bg-emerald-50 text-emerald-700"
+                    ? "bg-[#BF2496]/10 text-[#BF2496]"
                     : "text-gray-700 hover:bg-gray-100",
                 ].join(" ")}
               >

@@ -94,7 +94,7 @@ export default function PatientsPage() {
   function DocumentTypeBadge({ type }: { type?: string | null }) {
     const styles: Record<string, string> = {
       "Cédula de Ciudadanía":
-        "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+        "bg-[#BF2496]/10 text-[#BF2496] ring-1 ring-[#BF2496]/30",
       "Cédula de Extranjería": "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
       Pasaporte: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
       "Tarjeta de Identidad":
@@ -134,7 +134,7 @@ export default function PatientsPage() {
   return (
     <AuthGuard>
       <MainLayout>
-        <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
+        <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
@@ -174,7 +174,7 @@ export default function PatientsPage() {
                       id="search"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                      className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
                       placeholder="Buscar por nombre, apellido, celular o cédula"
                     />
                   </div>
@@ -228,7 +228,7 @@ export default function PatientsPage() {
                                   onClick={() =>
                                     router.push(`/patients/${p.id}/history`)
                                   }
-                                  className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 transition"
+                                  className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 hover:bg-[#BF2496]/10 hover:text-[#BF2496] transition"
                                   title="Historial clínico"
                                 >
                                   <Eye size={18} />

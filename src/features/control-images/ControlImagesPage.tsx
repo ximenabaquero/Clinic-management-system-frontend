@@ -63,7 +63,7 @@ export default function ControlImagesPage() {
   return (
     <AuthGuard>
       <MainLayout>
-        <div className="bg-gradient-to-b from-emerald-50 via-white to-white min-h-screen">
+        <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-6xl mx-auto">
               <RegisterHeaderBar
@@ -90,7 +90,7 @@ export default function ControlImagesPage() {
                     onClick={openCreate}
                     disabled={atLimit}
                     title={atLimit ? "Límite de 10 imágenes alcanzado" : undefined}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-4 py-2.5 bg-[#BF2496] text-white text-sm font-semibold rounded-xl hover:bg-[#BF2496]/80 transition shadow-sm shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <PlusIcon className="h-4 w-4" />
                     Nueva imagen
@@ -115,7 +115,7 @@ export default function ControlImagesPage() {
               <div className="mt-8">
                 {isLoading && (
                   <div className="text-center py-16">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#BF2496] border-t-transparent" />
                     <p className="mt-3 text-sm text-gray-400">Cargando imágenes...</p>
                   </div>
                 )}

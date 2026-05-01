@@ -28,7 +28,7 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
   return (
     <AuthGuard>
       <MainLayout>
-        <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
+        <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
@@ -54,7 +54,7 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
                 <BackButton />
                 <button
                   onClick={() => setShowNewRecord(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm"
+                  className="flex items-center gap-2 px-4 py-2 bg-[#BF2496] text-white text-sm font-semibold rounded-xl hover:bg-[#BF2496]/80 transition shadow-sm"
                 >
                   <PlusIcon className="h-4 w-4" />
                   Nuevo registro

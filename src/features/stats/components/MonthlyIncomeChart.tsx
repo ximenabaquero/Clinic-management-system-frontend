@@ -33,7 +33,7 @@ export default function MonthlyIncomeChart() {
             return (
               <div key={`${r.year}-${r.month}`} className="flex-1 flex flex-col items-center justify-end gap-1">
                 <div
-                  className="w-full rounded-t-md bg-emerald-400 hover:bg-emerald-500 transition"
+                  className="w-full rounded-t-md bg-[#BF2496] hover:bg-[#BF2496]/80 transition"
                   style={{ height: `${Math.max(pct, 2)}%` }}
                   title={`$${Number(r.total_income).toLocaleString("es-CO")}`}
                 />

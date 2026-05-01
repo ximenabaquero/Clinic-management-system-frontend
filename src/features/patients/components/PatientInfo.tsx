@@ -66,7 +66,7 @@ function capitalize(str: string) {
 function DocumentTypeBadge({ type }: { type?: string | null }) {
   const styles: Record<string, string> = {
     "Cédula de Ciudadanía":
-      "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+      "bg-[#BF2496]/10 text-[#BF2496] ring-1 ring-[#BF2496]/30",
     "Cédula de Extranjería": "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
     "Pasaporte": "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
     "Tarjeta de Identidad": "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
@@ -169,7 +169,7 @@ export default function PatientInfo({ patientId }: Props) {
 
   const infoItems = [
     {
-      icon: <CalendarIcon className="h-5 w-5 text-emerald-600" />,
+      icon: <CalendarIcon className="h-5 w-5 text-[#BF2496]" />,
       label: "Nacimiento",
       value: new Date(patient.date_of_birth).toLocaleDateString("es-ES", {
         day: "2-digit",
@@ -178,12 +178,12 @@ export default function PatientInfo({ patientId }: Props) {
       }),
     },
     {
-      icon: <UserIcon className="h-5 w-5 text-emerald-600" />,
+      icon: <UserIcon className="h-5 w-5 text-[#BF2496]" />,
       label: "Sexo biológico",
       value: patient.biological_sex,
     },
     {
-      icon: <PhoneIcon className="h-5 w-5 text-emerald-600" />,
+      icon: <PhoneIcon className="h-5 w-5 text-[#BF2496]" />,
       label: "Celular",
       value: patient.cellphone || "—",
     },
@@ -196,14 +196,14 @@ export default function PatientInfo({ patientId }: Props) {
         <div className="px-6 py-5 border-b border-gray-100 bg-white">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-[10px] uppercase tracking-widest text-emerald-600 font-bold mb-1">
+              <p className="text-[10px] uppercase tracking-widest text-[#BF2496] font-bold mb-1">
                 Paciente · ID #{patient.id}
               </p>
               <h1 className="text-2xl font-bold text-gray-900">{fullName}</h1>
             </div>
             <button
               onClick={openEdit}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-all shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#BF2496] bg-[#BF2496]/10 hover:bg-[#BF2496]/20 border border-[#BF2496]/30 rounded-lg transition-all shrink-0"
             >
               <PencilSquareIcon className="h-4 w-4" />
               Editar
@@ -211,7 +211,7 @@ export default function PatientInfo({ patientId }: Props) {
           </div>
 
           {/* línea decorativa */}
-          <div className="mt-4 h-0.5 w-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" />
+          <div className="mt-4 h-0.5 w-12 rounded-full bg-gradient-to-r from-[#BF2496] to-teal-400" />
         </div>
 
         {/* Datos */}
@@ -220,7 +220,7 @@ export default function PatientInfo({ patientId }: Props) {
             {/* Documento */}
             <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3">
               <div className="flex items-center justify-center h-9 w-9 rounded-lg bg-white border border-gray-100 shrink-0">
-                <IdentificationIcon className="h-5 w-5 text-emerald-600" />
+                <IdentificationIcon className="h-5 w-5 text-[#BF2496]" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
@@ -266,7 +266,7 @@ export default function PatientInfo({ patientId }: Props) {
         >
           <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-600 to-teal-500 px-6 py-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#BF2496] to-teal-500 px-6 py-4 flex items-center justify-between">
               <h2 className="text-base font-bold text-white">
                 Editar datos del paciente
               </h2>
@@ -291,7 +291,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, first_name: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -304,7 +304,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, last_name: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none"
                   />
                 </div>
               </div>
@@ -319,7 +319,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, document_type: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none bg-white"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none bg-white"
                   >
                     <option value="">Seleccionar</option>
                     {DOCUMENT_TYPES.map((t) => (
@@ -339,7 +339,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, cedula: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none"
                   />
                 </div>
               </div>
@@ -365,7 +365,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, date_of_birth: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none"
                   />
                 </div>
               </div>
@@ -380,7 +380,7 @@ export default function PatientInfo({ patientId }: Props) {
                     onChange={(e) =>
                       setForm((f) => ({ ...f, biological_sex: e.target.value }))
                     }
-                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none bg-white"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none bg-white"
                   >
                     <option value="">Seleccionar</option>
                     <option value="Masculino">Masculino</option>
@@ -402,7 +402,7 @@ export default function PatientInfo({ patientId }: Props) {
               <button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="px-5 py-2 text-sm font-semibold text-white rounded-xl transition disabled:opacity-50 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 shadow-sm shadow-emerald-200"
+                className="px-5 py-2 text-sm font-semibold text-white rounded-xl transition disabled:opacity-50 bg-gradient-to-r from-[#BF2496] to-teal-500 hover:from-[#BF2496]/80 hover:to-teal-600 shadow-sm shadow-[#BF2496]/20"
               >
                 {isSaving ? "Guardando..." : "Guardar cambios"}
               </button>

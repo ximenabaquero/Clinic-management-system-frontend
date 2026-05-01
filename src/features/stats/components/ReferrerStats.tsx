@@ -46,7 +46,7 @@ export default function ReferrerStats() {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gradient-to-r from-emerald-600 to-teal-600">
+            <thead className="bg-gradient-to-r from-[#BF2496] to-teal-600">
               <tr className="text-left text-xs font-semibold text-white/95 uppercase tracking-wide">
                 <th className="px-5 py-3">Especialista</th>
                 <th className="px-5 py-3 text-center">Pacientes</th>
@@ -66,7 +66,7 @@ export default function ReferrerStats() {
               {paginatedItems.map((ref: any) => (
                 <tr
                   key={ref.referrer_name}
-                  className="hover:bg-emerald-50/40 transition-colors"
+                  className="hover:bg-[#BF2496]/10 transition-colors"
                 >
                   <td className="px-5 py-4">
                     <p className="font-medium text-gray-900 text-sm">
@@ -79,7 +79,7 @@ export default function ReferrerStats() {
                     </span>
                   </td>
                   <td className="px-5 py-4 text-center hidden sm:table-cell">
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#BF2496]/10 text-[#BF2496]">
                       {ref.total_confirmed_month}
                     </span>
                   </td>

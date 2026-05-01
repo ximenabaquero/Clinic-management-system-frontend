@@ -8,7 +8,7 @@ export default function FormAlert({ variant, message }: FormAlertProps) {
     error:
       "rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800 shadow-sm",
     success:
-      "rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900 shadow-sm",
+      "rounded-2xl border border-[#BF2496]/30 bg-[#BF2496]/10 p-4 text-sm text-[#BF2496] shadow-sm",
     warning:
       "rounded-2xl border border-yellow-200 bg-yellow-50 p-4 text-sm text-yellow-900 shadow-sm",
   };

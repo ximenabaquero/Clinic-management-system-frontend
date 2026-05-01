@@ -178,7 +178,7 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
         {/* Progress bar */}
         <div className="h-1 bg-gray-100">
           <div
-            className="h-1 bg-emerald-500 transition-all duration-300"
+            className="h-1 bg-[#BF2496] transition-all duration-300"
             style={{ width: progressPercent }}
           />
         </div>
@@ -210,12 +210,12 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
               />
 
               {items.length > 0 && (
-                <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-3">
+                <div className="rounded-lg bg-[#BF2496]/10 border border-[#BF2496]/30 px-4 py-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-emerald-700">
+                    <span className="text-xs font-semibold text-[#BF2496]">
                       Procedimientos seleccionados:
                     </span>
-                    <span className="text-sm font-bold text-emerald-800">
+                    <span className="text-sm font-bold text-[#BF2496]">
                       {items.length}
                     </span>
                   </div>
@@ -237,7 +237,7 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
               </button>
               <button
                 onClick={() => setStep(2)}
-                className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium"
+                className="px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium"
               >
                 Siguiente →
               </button>
@@ -256,7 +256,7 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
               <button
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50"
+                className="px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium disabled:opacity-50"
               >
                 {isSubmitting ? "Guardando..." : "Crear registro"}
               </button>

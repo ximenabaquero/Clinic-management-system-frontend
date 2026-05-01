@@ -58,8 +58,8 @@ function YesNoToggle({
           onClick={() => onChange(true)}
           className={`px-3 py-0.5 rounded-full text-xs font-semibold border transition ${
             value === true
-              ? "bg-emerald-500 text-white border-emerald-500"
-              : "bg-white text-gray-500 border-gray-300 hover:border-emerald-400"
+              ? "bg-[#BF2496] text-white border-[#BF2496]"
+              : "bg-white text-gray-500 border-gray-300 hover:border-[#BF2496]"
           }`}
         >
           SI
@@ -111,7 +111,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
                 rows={2}
                 value={data[field] as string}
                 onChange={(e) => { set(field)(e.target.value); }}
-                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
                 placeholder={`Antecedentes ${label.toLowerCase()}...`}
               />
             </div>
@@ -124,7 +124,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
                 type="text"
                 value={data.antecedentesAlergicos}
                 onChange={(e) => { set("antecedentesAlergicos")(e.target.value); }}
-                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
                 placeholder="Alergias conocidas..."
               />
             </div>
@@ -134,7 +134,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
                 type="text"
                 value={data.antecedentesToxicos}
                 onChange={(e) => { set("antecedentesToxicos")(e.target.value); }}
-                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
                 placeholder="Tabaco, alcohol, etc..."
               />
             </div>
@@ -146,7 +146,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
               type="text"
               value={data.antecedentesGinecoObstetricos}
               onChange={(e) => { set("antecedentesGinecoObstetricos")(e.target.value); }}
-              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
               placeholder="Antecedentes gineco-obstétricos..."
             />
           </div>
@@ -157,7 +157,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
               type="text"
               value={data.antecedentesOtros}
               onChange={(e) => { set("antecedentesOtros")(e.target.value); }}
-              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
               placeholder="Otros antecedentes relevantes..."
             />
           </div>
@@ -188,7 +188,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
           rows={3}
           value={data.motivoConsulta}
           onChange={(e) => { set("motivoConsulta")(e.target.value); }}
-          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
           placeholder="Describa el motivo de consulta del paciente..."
         />
       </section>
@@ -214,7 +214,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
             type="text"
             value={data.talla}
             onChange={(e) => { set("talla")(e.target.value); }}
-            className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+            className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
             placeholder="Ej: 38"
           />
         </div>
@@ -233,8 +233,8 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
               onClick={() => { set("tipoPie")(data.tipoPie === tipo ? "" : tipo); }}
               className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition ${
                 data.tipoPie === tipo
-                  ? "bg-emerald-500 text-white border-emerald-500"
-                  : "bg-white text-gray-600 border-gray-300 hover:border-emerald-400"
+                  ? "bg-[#BF2496] text-white border-[#BF2496]"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-[#BF2496]"
               }`}
             >
               {tipo}
@@ -252,7 +252,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
           rows={3}
           value={data.tratamientoIndicado}
           onChange={(e) => { set("tratamientoIndicado")(e.target.value); }}
-          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
           placeholder="Describa el tratamiento indicado..."
         />
       </section>
@@ -266,7 +266,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Clinical
           rows={3}
           value={data.seguimiento}
           onChange={(e) => { set("seguimiento")(e.target.value); }}
-          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
           placeholder="Notas de seguimiento..."
         />
       </section>

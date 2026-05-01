@@ -194,7 +194,7 @@ export default function AnnualComparisonChart() {
           {activeMetric === "income" && !incomeRevealed ? (
             <button
               onClick={() => { setAuthError(null); setPassword(""); setShowModal(true); setTimeout(() => inputRef.current?.focus(), 50); }}
-              className="flex items-center gap-1 text-gray-400 hover:text-emerald-600 transition-colors mt-0.5 ml-auto"
+              className="flex items-center gap-1 text-gray-400 hover:text-[#BF2496] transition-colors mt-0.5 ml-auto"
             >
               <LockClosedIcon className="w-4 h-4" />
               <span className="text-xs font-medium">Ver total</span>
@@ -283,8 +283,8 @@ export default function AnnualComparisonChart() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-4 border border-gray-100">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0">
-                <LockClosedIcon className="w-5 h-5 text-emerald-600" />
+              <div className="w-9 h-9 rounded-xl bg-[#BF2496]/10 flex items-center justify-center shrink-0">
+                <LockClosedIcon className="w-5 h-5 text-[#BF2496]" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900 text-sm">Verificar identidad</p>
@@ -300,7 +300,7 @@ export default function AnnualComparisonChart() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Contraseña"
                   required
-                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-transparent"
+                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#BF2496]/40 focus:border-transparent"
                 />
                 <button
                   type="button"
@@ -322,7 +322,7 @@ export default function AnnualComparisonChart() {
                 <button
                   type="submit"
                   disabled={authLoading || !password}
-                  className="flex-1 py-2 rounded-xl bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 py-2 rounded-xl bg-[#BF2496] text-white text-sm font-semibold hover:bg-[#BF2496]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {authLoading ? "Verificando..." : "Confirmar"}
                 </button>

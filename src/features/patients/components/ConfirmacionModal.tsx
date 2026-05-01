@@ -126,7 +126,7 @@ export default function ConfirmacionModal({ evaluationId, onClose, onConfirmed }
               type="checkbox"
               checked={termsAccepted}
               onChange={(e) => setTermsAccepted(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-emerald-600"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-[#BF2496]"
             />
             <span className="text-sm text-gray-700">
               He leído y acepto los términos y condiciones anteriores.
@@ -139,7 +139,7 @@ export default function ConfirmacionModal({ evaluationId, onClose, onConfirmed }
               type="checkbox"
               checked={dataConsentAccepted}
               onChange={(e) => setDataConsentAccepted(e.target.checked)}
-              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-emerald-600"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-[#BF2496]"
             />
             <span className="text-sm text-gray-700">
               El/la paciente autoriza el tratamiento de sus datos personales
@@ -199,7 +199,7 @@ export default function ConfirmacionModal({ evaluationId, onClose, onConfirmed }
           <button
             onClick={handleConfirmar}
             disabled={isConfirming}
-            className="flex items-center gap-2 px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50"
+            className="flex items-center gap-2 px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium disabled:opacity-50"
           >
             <CheckCircleIcon className="h-4 w-4" />
             {isConfirming ? "Confirmando..." : "Confirmar valoración"}

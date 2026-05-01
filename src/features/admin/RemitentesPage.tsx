@@ -84,7 +84,7 @@ export default function RemitentesPage() {
     <AuthGuard>
       <RoleGuard allow={["ADMIN"]}>
         <MainLayout>
-          <div className="bg-gradient-to-b from-emerald-50 via-white to-white min-h-screen">
+          <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white min-h-screen">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
               <div className="max-w-6xl mx-auto">
                 <RegisterHeaderBar
@@ -104,7 +104,7 @@ export default function RemitentesPage() {
                   </div>
                   <button
                     onClick={openCreate}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shrink-0"
+                    className="flex items-center gap-2 px-4 py-2.5 bg-[#BF2496] text-white text-sm font-semibold rounded-xl hover:bg-[#BF2496]/80 transition shadow-sm shrink-0"
                   >
                     <PlusIcon className="h-4 w-4" />
                     Nuevo remitente
@@ -113,8 +113,8 @@ export default function RemitentesPage() {
 
                 {list.length > 0 && (
                   <div className="mt-3 flex flex-wrap gap-4 text-sm">
-                    <div className="flex items-center gap-1.5 text-emerald-700">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-[#BF2496]">
+                      <span className="h-2 w-2 rounded-full bg-[#BF2496] shrink-0" />
                       <span className="font-semibold">{stats.active} Activos</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-yellow-700">
@@ -131,7 +131,7 @@ export default function RemitentesPage() {
                 <div className="mt-6">
                   {isLoading && (
                     <div className="flex justify-center py-16">
-                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#BF2496] border-t-transparent" />
                     </div>
                   )}
                   {error && <p className="text-center text-red-500 py-8">Error al cargar los remitentes.</p>}

@@ -118,7 +118,7 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
               type="date"
               value={procedureDate}
               onChange={(e) => setProcedureDate(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none"
             />
           </div>
 
@@ -137,12 +137,12 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
           />
 
           {items.length > 0 && (
-            <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-3">
+            <div className="rounded-lg bg-[#BF2496]/10 border border-[#BF2496]/30 px-4 py-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-emerald-700">
+                <span className="text-xs font-semibold text-[#BF2496]">
                   Procedimientos seleccionados:
                 </span>
-                <span className="text-sm font-bold text-emerald-800">
+                <span className="text-sm font-bold text-[#BF2496]">
                   {items.length}
                 </span>
               </div>
@@ -160,7 +160,7 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50"
+            className="px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium disabled:opacity-50"
           >
             {isSaving ? "Guardando..." : "Guardar cambios"}
           </button>

@@ -42,7 +42,7 @@ export default function PaginationBar({
         <button
           onClick={onPrev}
           disabled={isFirstPage}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-[#BF2496]/10 hover:text-[#BF2496] disabled:opacity-40 disabled:cursor-not-allowed transition"
           aria-label="Página anterior"
         >
           <ChevronLeft size={16} />
@@ -56,7 +56,7 @@ export default function PaginationBar({
         <button
           onClick={onNext}
           disabled={isLastPage}
-          className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-emerald-50 hover:text-emerald-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-[#BF2496]/10 hover:text-[#BF2496] disabled:opacity-40 disabled:cursor-not-allowed transition"
           aria-label="Página siguiente"
         >
           Siguiente

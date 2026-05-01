@@ -80,7 +80,7 @@ export default function ValidatedInput({
         className={`mt-1 w-full rounded-xl border bg-white px-3 py-2 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 ${
           error
             ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-            : "border-gray-200 focus:border-emerald-400 focus:ring-emerald-500/20"
+            : "border-gray-200 focus:border-[#BF2496] focus:ring-[#BF2496]/20"
         }`}
       />
       {error && (

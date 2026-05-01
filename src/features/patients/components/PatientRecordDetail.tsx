@@ -116,7 +116,7 @@ export default function PatientRecordDetail({ patientId, evaluationId }: Props) 
   return (
     <AuthGuard>
       <MainLayout>
-        <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
+        <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
@@ -159,8 +159,8 @@ export default function PatientRecordDetail({ patientId, evaluationId }: Props) 
                       disabled={isChangingStatus || isConfirmed}
                       className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                         isConfirmed
-                          ? "bg-emerald-100 text-emerald-700"
-                          : "text-gray-400 hover:bg-emerald-50 hover:text-emerald-600 disabled:opacity-50"
+                          ? "bg-[#BF2496]/10 text-[#BF2496]"
+                          : "text-gray-400 hover:bg-[#BF2496]/10 hover:text-[#BF2496] disabled:opacity-50"
                       }`}
                     >
                       <CheckCircleIcon className="h-3.5 w-3.5" />

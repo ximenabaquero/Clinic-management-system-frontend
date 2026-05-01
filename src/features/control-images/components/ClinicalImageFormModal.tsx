@@ -123,7 +123,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
   const hasPreview = beforePreviewUrl || afterPreviewUrl;
 
   const imagePickerCls =
-    "relative cursor-pointer rounded-xl border-2 border-dashed border-gray-200 hover:border-emerald-400 transition overflow-hidden aspect-square bg-gray-50 flex items-center justify-center";
+    "relative cursor-pointer rounded-xl border-2 border-dashed border-gray-200 hover:border-[#BF2496] transition overflow-hidden aspect-square bg-gray-50 flex items-center justify-center";
 
   return (
     <div
@@ -156,7 +156,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                 className={`w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:outline-none ${
                   errors.title 
                     ? "border-red-300 focus:ring-red-400" 
-                    : "border-gray-200 focus:ring-emerald-400"
+                    : "border-gray-200 focus:ring-[#BF2496]"
                 }`}
                 maxLength={100}
                 placeholder="Ej. Liposucción abdominal"
@@ -173,7 +173,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none resize-none"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-[#BF2496] focus:outline-none resize-none"
                 rows={2}
                 placeholder="Breve descripción del tratamiento..."
               />
@@ -246,8 +246,8 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
             </div>
 
             {hasPreview && (
-              <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4">
-                <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-3">
+              <div className="rounded-xl border border-[#BF2496]/30 bg-[#BF2496]/10 p-4">
+                <p className="text-xs font-semibold text-[#BF2496] uppercase tracking-wide mb-3">
                   Vista previa — así se verá en la página de inicio
                 </p>
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden max-w-xs mx-auto">
@@ -270,7 +270,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                           <PhotoIcon className="h-6 w-6 text-gray-400" />
                         </div>
                       )}
-                      <span className="absolute top-1.5 left-1.5 bg-emerald-600/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">DESPUÉS</span>
+                      <span className="absolute top-1.5 left-1.5 bg-[#BF2496]/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">DESPUÉS</span>
                     </div>
                   </div>
                   <div className="p-3">
@@ -290,7 +290,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
           <button
             onClick={handleSubmit}
             disabled={isUploading}
-            className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50"
+            className="px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium disabled:opacity-50"
           >
             {isUploading ? "Guardando..." : editingId ? "Actualizar imagen" : "Publicar imagen"}
           </button>

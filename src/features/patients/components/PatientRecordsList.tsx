@@ -30,11 +30,11 @@ const STATUS_CONFIG = {
   CONFIRMADO: {
     label: "Confirmado",
     icon: DocumentCheckIcon,
-    dot: "bg-emerald-500",
-    badge: "bg-emerald-50 text-emerald-700 border border-emerald-100",
-    accent: "border-l-emerald-500",
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50",
+    dot: "bg-[#BF2496]",
+    badge: "bg-[#BF2496]/10 text-[#BF2496] border border-[#BF2496]/30",
+    accent: "border-l-[#BF2496]",
+    iconColor: "text-[#BF2496]",
+    iconBg: "bg-[#BF2496]/10",
   },
   EN_ESPERA: {
     label: "En espera",
@@ -219,7 +219,7 @@ export default function PatientRecordsList({ patientId }: Props) {
                 onClick={() =>
                   router.push(`/patients/${patientId}/records/${record.id}`)
                 }
-                className="flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-700 transition-colors duration-200"
+                className="flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-[#BF2496] text-white text-xs font-semibold hover:bg-[#BF2496]/80 transition-colors duration-200"
               >
                 Ver detalles
                 <ArrowRightIcon className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />

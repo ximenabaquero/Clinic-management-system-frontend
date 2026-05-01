@@ -70,7 +70,7 @@ function StatCard({
 }) {
   return (
     <div className="group relative">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#BF2496] to-teal-500 rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
       <div className="relative flex flex-col justify-between bg-white/95 backdrop-blur-sm rounded-2xl border border-gray-100 p-5 shadow-lg hover:shadow-xl transition-all duration-500 h-full min-h-[110px]">
         <div>
           <h3 className="text-[10px] uppercase tracking-wider text-gray-400 mb-2 flex items-center gap-1">
@@ -82,7 +82,7 @@ function StatCard({
           </p>
         </div>
         <div className="mt-2 min-h-[18px]">{renderVariation(variation)}</div>
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-600 group-hover:w-2/3 transition-all duration-500 rounded-full" />
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#BF2496] to-blue-600 group-hover:w-2/3 transition-all duration-500 rounded-full" />
       </div>
     </div>
   );
@@ -114,7 +114,7 @@ function LockedCard({
 }) {
   return (
     <div className="group relative">
-      <div className={`absolute -inset-0.5 bg-gradient-to-r ${blue ? "from-blue-400 to-blue-500" : "from-emerald-400 to-green-500"} rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
+      <div className={`absolute -inset-0.5 bg-gradient-to-r ${blue ? "from-blue-400 to-blue-500" : "from-[#BF2496] to-teal-500"} rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-30 transition duration-500`} />
       <div className={`relative flex flex-col justify-between bg-white rounded-2xl border ${blue ? "border-blue-100" : "border-gray-100"} p-5 shadow-lg hover:shadow-xl transition-all duration-500 h-full min-h-[110px] overflow-hidden`}>
         {blue && (
           <>
@@ -156,7 +156,7 @@ function LockedCard({
           ) : (
             <button
               onClick={onRequestReveal}
-              className={`flex items-center gap-2 ${blue ? "text-gray-400 hover:text-blue-600" : "text-gray-400 hover:text-emerald-600"} transition-colors`}
+              className={`flex items-center gap-2 ${blue ? "text-gray-400 hover:text-blue-600" : "text-gray-400 hover:text-[#BF2496]"} transition-colors`}
             >
               <LockClosedIcon className="w-5 h-5" />
               <span className="text-sm font-medium">{lockLabel}</span>
@@ -164,7 +164,7 @@ function LockedCard({
           )}
         </div>
 
-        <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r ${blue ? "from-blue-300 to-blue-500" : "from-emerald-500 to-blue-600"} group-hover:w-2/3 transition-all duration-500 rounded-full`} />
+        <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r ${blue ? "from-blue-300 to-blue-500" : "from-[#BF2496] to-blue-600"} group-hover:w-2/3 transition-all duration-500 rounded-full`} />
       </div>
     </div>
   );

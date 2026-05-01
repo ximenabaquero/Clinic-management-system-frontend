@@ -26,7 +26,7 @@ export default function NotesField({
           onDirty();
           onChange(e.target.value);
         }}
-        className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+        className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
         placeholder="Hallazgos relevantes, indicaciones específicas, observaciones clínicas importantes..."
       />
     </div>

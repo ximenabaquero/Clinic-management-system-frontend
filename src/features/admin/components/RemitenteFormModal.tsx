@@ -121,7 +121,7 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
   };
 
   const inputCls = (field: string) =>
-    `w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none ${fieldErrors[field] ? "border-red-400" : "border-gray-200"}`;
+    `w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#BF2496]/40 focus:outline-none ${fieldErrors[field] ? "border-red-400" : "border-gray-200"}`;
 
   return (
     <div
@@ -201,8 +201,8 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
                 {PASSWORD_RULES.map((rule) => {
                   const ok = rule.test(form.password);
                   return (
-                    <div key={rule.label} className={`flex items-center gap-1.5 text-xs ${ok ? "text-emerald-600" : "text-gray-400"}`}>
-                      <CheckCircleSolid className={`h-3.5 w-3.5 shrink-0 ${ok ? "text-emerald-500" : "text-gray-200"}`} />
+                    <div key={rule.label} className={`flex items-center gap-1.5 text-xs ${ok ? "text-[#BF2496]" : "text-gray-400"}`}>
+                      <CheckCircleSolid className={`h-3.5 w-3.5 shrink-0 ${ok ? "text-[#BF2496]" : "text-gray-200"}`} />
                       {rule.label}
                     </div>
                   );
@@ -222,7 +222,7 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
                   type={showConfirm ? "text" : "password"}
                   value={form.password_confirmation}
                   onChange={(e) => setField("password_confirmation", e.target.value)}
-                  className={`${inputCls("password_confirmation")} pr-10 ${confirmMismatch ? "border-red-400" : form.password_confirmation && !confirmMismatch ? "border-emerald-400" : ""}`}
+                  className={`${inputCls("password_confirmation")} pr-10 ${confirmMismatch ? "border-red-400" : form.password_confirmation && !confirmMismatch ? "border-[#BF2496]" : ""}`}
                   placeholder="Repite la contraseña"
                   autoComplete="new-password"
                 />
@@ -236,7 +236,7 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
               </div>
               {confirmMismatch && <p className="mt-1 text-xs text-red-500">Las contraseñas no coinciden</p>}
               {!confirmMismatch && form.password_confirmation.length > 0 && (
-                <p className="mt-1 text-xs text-emerald-600 flex items-center gap-1">
+                <p className="mt-1 text-xs text-[#BF2496] flex items-center gap-1">
                   <CheckCircleIcon className="h-3.5 w-3.5" /> Las contraseñas coinciden
                 </p>
               )}
@@ -249,7 +249,7 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
           <button onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition">
             Cancelar
           </button>
-          <button onClick={handleSave} disabled={isSaving} className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50">
+          <button onClick={handleSave} disabled={isSaving} className="px-5 py-2 text-sm bg-[#BF2496] text-white rounded-lg hover:bg-[#BF2496]/80 transition font-medium disabled:opacity-50">
             {isSaving ? "Guardando..." : editingId ? "Guardar cambios" : "Crear remitente"}
           </button>
         </div>

@@ -14,7 +14,7 @@ const numberColors = [
   "bg-blue-100 text-blue-600",
   "bg-purple-100 text-purple-600",
   "bg-pink-100 text-pink-600",
-  "bg-emerald-100 text-emerald-600",
+  "bg-[#BF2496]/10 text-[#BF2496]",
   "bg-amber-100 text-amber-600",
 ];
 

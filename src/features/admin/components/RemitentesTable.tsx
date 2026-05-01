@@ -10,7 +10,7 @@ import { usePagination } from "@/utils/usePagination";
 import type { Remitente } from "../types";
 
 const STATUS_CONFIG = {
-  active:   { label: "Activo",    classes: "bg-emerald-100 text-emerald-700" },
+  active:   { label: "Activo",    classes: "bg-[#BF2496]/10 text-[#BF2496]" },
   inactive: { label: "Inactivo",  classes: "bg-yellow-100 text-yellow-700" },
   fired:    { label: "Despedido", classes: "bg-red-100 text-red-600" },
 } as const;
@@ -38,7 +38,7 @@ export default function RemitentesTable({ remitentes, onEdit, onChangeStatus }: 
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-100">
-          <thead className="bg-gradient-to-r from-emerald-600 to-teal-600">
+          <thead className="bg-gradient-to-r from-[#BF2496] to-teal-600">
             <tr className="text-left text-xs font-semibold text-white/95 uppercase tracking-wide">
               <th className="px-5 py-3">Especialista</th>
               <th className="px-5 py-3 hidden md:table-cell">Usuario del sistema</th>
@@ -51,7 +51,7 @@ export default function RemitentesTable({ remitentes, onEdit, onChangeStatus }: 
             {paginatedItems.map((r) => {
               const sc = STATUS_CONFIG[r.status] ?? STATUS_CONFIG.inactive;
               return (
-                <tr key={r.id} className="hover:bg-emerald-50/40 transition-colors">
+                <tr key={r.id} className="hover:bg-[#BF2496]/10 transition-colors">
                   <td className="px-5 py-4">
                     <p className="font-medium text-gray-900 text-sm">{r.first_name} {r.last_name}</p>
                     <p className="text-xs text-gray-400">{r.email}</p>
@@ -64,7 +64,7 @@ export default function RemitentesTable({ remitentes, onEdit, onChangeStatus }: 
                   </td>
                   <td className="px-5 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full ${sc.classes}`}>
-                      {r.status === "active"   && <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />}
+                      {r.status === "active"   && <span className="h-2 w-2 rounded-full bg-[#BF2496] shrink-0" />}
                       {r.status === "inactive" && <span className="h-2 w-2 rounded-full border-2 border-yellow-500 shrink-0" />}
                       {r.status === "fired"    && <NoSymbolIcon className="h-3 w-3 text-red-500 shrink-0" />}
                       {sc.label}
@@ -81,7 +81,7 @@ export default function RemitentesTable({ remitentes, onEdit, onChangeStatus }: 
                         <PencilSquareIcon className="h-4 w-4" />
                       </button>
                       {r.status !== "active" && (
-                        <button title="Activar" onClick={() => onChangeStatus(r.id, "activar", "Activar")} className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 transition-colors">
+                        <button title="Activar" onClick={() => onChangeStatus(r.id, "activar", "Activar")} className="p-1.5 rounded-lg text-[#BF2496] hover:bg-[#BF2496]/10 transition-colors">
                           <CheckCircleIcon className="h-4 w-4" />
                         </button>
                       )}

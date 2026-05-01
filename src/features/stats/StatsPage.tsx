@@ -38,7 +38,7 @@ export default function StatsPage() {
     <AuthGuard>
       <RoleGuard allow={["ADMIN"]}>
         <MainLayout>
-          <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
+          <div className="bg-gradient-to-b from-[#BF2496]/5 via-white to-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
               <div className="w-full mx-auto">
                 <RegisterHeaderBar
@@ -63,8 +63,8 @@ export default function StatsPage() {
                 {/* Periodo + Tabs */}
                 <div className="mt-3 flex items-center justify-between flex-wrap gap-3 mb-6">
                   <div className="inline-flex items-center gap-2 rounded-xl bg-white border border-gray-200 shadow-sm px-4 py-2 text-sm font-medium text-gray-700">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-emerald-50">
-                      <CalendarDaysIcon className="w-3.5 h-3.5 text-emerald-600" />
+                    <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-[#BF2496]/10">
+                      <CalendarDaysIcon className="w-3.5 h-3.5 text-[#BF2496]" />
                     </div>
                     <span className="text-gray-400 font-normal">
                       Periodo actual
@@ -86,8 +86,8 @@ export default function StatsPage() {
                       onClick={() => setActiveTab("general")}
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         activeTab === "general"
-                          ? "bg-emerald-600 text-white shadow-sm"
-                          : "text-gray-500 hover:text-emerald-600 hover:bg-emerald-50"
+                          ? "bg-[#BF2496] text-white shadow-sm"
+                          : "text-gray-500 hover:text-[#BF2496] hover:bg-[#BF2496]/10"
                       }`}
                     >
                       <ChartBarIcon className="w-4 h-4" />
@@ -97,8 +97,8 @@ export default function StatsPage() {
                       onClick={() => setActiveTab("remitentes")}
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         activeTab === "remitentes"
-                          ? "bg-emerald-600 text-white shadow-sm"
-                          : "text-gray-500 hover:text-emerald-600 hover:bg-emerald-50"
+                          ? "bg-[#BF2496] text-white shadow-sm"
+                          : "text-gray-500 hover:text-[#BF2496] hover:bg-[#BF2496]/10"
                       }`}
                     >
                       <UserGroupIcon className="w-4 h-4" />
@@ -151,7 +151,7 @@ export default function StatsPage() {
                     <div className="flex items-start justify-between mb-6">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <UserGroupIcon className="w-5 h-5 text-emerald-600" />
+                          <UserGroupIcon className="w-5 h-5 text-[#BF2496]" />
                           <h2 className="text-lg font-semibold text-gray-900">
                             Rendimiento por remitente
                           </h2>
@@ -161,7 +161,7 @@ export default function StatsPage() {
                           especialista durante el periodo actual.
                         </p>
                       </div>
-                      <div className="inline-flex items-center rounded-lg bg-emerald-50 border border-emerald-100 px-3 py-1.5 text-xs text-emerald-700 font-medium shrink-0"></div>
+                      <div className="inline-flex items-center rounded-lg bg-[#BF2496]/10 border border-[#BF2496]/20 px-3 py-1.5 text-xs text-[#BF2496] font-medium shrink-0"></div>
                     </div>
                     <ReferrerStats />
                   </div>

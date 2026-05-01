@@ -235,7 +235,7 @@ export default function RegisterPatientPage() {
   return (
     <AuthGuard>
       <MainLayout>
-        <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
+        <div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="grid grid-cols-12 gap-6">
               {/* SIDEBAR */}
@@ -332,7 +332,7 @@ export default function RegisterPatientPage() {
                       <button
                         type="button"
                         onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
-                        className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 disabled:opacity-60"
+                        className="rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20 disabled:opacity-60"
                         disabled={currentStep === 0 || isSubmitting}
                       >
                         Anterior
@@ -342,7 +342,7 @@ export default function RegisterPatientPage() {
                         <button
                           type="button"
                           onClick={() => setCurrentStep((s) => Math.min(2, s + 1))}
-                          className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:opacity-60"
+                          className="rounded-xl bg-[#BF2496] px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/30 disabled:opacity-60"
                           disabled={isSubmitting}
                         >
                           Siguiente
@@ -354,8 +354,8 @@ export default function RegisterPatientPage() {
                           onClick={handleSaveClick}
                           className={`rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200
                             ${allStepsCompleted
-                              ? "bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 shadow-sm cursor-pointer"
-                              : "bg-emerald-200 cursor-not-allowed"
+                              ? "bg-gradient-to-r from-[#BF2496] to-teal-500 hover:from-[#BF2496] hover:to-teal-600 shadow-sm cursor-pointer"
+                              : "bg-[#BF2496] cursor-not-allowed"
                             }`}
                         >
                           {isSubmitting ? "Guardando..." : "Guardar registro"}

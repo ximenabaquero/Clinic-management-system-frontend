@@ -29,8 +29,8 @@ function StockBadge({ stock }: { stock: number }) {
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
-      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+    <span className="inline-flex items-center gap-1 rounded-full bg-[#BF2496]/10 px-2.5 py-0.5 text-xs font-semibold text-[#BF2496]">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#BF2496] inline-block" />
       {stock} — OK
     </span>
   );
@@ -129,7 +129,7 @@ export default function ProductCatalog({ products, isAdmin, onAddProduct }: Prop
                     <span
                       className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                         product.active
-                          ? "bg-emerald-100 text-emerald-700"
+                          ? "bg-[#BF2496]/10 text-[#BF2496]"
                           : "bg-gray-100 text-gray-500"
                       }`}
                     >

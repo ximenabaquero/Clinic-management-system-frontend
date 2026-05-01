@@ -108,9 +108,9 @@ export default function ProceduresSelector({
             open={false}
             className="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100"
           >
-            <summary className="cursor-pointer list-none px-4 py-3 bg-emerald-50/50 hover:bg-emerald-50 rounded-t-2xl transition-colors">
+            <summary className="cursor-pointer list-none px-4 py-3 bg-[#BF2496]/10 hover:bg-[#BF2496]/20 rounded-t-2xl transition-colors">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-emerald-900">
+                <span className="text-sm font-semibold text-[#BF2496]">
                   {group.label}
                 </span>
 
@@ -118,7 +118,7 @@ export default function ProceduresSelector({
                   <span
                     className="flex items-center justify-center
                       min-w-[24px] h-6 px-2
-                      rounded-full bg-emerald-600
+                      rounded-full bg-[#BF2496]
                       text-white text-xs font-bold shadow-sm"
                   >
                     {getGroupCount(group.procedureIds)}
@@ -172,7 +172,7 @@ export default function ProceduresSelector({
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleItem(procedure.label)}
-                          className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500/30"
+                          className="h-4 w-4 rounded border-gray-300 text-[#BF2496] focus:ring-[#BF2496]/30"
                         />
                       </div>
 

@@ -91,7 +91,7 @@ export default function ComprasTab({
           className="flex flex-col gap-1.5 p-4 bg-white rounded-xl border border-gray-200 shadow-sm"
           style={{ borderLeftWidth: "3px", borderLeftColor: "#059669" }}
         >
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 uppercase tracking-wide font-semibold">
+          <div className="flex items-center gap-1.5 text-xs text-[#BF2496] uppercase tracking-wide font-semibold">
             Productos distintos
           </div>
           <div className="text-2xl font-bold text-gray-900 font-mono tracking-tight">

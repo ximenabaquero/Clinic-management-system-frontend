@@ -108,9 +108,9 @@ export default function InventorySummaryCards({ isAdmin }: Props) {
       tooltip: "suma de todos los ingresos confirmados registrados en la clínica.",
       value: formatCOP(data.total_income),
       icon: BanknotesIcon,
-      bg: "bg-emerald-50",
-      iconColor: "text-emerald-600",
-      border: "border-emerald-200",
+      bg: "bg-[#BF2496]/10",
+      iconColor: "text-[#BF2496]",
+      border: "border-[#BF2496]/30",
     },
     {
       label: "Gastos Totales",
