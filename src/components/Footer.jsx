@@ -13,6 +13,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/features/auth/AuthContext";
 
 const quickLinks = [
   { name: "Inicio", href: "#" },
@@ -31,7 +32,10 @@ const areas = [
 ];
 
 export default function Footer() {
+  const { user } = useAuth();
   const [currentYear] = useState(new Date().getFullYear());
+
+  if (user) return null;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
