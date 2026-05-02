@@ -19,7 +19,7 @@ const benefits = [
     bgColor: "bg-[#05F2DB]", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "/consultorio2.png"
+    image: "/equipo2.png"
   },
   {
     title: "Equipos de alta tecnología",
@@ -39,7 +39,8 @@ const benefits = [
     bgColor: "bg-[#F285C1]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-2",
-    image: "/equipo2.png"
+    image: "/consultorio2.png"
+    // image: "/equipo2.png"
   },
   {
     title: "Resultados Garantizados",
@@ -49,7 +50,7 @@ const benefits = [
     bgColor: "bg-gray-900", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "/equipo1.png"
+    image: "/resultadogarantizado.jpg"
   },
   {
     title: "Atención Premium",
@@ -69,7 +70,7 @@ const benefits = [
     bgColor: "bg-[#D929AA]",
     textColor: "text-white",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "/consultorio2.png"
+    image: "/ortesis.jpg"
   },
 ];
 

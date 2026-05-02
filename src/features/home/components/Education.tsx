@@ -35,13 +35,13 @@ const topics = [
   },
   {
     title: "¿Qué es el Heloma Plantar?",
-    body: "El heloma (callo plantar) es una acumulación de piel muerta provocada por presión repetida. El desbridamiento clínico lo realiza personal especializado con bisturí estéril, eliminando el núcleo sin causar sangrado ni riesgo de infección.",
+    body: "El heloma (callo plantar) es una acumulación de piel muerta provocada por presión repetida. El desbridamiento clínico lo realiza personal especializado sin causar riesgo de infección.",
     icon: <Layers className="w-6 h-6" />,
     gradient: "from-[#F285C1] to-[#05F2DB]",
     tag: "Hiperqueratosis"
   },
   {
-    title: "¿Qué es la Fenolización?",
+    title: "¿Qué es la matricectomía?",
     body: "La fenolización es el tratamiento definitivo para la uña encarnada recurrente. Aplicamos ácido fénico en la raíz de la uña para destruir de forma permanente la franja problemática, evitando recaídas sin necesidad de cirugía mayor.",
     icon: <Droplet className="w-6 h-6" />,
     gradient: "from-[#BF2496] to-[#F285C1]",
