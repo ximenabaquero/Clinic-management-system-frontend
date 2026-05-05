@@ -39,7 +39,7 @@ const benefits = [
     bgColor: "bg-[#F285C1]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-2",
-    image: "/consultorio2.png"
+    image: "/piebb.png"
     // image: "/equipo2.png"
   },
   {
@@ -70,7 +70,7 @@ const benefits = [
     bgColor: "bg-[#D929AA]",
     textColor: "text-white",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "/ortesis.jpg"
+    image: "/pies_corriendo.jpg"
   },
 ];
 

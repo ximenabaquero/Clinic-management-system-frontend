@@ -195,9 +195,9 @@ export default function Contact() {
                 <div>
                   <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-3">Horario Clínico</h4>
                   <p className="text-gray-900 font-bold mb-1">Lunes a Viernes</p>
-                  <p className="text-gray-500 text-sm mb-4">9:00 AM — 7:00 PM</p>
+                  <p className="text-gray-500 text-sm mb-4">8:00 AM — 5:00 PM</p>
                   <p className="text-gray-900 font-bold mb-1">Sábados</p>
-                  <p className="text-gray-500 text-sm">9:00 AM — 2:00 PM</p>
+                  <p className="text-gray-500 text-sm">8:00 AM — 2:00 PM</p>
                 </div>
               </div>
 

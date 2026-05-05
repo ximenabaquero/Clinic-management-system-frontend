@@ -28,7 +28,7 @@ const topics = [
   }, */
   {
     title: "¿Qué es la Verruga Plantar?",
-    body: "Contamos con tratamientos personalizados, seguimiento clínico hasta la resolución de la patología.",
+    body: "Una verruga plantar (o papiloma) es una infección benigna en la piel de la planta del pie causada por el Virus del Papiloma Humano (VPH). Se caracteriza por ser dolorosa al caminar, tener un aspecto rugoso con puntos negros internos y crecer hacia adentro debido a la presión, diferenciándose de un callo convencional",
     icon: <ShieldCheck className="w-6 h-6" />,
     gradient: "from-[#05F2DB] to-[#BF2496]",
     tag: "Patología Viral"
