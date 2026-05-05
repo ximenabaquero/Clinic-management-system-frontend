@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Droplet, Footprints, Activity, Smartphone, ChevronDown, Zap } from 'lucide-react';
+import { Check, Droplet, Footprints, Activity, Smartphone, ChevronDown, Zap, Star, ShieldCheck } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const serviceGroups = [
@@ -76,48 +76,91 @@ export default function Services() {
   return (
     <main className="bg-white">
       {/* HERO SECTION */}
-      <section className=" h-[85vh] lg:h-[70vh] min-h-[550px] w-full flex items-center overflow-hidden">
-        {/* Imagen de Fondo con Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/saladeespera.png" 
-            alt="PodoCare Services Hero"
-            className="w-full h-full object-cover"
-          />
-          {/* Overlay adaptativo: más oscuro en móvil para leer mejor el texto */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 lg:via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
-        </div>
+      <section className="w-full bg-white flex items-stretch overflow-hidden relative min-h-[600px]">
+
+        {/* Fondo decorativo lado derecho */}
+        <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-bl from-[#F285C1]/10 via-[#05F2DB]/5 to-transparent pointer-events-none" />
+        {/* Círculo decorativo */}
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#BF2496]/5 blur-3xl pointer-events-none" />
+        <div className="absolute top-16 right-[40%] w-48 h-48 rounded-full bg-[#05F2DB]/8 blur-2xl pointer-events-none" />
 
         <div className="container mx-auto px-6 lg:px-16 relative z-10">
-          <div className="max-w-4xl">
-            <h1 className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#05F2DB] mb-4 md:mb-6">
-              Servicios Especializados
-            </h1>
-            <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif italic text-white mb-6 md:mb-8 leading-[1.1]">
-              Cuidado integral <br className="hidden sm:block" /> para tu {" "}
-              <span className="text-[#F285C1] not-italic font-sans font-bold block sm:inline">salud y bienestar.</span>
-            </h2>
-            {/* <p className="text-gray-200 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 md:mb-10">
-              Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología, enfermería y sueroterapia.
-            </p> */}
-            <p className="text-gray-200 text-base md:text-xl font-light leading-relaxed max-w-xl mb-8 md:mb-10">
-              Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
-            </p>
-            <div className="flex">
-              <a 
-                href="#especialidades" 
-                className="w-full sm:w-auto text-center px-8 py-4 bg-[#BF2496] text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#D929AA] transition-all shadow-lg shadow-pink-500/20 active:scale-95"
-              >
-                Explorar Servicios
-              </a>
+          <div className="flex flex-col lg:flex-row items-end gap-10 lg:gap-0">
+
+            {/* Columna izquierda: texto */}
+            <div className="flex-1 py-20 lg:py-28 flex flex-col justify-center">
+
+              {/* Badge mejorado */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#05F2DB]/10 border border-[#05F2DB]/20 mb-8 w-fit">
+                <ShieldCheck size={14} className="text-[#05F2DB]" />
+                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#05F2DB]">
+                  Servicios Especializados
+                </span>
+              </div>
+
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-gray-900 mb-6 md:mb-8 leading-[1.1]">
+                Cuidado integral <br className="hidden sm:block" /> para tu{" "}
+                <span className="text-[#F285C1] not-italic font-sans font-bold">salud y bienestar.</span>
+              </h2>
+
+              <p className="text-gray-500 text-base md:text-lg font-light leading-relaxed max-w-lg mb-10">
+                Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-10">
+                <a
+                  href="#especialidades"
+                  className="w-full sm:w-auto text-center px-8 py-4 bg-[#BF2496] text-white rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#D929AA] transition-all shadow-lg shadow-pink-500/20 active:scale-95"
+                >
+                  Explorar Servicios
+                </a>
+                <a
+                  href={generateWhatsAppURL("services_hero")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-gray-200 bg-white text-gray-700 font-bold text-xs uppercase tracking-widest hover:border-[#BF2496] hover:text-[#BF2496] transition-all active:scale-95"
+                >
+                  Agendar Cita
+                </a>
+              </div>
+
+              {/* Prueba social */}
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3">
+                  {[11, 12, 13].map((i) => (
+                    <div key={i} className="w-9 h-9 rounded-full border-2 border-white bg-gray-100 overflow-hidden">
+                      <img src={`https://i.pravatar.cc/80?img=${i}`} alt="Paciente" className="w-full h-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="flex text-yellow-400 mb-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={11} fill="currentColor" />
+                    ))}
+                  </div>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-tight">+500 Pacientes Satisfechos</p>
+                </div>
+              </div>
+
             </div>
+
+            {/* Columna derecha: imagen doctora */}
+            <div className="flex-1 flex justify-center lg:justify-end items-end self-end">
+              <img
+                src="/doctorapodocare.PNG"
+                alt="Doctora PodoCare"
+                className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] object-contain object-bottom drop-shadow-xl"
+              />
+            </div>
+
           </div>
         </div>
 
         {/* Indicador de Scroll */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-          <ChevronDown className="text-white opacity-50" size={32} />
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+          <ChevronDown className="text-gray-300" size={28} />
         </div>
       </section>
 

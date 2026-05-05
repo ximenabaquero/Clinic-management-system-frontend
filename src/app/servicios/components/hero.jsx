@@ -71,12 +71,12 @@ export default function ServicesHero() {
 
           {/* Lado Derecho: Visual */}
           <div className="flex-1 relative w-full max-w-2xl">
-            <div className="relative aspect-square rounded-[4rem] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden border border-gray-100">
-              {/* Imagen principal (Placeholder de alta calidad) */}
+            <div className="relative rounded-[4rem] bg-white overflow-hidden border border-gray-100">
+              {/* Imagen doctora */}
               <img 
-                src="http://googleusercontent.com/image_collection/image_retrieval/5810956768333585590_2" 
-                alt="PodoCare Services" 
-                className="w-full h-full object-cover mix-blend-multiply opacity-80"
+                src="/doctorapodocare.PNG" 
+                alt="Doctora PodoCare" 
+                className="w-full h-full object-cover object-top"
               />
               
               {/* Floating Badge 1 */}
