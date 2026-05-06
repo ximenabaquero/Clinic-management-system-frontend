@@ -69,7 +69,7 @@ export default function Header() {
                 scrolled ? "h-11 w-11" : "h-12 w-12 sm:h-14 sm:w-14"
               } group-hover:scale-105`}>
                 <Image
-                  src="/logopodocare.png"
+                  src="/logopodocare.webp"
                   alt="PodoCare Logo"
                   fill
                   className="object-contain"
