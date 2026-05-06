@@ -53,6 +53,8 @@ export default function Services() {
           {/* Móvil: Oscurece un poco para leer sobre la imagen */}
           <div className="absolute inset-0 bg-black/30 lg:hidden z-10" />
           {/* Escritorio: Degradado lateral blanco */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/90 md:via-slate-50/10 to-transparent" />
         </div>
 
         {/* 3. Contenido Principal */}
