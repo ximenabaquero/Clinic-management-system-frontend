@@ -7,7 +7,7 @@ const serviceGroups = [
   {
     title: "Podología",
     subtitle: "Cuidado del Pie",
-    image: "/equipo2.png",
+    image: "/equipo2.webp",
     icon: <Footprints className="text-[#05F2DB]" size={28} />,
     color: "#05F2DB",
     services: [
@@ -17,7 +17,7 @@ const serviceGroups = [
   {
     title: "Enfermería",
     subtitle: "Atención Técnica",
-    image: "/consultorio2.png",
+    image: "/consultorio2.webp",
     icon: <Activity className="text-[#D929AA]" size={28} />,
     color: "#D929AA",
     services: [
@@ -27,7 +27,7 @@ const serviceGroups = [
   {
     title: "Tecnología Clínica",
     subtitle: "Diagnóstico",
-    image: "/equipo1.png",
+    image: "/equipo1.webp",
     icon: <Zap className="text-[#BF2496]" size={28} />,
     color: "#BF2496",
     services: [
@@ -45,7 +45,7 @@ export default function Services() {
         {/* 1. Imagen de Fondo Completa */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/doctorapodocarehero.PNG"
+            src="/doctorapodocarehero.webp"
             alt="Fondo Doctora PodoCare"
             className="w-full h-full object-cover object-[75%] lg:object-right-top filter brightness-[0.9] lg:brightness-100"
           />

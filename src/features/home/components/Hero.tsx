@@ -26,7 +26,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0 flex justify-end">
         <div className="relative w-full lg:w-[85%] h-full">
           <Image
-            src="/saladeespera.png" 
+            src="/saladeespera.webp" 
             alt="Clínica PodoCare"
             fill
             sizes="(max-width: 1024px) 100vw, 80vw"

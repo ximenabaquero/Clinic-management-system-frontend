@@ -19,7 +19,7 @@ const benefits = [
     bgColor: "bg-[#05F2DB]", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "/equipo2.png"
+    image: "/equipo2.webp"
   },
   {
     title: "Equipos de alta tecnología",
@@ -29,7 +29,7 @@ const benefits = [
     bgColor: "bg-[#BF2496]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "/equipo1.png"
+    image: "/equipo1.webp"
   },
   {
     title: "Enfoque Clínico",
@@ -39,8 +39,7 @@ const benefits = [
     bgColor: "bg-[#F285C1]", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-2",
-    image: "/piebb.png"
-    // image: "/equipo2.png"
+    image: "/piebb.webp"
   },
   {
     title: "Resultados Garantizados",
@@ -50,7 +49,7 @@ const benefits = [
     bgColor: "bg-gray-900", 
     textColor: "text-white",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "/resultadogarantizado.jpg"
+    image: "/resultadogarantizado.webp"
   },
   {
     title: "Atención Premium",
@@ -60,7 +59,7 @@ const benefits = [
     bgColor: "bg-gray-100", 
     textColor: "text-gray-900",
     gridArea: "lg:col-span-1 lg:row-span-1",
-    image: "/saladeespera.png"
+    image: "/saladeespera.webp"
   },
   {
     title: "Ortesis a Medida",
@@ -70,7 +69,7 @@ const benefits = [
     bgColor: "bg-[#D929AA]",
     textColor: "text-white",
     gridArea: "lg:col-span-2 lg:row-span-1",
-    image: "/pies_corriendo.jpg"
+    image: "/pies_corriendo.webp"
   },
 ];
 
