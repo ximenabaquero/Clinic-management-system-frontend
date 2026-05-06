@@ -95,7 +95,7 @@ export default function Contact() {
             className={`w-full h-full object-cover object-center transition-transform duration-[10000ms] ${isLoaded ? 'scale-100' : 'scale-110'}`}
           />
           {/* Overlays: Uno oscuro para contraste y un gradiente para fundir con el blanco inferior */}
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/75" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
         </div>
 
