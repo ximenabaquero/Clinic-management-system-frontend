@@ -87,6 +87,12 @@ export default function Contact() {
       
       {/* 1. HERO SECTION CON IMAGEN DE FONDO */}
       <section className="relative w-full h-[85vh] flex items-center justify-center overflow-hidden bg-gray-950">
+
+        {/* Blobs decorativos CSS */}
+        <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full bg-[#BF2496]/30 blur-3xl pointer-events-none z-20" />
+        <div className="absolute top-1/3 -right-32 w-[420px] h-[420px] rounded-full bg-[#05F2DB]/20 blur-3xl pointer-events-none z-20" />
+        <div className="absolute -bottom-20 left-1/3 w-80 h-80 rounded-full bg-[#D929AA]/25 blur-2xl pointer-events-none z-20" />
+
         {/* Capa de Imagen */}
         <div className="absolute inset-0 z-0">
           <img 

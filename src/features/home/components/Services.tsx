@@ -47,14 +47,14 @@ export default function Services() {
           <img
             src="/doctorapodocarehero.webp"
             alt="Fondo Doctora PodoCare"
-            className="w-full h-full object-cover object-[75%] lg:object-right-top filter brightness-[0.5] lg:brightness-[0.65]"
+            className="w-full h-full object-cover object-[75%] lg:object-right-top filter brightness-[0.85] lg:brightness-100"
           />
           {/* 2. Overlays Responsivos */}
-          {/* Móvil: overlay más oscuro */}
-          <div className="absolute inset-0 bg-black/60 lg:hidden z-10" />
-          {/* Escritorio: degradado lateral oscuro */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-transparent to-slate-950 md:hidden" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 lg:via-slate-950/40 to-transparent" />
+          {/* Móvil: overlay suave */}
+          <div className="absolute inset-0 bg-black/25 lg:hidden z-10" />
+          {/* Escritorio: degradado lateral blanco */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 md:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/80 lg:via-slate-50/20 to-transparent" />
         </div>
 
         {/* 3. Contenido Principal */}
@@ -73,13 +73,13 @@ export default function Services() {
               </div>
 
               {/* Título Responsivo */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-white mb-6 leading-[1.1] drop-shadow-md">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-white lg:text-gray-900 mb-6 leading-[1.1] drop-shadow-md lg:drop-shadow-none">
                 Cuidado integral <br className="hidden sm:block" /> para tu{" "}
                 <span className="text-[#F285C1] not-italic font-sans font-bold block sm:inline">salud y bienestar.</span>
               </h1>
 
               {/* Párrafo Responsivo */}
-              <p className="text-white lg:text-white text-sm md:text-lg font-light leading-relaxed max-w-lg mb-10 drop-shadow-sm lg:drop-shadow-none">
+              <p className="text-white lg:text-gray-600 text-sm md:text-lg font-light leading-relaxed max-w-lg mb-10 drop-shadow-sm lg:drop-shadow-none">
                 Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
               </p>
 
@@ -95,7 +95,7 @@ export default function Services() {
                   href={generateWhatsAppURL("services")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-white/30 bg-white/10 text-white font-bold text-[11px] uppercase tracking-widest hover:bg-white hover:text-[#BF2496] transition-all backdrop-blur-sm active:scale-95"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-white/30 lg:border-gray-200 bg-white/10 lg:bg-white text-white lg:text-gray-700 font-bold text-[11px] uppercase tracking-widest hover:bg-white hover:text-[#BF2496] transition-all backdrop-blur-sm lg:backdrop-blur-none active:scale-95"
                 >
                   Agendar Cita
                 </a>
