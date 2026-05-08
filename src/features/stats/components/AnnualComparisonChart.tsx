@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { endpoints } from "../services/StatsService";
 import { useAuth } from "@/features/auth/AuthContext";
@@ -20,9 +20,8 @@ import {
   ClipboardDocumentCheckIcon,
   ScissorsIcon,
   LockClosedIcon,
-  EyeIcon,
-  EyeSlashIcon,
 } from "@heroicons/react/24/outline";
+import ValidatedInput from "@/components/ValidatedInput";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -32,7 +31,7 @@ const fetcher = (url: string) =>
     headers: { Accept: "application/json" },
   })
     .then((res) => res.json())
-    .then((json) => json.data || json);
+    .then((json) => json.data || null);
 
 type Metric = "income" | "patients" | "sessions" | "procedures";
 
@@ -48,8 +47,8 @@ const METRICS: {
     key: "income",
     label: "Ingresos",
     icon: <BanknotesIcon className="w-4 h-4" />,
-    color: "#10b981",
-    lightColor: "#d1fae5",
+    color: "#8b5cf6",
+    lightColor: "#ede9fe",
     format: (v) =>
       new Intl.NumberFormat("es-CO", {
         style: "currency",
@@ -69,8 +68,8 @@ const METRICS: {
     key: "sessions",
     label: "Registros",
     icon: <ClipboardDocumentCheckIcon className="w-4 h-4" />,
-    color: "#8b5cf6",
-    lightColor: "#ede9fe",
+    color: "#10b981",
+    lightColor: "#d1fae5",
     format: (v) => `${v} reg.`,
   },
   {
@@ -111,25 +110,26 @@ function CustomTooltip({ active, payload, label, metric }: any) {
   );
 }
 
-export default function AnnualComparisonChart() {
+interface Props {
+  incomeRevealed: boolean;
+  onReveal: () => void;
+}
+
+export default function AnnualComparisonChart({ incomeRevealed, onReveal }: Props) {
   const [activeMetric, setActiveMetric] = useState<Metric>("patients");
   const { data, error, isLoading } = useSWR(endpoints.annualComparison, fetcher);
   const { user } = useAuth();
 
-  const [incomeRevealed, setIncomeRevealed] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
-  const [showPass, setShowPass] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleTabClick(key: Metric) {
     if (key === "income" && !incomeRevealed) {
       setAuthError(null);
       setPassword("");
       setShowModal(true);
-      setTimeout(() => inputRef.current?.focus(), 50);
     } else {
       setActiveMetric(key);
     }
@@ -154,7 +154,7 @@ export default function AnnualComparisonChart() {
         body: JSON.stringify({ email: user.email, password }),
       });
       if (!res.ok) { setAuthError("Contraseña incorrecta."); return; }
-      setIncomeRevealed(true);
+      onReveal();
       setActiveMetric("income");
       setShowModal(false);
     } catch {
@@ -167,8 +167,8 @@ export default function AnnualComparisonChart() {
   const metric = METRICS.find((m) => m.key === activeMetric)!;
 
   const chartData =
-    data?.months?.map((m: any, i: number) => ({
-      name: MONTH_ABBR[i],
+    data?.months?.map((m: any) => ({
+      name: MONTH_ABBR[(m.month ?? 1) - 1],
       value: m[activeMetric] ?? 0,
     })) ?? [];
 
@@ -193,8 +193,8 @@ export default function AnnualComparisonChart() {
           </p>
           {activeMetric === "income" && !incomeRevealed ? (
             <button
-              onClick={() => { setAuthError(null); setPassword(""); setShowModal(true); setTimeout(() => inputRef.current?.focus(), 50); }}
-              className="flex items-center gap-1 text-gray-400 hover:text-[#BF2496] transition-colors mt-0.5 ml-auto"
+              onClick={() => { setAuthError(null); setPassword(""); setShowModal(true); }}
+              className="flex items-center gap-1 text-gray-400 hover:text-emerald-600 transition-colors mt-0.5 ml-auto"
             >
               <LockClosedIcon className="w-4 h-4" />
               <span className="text-xs font-medium">Ver total</span>
@@ -232,7 +232,7 @@ export default function AnnualComparisonChart() {
         <div className="h-52 flex items-center justify-center">
           <p className="text-sm text-gray-400 italic">Cargando datos...</p>
         </div>
-      ) : error ? (
+      ) : error || !data ? (
         <div className="h-52 flex items-center justify-center">
           <p className="text-sm text-red-400">Error al cargar datos.</p>
         </div>
@@ -283,8 +283,8 @@ export default function AnnualComparisonChart() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-4 border border-gray-100">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-[#BF2496]/10 flex items-center justify-center shrink-0">
-                <LockClosedIcon className="w-5 h-5 text-[#BF2496]" />
+              <div className="w-9 h-9 rounded-xl bg-violet-50 flex items-center justify-center shrink-0">
+                <LockClosedIcon className="w-5 h-5 text-violet-500" />
               </div>
               <div>
                 <p className="font-semibold text-gray-900 text-sm">Verificar identidad</p>
@@ -292,24 +292,18 @@ export default function AnnualComparisonChart() {
               </div>
             </div>
             <form onSubmit={handleVerify} className="space-y-4">
-              <div className="relative">
-                <input
-                  ref={inputRef}
-                  type={showPass ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Contraseña"
-                  required
-                  className="w-full px-4 py-2.5 pr-10 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#BF2496]/40 focus:border-transparent"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPass((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  {showPass ? <EyeSlashIcon className="w-4 h-4" /> : <EyeIcon className="w-4 h-4" />}
-                </button>
-              </div>
+              <ValidatedInput
+                id="verify-password"
+                label="Contraseña"
+                type="password"
+                value={password}
+                onChange={setPassword}
+                maxLength={128}
+                required
+                showToggle
+                autoFocus
+                placeholder="Contraseña"
+              />
               {authError && <p className="text-xs text-red-500 font-medium">{authError}</p>}
               <div className="flex gap-2">
                 <button
@@ -322,7 +316,7 @@ export default function AnnualComparisonChart() {
                 <button
                   type="submit"
                   disabled={authLoading || !password}
-                  className="flex-1 py-2 rounded-xl bg-[#BF2496] text-white text-sm font-semibold hover:bg-[#BF2496]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 py-2 rounded-xl bg-violet-600 text-white text-sm font-semibold hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {authLoading ? "Verificando..." : "Confirmar"}
                 </button>

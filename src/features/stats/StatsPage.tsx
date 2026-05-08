@@ -33,6 +33,7 @@ type Tab = "general" | "remitentes";
 export default function StatsPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("general");
+  const [incomeRevealed, setIncomeRevealed] = useState(false);
 
   return (
     <AuthGuard>
@@ -117,7 +118,7 @@ export default function StatsPage() {
                         <TopProceduresByIncome />
                       </div>
                       <div className="md:col-span-3">
-                        <MonthComparisonChart />
+                        <MonthComparisonChart incomeRevealed={incomeRevealed} onReveal={() => setIncomeRevealed(true)} />
                       </div>
                       <div className="md:col-span-2">
                         <ConversionRateCard />
@@ -130,7 +131,7 @@ export default function StatsPage() {
                       </div>
 
                       <div className="md:col-span-5">
-                        <AnnualComparisonChart />
+                        <AnnualComparisonChart incomeRevealed={incomeRevealed} onReveal={() => setIncomeRevealed(true)} />
                       </div>
                     </div>
 

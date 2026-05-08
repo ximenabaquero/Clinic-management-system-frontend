@@ -110,12 +110,16 @@ function CustomTooltip({ active, payload, metric }: any) {
   );
 }
 
-export default function MonthComparisonChart() {
+interface Props {
+  incomeRevealed: boolean;
+  onReveal: () => void;
+}
+
+export default function MonthComparisonChart({ incomeRevealed, onReveal }: Props) {
   const [activeMetric, setActiveMetric] = useState<Metric>("patients");
   const { data, error, isLoading } = useSWR(endpoints.monthComparison, fetcher);
   const { user } = useAuth();
 
-  const [incomeRevealed, setIncomeRevealed] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -153,7 +157,7 @@ export default function MonthComparisonChart() {
         body: JSON.stringify({ email: user.email, password }),
       });
       if (!res.ok) { setAuthError("Contraseña incorrecta."); return; }
-      setIncomeRevealed(true);
+      onReveal();
       setActiveMetric("income");
       setShowModal(false);
     } catch {
