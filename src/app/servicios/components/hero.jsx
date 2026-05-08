@@ -79,7 +79,7 @@ export default function ServicesHero() {
                 className="w-full h-full object-cover object-top"
               />
               
-              {/* Floating Badge 1 */}
+              {/* Floating Badge 1. */}
               <div className="absolute top-12 -left-8 bg-white p-6 rounded-[2rem] shadow-2xl border border-gray-50 flex items-center gap-4 animate-bounce-slow">
                 <div className="w-12 h-12 rounded-xl bg-[#05F2DB]/10 flex items-center justify-center text-[#05F2DB]">
                   <ShieldCheck size={28} />
