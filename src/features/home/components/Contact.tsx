@@ -1,18 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { MessageCircle, Phone, MapPin, Clock, ArrowRight, Instagram, ShieldCheck, Sparkles, ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { MessageCircle, Phone, MapPin, Clock, ArrowRight, Instagram, ShieldCheck, Sparkles } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
-// Generador de semillas para elementos decorativos
-function mulberry32(seed: number) {
-  return function () {
-    let t = (seed += 0x6d2b79f5);
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 const socialLinks = [
   {
@@ -42,26 +33,10 @@ const socialLinks = [
 ];
 
 export default function Contact() {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(3).fill(false));
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Elementos flotantes calculados una sola vez
-  const particles = useMemo(() => {
-    const rand = mulberry32(42);
-    return Array.from({ length: 12 }, (_, i) => ({
-      id: i,
-      size: rand() * 100 + 50,
-      left: rand() * 100,
-      top: rand() * 100,
-      delay: rand() * 5,
-      duration: 15 + rand() * 10
-    }));
-  }, []);
-
   useEffect(() => {
-    setIsLoaded(true);
-    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -85,76 +60,29 @@ export default function Contact() {
   return (
     <div className="relative w-full bg-white">
       
-      {/* 1. HERO SECTION CON IMAGEN DE FONDO */}
-      <section className="relative w-full h-[85vh] flex items-center justify-center overflow-hidden bg-gray-950">
-
-        {/* Blobs decorativos CSS */}
-        <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full bg-[#BF2496]/30 blur-3xl pointer-events-none z-20" />
-        <div className="absolute top-1/3 -right-32 w-[420px] h-[420px] rounded-full bg-[#05F2DB]/20 blur-3xl pointer-events-none z-20" />
-        <div className="absolute -bottom-20 left-1/3 w-80 h-80 rounded-full bg-[#D929AA]/25 blur-2xl pointer-events-none z-20" />
-
-        {/* Capa de Imagen */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/lugarpodocare.webp" 
-            alt="PodoCare Background" 
-            className={`w-full h-full object-cover object-center transition-transform duration-[10000ms] ${isLoaded ? 'scale-100' : 'scale-110'}`}
-          />
-          {/* Overlays: Uno oscuro para contraste y un gradiente para fundir con el blanco inferior */}
-          <div className="absolute inset-0 bg-black/75" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
-        </div>
-
-        {/* Partículas Flotantes */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
-          {particles.map((p) => (
-            <div
-              key={p.id}
-              className="absolute rounded-full bg-white/5 border border-white/10 blur-xl animate-pulse"
-              style={{
-                width: p.size,
-                height: p.size,
-                left: `${p.left}%`,
-                top: `${p.top}%`,
-                animationDelay: `${p.delay}s`,
-                animationDuration: `${p.duration}s`
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Contenido Hero */}
-        <div className="container mx-auto px-6 relative z-20">
-          <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8">
-              <Sparkles size={14} className="text-[#05F2DB]" />
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white">Centro Podológico</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-8xl font-serif italic text-white leading-tight mb-6">
-              Comienza tu <br />
-              <span className="not-italic font-sans font-black text-transparent bg-clip-text bg-gradient-to-r from-[#05F2DB] to-[#F285C1]">
-                Cuidado
-              </span>
-            </h1>
-            
-            <p className="text-lg md:text-2xl text-gray-200 font-light max-w-2xl mx-auto mb-12">
-              Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
-            </p>
-
-            {/* <a 
-              href="#canales" 
-              className="inline-flex items-center gap-3 bg-white text-gray-900 font-bold uppercase tracking-widest text-[11px] py-5 px-12 rounded-2xl hover:bg-[#BF2496] hover:text-white transition-all duration-300 group"
-            >
-              Ver canales de atención
-              <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-            </a> */}
+      {/* 1. HEADER MINIMALISTA */}
+      <section className="w-full bg-gray-50 py-16 lg:py-24">
+        <div className="container mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#BF2496]/10 border border-[#BF2496]/20 mb-8">
+            <Sparkles size={14} className="text-[#BF2496]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496]">Centro Podológico</span>
           </div>
+
+          <h1 className="text-4xl md:text-6xl font-serif italic text-gray-900 leading-tight mb-6">
+            Comienza tu <br />
+            <span className="not-italic font-sans font-black text-[#BF2496]">
+              Cuidado
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-gray-500 font-light max-w-2xl mx-auto">
+            Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
+          </p>
         </div>
       </section>
 
       {/* 2. CONTACT CHANNELS (GRID) */}
-      <section id="canales" className="relative z-30 -mt-24 pb-20 px-6 container mx-auto">
+      <section id="canales" className="relative pb-20 px-6 container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {socialLinks.map((link, i) => (
             <div

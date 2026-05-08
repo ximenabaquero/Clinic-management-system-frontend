@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Footprints, Activity, Smartphone, ChevronDown, Zap, ShieldCheck } from 'lucide-react';
+import { Check, Footprints, Activity, Smartphone, Zap, ShieldCheck } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const serviceGroups = [
@@ -40,50 +40,28 @@ export default function Services() {
   return (
     <main className="bg-white">
       {/* HERO SECTION */}
-      <section className="w-full min-h-[90vh] lg:min-h-screen flex items-center overflow-hidden ">
+      <section className="w-full py-20 lg:py-28 bg-white overflow-hidden">
+        <div className="container mx-auto px-6 lg:px-16">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
-        {/* 1. Imagen de Fondo Completa */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/doctorapodocarehero.webp"
-            alt="Fondo Doctora PodoCare"
-            className="w-full h-full object-cover object-[75%] lg:object-right-top filter brightness-[0.85] lg:brightness-100"
-          />
-          {/* 2. Overlays Responsivos */}
-          {/* Móvil: overlay suave */}
-          <div className="absolute inset-0 bg-black/25 lg:hidden z-10" />
-          {/* Escritorio: degradado lateral blanco */}
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-transparent to-slate-50 md:hidden" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50/80 lg:via-slate-50/20 to-transparent" />
-        </div>
-
-        {/* 3. Contenido Principal */}
-        <div className="container mx-auto px-6 lg:px-16 relative z-20">
-          <div className="flex flex-col lg:flex-row items-center">
-            
             {/* Columna de Texto */}
-            <div className="w-full lg:w-2/3 xl:w-1/2 flex flex-col justify-center text-center lg:text-left items-center lg:items-start pt-20 pb-12 lg:py-0">
-              
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#05F2DB]/20 border border-[#05F2DB]/30 mb-6 backdrop-blur-md">
-                <ShieldCheck size={14} className="text-[#05F2DB]" />
-                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-white lg:text-[#05F2DB]">
+            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#BF2496]/10 border border-[#BF2496]/20 mb-6">
+                <ShieldCheck size={14} className="text-[#BF2496]" />
+                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]">
                   Servicios Especializados
                 </span>
               </div>
 
-              {/* Título Responsivo */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-white lg:text-gray-900 mb-6 leading-[1.1] drop-shadow-md lg:drop-shadow-none">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-gray-900 mb-6 leading-[1.1]">
                 Cuidado integral <br className="hidden sm:block" /> para tu{" "}
-                <span className="text-[#F285C1] not-italic font-sans font-bold block sm:inline">salud y bienestar.</span>
+                <span className="text-[#BF2496] not-italic font-sans font-bold">salud y bienestar.</span>
               </h1>
 
-              {/* Párrafo Responsivo */}
-              <p className="text-white lg:text-gray-600 text-sm md:text-lg font-light leading-relaxed max-w-lg mb-10 drop-shadow-sm lg:drop-shadow-none">
+              <p className="text-gray-500 text-sm md:text-lg font-light leading-relaxed max-w-lg mb-10">
                 Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
               </p>
 
-              {/* Botones Responsivos */}
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                 <a
                   href="#especialidades"
@@ -95,19 +73,29 @@ export default function Services() {
                   href={generateWhatsAppURL("services")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-white/30 lg:border-gray-200 bg-white/10 lg:bg-white text-white lg:text-gray-700 font-bold text-[11px] uppercase tracking-widest hover:bg-white hover:text-[#BF2496] transition-all backdrop-blur-sm lg:backdrop-blur-none active:scale-95"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-gray-200 bg-white text-gray-700 font-bold text-[11px] uppercase tracking-widest hover:bg-[#BF2496] hover:text-white hover:border-[#BF2496] transition-all active:scale-95"
                 >
                   Agendar Cita
                 </a>
               </div>
             </div>
 
-          </div>
-        </div>
+            {/* Columna de Imagen */}
+            <div className="w-full lg:w-1/2 flex justify-center">
+              <div className="relative w-full max-w-sm lg:max-w-md">
+                <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/60">
+                  <img
+                    src="/doctorapodocarehero.webp"
+                    alt="Especialista PodoCare"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-3xl bg-[#BF2496]/10 -z-10" />
+                <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-[#05F2DB]/10 -z-10" />
+              </div>
+            </div>
 
-        {/* Indicador de Scroll (Oculto en móviles pequeños) */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce hidden md:block opacity-70 z-20">
-          <ChevronDown className="text-white lg:text-[#BF2496]" size={32} />
+          </div>
         </div>
       </section>
 
