@@ -97,7 +97,7 @@ export default function Education() {
   }, []);
 
   return (
-    <section className="relative py-24 overflow-hidden bg-white">
+    <section id="education" className="relative py-24 overflow-hidden bg-white">
       {/* Background decorativo - Soft Pink */}
       <div className="absolute inset-0 bg-[#F285C1]/5 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-[#F285C1]/10 to-transparent"></div>

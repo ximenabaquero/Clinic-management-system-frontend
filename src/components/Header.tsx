@@ -45,10 +45,13 @@ export default function Header() {
   }
 
   const navLinks = [
-    { name: "Inicio", href: "/" },
-    { name: "Servicios", href: "/servicios" },
+    { name: "Inicio", href: "/#hero" },
+    { name: "Servicios", href: "/#servicios" },
+    { name: "Beneficios", href: "/#benefits" },
+    { name: "Testimonios", href: "/#testimonials" },
+    { name: "Educación", href: "/#education" },
     // { name: "Galería", href: "/galeria" },
-    { name: "Contacto", href: "/contacto" },
+    { name: "Contacto", href: "/#contact" },
   ];
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Footprints, Activity, Smartphone, Zap, ShieldCheck } from 'lucide-react';
+import { Check, Footprints, Activity, Zap, Smartphone } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const serviceGroups = [
@@ -8,147 +8,114 @@ const serviceGroups = [
     title: "Podología",
     subtitle: "Cuidado del Pie",
     image: "/equipo2.webp",
-    icon: <Footprints className="text-[#05F2DB]" size={28} />,
+    icon: <Footprints className="text-white" size={32} />,
     color: "#05F2DB",
-    services: [
-      "Quiropedia", "Uña Encarnada", "Verruga Plantar", "Fenolización", "Plantillas Ortopédicas",
-    ]
+    services: ["Quiropedia", "Uña Encarnada", "Verruga Plantar", "Fenolización", "Plantillas Ortopédicas"]
   },
   {
     title: "Enfermería",
     subtitle: "Atención Técnica",
     image: "/consultorio2.webp",
-    icon: <Activity className="text-[#D929AA]" size={28} />,
+    icon: <Activity className="text-white" size={32} />,
     color: "#D929AA",
-    services: [
-      "Signos Vitales", "Lavado de Oído", "Inyectología", "Retiro de Puntos", "Cambio de Sondas",
-    ]
+    services: ["Signos Vitales", "Lavado de Oído", "Inyectología", "Retiro de Puntos", "Cambio de Sondas"]
   },
   {
     title: "Tecnología Clínica",
     subtitle: "Diagnóstico",
     image: "/equipo1.webp",
-    icon: <Zap className="text-[#BF2496]" size={28} />,
+    icon: <Zap className="text-white" size={32} />,
     color: "#BF2496",
-    services: [
-      "Ozonoterapia", "Láser Terapéutico", "KOH - Hongos", "Silonails", "Urea 40%",
-    ]
+    services: ["Ozonoterapia", "Láser Terapéutico", "KOH - Hongos", "Silonails", "Urea 40%"]
   }
 ];
 
 export default function Services() {
   return (
-    <main className="bg-white">
-      {/* HERO SECTION */}
-      <section className="w-full py-20 lg:py-28 bg-white overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-16">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-
-            {/* Columna de Texto */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#BF2496]/10 border border-[#BF2496]/20 mb-6">
-                <ShieldCheck size={14} className="text-[#BF2496]" />
-                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]">
-                  Servicios Especializados
-                </span>
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-gray-900 mb-6 leading-[1.1]">
-                Cuidado integral <br className="hidden sm:block" /> para tu{" "}
-                <span className="text-[#BF2496] not-italic font-sans font-bold">salud y bienestar.</span>
-              </h1>
-
-              <p className="text-gray-500 text-sm md:text-lg font-light leading-relaxed max-w-lg mb-10">
-                Combinamos tecnología médica avanzada con un enfoque humano para ofrecerte los mejores tratamientos en podología y enfermería.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                <a
-                  href="#especialidades"
-                  className="w-full sm:w-auto text-center px-8 py-4 bg-[#BF2496] text-white rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-[#D929AA] transition-all shadow-xl shadow-pink-500/20 active:scale-95"
-                >
-                  Explorar Servicios
-                </a>
-                <a
-                  href={generateWhatsAppURL("services")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full border border-gray-200 bg-white text-gray-700 font-bold text-[11px] uppercase tracking-widest hover:bg-[#BF2496] hover:text-white hover:border-[#BF2496] transition-all active:scale-95"
-                >
-                  Agendar Cita
-                </a>
-              </div>
-            </div>
-
-            {/* Columna de Imagen */}
-            <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-sm lg:max-w-md">
-                <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-gray-200/60">
-                  <img
-                    src="/doctorapodocarehero.webp"
-                    alt="Especialista PodoCare"
-                    className="w-full h-full object-cover object-top"
-                  />
-                </div>
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-3xl bg-[#BF2496]/10 -z-10" />
-                <div className="absolute -top-4 -left-4 w-16 h-16 rounded-2xl bg-[#05F2DB]/10 -z-10" />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* SECCIÓN DE TARJETAS */}
-      <section id="especialidades" className="py-16 lg:py-24 bg-white relative">
-        <div className="container mx-auto px-6 lg:px-16">
-          
-          <div className="max-w-3xl mb-12 lg:mb-20">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif italic text-gray-900 mb-6 leading-tight">
+    <main className="bg-white min-h-screen">
+      <section id="servicios" className="flex flex-col">
+        
+        {/* Cabecera de Título: Espacio blanco antes de los servicios */}
+        <div className="bg-white py-16 lg:py-24 px-6 lg:px-0 border-b border-gray-100">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif italic text-gray-900 leading-tight">
               Nuestras <span className="text-[#BF2496] not-italic font-bold font-sans">Especialidades</span>
             </h2>
-            <p className="text-gray-500 text-sm md:text-lg font-light leading-relaxed">
-              Atención médica profesional diseñada para tu recuperación y vitalidad.
+            <div className="h-1 w-20 bg-[#05F2DB] mx-auto mt-6" />
+            <p className="text-gray-500 text-sm md:text-lg font-light mt-6 max-w-2xl mx-auto leading-relaxed">
+              Atención médica profesional diseñada para tu recuperación y vitalidad. 
+              Tecnología de vanguardia y especialistas a tu servicio.
             </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
-            {serviceGroups.map((group, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group overflow-hidden"
-              >
-                <div className="relative h-48 sm:h-64 overflow-hidden">
-                  <img src={group.image} alt={group.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <div className="absolute bottom-4 left-6 p-3 bg-white rounded-2xl shadow-lg group-hover:rotate-6 transition-transform">
+        {/* Contenedor de Columnas: h-[700px] en desktop para que sea impactante */}
+        <div className="flex flex-col lg:flex-row w-full lg:h-[750px] items-stretch overflow-hidden">
+          {serviceGroups.map((group, index) => (
+            <div
+              key={index}
+              className={`
+                relative w-full lg:flex-1 group 
+                transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] 
+                lg:hover:flex-[3.5] 
+                overflow-hidden border-b lg:border-b-0 lg:border-r border-white/10
+                min-h-[550px] lg:min-h-0
+              `}
+              style={{ backgroundColor: group.color }}
+            >
+              {/* Imagen de Fondo */}
+              <div className="absolute inset-0 pointer-events-none">
+                <img
+                  src={group.image}
+                  alt={group.title}
+                  className="w-full h-full object-cover opacity-60 lg:opacity-40 lg:group-hover:opacity-20 lg:scale-100 lg:group-hover:scale-110 transition-all duration-[1200ms]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent lg:from-black/80 lg:via-transparent" />
+              </div>
+
+              {/* Contenido */}
+              <div className="relative h-full flex flex-col justify-end p-8 lg:p-16 pb-14 lg:pb-24 z-20 text-white">
+                
+                {/* Icono (Solo en móvil para no saturar desktop) */}
+                <div className="mb-4 lg:hidden">
+                  <div className="inline-block p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
                     {group.icon}
                   </div>
                 </div>
 
-                <div className="p-8 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{group.title}</h3>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-6">{group.subtitle}</p>
+                <div className="w-full lg:transform lg:translate-y-28 lg:group-hover:translate-y-0 transition-transform duration-700 ease-out">
+                  <p className="text-[10px] lg:text-xs uppercase tracking-[0.4em] font-black text-[#05F2DB] mb-3">
+                    {group.subtitle}
+                  </p>
                   
-                  <ul className="space-y-3 mb-8 flex-grow">
-                    {group.services.map((service, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-gray-600">
-                        <Check size={14} style={{ color: group.color }} strokeWidth={3} />
-                        {service}
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight uppercase drop-shadow-sm">
+                    {group.title}
+                  </h3>
 
-                  <a
-                    href={generateWhatsAppURL("services")}
-                    className="w-full py-4 rounded-xl bg-gray-50 text-gray-800 text-[10px] font-black uppercase tracking-widest text-center hover:bg-gray-900 hover:text-white transition-all flex items-center justify-center gap-2"
-                  >
-                    <Smartphone size={14} /> Consultar
-                  </a>
+                  {/* Servicios: Estáticos en móvil, expansivos en Desktop */}
+                  <div className="lg:grid lg:grid-rows-[0fr] lg:group-hover:grid-rows-[1fr] transition-[grid-template-rows] duration-700 ease-out">
+                    <div className="overflow-hidden">
+                      <ul className="space-y-4 mb-10 border-l-2 border-[#05F2DB]/30 pl-5 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-500 delay-300">
+                        {group.services.map((service, i) => (
+                          <li key={i} className="flex items-center gap-3 text-sm lg:text-base font-medium">
+                            <Check size={18} className="text-[#05F2DB] shrink-0" strokeWidth={3} />
+                            {service}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <a
+                        href={generateWhatsAppURL("services")}
+                        className="inline-flex items-center gap-3 px-10 py-5 bg-white text-gray-900 rounded-full text-xs font-black uppercase tracking-widest hover:bg-[#05F2DB] hover:text-white transition-all shadow-2xl active:scale-95 w-full lg:w-auto justify-center lg:justify-start"
+                      >
+                        <Smartphone size={18} /> Agendar Consulta
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
     </main>

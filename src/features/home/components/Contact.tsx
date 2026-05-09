@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Phone, MapPin, Clock, ArrowRight, Instagram, ShieldCheck, Sparkles } from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
-
 const socialLinks = [
   {
     name: 'WhatsApp',
@@ -58,51 +57,57 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="relative w-full bg-white">
+    <div id="contact" className="relative w-full bg-[#FFF5F8] overflow-hidden">
       
+      {/* Círculos Decorativos de Fondo */}
+      <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gradient-to-br from-[#F285C1]/20 to-transparent rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-gradient-to-tr from-[#05F2DB]/10 to-transparent rounded-full blur-3xl" />
+      <div className="absolute top-[40%] left-[15%] w-24 h-24 border-2 border-[#BF2496]/10 rounded-full" />
+      <div className="absolute top-[10%] left-[5%] w-12 h-12 bg-[#BF2496]/5 rounded-full" />
+
       {/* 1. HEADER MINIMALISTA */}
-      <section className="w-full bg-gray-50 py-16 lg:py-24">
+      <section className="relative w-full py-16 lg:py-24 z-10">
         <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#BF2496]/10 border border-[#BF2496]/20 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-[#BF2496]/20 mb-8 shadow-sm">
             <Sparkles size={14} className="text-[#BF2496]" />
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496]">Centro Podológico</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-serif italic text-gray-900 leading-tight mb-6">
+          <h1 className="text-4xl md:text-7xl font-serif italic text-gray-900 leading-tight mb-6">
             Comienza tu <br />
-            <span className="not-italic font-sans font-black text-[#BF2496]">
+            <span className="not-italic font-sans font-black text-[#BF2496] uppercase tracking-tighter">
               Cuidado
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-500 font-light max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
             Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
           </p>
         </div>
       </section>
 
       {/* 2. CONTACT CHANNELS (GRID) */}
-      <section id="canales" className="relative pb-20 px-6 container mx-auto">
+      <section id="canales" className="relative pb-20 px-6 container mx-auto z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {socialLinks.map((link, i) => (
             <div
               key={link.name}
               data-index={i}
               ref={(el) => { cardsRef.current[i] = el; }}
-              className={`transition-all duration-700 transform ${visibleCards[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`transition-all duration-1000 transform ${visibleCards[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: `${i * 150}ms` }}
             >
               <a 
                 href={link.href}
-                className="group block bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-gray-200/50 border border-gray-100 hover:-translate-y-2 transition-all duration-500 text-center"
+                className="group block bg-white/80 backdrop-blur-lg rounded-[3rem] p-10 shadow-xl shadow-[#BF2496]/5 border border-white hover:-translate-y-2 transition-all duration-500 text-center"
               >
-                <div className={`w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center text-white shadow-lg ${link.color} group-hover:scale-110 transition-transform duration-500`}>
+                <div className={`w-20 h-20 rounded-[2rem] mx-auto mb-8 flex items-center justify-center text-white shadow-lg ${link.color} group-hover:rotate-[10deg] transition-transform duration-500`}>
                   {link.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{link.name}</h3>
-                <p className="text-gray-500 text-sm mb-8">{link.description}</p>
-                <div className="inline-flex items-center gap-2 text-[#BF2496] font-black text-[10px] uppercase tracking-[0.2em]">
-                  Conectar ahora <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                <h3 className="text-2xl font-black text-gray-900 mb-2 uppercase tracking-tighter">{link.name}</h3>
+                <p className="text-gray-500 text-sm mb-8 font-medium">{link.description}</p>
+                <div className="inline-flex items-center gap-3 text-[#BF2496] font-black text-[10px] uppercase tracking-[0.3em] group-hover:gap-5 transition-all">
+                  Conectar <ArrowRight size={14} />
                 </div>
               </a>
             </div>
@@ -113,79 +118,68 @@ export default function Contact() {
         <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Ubicación y Horarios */}
-          <div className="lg:col-span-5 bg-gray-50 rounded-[3rem] p-10 border border-gray-100">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="w-12 h-12 rounded-2xl bg-[#05F2DB]/10 flex items-center justify-center text-[#05F2DB]">
-                <MapPin size={24} />
+          <div className="lg:col-span-5 bg-white/40 backdrop-blur-md rounded-[3.5rem] p-10 md:p-14 border border-white shadow-inner">
+            <div className="flex items-center gap-4 mb-14">
+              <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#BF2496] shadow-sm">
+                <MapPin size={28} />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Visítanos</h3>
+              <h3 className="text-3xl font-black text-gray-900 tracking-tighter uppercase">Visítanos</h3>
             </div>
             
-            <div className="space-y-10">
+            <div className="space-y-12">
               <div className="flex gap-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
-                  <Clock size={18} />
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#BF2496] shadow-sm shrink-0">
+                  <Clock size={20} />
                 </div>
                 <div>
-                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-3">Horario Clínico</h4>
-                  <p className="text-gray-900 font-bold mb-1">Lunes a Viernes</p>
-                  <p className="text-gray-500 text-sm mb-4">8:00 AM — 5:00 PM</p>
-                  <p className="text-gray-900 font-bold mb-1">Sábados</p>
-                  <p className="text-gray-500 text-sm">8:00 AM — 2:00 PM</p>
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]/60 mb-3">Horario Clínico</h4>
+                  <p className="text-gray-900 font-bold text-lg leading-none mb-2">Lunes a Viernes</p>
+                  <p className="text-gray-500 font-medium text-sm mb-4">8:00 AM — 5:00 PM</p>
+                  <p className="text-gray-900 font-bold text-lg leading-none mb-2">Sábados</p>
+                  <p className="text-gray-500 font-medium text-sm">8:00 AM — 2:00 PM</p>
                 </div>
               </div>
 
               <div className="flex gap-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
-                  <Phone size={18} />
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#BF2496] shadow-sm shrink-0">
+                  <Phone size={20} />
                 </div>
                 <div>
-                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-2">Teléfono</h4>
-                  <p className="text-xl font-bold text-gray-900">+57 (323) 231-2333</p>
-                </div>
-              </div>
-
-              <div className="flex gap-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-gray-400 border border-gray-100 shrink-0">
-                  <MapPin size={18} />
-                </div>
-                <div>
-                  <h4 className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-2">Dirección</h4>
-                  <p className="text-gray-900 font-bold">Mosquera, Cundinamarca</p>
-                  <p className="text-gray-500 text-sm">Colombia</p>
+                  <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]/60 mb-2">Atención Directa</h4>
+                  <p className="text-2xl font-black text-gray-900 tracking-tighter">+57 (323) 231-2333</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Card CTA Final */}
-          <div className="lg:col-span-7 relative group overflow-hidden rounded-[3rem]">
-            <div className="absolute inset-0 bg-gray-900 transition-colors group-hover:bg-gray-800 duration-500" />
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#BF2496] to-[#05F2DB]" />
+          <div className="lg:col-span-7 relative group overflow-hidden rounded-[3.5rem] shadow-2xl">
+            <div className="absolute inset-0 bg-gray-900" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#BF2496]/20 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-[#05F2DB]/20 transition-colors duration-1000" />
             
-            <div className="relative p-10 md:p-16 h-full flex flex-col">
-              <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-[#05F2DB] mb-10 border border-white/10">
+            <div className="relative p-10 md:p-16 h-full flex flex-col z-10">
+              <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-xl flex items-center justify-center text-[#05F2DB] mb-12 border border-white/10">
                 <ShieldCheck size={32} />
               </div>
               
-              <h3 className="text-4xl md:text-6xl font-serif italic text-white mb-6">
-                Tu salud <br /> <span className="not-italic font-sans font-bold">no tiene que esperar.</span>
+              <h3 className="text-5xl md:text-6xl font-serif italic text-white mb-8 leading-[0.9]">
+                Tu salud <br /> <span className="not-italic font-sans font-black uppercase tracking-tighter text-[#05F2DB]">no da espera.</span>
               </h3>
               
-              <p className="text-lg text-gray-400 font-light mb-12 max-w-md">
+              <p className="text-xl text-gray-400 font-light mb-12 max-w-sm leading-relaxed">
                 Escríbenos ahora mismo y recibe una respuesta inmediata de nuestro equipo especializado.
               </p>
 
               <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <a 
                   href={generateWhatsAppURL("general")}
-                  className="flex items-center justify-center gap-3 bg-[#BF2496] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-[#D929AA] transition-all duration-300"
+                  className="flex items-center justify-center gap-3 bg-[#BF2496] text-white py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-white hover:text-[#BF2496] transition-all duration-500 shadow-xl shadow-[#BF2496]/20"
                 >
                   <MessageCircle size={18} /> WhatsApp
                 </a>
                 <a 
                   href="tel:+573232312333"
-                  className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all duration-300"
+                  className="flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white py-6 rounded-[2rem] font-black uppercase tracking-[0.2em] text-[11px] hover:bg-white/10 transition-all duration-500"
                 >
                   <Phone size={18} /> Llamar ahora
                 </a>
@@ -196,24 +190,23 @@ export default function Contact() {
         </div>
 
         {/* 4. MAPA FULL-WIDTH */}
-        <div className="mt-8 rounded-[3rem] overflow-hidden border border-gray-100 shadow-sm">
+        <div className="mt-12 rounded-[4rem] overflow-hidden border-8 border-white shadow-2xl relative group">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500!2d-74.2302042!3d4.7031208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f77002089d93b%3A0x42c0d1393533479!2sPodoCare!5e0!3m2!1ses!2sco!4v1715000000000!5m2!1ses!2sco"
             width="100%"
-            height="380"
-            style={{ border: 0, display: 'block' }}
+            height="450"
+            style={{ border: 0, display: 'block', filter: 'grayscale(0.2) contrast(1.1)' }}
             allowFullScreen
             loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
             title="Ubicación PodoCare Mosquera"
           />
           <a
             href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 py-4 bg-gray-50 text-[#BF2496] text-[10px] font-black uppercase tracking-widest hover:bg-[#BF2496] hover:text-white transition-all duration-300"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-4 px-10 py-5 bg-white text-gray-900 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#BF2496] hover:text-white transition-all duration-500 shadow-2xl"
           >
-            <MapPin size={12} /> Abrir en Google Maps — Cómo llegar
+            <MapPin size={16} /> Ver ruta en Maps
           </a>
         </div>
 

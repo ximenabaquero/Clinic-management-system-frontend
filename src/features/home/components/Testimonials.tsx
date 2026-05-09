@@ -94,7 +94,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-white">
+    <section id="testimonials" className="relative py-24 overflow-hidden bg-white">
       {/* Fondo suave */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-[#F285C1]/5 to-white pointer-events-none" />
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -107,85 +107,92 @@ export default function Testimonials() {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
 
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 lg:mb-20 px-4">
-          <div className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-2.5 mb-8 shadow-sm border border-gray-100">
+        {/* Header con Estilo Elegante Unificado */}
+        <div className="text-center max-w-4xl mx-auto mb-20 px-4">
+          <div className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-2.5 mb-10 shadow-sm border border-gray-100">
             <GoogleIcon size={18} />
-            <span className="text-sm font-bold text-gray-700">Google Reviews</span>
+            <span className="text-xs font-black uppercase tracking-widest text-gray-400">Google Reviews</span>
+            <div className="w-[1px] h-4 bg-gray-200 mx-1" />
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-3 h-3 fill-[#F4B400] text-[#F4B400]" />
               ))}
             </div>
-            <span className="text-sm font-bold text-gray-900">5.0</span>
+            <span className="text-sm font-black text-gray-900">5.0</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">
-            <span className="text-gray-900">Lo que dicen nuestros</span>{' '}
-            <span className="bg-gradient-to-r from-[#BF2496] to-[#05F2DB] bg-clip-text text-transparent">
-              pacientes
+          <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[0.9] mb-8">
+            Lo que dicen <br />
+            <span className="not-italic font-sans font-black uppercase tracking-tighter text-[#BF2496]">
+              nuestros pacientes
             </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Reseñas verificadas en Google de pacientes reales en Mosquera, Cundinamarca.
+          
+          <p className="text-lg md:text-xl text-gray-500 font-light max-w-2xl mx-auto leading-relaxed italic">
+            "Reseñas verificadas de personas reales que han transformado la salud de sus pies con nosotros."
           </p>
         </div>
 
         {/* Grid de reseñas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {reviews.map((review, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              className="bg-white rounded-[2.5rem] p-8 shadow-2xl shadow-gray-200/40 border border-gray-50 flex flex-col hover:shadow-[#BF2496]/10 hover:-translate-y-2 transition-all duration-500"
             >
               {/* Encabezado del revisor */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-full ${avatarColors[idx % avatarColors.length]} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-2xl ${avatarColors[idx % avatarColors.length]} flex items-center justify-center text-white font-black text-lg shadow-inner shadow-black/10`}>
                     {review.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900 text-sm leading-tight">{review.name}</p>
-                    <p className="text-gray-400 text-xs mt-0.5">{review.time}</p>
+                    <p className="font-black text-gray-900 text-sm leading-tight uppercase tracking-tight">{review.name}</p>
+                    <p className="text-[#05F2DB] font-bold text-[10px] uppercase tracking-widest mt-1">{review.time}</p>
                   </div>
                 </div>
-                <GoogleIcon size={18} />
+                <GoogleIcon size={20} />
               </div>
 
               {/* Estrellas */}
-              <Stars rating={review.rating} />
+              <div className="mb-4">
+                <Stars rating={review.rating} />
+              </div>
 
               {/* Texto */}
-              <p className="text-gray-600 text-sm leading-relaxed mt-3 flex-1 line-clamp-5">
-                {review.text}
+              <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1 italic">
+                "{review.text}"
               </p>
+
+              <div className="h-[1px] w-full bg-gray-50 mt-auto" />
             </div>
           ))}
         </div>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* CTAs Finales */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a
             href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-white border border-gray-200 text-gray-700 font-semibold py-4 px-8 rounded-full hover:shadow-md hover:border-[#BF2496]/30 transition-all duration-300 text-sm"
+            className="group inline-flex items-center gap-4 bg-white border border-gray-100 text-gray-900 font-black py-5 px-10 rounded-[2rem] hover:shadow-xl transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
           >
             <GoogleIcon size={18} />
-            <span>Ver todas las reseñas</span>
-            <ExternalLink size={14} />
+            <span>Ver perfil en Google</span>
+            <ExternalLink size={14} className="text-[#05F2DB]" />
           </a>
+          
           <a
             href={generateWhatsAppURL("contact")}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#BF2496] to-[#F285C1] text-white font-semibold py-4 px-8 rounded-full hover:shadow-lg hover:shadow-pink-200 transition-all duration-300 text-sm"
+            className="group inline-flex items-center gap-4 bg-[#BF2496] text-white font-black py-5 px-10 rounded-[2rem] hover:shadow-2xl hover:shadow-[#BF2496]/40 hover:scale-105 transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
           >
             <MessageCircle size={18} />
-            <span>Agendar cita</span>
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            <span>Agendar ahora</span>
+            <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
           </a>
         </div>
 

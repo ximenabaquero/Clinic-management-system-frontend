@@ -4,7 +4,7 @@ import { Target, Eye, Quote, ShieldCheck, Award } from 'lucide-react';
 
 export default function CorporateIdentity() {
   return (
-    <section className="py-20 lg:py-32 bg-[#67776a] relative overflow-hidden">
+    <section id="vision-mision" className="py-20 lg:py-32 bg-[#67776a] relative overflow-hidden">
       
       {/* CÍRCULOS DECORATIVOS (#59645b) */}
       <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#59645b] opacity-60" />

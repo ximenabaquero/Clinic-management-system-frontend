@@ -20,7 +20,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden pt-24 pb-12 md:pt-20 bg-slate-50">
+    <section id="hero" className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden pt-24 pb-12 md:pt-20 bg-slate-50">
       
       {/* 1. CONTENEDOR DE IMAGEN OPTIMIZADO */}
       <div className="absolute inset-0 z-0 flex justify-end">

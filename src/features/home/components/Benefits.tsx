@@ -13,61 +13,55 @@ import {
 const benefits = [
   {
     title: "Esterilización Profesional",
-    description: "Protocolos rigurosos de desinfección química y autoclave para cada herramienta. Tu seguridad es nuestra prioridad.",
-    tag: "Equipos",
+    description: "Protocolos rigurosos de autoclave. Tu seguridad es lo primero.",
+    tag: "Bioseguridad",
     icon: <ShieldCheck className="w-6 h-6" />,
-    bgColor: "bg-[#05F2DB]", 
-    textColor: "text-gray-900",
+    color: "#05F2DB", // Cian
     gridArea: "lg:col-span-2 lg:row-span-1",
     image: "/equipo2.webp"
   },
   {
-    title: "Equipos de alta tecnología",
-    description: "Equipos de vanguardia para diagnósticos precisos.",
-    tag: "Innovación",
+    title: "Alta Tecnología",
+    description: "Diagnósticos con precisión milimétrica.",
+    tag: "Equipos",
     icon: <Microscope className="w-6 h-6" />,
-    bgColor: "bg-[#BF2496]", 
-    textColor: "text-white",
+    color: "#BF2496", // Magenta
     gridArea: "lg:col-span-1 lg:row-span-1",
     image: "/equipo1.webp"
   },
   {
-    title: "Enfoque Clínico",
-    description: "Personal de enfermería especializado en la salud de tus pies.",
+    title: "Enfoque Clínico Especializado",
+    description: "Enfermería experta en la salud podológica integral.",
     tag: "Especialistas",
     icon: <Stethoscope className="w-6 h-6" />,
-    bgColor: "bg-[#F285C1]", 
-    textColor: "text-white",
+    color: "#F285C1", // Rosa suave
     gridArea: "lg:col-span-1 lg:row-span-2",
     image: "/piebb.webp"
   },
   {
     title: "Resultados Garantizados",
-    description: "Alivio inmediato y planes de tratamiento con seguimiento continuo.",
+    description: "Planes de tratamiento con seguimiento continuo.",
     tag: "Confianza",
     icon: <Award className="w-6 h-6" />,
-    bgColor: "bg-gray-900", 
-    textColor: "text-white",
+    color: "#111827", // Gray 900
     gridArea: "lg:col-span-1 lg:row-span-1",
     image: "/resultadogarantizado.webp"
   },
   {
     title: "Atención Premium",
-    description: "Un espacio diseñado para tu comodidad y bienestar integral.",
-    tag: "Exclusividad",
+    description: "Espacios diseñados para tu máximo confort.",
+    tag: "Exclusivo",
     icon: <ArrowUpRight className="w-6 h-6" />,
-    bgColor: "bg-gray-100", 
-    textColor: "text-gray-900",
+    color: "#F3F4F6", // Gray 100
     gridArea: "lg:col-span-1 lg:row-span-1",
     image: "/saladeespera.webp"
   },
   {
     title: "Ortesis a Medida",
-    description: "Plantillas y correctores biomecánicos personalizados para redistribuir presión, corregir la marcha y prevenir lesiones.",
-    tag: "Biomecánica",
+    description: "Biomecánica personalizada para corregir tu marcha.",
+    tag: "Innovación",
     icon: <Ruler className="w-6 h-6" />,
-    bgColor: "bg-[#D929AA]",
-    textColor: "text-white",
+    color: "#D929AA", // Rosa fuerte
     gridArea: "lg:col-span-2 lg:row-span-1",
     image: "/pies_corriendo.webp"
   },
@@ -89,67 +83,81 @@ export default function BenefitsGrid() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-6">
+    <section id="benefits" ref={sectionRef} className="py-24 bg-gray-50 overflow-hidden">
+      <div className="container mx-auto px-6 lg:px-16">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496] mb-4">
-              ¿Por qué PodoCare?
-            </h2>
-            <h3 className="text-4xl md:text-6xl font-serif italic text-gray-900 leading-tight">
-              Excelencia médica en <br />
-              <span className="text-[#05F2DB] not-italic font-sans font-bold">cada detalle.</span>
-            </h3>
+        {/* Header con Estilo Editorial */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[2px] w-12 bg-[#BF2496]" />
+            <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
+              ¿Por qué elegir PodoCare?
+            </span>
           </div>
-          <p className="text-gray-500 font-light max-w-sm border-l-2 border-[#F285C1] pl-6 italic">
-            &ldquo;Transformamos el cuidado de los pies en una experiencia clínica de alto nivel.&rdquo;
-          </p>
+          <h3 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1]">
+            Excelencia clínica en <br />
+            <span className="text-[#05F2DB] not-italic font-sans   uppercase tracking-tighter">
+              cada detalle.
+            </span>
+          </h3>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px]">
+        {/* Bento Grid Innovador */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[320px]">
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className={`relative rounded-[2.5rem] p-8 flex flex-col justify-between overflow-hidden group transition-all duration-700 ${benefit.gridArea} ${benefit.bgColor} ${benefit.textColor} ${
-                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              className={`
+                relative rounded-[3rem] group overflow-hidden border border-white/20 shadow-sm
+                transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)]
+                ${benefit.gridArea}
+                ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}
+              `}
+              style={{ 
+                transitionDelay: `${index * 150}ms`,
+                backgroundColor: benefit.color 
+              }}
             >
-              {/* Imagen de fondo corregida */}
+              {/* Capa de Imagen con Máscara de Degradado */}
               <div className="absolute inset-0 z-0">
                 <img 
                   src={benefit.image} 
                   alt={benefit.title}
-                  className="w-full h-full object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-50 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-30 group-hover:opacity-10 group-hover:scale-110 transition-all duration-1000 grayscale group-hover:grayscale-0"
                 />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/20" />
               </div>
 
-              {/* Contenido */}
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="p-3 bg-white/20 backdrop-blur-md rounded-2xl border border-white/10 text-current">
-                    {benefit.icon}
+              {/* Vidrio Superior (Icono y Tag) */}
+              <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-20">
+                <div className="p-4 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-xl group-hover:bg-[#05F2DB] group-hover:text-gray-900 transition-colors duration-500">
+                  {benefit.icon}
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] py-2 px-4 rounded-full bg-black/10 backdrop-blur-md text-white border border-white/10">
+                  {benefit.tag}
+                </span>
+              </div>
+
+              {/* Bloque de Texto Inferior */}
+              <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10 z-20 text-white">
+                <div className="overflow-hidden">
+                  <h4 className="text-2xl lg:text-3xl font-black leading-none mb-4 transform group-hover:-translate-y-1 transition-transform duration-500">
+                    {benefit.title}
+                  </h4>
+                </div>
+                
+                <div className="flex items-end justify-between gap-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  <p className="text-sm font-light leading-relaxed max-w-[80%] text-white/80">
+                    {benefit.description}
+                  </p>
+                  <div className="w-12 h-12 rounded-2xl bg-white text-gray-900 flex items-center justify-center shadow-2xl rotate-45 group-hover:rotate-0 transition-all duration-500">
+                    <ArrowUpRight size={24} />
                   </div>
-                  <span className="text-[9px] font-black uppercase tracking-widest bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">
-                    {benefit.tag}
-                  </span>
                 </div>
-                <h4 className="text-2xl font-bold mb-3 tracking-tight leading-none">
-                  {benefit.title}
-                </h4>
               </div>
 
-              <div className="relative z-10 flex items-end justify-between">
-                <p className="text-sm font-medium leading-tight max-w-[75%] opacity-90">
-                  {benefit.description}
-                </p>
-                <div className="w-10 h-10 rounded-full border border-current flex items-center justify-center group-hover:bg-white group-hover:text-gray-900 transition-all duration-300 flex-shrink-0">
-                  <ArrowUpRight size={20} />
-                </div>
-              </div>
+              {/* Decoración de fondo (Brillo radial) */}
+              <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-[80px] group-hover:bg-white/20 transition-colors duration-700" />
             </div>
           ))}
         </div>
