@@ -141,18 +141,15 @@ export default function BenefitsGrid() {
               {/* Bloque de Texto Inferior */}
               <div className="absolute inset-x-0 bottom-0 p-8 lg:p-10 z-20 text-white">
                 <div className="overflow-hidden">
-                  <h4 className="text-2xl lg:text-3xl font-black leading-none mb-4 transform group-hover:-translate-y-1 transition-transform duration-500">
+                  <h4 className="text-2xl lg:text-3xl font-extralight tracking-wide leading-snug mb-4 transform group-hover:-translate-y-1 transition-transform duration-500">
                     {benefit.title}
                   </h4>
                 </div>
-                
-                <div className="flex items-end justify-between gap-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                  <p className="text-sm font-light leading-relaxed max-w-[80%] text-white/80">
+
+                <div className="opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                  <p className="text-sm font-light leading-relaxed text-white/75 tracking-wide">
                     {benefit.description}
                   </p>
-                  <div className="w-12 h-12 rounded-2xl bg-white text-gray-900 flex items-center justify-center shadow-2xl rotate-45 group-hover:rotate-0 transition-all duration-500">
-                    <ArrowUpRight size={24} />
-                  </div>
                 </div>
               </div>
 
