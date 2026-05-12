@@ -5,35 +5,36 @@ import { Target, Eye, Quote, ShieldCheck, Award } from 'lucide-react';
 export default function CorporateIdentity() {
   return (
     <section id="vision-mision" className="py-20 lg:py-32 bg-[#E0F7F5] relative overflow-hidden">
-
-      {/* CÍRCULOS DECORATIVOS */}
+      
+      {/* CÍRCULOS DECORATIVOS - Mantengo tu estética */}
       <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#9FDDD7] opacity-60" />
       <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-[#9FDDD7] opacity-40 blur-2xl" />
-      <div className="absolute bottom-10 right-1/4 w-40 h-40 rounded-full bg-[#9FDDD7] opacity-50" />
-      <div className="absolute -bottom-16 -left-16 w-96 h-96 rounded-full bg-[#9FDDD7] opacity-30" />
+      
+      <div className="container mx-auto px-6 lg:px-16 relative z-10 ">
 
-      <div className="container mx-auto px-6 lg:px-16 relative z-10">
-
-        {/* PRESENTACIÓN CORPORATIVA */}
-        <div className="max-w-4xl mx-auto text-center mb-20 lg:mb-28">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0D4A47]/10 border border-[#0D4A47]/20 mb-8 backdrop-blur-md">
-            <Award size={16} className="text-[#009688]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#0D4A47]">
+        {/* CABECERA EDITORIAL (Alineada con el resto del sitio) */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[2px] w-12 bg-[#BF2496]" />
+            <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
               Identidad Corporativa
             </span>
           </div>
-
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#0D4A47] mb-8 leading-tight">
-            Transformando la <span className="text-[#009688] not-italic font-sans font-bold">salud podológica</span>
+          <h2 className="text-5xl md:text-7xl font-serif italic text-[#0D4A47] leading-[1.1]">
+            Transformando la <br />
+            <span className="text-[#009688] not-italic font-sans uppercase tracking-tighter">
+              salud podológica.
+            </span>
           </h2>
+        </div>
 
+        {/* CONTENIDO DE CITA (Ahora puede ser centrado o mantener la izquierda) */}
+        <div className="max-w-4xl mx-auto text-center mb-20 lg:mb-28">
           <div className="relative px-4">
-            {/* Círculo decorativo pequeño detrás de la cita */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md h-32 bg-[#9FDDD7]/30 rounded-full blur-3xl -z-10" />
-
             <Quote className="absolute -top-8 -left-2 md:-left-8 text-[#0D4A47]/10 w-12 h-12 lg:w-20 lg:h-20" />
             <p className="text-[#0D4A47]/90 text-lg md:text-xl lg:text-2xl font-light leading-relaxed italic relative z-10">
-              PodoCare nace con el propósito de transformar la salud podológica mediante una atención especializada, humana y profesional. Somos una empresa enfocada en mejorar la calidad de vida de nuestros pacientes, previniendo, tratando y educando sobre el cuidado integral de los pies.
+              PodoCare nace con el propósito de transformar la salud podológica mediante una atención especializada, humana y profesional...
             </p>
           </div>
         </div>

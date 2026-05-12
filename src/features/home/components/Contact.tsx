@@ -10,7 +10,6 @@ const socialLinks = [
     href: generateWhatsAppURL("contact"),
     icon: <MessageCircle className="w-6 h-6" />,
     color: 'bg-[#BF2496]',
-    gradient: 'from-[#BF2496] to-[#D929AA]',
     description: '+57 (323) 231-2333'
   },
   {
@@ -18,7 +17,6 @@ const socialLinks = [
     href: 'http://instagram.com/podocaremosquera/',
     icon: <Instagram className="w-6 h-6" />,
     color: 'bg-[#D929AA]',
-    gradient: 'from-[#D929AA] to-[#05F2DB]',
     description: '@podocaremosquera'
   },
   {
@@ -26,7 +24,6 @@ const socialLinks = [
     href: 'tel:+573232312333',
     icon: <Phone className="w-6 h-6" />,
     color: 'bg-[#05F2DB]',
-    gradient: 'from-[#05F2DB] to-[#BF2496]',
     description: 'Atención Directa'
   }
 ];
@@ -59,35 +56,42 @@ export default function Contact() {
   return (
     <div id="contact" className="relative w-full bg-[#FFF5F8] overflow-hidden">
       
-      {/* Círculos Decorativos de Fondo */}
+      {/* Elementos Decorativos */}
       <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gradient-to-br from-[#F285C1]/20 to-transparent rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-gradient-to-tr from-[#05F2DB]/10 to-transparent rounded-full blur-3xl" />
-      <div className="absolute top-[40%] left-[15%] w-24 h-24 border-2 border-[#BF2496]/10 rounded-full" />
-      <div className="absolute top-[10%] left-[5%] w-12 h-12 bg-[#BF2496]/5 rounded-full" />
 
-      {/* 1. HEADER MINIMALISTA */}
-      <section className="relative w-full py-16 lg:py-24 z-10">
-        <div className="container mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-[#BF2496]/20 mb-8 shadow-sm">
-            <Sparkles size={14} className="text-[#BF2496]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496]">Centro Podológico</span>
+      {/* 1. CABECERA EDITORIAL (Alineada con el sistema visual) */}
+      <section className="relative w-full pt-24 pb-16 lg:pt-32 z-10">
+        <div className="container mx-auto px-6 lg:px-16">
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-[2px] w-12 bg-[#BF2496]" />
+              <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
+                Contacto
+              </span>
+            </div>
+
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-[#BF2496]/20 mb-8 shadow-sm">
+              <Sparkles size={14} className="text-[#BF2496]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#BF2496]">Centro Podológico</span>
+            </div>
+
+            <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1] mb-8">
+              Comienza tu <br />
+              <span className="text-[#BF2496] not-italic font-sans uppercase tracking-tighter">
+                cuidado profesional.
+              </span>
+            </h2>
+
+            <p className="text-gray-400 text-sm md:text-base font-light max-w-xl leading-relaxed italic">
+              &ldquo;Agenda tu valoración en Mosquera y da el primer paso hacia unos pies sanos, funcionales y sin dolor.&rdquo;
+            </p>
           </div>
-
-          <h1 className="text-4xl md:text-7xl font-serif italic text-gray-900 leading-tight mb-6">
-            Comienza tu <br />
-            <span className="not-italic font-sans font-black text-[#BF2496] uppercase tracking-tighter">
-              Cuidado
-            </span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-gray-600 font-light max-w-2xl mx-auto leading-relaxed">
-            Agenda tu valoración profesional en Mosquera y da el primer paso hacia unos pies sanos y sin dolor.
-          </p>
         </div>
       </section>
 
       {/* 2. CONTACT CHANNELS (GRID) */}
-      <section id="canales" className="relative pb-20 px-6 container mx-auto z-10">
+      <section id="canales" className="relative pb-20 px-6 container mx-auto lg:px-16 z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {socialLinks.map((link, i) => (
             <div
@@ -105,7 +109,7 @@ export default function Contact() {
                   {link.icon}
                 </div>
                 <h3 className="text-2xl font-black text-gray-900 mb-2 uppercase tracking-tighter">{link.name}</h3>
-                <p className="text-gray-500 text-sm mb-8 font-medium">{link.description}</p>
+                <p className="text-gray-500 text-[11px] mb-8 font-black uppercase tracking-widest">{link.description}</p>
                 <div className="inline-flex items-center gap-3 text-[#BF2496] font-black text-[10px] uppercase tracking-[0.3em] group-hover:gap-5 transition-all">
                   Conectar <ArrowRight size={14} />
                 </div>
@@ -133,9 +137,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]/60 mb-3">Horario Clínico</h4>
-                  <p className="text-gray-900 font-bold text-lg leading-none mb-2">Lunes a Viernes</p>
+                  <p className="text-gray-900 font-bold text-lg leading-none mb-2 font-sans tracking-tight">Lunes a Viernes</p>
                   <p className="text-gray-500 font-medium text-sm mb-4">8:00 AM — 5:00 PM</p>
-                  <p className="text-gray-900 font-bold text-lg leading-none mb-2">Sábados</p>
+                  <p className="text-gray-900 font-bold text-lg leading-none mb-2 font-sans tracking-tight">Sábados</p>
                   <p className="text-gray-500 font-medium text-sm">8:00 AM — 2:00 PM</p>
                 </div>
               </div>
@@ -146,15 +150,15 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]/60 mb-2">Atención Directa</h4>
-                  <p className="text-2xl font-black text-gray-900 tracking-tighter">+57 (323) 231-2333</p>
+                  <p className="text-2xl font-black text-gray-900 tracking-tighter font-sans uppercase">+57 (323) 231-2333</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Card CTA Final */}
+          {/* Card CTA Final (Modo Oscuro para contraste) */}
           <div className="lg:col-span-7 relative group overflow-hidden rounded-[3.5rem] shadow-2xl">
-            <div className="absolute inset-0 bg-gray-900" />
+            <div className="absolute inset-0 bg-gray-950" />
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#BF2496]/20 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-[#05F2DB]/20 transition-colors duration-1000" />
             
             <div className="relative p-10 md:p-16 h-full flex flex-col z-10">
@@ -166,8 +170,8 @@ export default function Contact() {
                 Tu salud <br /> <span className="not-italic font-sans font-black uppercase tracking-tighter text-[#05F2DB]">no da espera.</span>
               </h3>
               
-              <p className="text-xl text-gray-400 font-light mb-12 max-w-sm leading-relaxed">
-                Escríbenos ahora mismo y recibe una respuesta inmediata de nuestro equipo especializado.
+              <p className="text-lg text-gray-400 font-light mb-12 max-w-sm leading-relaxed italic">
+                &ldquo;Escríbenos ahora mismo y recibe una respuesta inmediata de nuestro equipo especializado.&rdquo;
               </p>
 
               <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -186,7 +190,6 @@ export default function Contact() {
               </div>
             </div>
           </div>
-
         </div>
 
         {/* 4. MAPA FULL-WIDTH */}
@@ -204,12 +207,11 @@ export default function Contact() {
             href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-4 px-10 py-5 bg-white text-gray-900 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#BF2496] hover:text-white transition-all duration-500 shadow-2xl"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center justify-center gap-4 px-10 py-5 bg-white text-gray-900 rounded-full text-[11px] font-black uppercase tracking-[0.3em] hover:bg-[#BF2496] hover:text-white transition-all duration-500 shadow-2xl border border-gray-100"
           >
             <MapPin size={16} /> Ver ruta en Maps
           </a>
         </div>
-
       </section>
     </div>
   );

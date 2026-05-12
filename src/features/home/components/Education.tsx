@@ -1,7 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, ShieldCheck, Microscope, Footprints, Sparkles, Heart, Smartphone, ArrowRight, Layers, Droplet, Ruler } from 'lucide-react';
+import { 
+  BookOpen, 
+  ShieldCheck, 
+  Microscope, 
+  Footprints, 
+  Sparkles, 
+  Heart, 
+  Smartphone, 
+  ArrowRight, 
+  Layers, 
+  Droplet, 
+  Ruler 
+} from 'lucide-react';
 import { generateWhatsAppURL } from "@/utils/whatsapp";
 
 const topics = [
@@ -19,16 +31,9 @@ const topics = [
     gradient: "from-[#05F2DB] to-[#F285C1]",
     tag: "Prevención"
   },
-  /* {
-    title: "Sueroterapia Post-Operatoria",
-    body: "Nuestros protocolos de sueroterapia ayudan a la regeneración de tejidos y fortalecimiento del sistema inmune. La administración endovenosa de vitamina C y oligoelementos optimiza los tiempos de cicatrización y desinflamación tras cualquier intervención.",
-    icon: <Activity className="w-6 h-6" />,
-    gradient: "from-[#BF2496] to-[#05F2DB]",
-    tag: "Recuperación"
-  }, */
   {
     title: "¿Qué es la Verruga Plantar?",
-    body: "Una verruga plantar (o papiloma) es una infección benigna en la piel de la planta del pie causada por el Virus del Papiloma Humano (VPH). Se caracteriza por ser dolorosa al caminar, tener un aspecto rugoso con puntos negros internos y crecer hacia adentro debido a la presión, diferenciándose de un callo convencional",
+    body: "Una verruga plantar (o papiloma) es una infección benigna en la piel de la planta del pie causada por el Virus del Papiloma Humano (VPH). Se caracteriza por ser dolorosa al caminar, tener un aspecto rugoso con puntos negros internos y crecer hacia adentro debido a la presión.",
     icon: <ShieldCheck className="w-6 h-6" />,
     gradient: "from-[#05F2DB] to-[#BF2496]",
     tag: "Patología Viral"
@@ -63,6 +68,7 @@ export default function Education() {
 
   useEffect(() => {
     setFloatingElements(
+      // Generación de elementos decorativos en el cliente para evitar hidratación fallida
       [...Array(6)].map((_, i) => ({
         width: Math.random() * 60 + 20,
         height: Math.random() * 60 + 20,
@@ -98,12 +104,12 @@ export default function Education() {
 
   return (
     <section id="education" className="relative py-24 overflow-hidden bg-white">
-      {/* Background decorativo - Soft Pink */}
+      {/* Background decorativo */}
       <div className="absolute inset-0 bg-[#F285C1]/5 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-[#F285C1]/10 to-transparent"></div>
       </div>
       
-      {/* Elementos flotantes animados */}
+      {/* Elementos flotantes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingElements.map((element, i) => (
           <div
@@ -121,27 +127,31 @@ export default function Education() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 bg-[#F285C1]/10 rounded-full px-5 py-2 mb-8 border border-[#F285C1]/20">
-            <BookOpen className="w-4 h-4 text-[#BF2496]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#BF2496]">
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
+        
+        {/* CABECERA EDITORIAL (Coherencia Visual Total) */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[2px] w-12 bg-[#BF2496]" />
+            <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
               Aula de Salud PodoCare
             </span>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-serif italic text-gray-900 mb-6">
-            Ciencia al servicio de <span className="text-[#BF2496] not-italic font-bold font-sans">tus pies</span>
+          <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1] mb-8">
+            Ciencia al servicio de <br />
+            <span className="text-[#BF2496] not-italic font-sans uppercase tracking-tighter">
+              tus pies.
+            </span>
           </h2>
           
-          <p className="text-gray-500 text-lg font-light leading-relaxed">
-            Creemos que un paciente informado toma mejores decisiones. Conoce los fundamentos médicos de nuestros tratamientos más solicitados.
+          <p className="text-gray-400 text-sm md:text-base font-light max-w-xl leading-relaxed">
+            Creemos que un paciente informado toma mejores decisiones. Conoce los fundamentos médicos de nuestros tratamientos más solicitados bajo un enfoque profesional.
           </p>
         </div>
 
         {/* Education Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
           {topics.map((topic, index) => (
             <div
               key={index}
@@ -183,7 +193,6 @@ export default function Education() {
                 {/* BACK SIDE */}
                 <div className="flip-card-back absolute w-full h-full backface-hidden rotate-y-180">
                   <div className="relative w-full h-full bg-gray-900 rounded-[3rem] p-10 flex flex-col overflow-hidden text-white">
-                    {/* Pattern sutil de fondo */}
                     <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '30px 30px' }}></div>
                     
                     <div className="relative z-10 flex flex-col h-full">
@@ -214,17 +223,16 @@ export default function Education() {
           ))}
         </div>
 
-        {/* CTA FINAL */}
+        {/* CTA FINAL REFINADO */}
         <div className="relative max-w-4xl mx-auto">
-          <div className="bg-gray-50 rounded-[4rem] p-8 md:p-12 border border-gray-100 flex flex-col md:flex-row items-center gap-10 overflow-hidden relative">
-            {/* Decoración lateral */}
+          <div className="bg-gray-50 rounded-[3rem] p-8 md:p-12 border border-gray-100 flex flex-col md:flex-row items-center gap-10 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#F285C1]/10 to-transparent"></div>
             
-            <div className="flex-1 relative z-10 text-center md:text-left">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            <div className="flex-1 relative z-10">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 tracking-tight">
                 ¿Aún tienes dudas sobre tu tratamiento?
               </h3>
-              <p className="text-gray-500 font-light max-w-md">
+              <p className="text-gray-500 font-light text-sm md:text-base max-w-md">
                 Agenda una valoración personalizada. Nuestro equipo médico evaluará tu caso específico con la tecnología adecuada.
               </p>
             </div>
@@ -233,9 +241,9 @@ export default function Education() {
               <a
                 href={generateWhatsAppURL("contact")}
                 target="_blank"
-                className="group flex items-center justify-center gap-4 bg-gray-900 text-white px-10 py-5 rounded-3xl hover:bg-[#BF2496] transition-all duration-500 shadow-xl"
+                className="group flex items-center justify-center gap-4 bg-gray-900 text-white px-8 py-5 rounded-2xl hover:bg-[#BF2496] transition-all duration-500 shadow-xl"
               >
-                <Smartphone className="w-5 h-5 group-hover:animate-bounce" />
+                <Smartphone className="w-5 h-5" />
                 <span className="font-black uppercase text-[10px] tracking-widest">Hablar con Especialista</span>
               </a>
             </div>

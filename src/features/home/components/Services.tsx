@@ -35,25 +35,28 @@ export default function Services() {
     <main className="bg-white min-h-screen">
       <section id="servicios" className="flex flex-col">
 
-        {/* Cabecera */}
-        <div className="bg-white py-16 lg:py-24 px-8 lg:px-24 border-b border-gray-100">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-[2px] w-12 bg-[#BF2496]" />
-              <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
-                Lo que ofrecemos
-              </span>
+        {/* Cabecera Corregida para alineación perfecta */}
+        <div className="bg-white py-16 lg:py-24 border-b border-gray-100">
+          {/* Añadimos el container y px-6 lg:px-16 para que coincida con Benefits */}
+          <div className="container mx-auto px-6 lg:px-16"> 
+            <div className="max-w-4xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-[2px] w-12 bg-[#BF2496]" />
+                <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
+                  Lo que ofrecemos
+                </span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1]">
+                Nuestras <br />
+                <span className="text-[#05F2DB] not-italic font-sans uppercase tracking-tighter">
+                  Especialidades.
+                </span>
+              </h2>
+              <p className="text-gray-400 text-sm md:text-base font-light mt-8 max-w-xl leading-relaxed">
+                Atención médica profesional diseñada para tu recuperación y vitalidad.
+                Tecnología de vanguardia y especialistas a tu servicio.
+              </p>
             </div>
-            <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1]">
-              Nuestras <br />
-              <span className="text-[#05F2DB] not-italic font-sans font-bold uppercase tracking-tighter">
-                Especialidades.
-              </span>
-            </h2>
-            <p className="text-gray-400 text-sm md:text-base font-light mt-8 max-w-xl leading-relaxed">
-              Atención médica profesional diseñada para tu recuperación y vitalidad.
-              Tecnología de vanguardia y especialistas a tu servicio.
-            </p>
           </div>
         </div>
 

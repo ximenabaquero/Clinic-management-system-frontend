@@ -107,31 +107,38 @@ export default function Testimonials() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
 
-        {/* Header con Estilo Elegante Unificado */}
-        <div className="text-center max-w-4xl mx-auto mb-20 px-4">
-          <div className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-2.5 mb-10 shadow-sm border border-gray-100">
-            <GoogleIcon size={18} />
-            <span className="text-xs font-black uppercase tracking-widest text-gray-400">Google Reviews</span>
-            <div className="w-[1px] h-4 bg-gray-200 mx-1" />
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3 h-3 fill-[#F4B400] text-[#F4B400]" />
-              ))}
-            </div>
-            <span className="text-sm font-black text-gray-900">5.0</span>
+        {/* CABECERA EDITORIAL (Alineada con el resto del sitio) */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="h-[2px] w-12 bg-[#BF2496]" />
+            <span className="text-xs font-black uppercase tracking-[0.5em] text-[#BF2496]">
+              Pacientes PodoCare
+            </span>
           </div>
 
-          <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[0.9] mb-8">
+          <div className="inline-flex items-center gap-3 bg-white rounded-xl px-4 py-2 mb-8 shadow-sm border border-gray-100">
+            <GoogleIcon size={18} />
+            <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Google Reviews</span>
+            <div className="w-[1px] h-3 bg-gray-200 mx-1" />
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-2.5 h-2.5 fill-[#F4B400] text-[#F4B400]" />
+              ))}
+            </div>
+            <span className="text-xs font-black text-gray-900">5.0</span>
+          </div>
+
+          <h2 className="text-5xl md:text-7xl font-serif italic text-gray-900 leading-[1.1] mb-8">
             Lo que dicen <br />
-            <span className="not-italic font-sans font-black uppercase tracking-tighter text-[#BF2496]">
-              nuestros pacientes
+            <span className="text-[#BF2496] not-italic  font-sans uppercase tracking-tighter">
+              nuestros pacientes.
             </span>
           </h2>
           
-          <p className="text-lg md:text-xl text-gray-500 font-light max-w-2xl mx-auto leading-relaxed italic">
-            "Reseñas verificadas de personas reales que han transformado la salud de sus pies con nosotros."
+          <p className="text-gray-400 text-sm md:text-base font-light max-w-xl leading-relaxed italic">
+            &ldquo;Reseñas verificadas de personas reales que han transformado la salud de sus pies con nosotros.&rdquo;
           </p>
         </div>
 
@@ -163,7 +170,7 @@ export default function Testimonials() {
 
               {/* Texto */}
               <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-1 italic">
-                "{review.text}"
+                &ldquo;{review.text}&rdquo;
               </p>
 
               <div className="h-[1px] w-full bg-gray-50 mt-auto" />
@@ -177,7 +184,7 @@ export default function Testimonials() {
             href="https://maps.app.goo.gl/xy414V4CuuKsaC356"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 bg-white border border-gray-100 text-gray-900 font-black py-5 px-10 rounded-[2rem] hover:shadow-xl transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
+            className="group inline-flex items-center gap-4 bg-white border border-gray-100 text-gray-900 font-black py-5 px-10 rounded-2xl hover:shadow-xl transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
           >
             <GoogleIcon size={18} />
             <span>Ver perfil en Google</span>
@@ -188,7 +195,7 @@ export default function Testimonials() {
             href={generateWhatsAppURL("contact")}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-4 bg-[#BF2496] text-white font-black py-5 px-10 rounded-[2rem] hover:shadow-2xl hover:shadow-[#BF2496]/40 hover:scale-105 transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
+            className="group inline-flex items-center gap-4 bg-[#BF2496] text-white font-black py-5 px-10 rounded-2xl hover:shadow-2xl hover:shadow-[#BF2496]/40 hover:scale-105 transition-all duration-500 text-[11px] uppercase tracking-[0.2em]"
           >
             <MessageCircle size={18} />
             <span>Agendar ahora</span>

@@ -20,8 +20,8 @@ export default function Header() {
     { name: "Inicio", href: "/#hero", id: "hero" },
     { name: "Servicios", href: "/#servicios", id: "servicios" },
     { name: "Beneficios", href: "/#benefits", id: "benefits" },
-    { name: "Testimonios", href: "/#testimonials", id: "testimonials" },
     { name: "Educación", href: "/#education", id: "education" },
+    { name: "Testimonios", href: "/#testimonials", id: "testimonials" },
     { name: "Contacto", href: "/#contact", id: "contact" },
   ];
 
