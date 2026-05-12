@@ -108,7 +108,7 @@ export default function PatientBasicsFields({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <SelectField
           id="biological_sex"
-          label="Sexo biológico"
+          label="Género"
           value={data.biologicalSex}
           onChange={set("biologicalSex")}
           required
