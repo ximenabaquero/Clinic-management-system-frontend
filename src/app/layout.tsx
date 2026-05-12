@@ -5,7 +5,7 @@ import { AuthProvider } from "@/features/auth/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// 1. URL base para producción
+// 1. URL base para producción.
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.podocareclinic.com";
 
 export const metadata: Metadata = {
