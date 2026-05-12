@@ -108,7 +108,7 @@ export default function Contact() {
                 <div className={`w-20 h-20 rounded-[2rem] mx-auto mb-8 flex items-center justify-center text-white shadow-lg ${link.color} group-hover:rotate-[10deg] transition-transform duration-500`}>
                   {link.icon}
                 </div>
-                <h3 className="text-2xl font-black text-gray-900 mb-2 uppercase tracking-tighter">{link.name}</h3>
+                <h3 className="text-2xl font-serif italic text-gray-900 mb-2">{link.name}</h3>
                 <p className="text-gray-500 text-[11px] mb-8 font-black uppercase tracking-widest">{link.description}</p>
                 <div className="inline-flex items-center gap-3 text-[#BF2496] font-black text-[10px] uppercase tracking-[0.3em] group-hover:gap-5 transition-all">
                   Conectar <ArrowRight size={14} />
@@ -127,7 +127,7 @@ export default function Contact() {
               <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#BF2496] shadow-sm">
                 <MapPin size={28} />
               </div>
-              <h3 className="text-3xl font-black text-gray-900 tracking-tighter uppercase">Visítanos</h3>
+              <h3 className="text-3xl font-serif italic text-gray-900">Visítanos</h3>
             </div>
             
             <div className="space-y-12">

@@ -156,7 +156,7 @@ export default function Testimonials() {
                     {review.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-black text-gray-900 text-sm leading-tight uppercase tracking-tight">{review.name}</p>
+                    <p className="font-serif italic text-gray-900 text-sm leading-tight">{review.name}</p>
                     <p className="text-[#05F2DB] font-bold text-[10px] uppercase tracking-widest mt-1">{review.time}</p>
                   </div>
                 </div>
