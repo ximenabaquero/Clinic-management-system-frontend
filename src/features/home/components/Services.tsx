@@ -1,8 +1,17 @@
 "use client";
 
 import { Zap, Sparkles, Droplets, Scissors, Activity, Eye } from 'lucide-react';
-import { useState, type MouseEvent } from 'react';
+import { useState, useEffect, type MouseEvent } from 'react';
+import axiosInstance from '@/lib/axios'; // Importa el archivo que creamos
 
+const fetchImages = async () => {
+    try {
+        const response = await axiosInstance.get('/clinical-images');
+        console.log('Imágenes recibidas:', response.data);
+    } catch (error) {
+        console.error('Error al conectar:', error);
+    }
+};
 const services = [
   {
     title: "Lipólisis láser",
@@ -65,8 +74,10 @@ const scrollToSection = (sectionId: string, event: MouseEvent<HTMLAnchorElement>
 
 export default function Services() {
   // Cambiamos el tipo a number | null para poder almacenar el índice
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
+const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+useEffect(() => {
+    fetchImages();
+  }, []);
   return (
     <section className="relative py-24 bg-gradient-to-b from-white to-emerald-50 overflow-hidden">
       {/* Background decorative elements */}

@@ -40,8 +40,8 @@ const contactInfo = [
   },
   {
     icon: <Mail className="w-4 h-4" />,
-    text: "info@coldesthetic.com",
-    href: "mailto:info@coldesthetic.com",
+    text: "alexanderroagil@gmail.com",
+    href: "mailto:alexanderroagil@gmail.com",
   },
   { icon: <MapPin className="w-4 h-4" />, text: "Bogotá, Colombia", href: "#" },
   {

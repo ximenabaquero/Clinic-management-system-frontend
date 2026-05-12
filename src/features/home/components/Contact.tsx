@@ -203,8 +203,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Email</h4>
-                    <a href="mailto:info@coldesthetic.com" className="text-gray-600 hover:text-teal-600 transition-colors">
-                      info@coldesthetic.com
+                    <a href="mailto:alexanderroagil@gmail.com" className="text-gray-600 hover:text-teal-600 transition-colors">
+                      alexanderroagil@gmail.com
                     </a>
                   </div>
                 </div>
