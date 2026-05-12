@@ -47,7 +47,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#F9F9F9] text-gray-800 overflow-hidden border-t border-gray-100">
+    <footer className="relative text-gray-800 overflow-hidden border-t border-gray-100" style={{ background: "linear-gradient(135deg, #fce4f3 0%, #e8faf8 100%)" }}>
       
       {/* Acento de color superior */}
       <div className="h-1.5 w-full bg-gradient-to-r from-[#05F2DB] via-[#F285C1] to-[#D929AA]"></div>
@@ -91,7 +91,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-gray-400 hover:text-[#D929AA] hover:border-[#D929AA]/20 hover:shadow-lg transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-white/70 border border-white/80 flex items-center justify-center text-gray-400 hover:text-[#D929AA] hover:border-[#D929AA]/20 hover:shadow-lg transition-all duration-300"
                 >
                   {social.icon}
                 </a>
