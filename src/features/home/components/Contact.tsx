@@ -165,9 +165,14 @@ export default function Contact() {
                 <ShieldCheck size={28} strokeWidth={1} />
               </div>
               
-              <h3 className="text-4xl md:text-5xl font-serif italic text-white mb-8 leading-[1.2] font-light">
-                Tu salud <br /> <span className="not-italic font-sans font-light uppercase tracking-[0.1em] text-[#05F2DB]/90 text-3xl">no da espera.</span>
-              </h3>
+              <div className="mb-8">
+                <p className="text-5xl md:text-6xl font-serif italic text-white leading-tight font-light">
+                  Tu salud
+                </p>
+                <p className="text-3xl md:text-4xl font-sans font-bold uppercase tracking-[0.15em] text-[#05F2DB] mt-3 leading-tight">
+                  no da espera.
+                </p>
+              </div>
               
               <p className="text-base text-gray-400 font-light mb-12 max-w-sm leading-relaxed italic opacity-80">
                 “Escríbenos ahora mismo y recibe una respuesta inmediata de nuestro equipo especializado.”
