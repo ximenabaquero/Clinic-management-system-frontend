@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function SpendByCategoryChart({ data, loading }: Props) {
-  if (loading) return <ChartSkeleton title="Gasto por Categoría" />;
+  if (loading) return <ChartSkeleton />;
 
   if (!data || data.items.length === 0)
     return <ChartEmpty title="Gasto por Categoría" />;
@@ -92,7 +92,7 @@ export default function SpendByCategoryChart({ data, loading }: Props) {
   );
 }
 
-function ChartSkeleton({ title }: { title: string }) {
+function ChartSkeleton() {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 animate-pulse">
       <div className="h-4 w-32 bg-gray-100 rounded mb-6" />

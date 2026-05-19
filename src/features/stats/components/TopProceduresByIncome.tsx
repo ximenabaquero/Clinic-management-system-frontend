@@ -9,6 +9,11 @@ const fetcher = (url: string) =>
     .then((res) => res.json())
     .then((json) => json.data || []);
 
+interface ProcedureIncome {
+  item_name: string;
+  total_revenue: number | string;
+}
+
 export default function TopProceduresByIncome() {
   const { data, error, isLoading } = useSWR(endpoints.topByIncome, fetcher);
 
@@ -19,7 +24,7 @@ export default function TopProceduresByIncome() {
     return <p className="text-red-500">Error al cargar procedimientos.</p>;
 
   // Tomamos el mayor ingreso para calcular proporciones
-  const maxRevenue = data.length > 0 ? Math.max(...data.map((p: any) => Number(p.total_revenue))) : 0;
+  const maxRevenue = data.length > 0 ? Math.max(...(data as ProcedureIncome[]).map((p) => Number(p.total_revenue))) : 0;
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-md p-6">
@@ -38,7 +43,7 @@ export default function TopProceduresByIncome() {
         </p>
       ) : (
       <div className="space-y-4">
-        {data.map((proc: any) => {
+        {(data as ProcedureIncome[]).map((proc) => {
           const revenue = Number(proc.total_revenue);
           const percentage = maxRevenue > 0 ? (revenue / maxRevenue) * 100 : 0;
 

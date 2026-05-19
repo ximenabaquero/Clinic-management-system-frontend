@@ -6,9 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/features/auth/AuthContext";
+import EditarPerfilAdminModal from "@/components/EditarPerfilAdminModal";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showEditPerfil, setShowEditPerfil] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const router = useRouter();
@@ -82,8 +84,15 @@ export default function Header() {
 
   if (user) {
     return (
+      <>
       <header className="relative w-full z-50 bg-white shadow-md py-3">
         <div className="container mx-auto px-4 sm:px-6 lg:px-10 flex justify-end">
+          <button
+            onClick={() => setShowEditPerfil(true)}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 font-semibold text-sm transition hover:bg-gray-200 mr-2"
+          >
+            Mi perfil
+          </button>
           <button
             onClick={handleLogout}
             className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-[#D929AA] text-white font-bold uppercase tracking-[0.10em] transition hover:bg-[#BF2496]"
@@ -93,6 +102,11 @@ export default function Header() {
           </button>
         </div>
       </header>
+
+      {showEditPerfil && (
+        <EditarPerfilAdminModal onClose={() => setShowEditPerfil(false)} />
+      )}
+    </>
     );
   }
 

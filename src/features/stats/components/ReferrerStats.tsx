@@ -11,6 +11,15 @@ const fetcher = (url: string) =>
     .then((res) => res.json())
     .then((json) => json.data || []);
 
+interface ReferrerStat {
+  referrer_name: string;
+  total_patients_month: number;
+  total_confirmed_month: number;
+  total_canceled_month: number;
+  confirmed_income_month: number;
+  confirmed_income_year: number;
+}
+
 function formatCopInput(value: string | number): string {
   const n = Number(value);
   if (!Number.isFinite(n)) return "";
@@ -21,19 +30,24 @@ function formatCopInput(value: string | number): string {
   }).format(n);
 }
 
+function toNumber(value: unknown): number {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : 0;
+}
+
 export default function ReferrerStats() {
   const { data, error, isLoading } = useSWR(endpoints.referrerStats, fetcher);
 
-  const allRefs = Array.isArray(data) ? data : [];
+  const allRefs: ReferrerStat[] = Array.isArray(data) ? data : [];
 
   // Calcular totales
   const totals = allRefs.reduce(
-    (acc, ref: any) => ({
-      total_patients_month: acc.total_patients_month + (ref.total_patients_month || 0),
-      total_confirmed_month: acc.total_confirmed_month + (ref.total_confirmed_month || 0),
-      total_canceled_month: acc.total_canceled_month + (ref.total_canceled_month || 0),
-      confirmed_income_month: acc.confirmed_income_month + (ref.confirmed_income_month || 0),
-      confirmed_income_year: acc.confirmed_income_year + (ref.confirmed_income_year || 0),
+    (acc, ref) => ({
+      total_patients_month: acc.total_patients_month + toNumber(ref.total_patients_month),
+      total_confirmed_month: acc.total_confirmed_month + toNumber(ref.total_confirmed_month),
+      total_canceled_month: acc.total_canceled_month + toNumber(ref.total_canceled_month),
+      confirmed_income_month: acc.confirmed_income_month + toNumber(ref.confirmed_income_month),
+      confirmed_income_year: acc.confirmed_income_year + toNumber(ref.confirmed_income_year),
     }),
     {
       total_patients_month: 0,
@@ -64,7 +78,7 @@ export default function ReferrerStats() {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gradient-to-r from-[#BF2496] to-teal-600">
+            <thead className="bg-gradient-to-r from-emerald-600 to-teal-600">
               <tr className="text-left text-xs font-semibold text-white/95 uppercase tracking-wide">
                 <th className="px-5 py-3">Especialista</th>
                 <th className="px-5 py-3 text-center">Pacientes</th>
@@ -81,10 +95,10 @@ export default function ReferrerStats() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {paginatedItems.map((ref: any) => (
+              {(paginatedItems as ReferrerStat[]).map((ref) => (
                 <tr
                   key={ref.referrer_name}
-                  className="hover:bg-[#BF2496]/10 transition-colors"
+                  className="hover:bg-emerald-50/40 transition-colors"
                 >
                   <td className="px-5 py-4">
                     <p className="font-medium text-gray-900 text-sm">
@@ -97,7 +111,7 @@ export default function ReferrerStats() {
                     </span>
                   </td>
                   <td className="px-5 py-4 text-center hidden sm:table-cell">
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#BF2496]/10 text-[#BF2496]">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700">
                       {ref.total_confirmed_month}
                     </span>
                   </td>
