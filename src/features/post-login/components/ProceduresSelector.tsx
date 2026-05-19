@@ -16,8 +16,6 @@ type ProceduresSelectorProps = {
 export default function ProceduresSelector({
   procedureItems,
   setProcedureItems,
-  procedureNotes,
-  setProcedureNotes,
   clearSubmitError,
 }: ProceduresSelectorProps) {
   const isSelected = (label: string) =>
@@ -50,43 +48,13 @@ export default function ProceduresSelector({
 
   const toggleItem = (label: string) => {
     clearSubmitError();
-
     if (isSelected(label)) {
       setProcedureItems((prev) =>
         prev.filter((item) => item.item_name !== label),
       );
-
-      if (label.includes("Faja")) {
-        setProcedureNotes((prev) => prev.replace(/Faja talla:.*(\n\n)?/, ""));
-      }
-      if (label.includes("Pierna")) {
-        setProcedureNotes((prev) => prev.replace(/Pierna:.*(\n\n)?/, ""));
-      }
     } else {
       setProcedureItems((prev) => [...prev, { item_name: label, price: "" }]);
     }
-  };
-
-  const handleFajaChange = (value: string) => {
-    setProcedureNotes((prev) => {
-      const clean = prev.replace(/Faja talla:.*(\n\n)?/, "");
-      if (!clean) return `Faja talla: ${value}`;
-      return `Faja talla: ${value}\n\n${clean}`;
-    });
-  };
-
-  const handlePiernaChange = (interna: boolean, externa: boolean) => {
-    let note = "";
-    if (interna && externa) note = "Pierna: interna y externa";
-    else if (interna) note = "Pierna: interna";
-    else if (externa) note = "Pierna: externa";
-
-    setProcedureNotes((prev) => {
-      const clean = prev.replace(/Pierna:.*(\n\n)?/, "");
-      if (!note) return clean;
-      if (!clean) return note;
-      return `${note}\n\n${clean}`;
-    });
   };
 
   const getGroupCount = (groupProcedureIds: string[]) => {
@@ -105,7 +73,7 @@ export default function ProceduresSelector({
         {PROCEDURE_GROUPS.map((group) => (
           <details
             key={group.id}
-            open={false}
+            open={group.defaultOpen}
             className="rounded-2xl bg-white shadow-sm ring-1 ring-gray-100"
           >
             <summary className="cursor-pointer list-none px-4 py-3 bg-[#BF2496]/10 hover:bg-[#BF2496]/20 rounded-t-2xl transition-colors">
@@ -115,12 +83,7 @@ export default function ProceduresSelector({
                 </span>
 
                 {getGroupCount(group.procedureIds) > 0 && (
-                  <span
-                    className="flex items-center justify-center
-                      min-w-[24px] h-6 px-2
-                      rounded-full bg-[#BF2496]
-                      text-white text-xs font-bold shadow-sm"
-                  >
+                  <span className="flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-[#BF2496] text-white text-xs font-bold shadow-sm">
                     {getGroupCount(group.procedureIds)}
                   </span>
                 )}
@@ -128,10 +91,9 @@ export default function ProceduresSelector({
             </summary>
 
             <div className="px-4 pb-4">
-              <div className="hidden sm:grid sm:grid-cols-[28px_1fr_260px_220px] gap-3 border-y border-gray-100 py-2 text-xs font-semibold text-gray-500">
+              <div className="hidden sm:grid sm:grid-cols-[28px_1fr_200px] gap-3 border-y border-gray-100 py-2 text-xs font-semibold text-gray-500">
                 <div />
-                <div>Procedimiento</div>
-                <div>Detalles</div>
+                <div>Procedimiento / Producto</div>
                 <div>Precio (COP)</div>
               </div>
 
@@ -144,28 +106,14 @@ export default function ProceduresSelector({
 
                   const checked = isSelected(procedure.label);
                   const priceValue = getPrice(procedure.label);
-
-                  const isFaja = procedure.id === "faja_postoperatoria";
-                  const isPierna = procedure.id === "pierna";
-
-                  const fajaDetalle = procedureNotes.includes("Faja talla:");
-                  const piernaInterna =
-                    procedureNotes.includes("Pierna: interna");
-                  const piernaExterna =
-                    procedureNotes.includes("Pierna: externa");
-                  const piernaAmbas =
-                    procedureNotes.includes("interna y externa");
-
-                  const piernaDetalle =
-                    piernaInterna || piernaExterna || piernaAmbas;
-
-                  const disablePrice =
-                    (isFaja && !fajaDetalle) || (isPierna && !piernaDetalle);
+                  const pricePlaceholder = procedure.defaultPrice
+                    ? `$ ${procedure.defaultPrice.toLocaleString("es-CO")}`
+                    : "Precio en COP";
 
                   return (
                     <div
                       key={procedure.id}
-                      className="grid grid-cols-1 sm:grid-cols-[28px_1fr_260px_220px] gap-3 py-3"
+                      className="grid grid-cols-1 sm:grid-cols-[28px_1fr_200px] gap-3 py-3 items-start"
                     >
                       <div className="pt-1">
                         <input
@@ -176,75 +124,28 @@ export default function ProceduresSelector({
                         />
                       </div>
 
-                      <label
-                        className={`text-sm font-medium ${
-                          checked ? "text-gray-900" : "text-gray-700"
-                        }`}
-                      >
-                        {procedure.label}
-                      </label>
-
-                      {checked ? (
-                        <>
-                          {isFaja ? (
-                            <input
-                              type="text"
-                              onChange={(e) => handleFajaChange(e.target.value)}
-                              className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900"
-                              placeholder="Talla (Ej. S / M / L)"
-                            />
-                          ) : isPierna ? (
-                            <div className="flex gap-4">
-                              <label className="flex items-center gap-2 text-sm text-gray-700">
-                                <input
-                                  type="checkbox"
-                                  checked={piernaInterna || piernaAmbas}
-                                  onChange={(e) =>
-                                    handlePiernaChange(
-                                      e.target.checked,
-                                      piernaExterna,
-                                    )
-                                  }
-                                  className="h-4 w-4 rounded border-gray-300"
-                                />
-                                Interna
-                              </label>
-
-                              <label className="flex items-center gap-2 text-sm text-gray-700">
-                                <input
-                                  type="checkbox"
-                                  checked={piernaExterna || piernaAmbas}
-                                  onChange={(e) =>
-                                    handlePiernaChange(
-                                      piernaInterna,
-                                      e.target.checked,
-                                    )
-                                  }
-                                  className="h-4 w-4 rounded border-gray-300"
-                                />
-                                Externa
-                              </label>
-                            </div>
-                          ) : (
-                            <div className="text-sm text-gray-500">—</div>
-                          )}
-                        </>
-                      ) : (
-                        <div className="text-sm text-gray-400">—</div>
-                      )}
+                      <div>
+                        <label
+                          className={`text-sm font-medium ${
+                            checked ? "text-gray-900" : "text-gray-700"
+                          }`}
+                        >
+                          {procedure.label}
+                        </label>
+                        {checked && procedure.additionalNote && (
+                          <p className="text-[11px] text-amber-600 mt-1 leading-snug">
+                            ⚠ {procedure.additionalNote}
+                          </p>
+                        )}
+                      </div>
 
                       {checked ? (
                         <input
                           type="text"
                           value={priceValue}
                           onChange={handlePriceChange(procedure.label)}
-                          disabled={disablePrice}
-                          className={`rounded-xl border px-3 py-2 text-sm ${
-                            disablePrice
-                              ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                              : "bg-white border-gray-200 text-gray-900"
-                          }`}
-                          placeholder="Precio en COP"
+                          className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-300"
+                          placeholder={pricePlaceholder}
                         />
                       ) : (
                         <div className="text-sm text-gray-400">—</div>

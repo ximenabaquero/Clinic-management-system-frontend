@@ -94,7 +94,7 @@ export default function RegisterPatientPage() {
     if (currentStep === 2) {
       const valid = procedureItems.length > 0 && procedureNotes.trim().length > 0;
       setValidationError(
-        valid ? null : "⚠️​ Complete todos los pasos antes de guardar el registro.",
+        valid ? null : "​Complete todos los pasos antes de guardar el registro.",
       );
     } else {
       setValidationError(null);
@@ -106,7 +106,7 @@ export default function RegisterPatientPage() {
   const handleSaveClick = () => {
     const valid = procedureItems.length > 0 && procedureNotes.trim().length > 0;
     if (!valid) {
-      setValidationError("⚠️​ Complete todos los pasos antes de guardar el registro.");
+      setValidationError("​Complete todos los pasos antes de guardar el registro.");
       return;
     }
     setShowConfirmModal(true);
