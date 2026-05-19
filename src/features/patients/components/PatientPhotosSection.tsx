@@ -144,7 +144,7 @@ export default function PatientPhotosSection({ evaluationId }: Props) {
                   >
                     {/* Foto o placeholder */}
                     <div
-                      className={`relative w-full aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      className={`relative w-full aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all ${
                         activeStage === stage
                           ? `${colors.ring} ring-2 ring-offset-1`
                           : "border-gray-100 hover:border-gray-200"
@@ -238,7 +238,7 @@ export default function PatientPhotosSection({ evaluationId }: Props) {
             <p className="text-sm text-gray-500">Sin fotos en {STAGE_LABELS[activeStage]}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+          <div className="grid grid-cols-2 gap-3 mb-4">
             {activePhotos.map((photo) => (
               <PhotoCard key={photo.id} photo={photo} onDelete={handleDelete} />
             ))}
@@ -272,6 +272,9 @@ export default function PatientPhotosSection({ evaluationId }: Props) {
               <CameraIcon className="w-4 h-4" />
               {isUploading ? "Subiendo..." : "Seleccionar foto"}
             </button>
+            <p className="text-[10px] text-teal-600/70 text-center mt-1">
+              Recomendado: orientación vertical (retrato)
+            </p>
             <input
               ref={fileInputRef}
               type="file"
@@ -305,39 +308,48 @@ function PhotoCard({
   const [confirm, setConfirm] = useState(false);
 
   return (
-    <div className="relative group rounded-xl overflow-hidden border border-gray-100 bg-gray-50 aspect-square">
-      <Image
-        src={photo.image_url}
-        alt={STAGE_LABELS[photo.stage]}
-        fill
-        className="object-cover"
-        sizes="(max-width: 640px) 50vw, 33vw"
-        unoptimized
-      />
-      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-2 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-        <p className="text-[10px] text-white/80">
+    <div className="group rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex flex-col">
+      {/* Imagen en formato vertical */}
+      <div className="relative aspect-[3/4] w-full">
+        <Image
+          src={photo.image_url}
+          alt={STAGE_LABELS[photo.stage]}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 50vw, 33vw"
+          unoptimized
+        />
+        {!confirm ? (
+          <button
+            onClick={() => setConfirm(true)}
+            className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+          >
+            <TrashIcon className="w-3.5 h-3.5" />
+          </button>
+        ) : (
+          <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-2 p-2">
+            <p className="text-white text-xs font-semibold">¿Eliminar?</p>
+            <div className="flex gap-2">
+              <button onClick={() => { onDelete(photo); setConfirm(false); }} className="px-2 py-1 bg-red-500 text-white text-xs font-semibold rounded-lg">Sí</button>
+              <button onClick={() => setConfirm(false)} className="px-2 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg">No</button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Footer siempre visible: fecha + notas */}
+      <div className="px-2 py-1.5 bg-white border-t border-gray-100">
+        <p className="text-[10px] text-gray-400">
           {new Date(photo.taken_at).toLocaleDateString("es-CO", {
             day: "2-digit", month: "short", year: "numeric",
           })}
         </p>
-        {photo.notes && <p className="text-[10px] text-white/70 truncate">{photo.notes}</p>}
+        {photo.notes && (
+          <p className="text-[11px] text-gray-600 mt-0.5 line-clamp-2 leading-tight">
+            {photo.notes}
+          </p>
+        )}
       </div>
-      {!confirm ? (
-        <button
-          onClick={() => setConfirm(true)}
-          className="absolute top-1.5 right-1.5 p-1 rounded-full bg-black/40 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-        >
-          <TrashIcon className="w-3.5 h-3.5" />
-        </button>
-      ) : (
-        <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-2 p-2">
-          <p className="text-white text-xs font-semibold">¿Eliminar?</p>
-          <div className="flex gap-2">
-            <button onClick={() => { onDelete(photo); setConfirm(false); }} className="px-2 py-1 bg-red-500 text-white text-xs font-semibold rounded-lg">Sí</button>
-            <button onClick={() => setConfirm(false)} className="px-2 py-1 bg-white/20 text-white text-xs font-semibold rounded-lg">No</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

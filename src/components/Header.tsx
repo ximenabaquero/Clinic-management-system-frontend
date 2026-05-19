@@ -29,6 +29,7 @@ export default function Header() {
   };
 
   return (
+  <>
     <header
       className={`sticky top-0 w-full z-50 transition-all duration-300 ${
         scrolled
@@ -178,9 +179,11 @@ export default function Header() {
         )}
       </div>
 
-      {showEditPerfil && (
-        <EditarPerfilAdminModal onClose={() => setShowEditPerfil(false)} />
-      )}
     </header>
+
+    {showEditPerfil && (
+      <EditarPerfilAdminModal onClose={() => setShowEditPerfil(false)} />
+    )}
+  </>
   );
 }
