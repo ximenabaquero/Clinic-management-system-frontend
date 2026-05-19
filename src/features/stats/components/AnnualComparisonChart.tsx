@@ -97,7 +97,27 @@ const MONTH_ABBR = [
   "Dic",
 ];
 
-function CustomTooltip({ active, payload, label, metric }: any) {
+interface MonthStat {
+  month: number;
+  income: number;
+  patients: number;
+  sessions: number;
+  procedures: number;
+}
+
+interface ChartPoint {
+  name: string;
+  value: number;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: { value: number }[];
+  label?: string;
+  metric?: Metric;
+}
+
+function CustomTooltip({ active, payload, label, metric }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const m = METRICS.find((x) => x.key === metric)!;
   return (
@@ -166,14 +186,14 @@ export default function AnnualComparisonChart({ incomeRevealed, onReveal }: Prop
 
   const metric = METRICS.find((m) => m.key === activeMetric)!;
 
-  const chartData =
-    data?.months?.map((m: any) => ({
+  const chartData: ChartPoint[] =
+    data?.months?.map((m: MonthStat) => ({
       name: MONTH_ABBR[(m.month ?? 1) - 1],
       value: m[activeMetric] ?? 0,
     })) ?? [];
 
-  const maxValue = Math.max(...chartData.map((d: any) => d.value), 1);
-  const total = chartData.reduce((s: number, d: any) => s + d.value, 0);
+  const maxValue = Math.max(...chartData.map((d) => d.value), 1);
+  const total = chartData.reduce((s, d) => s + d.value, 0);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-md p-6">

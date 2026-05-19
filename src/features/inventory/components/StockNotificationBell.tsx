@@ -67,7 +67,11 @@ export default function StockNotificationBell() {
 
     const handleVisibility = () => {
       // pausar si el usuario tiene otra pestaña activa
-      document.hidden ? stopPolling() : startPolling();
+      if (document.hidden) {
+        stopPolling();
+      } else {
+        startPolling();
+      }
     };
 
     startPolling();

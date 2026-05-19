@@ -38,7 +38,6 @@ const MONTHS = [
 ];
 
 const currentYear = new Date().getFullYear();
-const YEARS = [currentYear];
 
 export default function ReportesTab({ products }: Props) {
   const [categoryData, setCategoryData] =
@@ -56,7 +55,7 @@ export default function ReportesTab({ products }: Props) {
   const [retryCount, setRetryCount] = useState(0);
 
   const [month, setMonth] = useState<number | undefined>(undefined);
-  const [year, setYear] = useState<number>(currentYear);
+  const year = currentYear;
 
   const selectedProduct =
     products.find((p) => p.id === selectedProductId) ?? null;

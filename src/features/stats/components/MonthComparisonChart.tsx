@@ -92,12 +92,38 @@ const METRICS: {
   },
 ];
 
-function CustomTooltip({ active, payload, metric }: any) {
+type MetricRecord = Record<Metric, number>;
+
+interface DayStat {
+  day: number;
+  current?: MetricRecord;
+  previous?: MetricRecord;
+}
+
+interface MonthComparisonData {
+  days: DayStat[];
+  current_month: string;
+  previous_month: string;
+}
+
+interface TooltipPayload {
+  name: string;
+  value: number;
+  color: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+  metric?: Metric;
+}
+
+function CustomTooltip({ active, payload, metric }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   const m = METRICS.find((x) => x.key === metric)!;
   return (
     <div className="bg-white border border-gray-100 shadow-xl rounded-xl px-4 py-3 text-sm min-w-[160px]">
-      {payload.map((p: any, i: number) => (
+      {payload.map((p, i) => (
         <div key={`${p.name}-${i}`} className="flex items-center justify-between gap-4">
           <span className="text-gray-400 text-xs">{p.name}</span>
           <span className="font-bold text-xs" style={{ color: p.color }}>
@@ -166,7 +192,7 @@ export default function MonthComparisonChart({ incomeRevealed, onReveal }: Props
   const metric = METRICS.find((m) => m.key === activeMetric)!;
 
   const chartData =
-    data?.days?.map((d: any) => ({
+    (data as MonthComparisonData | null)?.days?.map((d) => ({
       day: d.day,
       [data.current_month]: d.current?.[activeMetric] ?? 0,
       [data.previous_month]: d.previous?.[activeMetric] ?? 0,

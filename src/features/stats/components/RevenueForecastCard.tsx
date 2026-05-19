@@ -37,12 +37,36 @@ const formatFull = (v: number) =>
     maximumFractionDigits: 0,
   }).format(v);
 
-function CustomTooltip({ active, payload, label }: any) {
+interface HistoricalEntry {
+  month_name: string;
+  revenue: number;
+  sma_3: number | null;
+}
+
+interface PredictionEntry {
+  month_name: string;
+  predicted: number;
+  capped: number;
+}
+
+interface TooltipPayload {
+  name: string;
+  value: number | null;
+  color: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+  label?: string;
+}
+
+function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-white border border-gray-100 shadow-lg rounded-xl px-4 py-3 text-sm min-w-[170px]">
       <p className="text-gray-500 mb-2 font-medium capitalize">{label}</p>
-      {payload.map((p: any) =>
+      {payload.map((p) =>
         p.value != null ? (
           <div key={p.name} className="flex items-center gap-2 mb-1">
             <span
@@ -64,12 +88,12 @@ export default function RevenueForecastCard() {
   const { data, error, isLoading } = useSWR(endpoints.revenueForecast, fetcher);
 
   const chartData = [
-    ...(data?.historical ?? []).map((h: any) => ({
+    ...(data?.historical ?? []).map((h: HistoricalEntry) => ({
       name: h.month_name.slice(0, 3),
       real: h.revenue,
       sma3: h.sma_3,
     })),
-    ...(data?.predictions ?? []).map((p: any) => ({
+    ...(data?.predictions ?? []).map((p: PredictionEntry) => ({
       name: `${p.month_name.slice(0, 3)} *`,
       proyectado: p.predicted,
       capped: p.capped,

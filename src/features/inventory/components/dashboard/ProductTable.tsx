@@ -5,7 +5,6 @@ import { InventoryProduct } from "../../types";
 interface Props {
   products: InventoryProduct[];
   title: string;
-  icon: React.ReactNode;
   type: "insumo" | "equipo";
 }
 
@@ -49,7 +48,7 @@ function DescriptionCell({ text }: { text: string | null }) {
   );
 }
 
-export default function ProductTable({ products, title, icon, type }: Props) {
+export default function ProductTable({ products, title, type }: Props) {
   const colSpan = type === "insumo" ? 5 : 4;
 
   return (

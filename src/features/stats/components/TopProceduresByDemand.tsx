@@ -9,6 +9,11 @@ const fetcher = (url: string) =>
     .then((res) => res.json())
     .then((json) => json.data || []);
 
+interface ProcedureDemand {
+  item_name: string;
+  total_count: number;
+}
+
 // Colores para los números
 const numberColors = [
   "bg-blue-100 text-blue-600",
@@ -44,7 +49,7 @@ export default function TopProceduresByDemand() {
         </p>
       ) : (
       <div className="space-y-3">
-        {data.map((item: any, index: number) => {
+        {(data as ProcedureDemand[]).map((item, index) => {
           const color = numberColors[index % numberColors.length];
 
           return (

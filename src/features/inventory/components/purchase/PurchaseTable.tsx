@@ -86,7 +86,6 @@ const LONG = 30;
 
 type Props = {
   purchases: InventoryPurchase[];
-  isAdmin: boolean;
   loading: boolean;
   currentPage: number;
   totalPages: number;
@@ -109,7 +108,6 @@ const HEADERS = [
 
 export default function PurchaseTable({
   purchases,
-  isAdmin,
   loading,
   currentPage,
   totalPages,

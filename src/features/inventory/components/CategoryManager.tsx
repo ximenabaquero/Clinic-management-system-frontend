@@ -45,9 +45,11 @@ export default function CategoryManager({
     setSaving(true);
     setError(null);
     try {
-      editing
-        ? await updateCategory(editing.id, { name: name.trim() })
-        : await createCategory({ name: name.trim() });
+      if (editing) {
+        await updateCategory(editing.id, { name: name.trim() });
+      } else {
+        await createCategory({ name: name.trim() });
+      }
       handleClose();
       onRefresh();
       onRefreshProducts?.();

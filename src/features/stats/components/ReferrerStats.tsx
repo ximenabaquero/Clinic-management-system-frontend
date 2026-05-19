@@ -11,6 +11,15 @@ const fetcher = (url: string) =>
     .then((res) => res.json())
     .then((json) => json.data || []);
 
+interface ReferrerStat {
+  referrer_name: string;
+  total_patients_month: number;
+  total_confirmed_month: number;
+  total_canceled_month: number;
+  confirmed_income_month: number;
+  confirmed_income_year: number;
+}
+
 function formatCopInput(value: string | number): string {
   const n = Number(value);
   if (!Number.isFinite(n)) return "";
@@ -29,11 +38,11 @@ function toNumber(value: unknown): number {
 export default function ReferrerStats() {
   const { data, error, isLoading } = useSWR(endpoints.referrerStats, fetcher);
 
-  const allRefs = Array.isArray(data) ? data : [];
+  const allRefs: ReferrerStat[] = Array.isArray(data) ? data : [];
 
   // Calcular totales
   const totals = allRefs.reduce(
-    (acc, ref: any) => ({
+    (acc, ref) => ({
       total_patients_month: acc.total_patients_month + toNumber(ref.total_patients_month),
       total_confirmed_month: acc.total_confirmed_month + toNumber(ref.total_confirmed_month),
       total_canceled_month: acc.total_canceled_month + toNumber(ref.total_canceled_month),
@@ -86,7 +95,7 @@ export default function ReferrerStats() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {paginatedItems.map((ref: any) => (
+              {(paginatedItems as ReferrerStat[]).map((ref) => (
                 <tr
                   key={ref.referrer_name}
                   className="hover:bg-emerald-50/40 transition-colors"

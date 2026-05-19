@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { XMarkIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -186,7 +187,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                 >
                   {beforePreviewUrl ? (
                     <>
-                      <img src={beforePreviewUrl} alt="Preview antes" className="w-full h-full object-cover" />
+                      <Image src={beforePreviewUrl} alt="Preview antes" fill className="object-cover" unoptimized={beforePreviewUrl.startsWith("blob:")} sizes="300px" />
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition flex items-center justify-center">
                         <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Cambiar</span>
                       </div>
@@ -218,7 +219,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                 >
                   {afterPreviewUrl ? (
                     <>
-                      <img src={afterPreviewUrl} alt="Preview después" className="w-full h-full object-cover" />
+                      <Image src={afterPreviewUrl} alt="Preview después" fill className="object-cover" unoptimized={afterPreviewUrl.startsWith("blob:")} sizes="300px" />
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition flex items-center justify-center">
                         <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Cambiar</span>
                       </div>
@@ -246,7 +247,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                   <div className="grid grid-cols-2 gap-0.5 bg-gray-100">
                     <div className="relative aspect-square">
                       {beforePreviewUrl ? (
-                        <img src={beforePreviewUrl} alt="Antes" className="w-full h-full object-cover" />
+                        <Image src={beforePreviewUrl} alt="Antes" fill className="object-cover" unoptimized={beforePreviewUrl.startsWith("blob:")} sizes="150px" />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                           <PhotoIcon className="h-6 w-6 text-gray-400" />
@@ -256,7 +257,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                     </div>
                     <div className="relative aspect-square">
                       {afterPreviewUrl ? (
-                        <img src={afterPreviewUrl} alt="Después" className="w-full h-full object-cover" />
+                        <Image src={afterPreviewUrl} alt="Después" fill className="object-cover" unoptimized={afterPreviewUrl.startsWith("blob:")} sizes="150px" />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                           <PhotoIcon className="h-6 w-6 text-gray-400" />

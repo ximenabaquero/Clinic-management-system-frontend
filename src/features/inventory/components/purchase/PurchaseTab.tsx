@@ -123,7 +123,6 @@ export default function PurchaseTab({
       {/* Fila 3: Tabla + paginación */}
       <PurchaseTable
         purchases={paginatedPurchases}
-        isAdmin={isAdmin}
         loading={loading}
         currentPage={currentPage}
         totalPages={totalPages}

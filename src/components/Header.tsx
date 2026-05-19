@@ -6,10 +6,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth/AuthContext";
+import EditarPerfilAdminModal from "@/components/EditarPerfilAdminModal";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showEditPerfil, setShowEditPerfil] = useState(false);
   const router = useRouter();
   const { user, logout, loading } = useAuth();
 
@@ -66,6 +68,17 @@ export default function Header() {
                     <p className="text-xs font-semibold text-gray-800 max-w-[150px] truncate">{user.name}</p>
                     <p className="text-[10px] font-medium text-emerald-600">{user.role === "ADMIN" ? "Administrador" : "Remitente"}</p>
                   </div>
+                  {user.role === "ADMIN" && (
+                    <button
+                      onClick={() => setShowEditPerfil(true)}
+                      className="ml-1 p-1 rounded-md text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 transition"
+                      title="Editar perfil"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3.5 h-3.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125" />
+                      </svg>
+                    </button>
+                  )}
                 </div>
               </div>
             )}
@@ -135,6 +148,19 @@ export default function Header() {
                 <span className="font-medium text-sm">+57 300 410 8199</span>
               </a>
 
+              {user?.role === "ADMIN" && (
+                <button
+                  type="button"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-200 text-left"
+                  onClick={() => { setIsMenuOpen(false); setShowEditPerfil(true); }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125" />
+                  </svg>
+                  <span className="font-medium text-sm">Editar perfil</span>
+                </button>
+              )}
+
               {user ? (
                 <button
                   type="button"
@@ -151,6 +177,10 @@ export default function Header() {
           </div>
         )}
       </div>
+
+      {showEditPerfil && (
+        <EditarPerfilAdminModal onClose={() => setShowEditPerfil(false)} />
+      )}
     </header>
   );
 }

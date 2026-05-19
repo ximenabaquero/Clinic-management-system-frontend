@@ -50,7 +50,7 @@ function validateStep1(form: PurchaseFormValues): string | null {
   return null;
 }
 
-function validateStep2(_form: PurchaseFormValues): string | null {
+function validateStep2(): string | null {
   // El distribuidor es completamente opcional — siempre válido
   return null;
 }
