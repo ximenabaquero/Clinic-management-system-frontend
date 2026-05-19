@@ -9,16 +9,6 @@ const DOCUMENT_TYPES = [
   "Cédula de Extranjería",
   "Pasaporte",
   "Tarjeta de Identidad",
-  "Registro Civil",
-];
-
-const CIVIL_STATUS_OPTIONS = [
-  "Soltero/a",
-  "Casado/a",
-  "Unión libre",
-  "Divorciado/a",
-  "Viudo/a",
-  "Separado/a",
 ];
 
 export type PatientBasicData = {
@@ -29,15 +19,6 @@ export type PatientBasicData = {
   cedula: string;
   cellphone: string;
   biologicalSex: string;
-  // Opcionales
-  phone: string;
-  address: string;
-  civilStatus: string;
-  eps: string;
-  occupation: string;
-  companionName: string;
-  companionRelationship: string;
-  companionCellphone: string;
 };
 
 type PatientBasicsFieldsProps = {
@@ -62,13 +43,13 @@ export default function PatientBasicsFields({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-2 -mb-2">
           <p className="text-[10px] uppercase tracking-wider text-gray-400">
-            LOS CAMPOS CON * SON OBLIGATORIOS
+            TODOS LOS CAMPOS SON OBLIGATORIOS **
           </p>
         </div>
 
         <ValidatedInput
           id="first_name"
-          label="Nombre(s) *"
+          label="Nombre(s)"
           placeholder="Nombre(s) del paciente"
           value={data.firstName}
           onChange={set("firstName")}
@@ -78,7 +59,7 @@ export default function PatientBasicsFields({
 
         <ValidatedInput
           id="last_name"
-          label="Apellido(s) *"
+          label="Apellido(s)"
           placeholder="Apellido(s) del paciente"
           value={data.lastName}
           onChange={set("lastName")}
@@ -100,7 +81,7 @@ export default function PatientBasicsFields({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <SelectField
           id="document_type"
-          label="Tipo de documento *"
+          label="Tipo de documento"
           value={data.documentType}
           onChange={set("documentType")}
           required
@@ -115,7 +96,7 @@ export default function PatientBasicsFields({
 
         <ValidatedInput
           id="cedula"
-          label="Número de documento *"
+          label="Número de documento"
           placeholder="Número de documento"
           value={data.cedula}
           onChange={set("cedula")}
@@ -128,7 +109,7 @@ export default function PatientBasicsFields({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <SelectField
           id="biological_sex"
-          label="Sexo biológico *"
+          label="Sexo biológico"
           value={data.biologicalSex}
           onChange={set("biologicalSex")}
           required
@@ -144,107 +125,6 @@ export default function PatientBasicsFields({
           onChange={set("cellphone")}
           onDirty={onDirty}
         />
-      </div>
-
-      {/* ── Datos de contacto adicionales ─────────────────────────────────── */}
-      <div className="mt-8">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="h-4 w-0.5 bg-emerald-400 rounded-full" />
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-            Datos de contacto adicionales
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <ValidatedInput
-            id="phone"
-            label="Teléfono"
-            placeholder="Teléfono fijo"
-            value={data.phone}
-            onChange={set("phone")}
-            maxLength={25}
-          />
-
-          <ValidatedInput
-            id="address"
-            label="Dirección"
-            placeholder="Dirección de residencia"
-            value={data.address}
-            onChange={set("address")}
-            maxLength={200}
-          />
-
-          <SelectField
-            id="civil_status"
-            label="Estado Civil"
-            value={data.civilStatus}
-            onChange={set("civilStatus")}
-          >
-            <option value="">Seleccione una opción</option>
-            {CIVIL_STATUS_OPTIONS.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </SelectField>
-
-          <ValidatedInput
-            id="eps"
-            label="EPS"
-            placeholder="Entidad prestadora de salud"
-            value={data.eps}
-            onChange={set("eps")}
-            maxLength={100}
-          />
-
-          <ValidatedInput
-            id="occupation"
-            label="Ocupación"
-            placeholder="Ocupación del paciente"
-            value={data.occupation}
-            onChange={set("occupation")}
-            maxLength={100}
-          />
-        </div>
-      </div>
-
-      {/* ── Datos del acompañante ──────────────────────────────────────────── */}
-      <div className="mt-6">
-        <div className="flex items-center gap-2 mb-4">
-          <span className="h-4 w-0.5 bg-teal-400 rounded-full" />
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-            Datos del acompañante
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <ValidatedInput
-            id="companion_name"
-            label="Acompañante"
-            placeholder="Nombre del acompañante"
-            value={data.companionName}
-            onChange={set("companionName")}
-            maxLength={100}
-          />
-
-          <ValidatedInput
-            id="companion_relationship"
-            label="Parentesco"
-            placeholder="Ej. Madre, Esposo, Amigo..."
-            value={data.companionRelationship}
-            onChange={set("companionRelationship")}
-            maxLength={100}
-          />
-
-          <ValidatedInput
-            id="companion_cellphone"
-            label="Celular del acompañante"
-            placeholder="Número de celular"
-            value={data.companionCellphone}
-            onChange={set("companionCellphone")}
-            maxLength={25}
-          />
-        </div>
       </div>
     </>
   );

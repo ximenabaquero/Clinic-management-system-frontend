@@ -29,14 +29,6 @@ interface Patient {
   date_of_birth: string;
   biological_sex: string;
   cellphone: string;
-  phone?: string | null;
-  address?: string | null;
-  civil_status?: string | null;
-  eps?: string | null;
-  occupation?: string | null;
-  companion_name?: string | null;
-  companion_relationship?: string | null;
-  companion_cellphone?: string | null;
 }
 
 const DOCUMENT_TYPES = [
@@ -44,7 +36,6 @@ const DOCUMENT_TYPES = [
   "Cédula de Extranjería",
   "Pasaporte",
   "Tarjeta de Identidad",
-  "Registro Civil",
 ];
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -144,14 +135,6 @@ export default function PatientInfo({ patientId }: Props) {
           biological_sex: form.biological_sex,
           document_type: form.document_type,
           cedula: form.cedula,
-          phone: form.phone || null,
-          address: form.address || null,
-          civil_status: form.civil_status || null,
-          eps: form.eps || null,
-          occupation: form.occupation || null,
-          companion_name: form.companion_name || null,
-          companion_relationship: form.companion_relationship || null,
-          companion_cellphone: form.companion_cellphone || null,
         }),
       });
       if (!res.ok) {
@@ -245,7 +228,7 @@ export default function PatientInfo({ patientId }: Props) {
         </div>
 
         {/* Datos */}
-        <div className="p-5 space-y-4">
+        <div className="p-5">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {/* Documento */}
             <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3">
@@ -285,38 +268,6 @@ export default function PatientInfo({ patientId }: Props) {
               </div>
             ))}
           </div>
-
-          {/* Datos adicionales si existen */}
-          {(patient.address || patient.eps || patient.civil_status || patient.occupation || patient.phone) && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
-              {[
-                { label: "Teléfono", value: patient.phone },
-                { label: "Dirección", value: patient.address },
-                { label: "Estado Civil", value: patient.civil_status },
-                { label: "EPS", value: patient.eps },
-                { label: "Ocupación", value: patient.occupation },
-              ]
-                .filter((i) => i.value)
-                .map((item) => (
-                  <div key={item.label} className="rounded-xl border border-gray-100 bg-gray-50/40 px-3 py-2">
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">{item.label}</p>
-                    <p className="text-sm font-medium text-gray-700 truncate">{item.value}</p>
-                  </div>
-                ))}
-            </div>
-          )}
-
-          {/* Acompañante si existe */}
-          {patient.companion_name && (
-            <div className="rounded-xl border border-gray-100 bg-gray-50/40 px-3 py-2">
-              <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400 mb-1">Acompañante</p>
-              <p className="text-sm font-medium text-gray-700">
-                {patient.companion_name}
-                {patient.companion_relationship && ` · ${patient.companion_relationship}`}
-                {patient.companion_cellphone && ` · ${patient.companion_cellphone}`}
-              </p>
-            </div>
-          )}
         </div>
       </section>
 
@@ -449,39 +400,6 @@ export default function PatientInfo({ patientId }: Props) {
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>
                   </select>
-                </div>
-              </div>
-
-              {/* Campos adicionales opcionales */}
-              <div className="pt-2 border-t border-gray-100">
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-3">
-                  Datos adicionales (opcionales)
-                </p>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { key: "phone", label: "Teléfono" },
-                    { key: "address", label: "Dirección" },
-                    { key: "civil_status", label: "Estado Civil" },
-                    { key: "eps", label: "EPS" },
-                    { key: "occupation", label: "Ocupación" },
-                    { key: "companion_name", label: "Acompañante" },
-                    { key: "companion_relationship", label: "Parentesco" },
-                    { key: "companion_cellphone", label: "Celular acompañante" },
-                  ].map(({ key, label }) => (
-                    <div key={key}>
-                      <label className="block text-[10px] font-bold text-gray-500 mb-1 uppercase tracking-wider">
-                        {label}
-                      </label>
-                      <input
-                        type="text"
-                        value={(form[key as keyof Patient] as string) ?? ""}
-                        onChange={(e) =>
-                          setForm((f) => ({ ...f, [key]: e.target.value }))
-                        }
-                        className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-                      />
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>

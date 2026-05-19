@@ -264,29 +264,6 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
             <div className="bg-gray-50 rounded-xl p-4 text-sm">
               <p className="text-gray-700">{evaluation.medical_background}</p>
             </div>
-
-            {/* Datos clínicos estructurados */}
-            {evaluation.clinical_data && Object.values(evaluation.clinical_data).some((v) => v !== false && v !== "") && (
-              <div className="mt-4">
-                <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-3">
-                  Evaluación clínica detallada
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-                  {Object.entries(evaluation.clinical_data)
-                    .filter(([, v]) => v !== false && v !== "")
-                    .map(([key, value]) => (
-                      <div key={key} className="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
-                        <p className="text-[9px] uppercase font-bold text-gray-400 tracking-wider mb-0.5">
-                          {key.replace(/_/g, " ")}
-                        </p>
-                        <p className="font-semibold text-gray-700">
-                          {typeof value === "boolean" ? (value ? "Sí" : "No") : String(value)}
-                        </p>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )}
           </section>
 
           {/* Procedimientos */}
