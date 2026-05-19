@@ -2,6 +2,7 @@ import ValidatedInput from "./ValidatedInput";
 import PhoneInputField from "./PhoneInputField";
 import SelectField from "./SelectField";
 import DateOfBirthPicker from "./DateOfBirthPicker";
+
 const DOCUMENT_TYPES = [
   "Cédula de Ciudadanía",
   "Cédula de Extranjería",
@@ -20,6 +21,7 @@ export type PatientBasicData = {
   address: string;
   email: string;
   familyMemberName: string;
+  familyMemberPhone: string;
 };
 
 type PatientBasicsFieldsProps = {
@@ -138,8 +140,8 @@ export default function PatientBasicsFields({
         />
       </div>
 
-      {/* Correo electrónico y Nombre del familiar */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+      {/* Correo electrónico */}
+      <div className="mt-4">
         <ValidatedInput
           id="email"
           label="Correo electrónico"
@@ -148,6 +150,10 @@ export default function PatientBasicsFields({
           onChange={set("email")}
           maxLength={150}
         />
+      </div>
+
+      {/* Datos del Familiar / Acompañante */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <ValidatedInput
           id="family_member_name"
           label="Nombre del familiar"
@@ -156,7 +162,17 @@ export default function PatientBasicsFields({
           onChange={set("familyMemberName")}
           maxLength={150}
         />
+
+        <ValidatedInput
+          id="family_member_phone"
+          label="Teléfono del familiar"
+          placeholder="Número de contacto"
+          value={data.familyMemberPhone}
+          onChange={set("familyMemberPhone")}
+          maxLength={25}
+        />
       </div>
+      
     </>
   );
 }

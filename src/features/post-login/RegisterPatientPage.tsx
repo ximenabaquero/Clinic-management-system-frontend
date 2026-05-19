@@ -29,6 +29,7 @@ const INITIAL_PATIENT: PatientBasicData = {
   firstName: "", lastName: "", dateOfBirth: "",
   documentType: "", cedula: "", cellphone: "", biologicalSex: "",
   address: "", email: "", familyMemberName: "",
+  familyMemberPhone: "",
 };
 
 const INITIAL_CLINICAL: ClinicalData = {
@@ -127,46 +128,57 @@ export default function RegisterPatientPage() {
           "X-XSRF-TOKEN": token,
         },
         body: JSON.stringify({
-          patient: {
-            first_name: patientData.firstName,
-            last_name: patientData.lastName,
-            date_of_birth: patientData.dateOfBirth,
-            document_type: patientData.documentType,
-            cedula: patientData.cedula,
-            cellphone: patientData.cellphone,
-            biological_sex: patientData.biologicalSex,
-            address: patientData.address,
-            email: patientData.email,
-            family_member_name: patientData.familyMemberName,
-          },
-          evaluation: {
-            antecedentes_patologicos: clinicalData.antecedentesPatologicos,
-            antecedentes_quirurgicos: clinicalData.antecedentesQuirurgicos,
-            antecedentes_farmacologicos: clinicalData.antecedentesFarmacologicos,
-            antecedentes_alergicos: clinicalData.antecedentesAlergicos,
-            antecedentes_toxicos: clinicalData.antecedentesToxicos,
-            antecedentes_gineco_obstetricos: clinicalData.antecedentesGinecoObstetricos,
-            antecedentes_otros: clinicalData.antecedentesOtros,
-            anticoagulado: clinicalData.anticoagulado,
-            en_dialisis: clinicalData.enDialisis,
-            vih_sida: clinicalData.vihSida,
-            en_embarazo: clinicalData.enEmbarazo,
-            en_tratamiento_ca: clinicalData.enTratamientoCA,
-            otros_riesgo: clinicalData.otrosRiesgo,
-            motivo_consulta: clinicalData.motivoConsulta,
-            onicomicosis: clinicalData.onicomicosis,
-            onicogrifosis: clinicalData.onicogrifosis,
-            onicocriptosis: clinicalData.onicocriptosis,
-            resequedad: clinicalData.resequedad,
-            exostosis: clinicalData.exostosis,
-            edemas: clinicalData.edemas,
-            hiperqueratosis: clinicalData.hiperqueratosis,
-            verruga: clinicalData.verruga,
-            talla: clinicalData.talla,
-            tipo_pie: clinicalData.tipoPie,
-            tratamiento_indicado: clinicalData.tratamientoIndicado,
-            seguimiento: clinicalData.seguimiento,
-          },
+// ... dentro de body: JSON.stringify({
+patient: {
+  first_name: patientData.firstName,
+  last_name: patientData.lastName,
+  date_of_birth: patientData.dateOfBirth,
+  document_type: patientData.documentType,
+  cedula: patientData.cedula,
+  cellphone: patientData.cellphone,
+  biological_sex: patientData.biologicalSex,
+  address: patientData.address,
+  email: patientData.email,
+  family_member_name: patientData.familyMemberName,
+  family_member_phone: patientData.familyMemberPhone,
+},
+evaluation: {
+  // 1. Mapeamos peso y altura requeridos por Laravel (convirtiendo a número)
+  weight: 70, // Reemplazar provisionalmente por el estado del peso real si existe
+  height: clinicalData.talla.includes(".") ? Number(clinicalData.talla) : 1.65, // Ajusta según pida metros (ej: 1.65)
+
+  // 2. Unificamos todos los campos de texto en el string requerido por Laravel
+  medical_background: `Motivo: ${clinicalData.motivoConsulta}. Patológicos: ${clinicalData.antecedentesPatologicos || 'Ninguno'}. Quirúrgicos: ${clinicalData.antecedentesQuirurgicos || 'Ninguno'}. Alérgicos: ${clinicalData.antecedentesAlergicos || 'Ninguno'}. Farmacológicos: ${clinicalData.antecedentesFarmacologicos || 'Ninguno'}. Otros: ${clinicalData.antecedentesOtros || 'Ninguno'}.`,
+
+  // 3. Mantenemos el resto por si los usa el MedicalEvaluationService internamente
+  antecedentes_patologicos: clinicalData.antecedentesPatologicos,
+  antecedentes_quirurgicos: clinicalData.antecedentesQuirurgicos,
+  antecedentes_farmacologicos: clinicalData.antecedentesFarmacologicos,
+  antecedentes_alergicos: clinicalData.antecedentesAlergicos,
+  antecedentes_toxicos: clinicalData.antecedentesToxicos,
+  antecedentes_gineco_obstetricos: clinicalData.antecedentesGinecoObstetricos,
+  antecedentes_otros: clinicalData.antecedentesOtros,
+  anticoagulado: clinicalData.anticoagulado,
+  en_dialisis: clinicalData.enDialisis,
+  vih_sida: clinicalData.vihSida,
+  en_embarazo: clinicalData.enEmbarazo,
+  en_tratamiento_ca: clinicalData.enTratamientoCA,
+  otros_riesgo: clinicalData.otrosRiesgo,
+  motivo_consulta: clinicalData.motivoConsulta,
+  onicomicosis: clinicalData.onicomicosis,
+  onicogrifosis: clinicalData.onicogrifosis,
+  onicocriptosis: clinicalData.onicocriptosis,
+  resequedad: clinicalData.resequedad,
+  exostosis: clinicalData.exostosis,
+  edemas: clinicalData.edemas,
+  hiperqueratosis: clinicalData.hiperqueratosis,
+  verruga: clinicalData.verruga,
+  talla: clinicalData.talla,
+  tipo_pie: clinicalData.tipoPie,
+  tratamiento_indicado: clinicalData.tratamientoIndicado,
+  seguimiento: clinicalData.seguimiento,
+},
+// ... procedure
           procedure: {
             notes: procedureNotes,
             items: procedureItems.map((item) => ({
