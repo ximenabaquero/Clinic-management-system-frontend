@@ -11,6 +11,8 @@ import PatientBasicsFields, {
 } from "./components/PatientBasicsFields";
 import ClinicalInfoFields, {
   type ClinicalData,
+  type ClinicalItemData,
+  INITIAL_CLINICAL_ITEMS,
 } from "./components/ClinicalInfoFields";
 import ProceduresSelector from "./components/ProceduresSelector";
 import NotesField from "./components/NotesField";
@@ -37,13 +39,33 @@ const INITIAL_PATIENT: PatientBasicData = {
   cedula: "",
   cellphone: "",
   biologicalSex: "",
+  phone: "",
+  address: "",
+  civilStatus: "",
+  eps: "",
+  occupation: "",
+  companionName: "",
+  companionRelationship: "",
+  companionCellphone: "",
 };
 
 const INITIAL_CLINICAL: ClinicalData = {
   weightKg: "",
   heightM: "",
   medicalBackground: "",
+  clinicalItems: INITIAL_CLINICAL_ITEMS,
 };
+
+// Solo los campos obligatorios determinan si el paso 1 está completo
+const REQUIRED_PATIENT_FIELDS: (keyof PatientBasicData)[] = [
+  "firstName",
+  "lastName",
+  "dateOfBirth",
+  "documentType",
+  "cedula",
+  "cellphone",
+  "biologicalSex",
+];
 
 export default function RegisterPatientPage() {
   const router = useRouter();
@@ -69,11 +91,24 @@ export default function RegisterPatientPage() {
   const updatePatient = (field: keyof PatientBasicData, value: string) =>
     setPatientData((prev) => ({ ...prev, [field]: value }));
 
-  const updateClinical = (field: keyof ClinicalData, value: string) =>
-    setClinicalData((prev) => ({ ...prev, [field]: value }));
+  const updateClinical = (
+    field: "weightKg" | "heightM" | "medicalBackground",
+    value: string
+  ) => setClinicalData((prev) => ({ ...prev, [field]: value }));
+
+  const updateClinicalItem = <K extends keyof ClinicalItemData>(
+    field: K,
+    value: ClinicalItemData[K]
+  ) =>
+    setClinicalData((prev) => ({
+      ...prev,
+      clinicalItems: { ...prev.clinicalItems, [field]: value },
+    }));
 
   useEffect(() => {
-    const p1 = Object.values(patientData).every((v) => v.trim() !== "");
+    const p1 = REQUIRED_PATIENT_FIELDS.every(
+      (f) => patientData[f].trim() !== ""
+    );
     const w = parseFloat(clinicalData.weightKg) > 0;
     const h = parseFloat(clinicalData.heightM) > 0;
     const p2 = w && h && clinicalData.medicalBackground.trim() !== "";
@@ -133,11 +168,20 @@ export default function RegisterPatientPage() {
             cedula: patientData.cedula,
             cellphone: patientData.cellphone,
             biological_sex: patientData.biologicalSex,
+            phone: patientData.phone || null,
+            address: patientData.address || null,
+            civil_status: patientData.civilStatus || null,
+            eps: patientData.eps || null,
+            occupation: patientData.occupation || null,
+            companion_name: patientData.companionName || null,
+            companion_relationship: patientData.companionRelationship || null,
+            companion_cellphone: patientData.companionCellphone || null,
           },
           evaluation: {
             weight: parseFloat(clinicalData.weightKg),
             height: parseFloat(clinicalData.heightM),
             medical_background: clinicalData.medicalBackground,
+            clinical_data: clinicalData.clinicalItems,
           },
           procedure: {
             notes: procedureNotes,
@@ -295,6 +339,7 @@ export default function RegisterPatientPage() {
                         <ClinicalInfoFields
                           data={clinicalData}
                           onChange={updateClinical}
+                          onChangeClinicalItem={updateClinicalItem}
                           onDirty={handleDirty}
                         />
                       </RegisterCard>

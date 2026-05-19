@@ -57,6 +57,14 @@ export type Patient = {
   date_of_birth: string;
   biological_sex: string;
   cellphone: string;
+  phone?: string | null;
+  address?: string | null;
+  civil_status?: string | null;
+  eps?: string | null;
+  occupation?: string | null;
+  companion_name?: string | null;
+  companion_relationship?: string | null;
+  companion_cellphone?: string | null;
 };
 
 export type EvaluationData = {
@@ -68,6 +76,7 @@ export type EvaluationData = {
   bmi: number;
   bmi_status: string;
   medical_background: string;
+  clinical_data?: Record<string, boolean | string> | null;
   procedures: Procedure[];
   patient_signature?: string;
   confirmed_at?: string;
