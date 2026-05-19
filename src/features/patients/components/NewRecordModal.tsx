@@ -179,13 +179,28 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
               />
 
               {items.length > 0 && (
-                <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-3">
+                <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-3 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-emerald-700">
                       Procedimientos seleccionados:
                     </span>
                     <span className="text-sm font-bold text-emerald-800">
                       {items.length}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between border-t border-emerald-200 pt-1">
+                    <span className="text-xs font-semibold text-emerald-700">
+                      Total:
+                    </span>
+                    <span className="text-base font-extrabold text-emerald-700">
+                      $
+                      {items
+                        .reduce(
+                          (sum, item) =>
+                            sum + (Number((item.price || "").replace(/\D/g, "")) || 0),
+                          0,
+                        )
+                        .toLocaleString("es-CO")}
                     </span>
                   </div>
                 </div>

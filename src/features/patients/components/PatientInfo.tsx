@@ -112,7 +112,15 @@ export default function PatientInfo({ patientId }: Props) {
   const patient = data?.data?.patient as Patient | undefined;
 
   const openEdit = () => {
-    if (patient) setForm({ ...patient });
+    if (patient) {
+      setForm({
+        ...patient,
+        // <input type="date"> requiere YYYY-MM-DD; el API devuelve ISO completo
+        date_of_birth: patient.date_of_birth
+          ? patient.date_of_birth.slice(0, 10)
+          : "",
+      });
+    }
     setShowEdit(true);
   };
 

@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { CalendarDaysIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+// import { CalendarDaysIcon } from "@heroicons/react/24/outline"; // CITAS — pausado temporalmente
 // import { BeakerIcon } from "@heroicons/react/24/outline"; // ORDEN DE EXÁMENES — pausado temporalmente
 
 import RegisterHeaderBar from "../../post-login/components/RegisterHeaderBar";
@@ -17,18 +18,19 @@ import ConfirmacionModal from "./ConfirmacionModal";
 import EditarEvaluacionModal from "./EditarEvaluacionModal";
 import EditarProcedimientoModal from "./EditarProcedimientoModal";
 // import OrdenExamenesModal from "./OrdenExamenesModal"; // ORDEN DE EXÁMENES — pausado temporalmente
-import AgendamientoModal from "./AgendamientoModal";
+// import AgendamientoModal from "./AgendamientoModal"; // CITAS — pausado temporalmente
 import PatientPhotosSection from "./PatientPhotosSection";
 import UsageForm from "@/features/inventory/components/usage/UsageForm";
 import InvoicePdf from "./InvoicePdf";
 import HistoriaClinicaPdf from "./HistoriaClinicaPdf";
-import type { Appointment, Procedure } from "../types";
+import type { Procedure } from "../types";
+// import type { Appointment } from "../types"; // CITAS — pausado temporalmente
 // import type { ExamOrder } from "../types"; // ORDEN DE EXÁMENES — pausado temporalmente
 import type { InventoryProduct } from "@/features/inventory/types";
 import ExportDropdown from "@/components/ExportDropdown";
 import { exportElementToPDF } from "@/utils/exportPDF";
 // import { examOrderKey } from "../services/examOrderService"; // ORDEN DE EXÁMENES — pausado temporalmente
-import { appointmentKey } from "../services/agendamientoService";
+// import { appointmentKey } from "../services/agendamientoService"; // CITAS — pausado temporalmente
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -69,7 +71,7 @@ export default function PatientRecordDetail({
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showUsageForm, setShowUsageForm] = useState(false);
   // const [showOrdenExamenes, setShowOrdenExamenes] = useState(false); // ORDEN DE EXÁMENES — pausado temporalmente
-  const [showAgendamiento, setShowAgendamiento] = useState(false);
+  // const [showAgendamiento, setShowAgendamiento] = useState(false); // CITAS — pausado temporalmente
 
   // ── Data fetching ──────────────────────────────────────────────────────────
 
@@ -92,11 +94,12 @@ export default function PatientRecordDetail({
   // );
   // const examOrder: ExamOrder | null = examOrderData?.data ?? null;
 
-  const { data: appointmentData, mutate: mutateAppointment } = useSWR<{ data: Appointment | null }>(
-    evaluationId ? appointmentKey(evaluationId) : null,
-    fetcher,
-  );
-  const appointment: Appointment | null = appointmentData?.data ?? null;
+  // CITAS — pausado temporalmente
+  // const { data: appointmentData, mutate: mutateAppointment } = useSWR<{ data: Appointment | null }>(
+  //   evaluationId ? appointmentKey(evaluationId) : null,
+  //   fetcher,
+  // );
+  // const appointment: Appointment | null = appointmentData?.data ?? null;
 
   // Variable tipada para usar en UsageForm
   const products: InventoryProduct[] = productsData?.data ?? [];
@@ -208,18 +211,14 @@ export default function PatientRecordDetail({
                       ? "Exámenes ✗ no aptos"
                       : "Exámenes pendientes"}
                   </button> */}
-                  {/* Botón agendamiento */}
-                  <button
+                  {/* Botón agendamiento — pausado temporalmente */}
+                  {/* <button
                     onClick={() => setShowAgendamiento(true)}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                      appointment
-                        ? "bg-teal-50 border-teal-200 text-teal-700"
-                        : "bg-white border-gray-200 text-gray-600 hover:border-teal-300 hover:text-teal-600"
-                    }`}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all bg-white border-gray-200 text-gray-600 hover:border-teal-300 hover:text-teal-600"
                   >
                     <CalendarDaysIcon className="w-3.5 h-3.5" />
-                    {appointment ? "Ver cita" : "Agendar cita"}
-                  </button>
+                    Agendar cita
+                  </button> */}
 
                   {/* Segmented status control */}
                   <div className="flex items-center rounded-xl border border-gray-200 bg-white shadow-sm p-1 gap-1">
@@ -314,14 +313,14 @@ export default function PatientRecordDetail({
 
         {/* ── Modales globales ─────────────────────────────────────────────── */}
 
-        {/* Agendamiento */}
-        {showAgendamiento && (
+        {/* Agendamiento — pausado temporalmente */}
+        {/* {showAgendamiento && (
           <AgendamientoModal
             evaluationId={evaluationId}
             patientName={`${evaluation.patient.first_name} ${evaluation.patient.last_name}`}
             onClose={() => { setShowAgendamiento(false); mutateAppointment(); }}
           />
-        )}
+        )} */}
 
         {/* Orden de exámenes — pausado temporalmente */}
         {/* {showOrdenExamenes && (
@@ -396,6 +395,8 @@ export default function PatientRecordDetail({
         {showConfirmModal && (
           <ConfirmacionModal
             evaluationId={evaluationId}
+            patientName={`${evaluation.patient.first_name} ${evaluation.patient.last_name}`}
+            patientCedula={evaluation.patient.cedula}
             onClose={() => setShowConfirmModal(false)}
             onConfirmed={() => mutate()}
           />
