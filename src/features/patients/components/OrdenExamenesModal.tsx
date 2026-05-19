@@ -1,3 +1,7 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// ORDEN DE EXÁMENES — pausado temporalmente
+// ═══════════════════════════════════════════════════════════════════════════════
+/*
 "use client";
 
 import { useRef, useState } from "react";
@@ -63,7 +67,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
 
   const showCreateView = !examOrder || editMode;
 
-  // ─── Acciones solicitud ────────────────────────────────────────────────────
   const handleSaveOrder = async () => {
     if (examList.length === 0) return;
     setIsSaving(true);
@@ -93,7 +96,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
     setNewExam("");
   };
 
-  // ─── Upload resultado ──────────────────────────────────────────────────────
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !examOrder) return;
@@ -123,7 +125,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
       >
         <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
 
-          {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <div className="flex items-center gap-2">
               <BeakerIcon className="w-5 h-5 text-teal-500" />
@@ -134,7 +135,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
             </button>
           </div>
 
-          {/* Paciente */}
           <div className="px-6 py-3 bg-gray-50 border-b border-gray-100 flex gap-4 text-sm text-gray-600">
             <span className="font-semibold text-gray-800">{patientName}</span>
             <span>·</span>
@@ -143,7 +143,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
             <span>IMC: <span className={Number(bmi) >= 25 ? "font-semibold text-orange-600" : "font-semibold text-gray-800"}>{Number(bmi).toFixed(1)}</span></span>
           </div>
 
-          {/* Tabs */}
           <div className="flex border-b border-gray-100">
             <button
               onClick={() => setActiveTab("solicitud")}
@@ -173,13 +172,10 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
             </button>
           </div>
 
-          {/* Body */}
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
               <div className="flex items-center justify-center py-16 text-gray-400 text-sm">Cargando...</div>
             ) : activeTab === "solicitud" ? (
-
-              /* ══ TAB: SOLICITUD ══════════════════════════════════════════ */
               showCreateView ? (
                 <div className="px-6 py-5 space-y-4">
                   {Number(bmi) >= 25 && (
@@ -261,13 +257,8 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
                   )}
                 </div>
               )
-
             ) : (
-
-              /* ══ TAB: RESULTADOS ═════════════════════════════════════════ */
               <div className="px-6 py-5 space-y-5">
-
-                {/* Archivo subido */}
                 {resultFileUrl ? (
                   <div className="space-y-3">
                     <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">Archivo de resultados</p>
@@ -321,7 +312,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
                   onChange={handleFileChange}
                 />
 
-                {/* Marcar como apto / no apto */}
                 <div className="pt-4 border-t border-gray-100 space-y-3">
                   <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">
                     {examOrder!.status === "pendiente" ? "¿Los resultados son aptos?" : "Estado actual"}
@@ -368,7 +358,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
                     </>
                   )}
 
-                  {/* Resetear estado */}
                   {examOrder!.status !== "pendiente" && (
                     <button
                       onClick={() => handleSetResult("apto" === examOrder!.status ? "no_apto" : "apto")}
@@ -382,7 +371,6 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
             )}
           </div>
 
-          {/* Footer */}
           <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between gap-3">
             <div className="flex gap-2">
               {examOrder && activeTab === "solicitud" && (
@@ -421,4 +409,9 @@ export default function OrdenExamenesModal({ evaluationId, patientName, age, bmi
       )}
     </>
   );
+}
+*/
+
+export default function OrdenExamenesModal(_props: Record<string, unknown>) {
+  return null;
 }

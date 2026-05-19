@@ -1,3 +1,7 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// ORDEN DE EXÁMENES — pausado temporalmente
+// ═══════════════════════════════════════════════════════════════════════════════
+/*
 import { forwardRef } from "react";
 
 type Props = {
@@ -28,7 +32,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
             color: "#111827",
           }}
         >
-          {/* Encabezado */}
           <div
             style={{
               display: "flex",
@@ -55,7 +58,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
 
           <div style={{ borderTop: "2px solid #0f766e", marginBottom: "28px" }} />
 
-          {/* Datos del paciente */}
           <div
             style={{
               background: "#f0fdfa",
@@ -91,7 +93,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
             </div>
           </div>
 
-          {/* Instrucciones */}
           <div style={{ marginBottom: "24px" }}>
             <p
               style={{
@@ -113,7 +114,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
             </p>
           </div>
 
-          {/* Lista de exámenes */}
           <div style={{ marginBottom: "32px" }}>
             <p
               style={{
@@ -169,7 +169,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
             </table>
           </div>
 
-          {/* Firma */}
           <div
             style={{
               display: "grid",
@@ -194,7 +193,6 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
             </div>
           </div>
 
-          {/* Pie */}
           <div
             style={{
               borderTop: "1px solid #e5e7eb",
@@ -212,5 +210,14 @@ const ExamenOrdenPdf = forwardRef<HTMLDivElement, Props>(
   },
 );
 
+ExamenOrdenPdf.displayName = "ExamenOrdenPdf";
+export default ExamenOrdenPdf;
+*/
+
+import { forwardRef } from "react";
+
+const ExamenOrdenPdf = forwardRef<HTMLDivElement, Record<string, unknown>>(
+  (_props, _ref) => null,
+);
 ExamenOrdenPdf.displayName = "ExamenOrdenPdf";
 export default ExamenOrdenPdf;

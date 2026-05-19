@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { BeakerIcon, CalendarDaysIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+// import { BeakerIcon } from "@heroicons/react/24/outline"; // ORDEN DE EXÁMENES — pausado temporalmente
 
 import RegisterHeaderBar from "../../post-login/components/RegisterHeaderBar";
 import BackButton from "../../../components/BackButton";
@@ -15,17 +16,18 @@ import ClinicalRecordView from "./ClinicalRecordView";
 import ConfirmacionModal from "./ConfirmacionModal";
 import EditarEvaluacionModal from "./EditarEvaluacionModal";
 import EditarProcedimientoModal from "./EditarProcedimientoModal";
-import OrdenExamenesModal from "./OrdenExamenesModal";
+// import OrdenExamenesModal from "./OrdenExamenesModal"; // ORDEN DE EXÁMENES — pausado temporalmente
 import AgendamientoModal from "./AgendamientoModal";
 import PatientPhotosSection from "./PatientPhotosSection";
 import UsageForm from "@/features/inventory/components/usage/UsageForm";
 import InvoicePdf from "./InvoicePdf";
 import HistoriaClinicaPdf from "./HistoriaClinicaPdf";
-import type { Appointment, ExamOrder, Procedure } from "../types";
+import type { Appointment, Procedure } from "../types";
+// import type { ExamOrder } from "../types"; // ORDEN DE EXÁMENES — pausado temporalmente
 import type { InventoryProduct } from "@/features/inventory/types";
 import ExportDropdown from "@/components/ExportDropdown";
 import { exportElementToPDF } from "@/utils/exportPDF";
-import { examOrderKey } from "../services/examOrderService";
+// import { examOrderKey } from "../services/examOrderService"; // ORDEN DE EXÁMENES — pausado temporalmente
 import { appointmentKey } from "../services/agendamientoService";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -66,7 +68,7 @@ export default function PatientRecordDetail({
   const [isChangingStatus, setIsChangingStatus] = useState(false);
   const [showExportMenu, setShowExportMenu] = useState(false);
   const [showUsageForm, setShowUsageForm] = useState(false);
-  const [showOrdenExamenes, setShowOrdenExamenes] = useState(false);
+  // const [showOrdenExamenes, setShowOrdenExamenes] = useState(false); // ORDEN DE EXÁMENES — pausado temporalmente
   const [showAgendamiento, setShowAgendamiento] = useState(false);
 
   // ── Data fetching ──────────────────────────────────────────────────────────
@@ -83,11 +85,12 @@ export default function PatientRecordDetail({
     fetcher,
   );
 
-  const { data: examOrderData } = useSWR<{ data: ExamOrder | null }>(
-    evaluationId ? examOrderKey(evaluationId) : null,
-    fetcher,
-  );
-  const examOrder: ExamOrder | null = examOrderData?.data ?? null;
+  // ORDEN DE EXÁMENES — pausado temporalmente
+  // const { data: examOrderData } = useSWR<{ data: ExamOrder | null }>(
+  //   evaluationId ? examOrderKey(evaluationId) : null,
+  //   fetcher,
+  // );
+  // const examOrder: ExamOrder | null = examOrderData?.data ?? null;
 
   const { data: appointmentData, mutate: mutateAppointment } = useSWR<{ data: Appointment | null }>(
     evaluationId ? appointmentKey(evaluationId) : null,
@@ -183,8 +186,8 @@ export default function PatientRecordDetail({
               <div className="mt-4 flex flex-wrap items-center justify-between gap-3 mb-6">
                 <BackButton />
                 <div className="flex flex-wrap items-center gap-2">
-                  {/* Botón orden de exámenes */}
-                  <button
+                  {/* Botón orden de exámenes — pausado temporalmente */}
+                  {/* <button
                     onClick={() => setShowOrdenExamenes(true)}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       !examOrder
@@ -204,21 +207,19 @@ export default function PatientRecordDetail({
                       : examOrder.status === "no_apto"
                       ? "Exámenes ✗ no aptos"
                       : "Exámenes pendientes"}
+                  </button> */}
+                  {/* Botón agendamiento */}
+                  <button
+                    onClick={() => setShowAgendamiento(true)}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                      appointment
+                        ? "bg-teal-50 border-teal-200 text-teal-700"
+                        : "bg-white border-gray-200 text-gray-600 hover:border-teal-300 hover:text-teal-600"
+                    }`}
+                  >
+                    <CalendarDaysIcon className="w-3.5 h-3.5" />
+                    {appointment ? "Ver cita" : "Agendar cita"}
                   </button>
-                  {/* Botón agendamiento — solo si exámenes aptos */}
-                  {examOrder?.status === "apto" && (
-                    <button
-                      onClick={() => setShowAgendamiento(true)}
-                      className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
-                        appointment
-                          ? "bg-teal-50 border-teal-200 text-teal-700"
-                          : "bg-white border-gray-200 text-gray-600 hover:border-teal-300 hover:text-teal-600"
-                      }`}
-                    >
-                      <CalendarDaysIcon className="w-3.5 h-3.5" />
-                      {appointment ? "Ver cita" : "Agendar cita"}
-                    </button>
-                  )}
 
                   {/* Segmented status control */}
                   <div className="flex items-center rounded-xl border border-gray-200 bg-white shadow-sm p-1 gap-1">
@@ -322,8 +323,8 @@ export default function PatientRecordDetail({
           />
         )}
 
-        {/* Orden de exámenes */}
-        {showOrdenExamenes && (
+        {/* Orden de exámenes — pausado temporalmente */}
+        {/* {showOrdenExamenes && (
           <OrdenExamenesModal
             evaluationId={evaluationId}
             patientName={`${evaluation.patient.first_name} ${evaluation.patient.last_name}`}
@@ -331,7 +332,7 @@ export default function PatientRecordDetail({
             bmi={evaluation.bmi}
             onClose={() => setShowOrdenExamenes(false)}
           />
-        )}
+        )} */}
 
         {/* Consumo con paciente */}
         {showUsageForm && (

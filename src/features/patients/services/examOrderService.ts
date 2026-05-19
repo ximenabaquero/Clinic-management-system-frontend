@@ -1,3 +1,7 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// ORDEN DE EXÁMENES — pausado temporalmente
+// ═══════════════════════════════════════════════════════════════════════════════
+/*
 import Cookies from "js-cookie";
 import type { ExamOrder } from "../types";
 
@@ -44,7 +48,6 @@ export async function updateExamOrder(
   return json.data;
 }
 
-/** Clave SWR para obtener la orden de exámenes de una valoración */
 export function examOrderKey(evaluationId: number): string {
   return `${apiBaseUrl}/api/v1/medical-evaluations/${evaluationId}/exam-order`;
 }
@@ -69,3 +72,6 @@ export async function uploadExamResult(
   const json = await res.json();
   return json.data;
 }
+*/
+
+export {};

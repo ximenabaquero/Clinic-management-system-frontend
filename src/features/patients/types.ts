@@ -23,17 +23,18 @@ export type Appointment = {
   created_at: string;
 };
 
-export type ExamOrder = {
-  id: number;
-  medical_evaluation_id: number;
-  exams: string[];
-  status: 'pendiente' | 'apto' | 'no_apto';
-  notes: string | null;
-  received_at: string | null;
-  result_file_path: string | null;
-  result_file_url?: string | null;
-  created_at: string;
-};
+// ORDEN DE EXÁMENES — pausado temporalmente
+// export type ExamOrder = {
+//   id: number;
+//   medical_evaluation_id: number;
+//   exams: string[];
+//   status: 'pendiente' | 'apto' | 'no_apto';
+//   notes: string | null;
+//   received_at: string | null;
+//   result_file_path: string | null;
+//   result_file_url?: string | null;
+//   created_at: string;
+// };
 
 export type ProcedureItem = {
   id?: number;
