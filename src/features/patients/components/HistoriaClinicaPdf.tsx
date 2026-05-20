@@ -60,7 +60,7 @@ const HistoriaClinicaPdf = forwardRef<HTMLDivElement, Props>(
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "28px" }}>
             <div>
               <p style={{ fontSize: "20px", fontWeight: 800, color: "#111827", marginBottom: "2px" }}>
-                {evaluation.user?.brand_name ?? "Cold Esthetic"}
+                {evaluation.user?.brand_name ?? "PodoCare"}
               </p>
               <p style={{ fontSize: "9px", color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                 Historia Clínica — Documento confidencial
@@ -276,7 +276,7 @@ const HistoriaClinicaPdf = forwardRef<HTMLDivElement, Props>(
 
           {/* Pie */}
           <div style={{ borderTop: "1px solid #d1d5db", paddingTop: "10px", textAlign: "center", fontSize: "9px", color: "#9ca3af" }}>
-            Cold Esthetic — Historia Clínica © {currentYear} | Documento confidencial
+            PodoCare — Historia Clínica © {currentYear} | Documento confidencial
           </div>
         </div>
       </div>

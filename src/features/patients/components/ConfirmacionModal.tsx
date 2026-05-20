@@ -99,7 +99,7 @@ export default function ConfirmacionModal({ evaluationId, onClose, onConfirmed }
               <p>
                 Al confirmar esta valoración, la paciente declara que ha
                 leído, comprendido y acepta el registro clínico elaborado
-                por el profesional de Cold Esthetic.
+                por el profesional de PodoCare.
               </p>
               <p>
                 La paciente confirma que la información personal y clínica

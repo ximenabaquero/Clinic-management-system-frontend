@@ -1,7 +1,7 @@
 import InventoryPage from "@/features/inventory/InventoryPage";
 
 export const metadata = {
-  title: "Inventario | Cold Esthetic",
+  title: "Inventario | PodoCare",
 };
 
 export default function Inventory() {
