@@ -41,7 +41,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#BF2496] to-blue-500 p-[2px] shadow-sm">
                 <div className="h-full w-full rounded-full bg-white flex items-center justify-center overflow-hidden">
                   <Image
-                    src="/coldestheticlogo.png"
+                    src="/logopodocare.webp"
                     alt="Coldesthetic"
                     width={32}
                     height={32}
@@ -52,7 +52,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-[#BF2496] to-blue-500 bg-clip-text text-transparent tracking-tight">
                 {evaluation.user?.brand_name}
-              </h1>
+              </h1> 
             </div>
             <p className="ml-12 text-[10px] uppercase tracking-wider text-gray-400">
               Realiza tus suenos de una forma segura
