@@ -9,21 +9,18 @@ const socialLinks = [
     name: 'WhatsApp',
     href: generateWhatsAppURL("contact"),
     icon: <MessageCircle className="w-5 h-5 stroke-[1.5]" />,
-    color: 'bg-[#BF2496]',
     description: '+57 (323) 231-2333'
   },
   {
     name: 'Instagram',
     href: 'http://instagram.com/podocaremosquera/',
     icon: <Instagram className="w-5 h-5 stroke-[1.5]" />,
-    color: 'bg-[#D929AA]',
     description: '@podocaremosquera'
   },
   {
     name: 'Llamada',
     href: 'tel:+573232312333',
     icon: <Phone className="w-5 h-5 stroke-[1.5]" />,
-    color: 'bg-[#05F2DB]',
     description: 'Atención Directa'
   }
 ];
@@ -103,14 +100,14 @@ export default function Contact() {
             >
               <a 
                 href={link.href}
-                className="group block bg-white/60 backdrop-blur-sm rounded-[2.5rem] p-10 border border-white hover:border-[#BF2496]/20 hover:shadow-2xl hover:shadow-[#BF2496]/5 transition-all duration-500 text-center"
+                className="group block bg-gradient-to-br from-[#FAD0E6] to-[#F3A3D3] rounded-[2.5rem] p-10 hover:shadow-2xl hover:shadow-[#BF2496]/10 transition-all duration-500 text-center text-gray-800 border border-white/40"
               >
-                <div className={`w-16 h-16 rounded-full mx-auto mb-8 flex items-center justify-center text-white shadow-sm ${link.color} opacity-90 group-hover:scale-110 transition-transform duration-500`}>
+                <div className="w-16 h-16 rounded-full mx-auto mb-8 flex items-center justify-center text-white bg-gradient-to-br from-[#F285C1] to-[#BF2496] shadow-md group-hover:scale-110 transition-transform duration-500">
                   {link.icon}
                 </div>
                 <h3 className="text-xl font-serif italic text-gray-800 mb-2">{link.name}</h3>
-                <p className="text-gray-400 text-[10px] mb-8 font-medium uppercase tracking-[0.2em]">{link.description}</p>
-                <div className="inline-flex items-center gap-2 text-[#BF2496] font-medium text-[10px] uppercase tracking-[0.2em] group-hover:gap-4 transition-all opacity-70 group-hover:opacity-100">
+                <p className="text-gray-600 text-[10px] mb-8 font-medium uppercase tracking-[0.2em]">{link.description}</p>
+                <div className="inline-flex items-center gap-2 text-[#BF2496] font-semibold text-[10px] uppercase tracking-[0.2em] group-hover:gap-4 transition-all opacity-90 group-hover:opacity-100">
                   Conectar <ArrowRight size={12} strokeWidth={1.5} />
                 </div>
               </a>
@@ -119,12 +116,12 @@ export default function Contact() {
         </div>
 
         {/* 3. INFO & CTA FINAL */}
-        <div className="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
           
-          {/* Ubicación y Horarios */}
-          <div className="lg:col-span-5 bg-white/40 rounded-[3rem] p-10 md:p-14 border border-white/60 shadow-sm">
+          {/* Ubicación y Horarios (Tarjeta Actualizada con Degradado Claro) */}
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#FAD0E6] to-[#F3A3D3] rounded-[3rem] p-10 md:p-14 border border-white/40 shadow-sm flex flex-col">
             <div className="flex items-center gap-4 mb-14">
-              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-[#BF2496] shadow-sm">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F285C1] to-[#BF2496] flex items-center justify-center text-white shadow-md">
                 <MapPin size={24} strokeWidth={1.5} />
               </div>
               <h3 className="text-2xl font-serif italic text-gray-800">Visítanos</h3>
@@ -132,25 +129,25 @@ export default function Contact() {
             
             <div className="space-y-10">
               <div className="flex gap-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#BF2496]/60 shadow-sm shrink-0 border border-gray-50">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#BF2496] shadow-sm shrink-0 border border-white/60">
                   <Clock size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#BF2496]/60 mb-3">Horario Clínico</h4>
-                  <p className="text-gray-800 font-medium text-base mb-1 font-sans tracking-tight">Lunes a Viernes</p>
-                  <p className="text-gray-400 font-light text-sm mb-4">08:00 AM — 05:00 PM</p>
-                  <p className="text-gray-800 font-medium text-base mb-1 font-sans tracking-tight">Sábados</p>
-                  <p className="text-gray-400 font-light text-sm">08:00 AM — 02:00 PM</p>
+                  <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#BF2496] mb-3">Horario Clínico</h4>
+                  <p className="text-gray-800 font-semibold text-base mb-1 font-sans tracking-tight">Lunes a Viernes</p>
+                  <p className="text-gray-600 font-light text-sm mb-4">08:00 AM — 05:00 PM</p>
+                  <p className="text-gray-800 font-semibold text-base mb-1 font-sans tracking-tight">Sábados</p>
+                  <p className="text-gray-600 font-light text-sm">08:00 AM — 02:00 PM</p>
                 </div>
               </div>
 
               <div className="flex gap-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#BF2496]/60 shadow-sm shrink-0 border border-gray-50">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#BF2496] shadow-sm shrink-0 border border-white/60">
                   <Phone size={18} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#BF2496]/60 mb-2">Atención Directa</h4>
-                  <p className="text-xl font-light text-gray-800 tracking-wide font-sans">+57 (323) 231-2333</p>
+                  <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#BF2496] mb-2">Atención Directa</h4>
+                  <p className="text-xl font-medium text-gray-800 tracking-wide font-sans">+57 (323) 231-2333</p>
                 </div>
               </div>
             </div>
@@ -197,7 +194,7 @@ export default function Contact() {
         </div>
 
         {/* 4. MAPA */}
-        <div className="mt-12 rounded-[3rem] overflow-hidden border-[1px] border-white shadow-xl relative group">
+        <div className="mt-12 rounded-[3rem] overflow-hidden border border-white/40 shadow-xl relative group">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d500!2d-74.2302042!3d4.7031208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f77002089d93b%3A0x42c0d1393533479!2sPodoCare!5e0!3m2!1ses!2sco!4v1715000000000!5m2!1ses!2sco"
             width="100%"
