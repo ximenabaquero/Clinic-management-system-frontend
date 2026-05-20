@@ -42,7 +42,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
                 <div className="h-full w-full rounded-full bg-white flex items-center justify-center overflow-hidden">
                   <Image
                     src="/logopodocare.webp"
-                    alt="Coldesthetic"
+                    alt="Podocare Logo"
                     width={32}
                     height={32}
                     className="h-full w-full object-contain"
@@ -334,7 +334,7 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
         )}
 
         <div className="border-t border-gray-200 text-center text-[10px] text-gray-400 py-4">
-          Coldesthetic - Historia Clinica (c) {currentYear} | Documento confidencial
+          Podocare - Historia Clinica (c) {currentYear} | Documento confidencial
         </div>
       </div>
     );

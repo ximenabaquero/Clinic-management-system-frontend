@@ -31,7 +31,7 @@ const InvoicePdf = forwardRef<HTMLDivElement, Props>(
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "32px" }}>
             <div>
               <p style={{ fontSize: "22px", fontWeight: 800, color: "#059669", marginBottom: "2px" }}>
-                {evaluation?.user?.brand_name ?? "Coldesthetic"}
+                {evaluation?.user?.brand_name ?? "Podocare"}
               </p>
               <p style={{ fontSize: "10px", color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                 Realiza tus sueños de una forma segura
@@ -152,7 +152,7 @@ const InvoicePdf = forwardRef<HTMLDivElement, Props>(
 
           {/* Pie de página */}
           <div style={{ borderTop: "1px solid #e5e7eb", paddingTop: "12px", textAlign: "center", fontSize: "9px", color: "#9ca3af" }}>
-            Coldesthetic — Factura © {currentYear} | Documento confidencial
+            Podocare — Factura © {currentYear} | Documento confidencial
           </div>
         </div>
       </div>

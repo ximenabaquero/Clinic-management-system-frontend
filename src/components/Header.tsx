@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Phone, LogOut, User, Award } from "lucide-react";
+import { Menu, X, Phone, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,12 +10,11 @@ import { useAuth } from "@/features/auth/AuthContext";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero"); // Rastreador de sección
+  const [activeSection, setActiveSection] = useState("hero");
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout, loading } = useAuth();
 
-  // Lista de navegación centralizada
   const navLinks = [
     { name: "Inicio", href: "/#hero", id: "hero" },
     { name: "Servicios", href: "/#servicios", id: "servicios" },
@@ -25,20 +24,43 @@ export default function Header() {
     { name: "Contacto", href: "/#contact", id: "contact" },
   ];
 
+  // Función para hacer el desplazamiento suave
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    
+    // Si estamos en otra página que no sea la raíz, primero navegamos a la raíz
+    if (pathname !== "/") {
+      router.push(`/#${id}`);
+      return;
+    }
+
+    const element = document.getElementById(id);
+    if (element) {
+      // Calculamos la posición restando un margen para que el header fixed no tape el contenido
+      const headerOffset = 90; 
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth" // <--- Aquí ocurre la magia de la animación suave
+      });
+    }
+    setIsMenuOpen(false); // Cierra el menú móvil si está abierto
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Control de fondo del header
       setScrolled(window.scrollY > 20);
 
-      // 2. Lógica de Scroll Spy: Detecta qué sección está en el viewport
       if (pathname === "/") {
         const sectionIds = navLinks.map(link => link.id);
         for (const id of sectionIds) {
           const element = document.getElementById(id);
           if (element) {
             const rect = element.getBoundingClientRect();
-            // Si la parte superior de la sección está cerca del tope de la pantalla
-            if (rect.top >= -200 && rect.top <= 300) {
+            // Ajustado el rango para mejorar la precisión del spy con el header fixed
+            if (rect.top >= -120 && rect.top <= 250) {
               setActiveSection(id);
               break;
             }
@@ -58,7 +80,6 @@ export default function Header() {
     router.push("/login");
   };
 
-  // Si el usuario está logueado, mostramos el header simplificado de admin
   if (user) {
     return (
       <header className="relative w-full z-50 bg-white shadow-md py-3">
@@ -116,13 +137,13 @@ export default function Header() {
           <nav className="hidden lg:flex justify-center relative z-20">
             <div className="flex items-center gap-1 px-1.5 py-1.5 rounded-full bg-white shadow-xl border border-gray-100 pointer-events-auto">
               {navLinks.map((link) => {
-                // El botón está activo si el estado coincide con el ID del link
                 const isActive = activeSection === link.id;
                 
                 return (
-                  <Link
+                  <a
                     key={link.name}
                     href={link.href}
+                    onClick={(e) => handleScrollTo(e, link.id)}
                     className={`px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full transition-all duration-300 cursor-pointer ${
                       isActive
                         ? "bg-[#BF2496] text-white shadow-lg shadow-[#BF2496]/20"
@@ -130,7 +151,7 @@ export default function Header() {
                     }`}
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 );
               })}
             </div>
@@ -172,18 +193,18 @@ export default function Header() {
       >
         <div className="flex flex-col items-center gap-2 p-6 bg-white border-t border-gray-50">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
-              className={`w-full text-center py-4 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] transition-colors ${
+              onClick={(e) => handleScrollTo(e, link.id)}
+              className={`w-full text-center py-4 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer ${
                 activeSection === link.id
                   ? "bg-[#BF2496] text-white"
                   : "bg-gray-50 text-gray-700 hover:bg-[#BF2496] hover:text-white"
               }`}
-              onClick={() => setIsMenuOpen(false)}
             >
               {link.name}
-            </Link>
+            </a>
           ))}
           <a
             href="tel:+573232312333"
