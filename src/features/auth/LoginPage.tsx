@@ -297,9 +297,6 @@ export default function LoginPage() {
             </div>
 
             <div className="bg-[#05F2DB]/5 backdrop-blur-sm rounded-2xl p-6 border border-[#05F2DB]/10">
-              <p className="text-[10px] leading-relaxed text-gray-400 text-center font-bold uppercase tracking-widest">
-                Protección de Datos Nivel Clínico
-              </p>
               <p className="text-[10px] leading-relaxed text-gray-400 text-center mt-2 font-medium italic">
                 El acceso no autorizado será monitoreado y reportado bajo los
                 protocolos de seguridad vigentes.
