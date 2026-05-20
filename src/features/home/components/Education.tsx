@@ -28,35 +28,35 @@ const topics = [
     title: "La importancia del Pedicure Medicinal",
     body: "A diferencia del estético, el pedicure medicinal es realizado por personal de enfermería capacitado. Utilizamos instrumental estéril para tratar hiperqueratosis (callos) y afecciones fúngicas. Priorizando la salud, previniendo y tratando infecciones de los pies.",
     icon: <Microscope className="w-6 h-6" />,
-    gradient: "from-[#05F2DB] to-[#F285C1]",
+    gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Prevención"
   },
   {
     title: "¿Qué es la Verruga Plantar?",
     body: "Una verruga plantar (o papiloma) es una infección benigna en la piel de la planta del pie causada por el Virus del Papiloma Humano (VPH). Se caracteriza por ser dolorosa al caminar, tener un aspecto rugoso con puntos negros internos y crecer hacia adentro debido a la presión.",
     icon: <ShieldCheck className="w-6 h-6" />,
-    gradient: "from-[#05F2DB] to-[#BF2496]",
+    gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Patología Viral"
   },
   {
     title: "¿Qué es el Heloma Plantar?",
     body: "El heloma (callo plantar) es una acumulación de piel muerta provocada por presión repetida. El desbridamiento clínico lo realiza personal especializado sin causar riesgo de infección.",
     icon: <Layers className="w-6 h-6" />,
-    gradient: "from-[#F285C1] to-[#05F2DB]",
+    gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Hiperqueratosis"
   },
   {
     title: "¿Qué es la matricectomía?",
     body: "La fenolización es el tratamiento definitivo para la uña encarnada recurrente. Aplicamos ácido fénico en la raíz de la uña para destruir de forma permanente la franja problemática, evitando recaídas sin necesidad de cirugía mayor.",
     icon: <Droplet className="w-6 h-6" />,
-    gradient: "from-[#BF2496] to-[#F285C1]",
+    gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Procedimiento"
   },
   {
     title: "¿Qué es la Ortonixia?",
     body: "La ortonixia corrige la curvatura patológica de las uñas mediante sistemas de tracción especializados. Es un procedimiento no invasivo, sin dolor ni cortes, con resultados visibles desde la primera sesión y sin tiempo de recuperación.",
     icon: <Ruler className="w-6 h-6" />,
-    gradient: "from-[#05F2DB] to-[#D929AA]",
+    gradient: "from-[#F285C1] to-[#BF2496]",
     tag: "Corrección"
   },
 ];

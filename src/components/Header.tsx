@@ -86,7 +86,7 @@ export default function Header() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-10 flex justify-end">
           <button
             onClick={handleLogout}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D929AA] text-white font-bold uppercase tracking-[0.15em] transition hover:bg-[#BF2496]"
+            className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-[#D929AA] text-white font-bold uppercase tracking-[0.10em] transition hover:bg-[#BF2496]"
           >
             <LogOut size={18} />
             Cerrar sesión
