@@ -3,19 +3,20 @@ import PhoneInputField from "../../../components/PhoneInputField";
 import SelectField from "./SelectField";
 import DateOfBirthPicker from "./DateOfBirthPicker";
 import "react-phone-input-2/lib/style.css";
+import type { DocumentType } from "../services/patientRegistrationService";
 
 const DOCUMENT_TYPES = [
-  "Cédula de Ciudadanía",
-  "Cédula de Extranjería",
-  "Pasaporte",
-  "Tarjeta de Identidad",
-];
+  { value: "CC", label: "Cédula de Ciudadanía" },
+  { value: "CE", label: "Cédula de Extranjería" },
+  { value: "TI", label: "Tarjeta de Identidad" },
+  { value: "PAS", label: "Pasaporte" },
+] as const;
 
 export type PatientBasicData = {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  documentType: string;
+  documentType: DocumentType | "";
   cedula: string;
   cellphone: string;
   biologicalSex: string;
@@ -87,9 +88,9 @@ export default function PatientBasicsFields({
           required
         >
           <option value="">Seleccione un tipo</option>
-          {DOCUMENT_TYPES.map((type) => (
-            <option key={type} value={type}>
-              {type}
+          {DOCUMENT_TYPES.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
             </option>
           ))}
         </SelectField>

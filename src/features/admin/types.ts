@@ -6,6 +6,6 @@ export interface Remitente {
   email: string;
   cellphone: string;
   role: string;
-  status: "active" | "inactive" | "fired";
+  status: "ACTIVE" | "INACTIVE" | "FIRED";
   created_at: string;
 }
