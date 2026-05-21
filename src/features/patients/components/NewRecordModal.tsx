@@ -4,8 +4,8 @@ import { useState } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import ProceduresSelector from "../../post-login/components/ProceduresSelector";
-import NotesField from "../../post-login/components/NotesField";
+import ProceduresSelector from "../../register-patient/components/ProceduresSelector";
+import NotesField from "../../register-patient/components/NotesField";
 import ValidatedInput from "@/components/ValidatedInput";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -21,7 +21,11 @@ interface Props {
   onSuccess: () => void;
 }
 
-export default function NewRecordModal({ patientId, onClose, onSuccess }: Props) {
+export default function NewRecordModal({
+  patientId,
+  onClose,
+  onSuccess,
+}: Props) {
   const [step, setStep] = useState<1 | 2>(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,7 +41,10 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
   // BMI preview
   const bmiValue =
     parseFloat(weight) > 0 && parseFloat(height) > 0
-      ? (parseFloat(weight) / (parseFloat(height) * parseFloat(height))).toFixed(2)
+      ? (
+          parseFloat(weight) /
+          (parseFloat(height) * parseFloat(height))
+        ).toFixed(2)
       : null;
 
   const clearSubmitError = () => {};
@@ -48,14 +55,16 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
       toast.error("Las notas clínicas son obligatorias");
       return;
     }
-    
+
     if (items.length === 0) {
       toast.error("Debes agregar al menos un procedimiento");
       return;
     }
 
     if (items.some((it) => !it.item_name.trim() || !it.price)) {
-      toast.error("Completa el precio de todos los procedimientos seleccionados");
+      toast.error(
+        "Completa el precio de todos los procedimientos seleccionados",
+      );
       return;
     }
 
@@ -83,16 +92,19 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
               notes,
               items: items.map((it) => ({
                 item_name: it.item_name.trim(),
-                price: parseFloat(it.price.replace(/\./g, "").replace(",", ".")) || 0,
+                price:
+                  parseFloat(it.price.replace(/\./g, "").replace(",", ".")) ||
+                  0,
               })),
             },
           }),
-        }
+        },
       );
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        const errorMsg = err.data?.message || err.message || "Error al crear registro clínico";
+        const errorMsg =
+          err.data?.message || err.message || "Error al crear registro clínico";
         throw new Error(errorMsg);
       }
 
@@ -203,7 +215,7 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
                 setProcedureNotes={setNotes}
                 clearSubmitError={clearSubmitError}
               />
-              
+
               <NotesField
                 value={notes}
                 onChange={setNotes}
@@ -229,7 +241,9 @@ export default function NewRecordModal({ patientId, onClose, onSuccess }: Props)
                       {items
                         .reduce(
                           (sum, item) =>
-                            sum + (Number((item.price || "").replace(/\D/g, "")) || 0),
+                            sum +
+                            (Number((item.price || "").replace(/\D/g, "")) ||
+                              0),
                           0,
                         )
                         .toLocaleString("es-CO")}

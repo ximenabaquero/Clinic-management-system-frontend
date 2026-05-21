@@ -4,7 +4,7 @@ import { useState } from "react";
 import { XMarkIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import NotesField from "../../post-login/components/NotesField";
+import NotesField from "../../register-patient/components/NotesField";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -26,19 +26,32 @@ type Props = {
   onSaved: () => void;
 };
 
-export default function EditarProcedimientoModal({ procedureId, initialData, onClose, onSaved }: Props) {
+export default function EditarProcedimientoModal({
+  procedureId,
+  initialData,
+  onClose,
+  onSaved,
+}: Props) {
   const [notes, setNotes] = useState(initialData.notes);
   const [items, setItems] = useState<ProcedureItem[]>(initialData.items);
   const [isSaving, setIsSaving] = useState(false);
 
   const updateItemName = (index: number, value: string) => {
-    setItems((prev) => prev.map((item, i) => i === index ? { ...item, item_name: value } : item));
+    setItems((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, item_name: value } : item,
+      ),
+    );
   };
 
   const updatePrice = (index: number, value: string) => {
     const digits = value.replace(/[^\d]/g, "");
     const formatted = digits ? Number(digits).toLocaleString("es-CO") : "";
-    setItems((prev) => prev.map((item, i) => i === index ? { ...item, price: formatted } : item));
+    setItems((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, price: formatted } : item,
+      ),
+    );
   };
 
   const addItem = () => {
@@ -66,25 +79,31 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
     setIsSaving(true);
     const token = Cookies.get("XSRF-TOKEN") ?? "";
     try {
-      const res = await fetch(`${apiBaseUrl}/api/v1/procedures/${procedureId}`, {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "X-XSRF-TOKEN": token,
+      const res = await fetch(
+        `${apiBaseUrl}/api/v1/procedures/${procedureId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "X-XSRF-TOKEN": token,
+          },
+          body: JSON.stringify({
+            notes,
+            items: items.map((i) => ({
+              item_name: i.item_name.trim(),
+              price:
+                parseFloat(i.price.replace(/\./g, "").replace(",", ".")) || 0,
+            })),
+          }),
         },
-        body: JSON.stringify({
-          notes,
-          items: items.map((i) => ({
-            item_name: i.item_name.trim(),
-            price: parseFloat(i.price.replace(/\./g, "").replace(",", ".")) || 0,
-          })),
-        }),
-      });
+      );
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error((err as { message?: string }).message ?? "Error al guardar");
+        throw new Error(
+          (err as { message?: string }).message ?? "Error al guardar",
+        );
       }
       toast.success("Procedimiento actualizado");
       onClose();
@@ -97,7 +116,8 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
   };
 
   const total = items.reduce(
-    (sum, i) => sum + (parseFloat(i.price.replace(/\./g, "").replace(",", ".")) || 0),
+    (sum, i) =>
+      sum + (parseFloat(i.price.replace(/\./g, "").replace(",", ".")) || 0),
     0,
   );
 
@@ -109,7 +129,9 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
       <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
         <div className="px-6 py-4 border-b border-gray-100 shrink-0">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold text-gray-800">Editar procedimiento</h3>
+            <h3 className="text-lg font-bold text-gray-800">
+              Editar procedimiento
+            </h3>
             <button
               onClick={onClose}
               className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
@@ -129,7 +151,10 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
             </div>
             <div className="space-y-3 mt-3">
               {items.map((item, idx) => (
-                <div key={idx} className="grid grid-cols-1 sm:grid-cols-[1fr_160px_36px] gap-2 items-center">
+                <div
+                  key={idx}
+                  className="grid grid-cols-1 sm:grid-cols-[1fr_160px_36px] gap-2 items-center"
+                >
                   <input
                     type="text"
                     value={item.item_name}
@@ -166,9 +191,15 @@ export default function EditarProcedimientoModal({ procedureId, initialData, onC
           {/* Total */}
           {items.length > 0 && (
             <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-4 py-3 flex items-center justify-between">
-              <span className="text-xs font-semibold text-emerald-700">Total estimado:</span>
+              <span className="text-xs font-semibold text-emerald-700">
+                Total estimado:
+              </span>
               <span className="text-sm font-bold text-emerald-800">
-                {total.toLocaleString("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 })}
+                {total.toLocaleString("es-CO", {
+                  style: "currency",
+                  currency: "COP",
+                  maximumFractionDigits: 0,
+                })}
               </span>
             </div>
           )}

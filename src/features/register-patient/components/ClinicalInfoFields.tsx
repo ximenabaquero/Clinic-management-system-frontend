@@ -1,16 +1,32 @@
 import ValidatedInput from "../../../components/ValidatedInput";
+import ClinicalAlterationFields, {
+  type ClinicalAlterationData,
+  INITIAL_CLINICAL_ALTERATION,
+} from "./ClinicalAlterationFields";
+import LabResultFields, {
+  type LabResultData,
+  INITIAL_LAB_RESULT,
+} from "./LabResultFields";
+
+// ─── Types ────────────────────────────────────────────────────────────────────
 
 export type ClinicalData = {
   weightKg: string;
   heightM: string;
   medicalBackground: string;
+  clinicalAlteration: ClinicalAlterationData;
+  labResult: LabResultData;
 };
 
-type ClinicalInfoFieldsProps = {
-  data: ClinicalData;
-  onChange: (field: keyof ClinicalData, value: string) => void;
-  onDirty: () => void;
+export const INITIAL_CLINICAL: ClinicalData = {
+  weightKg: "",
+  heightM: "",
+  medicalBackground: "",
+  clinicalAlteration: INITIAL_CLINICAL_ALTERATION,
+  labResult: INITIAL_LAB_RESULT,
 };
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getBmiStatus(bmi: number): string {
   if (bmi < 16.0) return "Delgadez severa (< 16.0)";
@@ -23,11 +39,17 @@ function getBmiStatus(bmi: number): string {
   return "Obesidad grado III (≥ 40)";
 }
 
-export default function ClinicalInfoFields({
-  data,
-  onChange,
-  onDirty,
-}: ClinicalInfoFieldsProps) {
+// ─── Props ────────────────────────────────────────────────────────────────────
+
+type Props = {
+  data: ClinicalData;
+  onChange: (field: keyof ClinicalData, value: unknown) => void;
+  onDirty: () => void;
+};
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
   const set = (field: keyof ClinicalData) => (value: string) => {
     onChange(field, value);
     onDirty();
@@ -37,19 +59,16 @@ export default function ClinicalInfoFields({
   const height = parseFloat(data.heightM);
   const bmi =
     weight > 0 && height > 0 ? +(weight / (height * height)).toFixed(2) : null;
-  const bmiPreview = bmi !== null ? bmi.toString() : "";
-  const bmiStatusPreview = bmi !== null ? getBmiStatus(bmi) : "";
 
   return (
     <>
-      {/* Peso y Estatura */}
+      {/* ── Peso y Estatura ─────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-2 -mb-2">
           <p className="text-[10px] uppercase tracking-wider text-gray-400">
             TODOS LOS CAMPOS SON OBLIGATORIOS **
           </p>
         </div>
-
         <ValidatedInput
           id="weight"
           label="Peso (kg)"
@@ -62,7 +81,6 @@ export default function ClinicalInfoFields({
           max={400}
           clampToMin
         />
-
         <ValidatedInput
           id="height"
           label="Estatura (m)"
@@ -77,7 +95,7 @@ export default function ClinicalInfoFields({
         />
       </div>
 
-      {/* BMI y Estado del BMI */}
+      {/* ── IMC ─────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <div>
           <label
@@ -88,23 +106,22 @@ export default function ClinicalInfoFields({
           </label>
           <input
             id="bmi_preview"
-            value={bmiPreview}
+            value={bmi ?? ""}
             disabled
             className="mt-1 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 shadow-sm"
           />
         </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Estado del IMC
           </label>
           <div className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm text-sm text-gray-900 flex items-center">
-            {bmiStatusPreview || "—"}
+            {bmi !== null ? getBmiStatus(bmi) : "—"}
           </div>
         </div>
       </div>
 
-      {/* Antecedentes médicos */}
+      {/* ── Antecedentes médicos ─────────────────────────────────── */}
       <div className="mt-6">
         <ValidatedInput
           id="medical_background"
@@ -121,6 +138,24 @@ export default function ClinicalInfoFields({
           placeholder="Patologías previas, intervenciones quirúrgicas, alergias, medicación actual, condiciones relevantes para el procedimiento."
         />
       </div>
+
+      {/* ── Alteraciones clínicas ────────────────────────────────── */}
+      <ClinicalAlterationFields
+        data={data.clinicalAlteration}
+        onChange={(val) => {
+          onChange("clinicalAlteration", val);
+          onDirty();
+        }}
+      />
+
+      {/* ── Resultados de laboratorio ────────────────────────────── */}
+      <LabResultFields
+        data={data.labResult}
+        onChange={(val) => {
+          onChange("labResult", val);
+          onDirty();
+        }}
+      />
     </>
   );
 }
