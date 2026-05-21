@@ -70,6 +70,8 @@ export default function ReportesTab({ products }: Props) {
           getSpendByCategory({ month, year }),
           getSpendByDistributor({ month, year }),
         ]);
+        console.log("cat:", JSON.stringify(cat));
+        console.log("dist:", JSON.stringify(dist));
         setCategoryData(cat);
         setDistributorData(dist);
       } catch {
@@ -183,7 +185,7 @@ export default function ReportesTab({ products }: Props) {
             }
             className="flex-1 max-w-sm px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white"
           >
-            <option value="">Selecciona un producto insumo o equpo...</option>
+            <option value="">Selecciona un producto...</option>
             {products
               .filter((p) => p.type === "INSUMO" || p.type === "EQUIPO")
               .sort((a, b) => a.name.localeCompare(b.name))

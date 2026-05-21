@@ -25,8 +25,8 @@ function buildEmptyItems(products: InventoryProduct[]): UsageItem[] {
 }
 
 const TITLES: Record<string, string> = {
-  con_paciente: "Registrar Consumo — Con Paciente",
-  sin_paciente: "Registrar Consumo — Sin Paciente",
+  CON_PACIENTE: "Registrar Consumo — Con Paciente",
+  SIN_PACIENTE: "Registrar Consumo — Sin Paciente",
 };
 
 // ── Componente ────────────────────────────────────────────────────────────
