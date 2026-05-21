@@ -45,7 +45,7 @@ function validateStep1(form: PurchaseFormValues): string | null {
   if (!form.name.trim()) return "El nombre del producto es obligatorio.";
   if (!form.category_id) return "Seleccioná una categoría.";
   if (!form.type) return "Seleccioná el tipo de producto.";
-  if (form.type === "insumo" && form.stock_minimo === "")
+  if (form.type === "INSUMO" && form.stock_minimo === "")
     return "El stock mínimo es obligatorio para insumos.";
   return null;
 }
@@ -72,7 +72,7 @@ function isFormComplete(form: PurchaseFormValues): boolean {
     if (!form.name.trim()) return false;
     if (!form.category_id) return false;
     if (!form.type) return false;
-    if (form.type === "insumo" && form.stock_minimo === "") return false;
+    if (form.type === "INSUMO" && form.stock_minimo === "") return false;
   }
   // Paso 3 válido (paso 2 siempre es opcional)
   if (!form.quantity || Number(form.quantity) < 1) return false;

@@ -27,7 +27,7 @@ export function exportToCSV(
         product.id,
         product.name,
         categoryMap.get(product.category_id) || "Sin categoría",
-        product.type === "insumo" ? "Insumo" : "Equipo",
+        product.type === "INSUMO" ? "Insumo" : "Equipo",
         product.cantidad, // Usamos el alias 'cantidad' definido en tu interface
         product.estado || "N/A", // Si es null (equipo), mostramos N/A
         product.description || "",
@@ -93,7 +93,7 @@ export async function exportToExcel(
       ID: product.id,
       Nombre: product.name,
       Categoría: categoryMap.get(product.category_id) || "Sin categoría",
-      Tipo: product.type === "insumo" ? "Insumo" : "Equipo",
+      Tipo: product.type === "INSUMO" ? "Insumo" : "Equipo",
       "Stock/Cantidad": product.cantidad, // Usamos la propiedad unificada
       Estado: product.estado || "N/A",
       Descripción: product.description || "",

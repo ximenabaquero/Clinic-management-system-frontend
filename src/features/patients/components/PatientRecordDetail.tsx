@@ -337,7 +337,7 @@ export default function PatientRecordDetail({
         {showUsageForm && (
           <UsageForm
             products={products}
-            mode="con_paciente"
+            mode="CON_PACIENTE"
             medicalEvaluationId={evaluation.id}
             onClose={() => setShowUsageForm(false)}
             onSaved={() => mutate()} // ← refresca el registro al guardar

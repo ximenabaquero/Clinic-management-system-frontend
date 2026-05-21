@@ -147,7 +147,10 @@ export default function ReportesTab({ products }: Props) {
       {/* ── Gasto por categoría y distribuidor ─────────────────────────── */}
       {spendError ? (
         <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          <span>No se pudieron cargar los reportes. Verificá que el servidor esté activo y volvé a intentarlo.</span>
+          <span>
+            No se pudieron cargar los reportes. Verificá que el servidor esté
+            activo y volvé a intentarlo.
+          </span>
           <button
             onClick={() => setRetryCount((n) => n + 1)}
             className="ml-auto underline hover:no-underline shrink-0"
@@ -180,9 +183,9 @@ export default function ReportesTab({ products }: Props) {
             }
             className="flex-1 max-w-sm px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300 bg-white"
           >
-            <option value="">Seleccioná un producto...</option>
+            <option value="">Selecciona un producto insumo o equpo...</option>
             {products
-              .filter((p) => p.type === "insumo")
+              .filter((p) => p.type === "INSUMO" || p.type === "EQUIPO")
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((p) => (
                 <option key={p.id} value={p.id}>
