@@ -83,7 +83,7 @@ type Props = {
 };
 
 function StatusBadge({ status }: { status: InventoryUsage["status"] }) {
-  if (status === "con_paciente") {
+  if (status === "CON_PACIENTE") {
     return (
       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
         Con paciente
@@ -239,8 +239,8 @@ export default function UsageTable({ usages, loading }: Props) {
     );
   }
 
-  const insumos = usages.filter((u) => u.product?.type === "insumo");
-  const equipos = usages.filter((u) => u.product?.type === "equipo");
+  const insumos = usages.filter((u) => u.product?.type === "INSUMO");
+  const equipos = usages.filter((u) => u.product?.type === "EQUIPO");
 
   return (
     <div>

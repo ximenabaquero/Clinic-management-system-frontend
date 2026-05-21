@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { XMarkIcon, MagnifyingGlassIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  CheckCircleIcon,
+} from "@heroicons/react/24/outline";
 import { createUsage } from "../../../services/inventoryService";
 import ValidatedInput from "@/components/ValidatedInput";
 import type {
@@ -21,8 +25,8 @@ function buildEmptyItems(products: InventoryProduct[]): UsageItem[] {
 }
 
 const TITLES: Record<string, string> = {
-  con_paciente: "Registrar Consumo — Con Paciente",
-  sin_paciente: "Registrar Consumo — Sin Paciente",
+  CON_PACIENTE: "Registrar Consumo — Con Paciente",
+  SIN_PACIENTE: "Registrar Consumo — Sin Paciente",
 };
 
 // ── Componente ────────────────────────────────────────────────────────────
@@ -34,8 +38,12 @@ function SuccessScreen({ onClose }: { onClose: () => void }) {
         <div className="w-16 h-16 rounded-full bg-indigo-50 flex items-center justify-center mb-5">
           <CheckCircleIcon className="w-9 h-9 text-indigo-600" />
         </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">Consumo registrado</h2>
-        <p className="text-sm text-gray-500 mb-7">El consumo fue guardado correctamente en el inventario.</p>
+        <h2 className="text-xl font-bold text-gray-900 mb-2">
+          Consumo registrado
+        </h2>
+        <p className="text-sm text-gray-500 mb-7">
+          El consumo fue guardado correctamente en el inventario.
+        </p>
         <button
           onClick={onClose}
           className="w-full rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors"
@@ -55,7 +63,7 @@ export default function UsageForm({
   onSaved,
 }: UsageFormProps) {
   const activeProducts = useMemo(
-    () => products.filter((p) => (p.type === "equipo" ? true : p.cantidad > 0)),
+    () => products.filter((p) => (p.type === "EQUIPO" ? true : p.cantidad > 0)),
     [products],
   );
 
@@ -124,12 +132,12 @@ export default function UsageForm({
       return;
     }
 
-    if (mode === "sin_paciente" && !reason.trim()) {
+    if (mode === "SIN_PACIENTE" && !reason.trim()) {
       setSubmitError("El motivo del consumo es obligatorio.");
       return;
     }
 
-    if (mode === "con_paciente" && !medicalEvaluationId) {
+    if (mode === "CON_PACIENTE" && !medicalEvaluationId) {
       setSubmitError("No se encontró el registro clínico asociado.");
       return;
     }
@@ -140,7 +148,7 @@ export default function UsageForm({
       items: filledItems as Array<{ product_id: number; quantity: number }>,
       reason: reason.trim(),
       medical_evaluation_id:
-        mode === "con_paciente" ? (medicalEvaluationId ?? null) : null,
+        mode === "CON_PACIENTE" ? (medicalEvaluationId ?? null) : null,
     };
 
     setSaving(true);
@@ -193,7 +201,7 @@ export default function UsageForm({
             <h2 className="text-base font-semibold text-gray-900">
               {TITLES[mode]}
             </h2>
-            {mode === "con_paciente" && medicalEvaluationId && (
+            {mode === "CON_PACIENTE" && medicalEvaluationId && (
               <p className="text-xs text-gray-400 mt-0.5">
                 Registro clínico #{medicalEvaluationId}
               </p>
@@ -213,7 +221,7 @@ export default function UsageForm({
         >
           <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
             {/* Banner: solo para sin_paciente */}
-            {mode === "sin_paciente" && (
+            {mode === "SIN_PACIENTE" && (
               <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
                 <p className="font-medium">Consumo sin paciente asociado</p>
                 <p className="text-xs mt-1">
@@ -223,7 +231,7 @@ export default function UsageForm({
             )}
 
             {/* Banner: para con_paciente */}
-            {mode === "con_paciente" && (
+            {mode === "CON_PACIENTE" && (
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
                 <p className="font-medium">Consumo clínico</p>
                 <p className="text-xs mt-1">
@@ -278,12 +286,12 @@ export default function UsageForm({
                             </p>
                             <span
                               className={`shrink-0 inline-block text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                                product.type === "equipo"
+                                product.type === "EQUIPO"
                                   ? "bg-purple-50 text-purple-700"
                                   : "bg-cyan-50 text-cyan-700"
                               }`}
                             >
-                              {product.type === "equipo" ? "Equipo" : "Insumo"}
+                              {product.type === "EQUIPO" ? "Equipo" : "Insumo"}
                             </span>
                           </div>
 
@@ -314,7 +322,7 @@ export default function UsageForm({
                             type="number"
                             min={0}
                             max={
-                              product.type === "insumo"
+                              product.type === "INSUMO"
                                 ? product.cantidad
                                 : undefined
                             }
@@ -355,7 +363,7 @@ export default function UsageForm({
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Motivo del consumo
-                {mode === "con_paciente" && (
+                {mode === "CON_PACIENTE" && (
                   <span className="ml-1 text-gray-400 font-normal">
                     (opcional)
                   </span>

@@ -72,7 +72,7 @@ export default function Step1Product({
     setProductSearch(p.name);
   };
 
-  const isNewInsumo = mode === "new" && form.type === "insumo";
+  const isNewInsumo = mode === "new" && form.type === "INSUMO";
   const showDropdown = !form.product_id; // siempre visible mientras no haya selección
 
   return (
@@ -166,12 +166,12 @@ export default function Step1Product({
                           </span>
                           <span
                             className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                              p.type === "insumo"
+                              p.type === "INSUMO"
                                 ? "bg-cyan-50 text-cyan-700"
                                 : "bg-purple-50 text-purple-700"
                             }`}
                           >
-                            {p.type === "equipo" ? "Equipo" : "Insumo"}
+                            {p.type === "EQUIPO" ? "Equipo" : "Insumo"}
                           </span>
                         </div>
                       </button>
@@ -221,19 +221,19 @@ export default function Step1Product({
               Tipo
             </label>
             <div className="flex gap-2">
-              {(["insumo", "equipo"] as const).map((t) => (
+              {(["INSUMO", "EQUIPO"] as const).map((t) => (
                 <button
                   key={t}
                   type="button"
                   onClick={() =>
                     onChange({
                       type: t,
-                      stock_minimo: t === "equipo" ? "" : form.stock_minimo,
+                      stock_minimo: t === "EQUIPO" ? "" : form.stock_minimo,
                     })
                   }
                   className={`flex-1 py-2.5 rounded-xl text-sm font-semibold border-2 transition-all ${
                     form.type === t
-                      ? t === "insumo"
+                      ? t === "INSUMO"
                         ? "bg-cyan-50 border-cyan-400 text-cyan-700"
                         : "bg-purple-50 border-purple-400 text-purple-700"
                       : "bg-white border-gray-200 text-gray-500 hover:border-gray-300"
