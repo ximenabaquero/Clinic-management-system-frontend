@@ -41,18 +41,18 @@ export default function LoginPage() {
       const size = rand() * 100 + 50;
       const left = rand() * 100;
       const top = rand() * 100;
-      // Animación un poco más rápida (8s a 14s) para que se note el movimiento
       const duration = rand() * 6 + 8; 
-      const delay = rand() * -20; // Delay negativo para que empiecen ya movidos
+      const delay = rand() * -20; 
       return {
         width: `${size}px`,
         height: `${size}px`,
         left: `${left}%`,
         top: `${top}%`,
+        // ¡ESTA ES LA LÍNEA QUE ASIGNA LA ANIMACIÓN A CADA BOLITA!
         animation: `float-intense ${duration}s ease-in-out ${delay}s infinite alternate`,
       };
     });
-  }, []);
+    }, []);
 
   const router = useRouter();
   const { setUser } = useAuth();
@@ -129,15 +129,24 @@ export default function LoginPage() {
       </div>
 
       {/* Animación intensificada: Mayor rango de movimiento */}
-      <style jsx global>{`
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
         @keyframes float-intense {
           0% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(40px, -60px) scale(1.1); }
           66% { transform: translate(-30px, 30px) scale(0.9); }
           100% { transform: translate(20px, -20px) scale(1); }
         }
+        .login-nav-logo {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 1.65rem;
+          color: #0A1F1A;
+          font-weight: 800;
+          letter-spacing: -1.5px;
+          line-height: 1;
+          text-decoration: none;
+        }
       `}</style>
-
       {/* Header/Navigation */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
