@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X, Phone, LogOut } from "lucide-react";
+import { Menu, X, Phone, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -85,21 +85,38 @@ export default function Header() {
   if (user) {
     return (
       <>
-      <header className="relative w-full z-50 bg-white shadow-md py-3">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-10 flex justify-end">
-          <button
-            onClick={() => setShowEditPerfil(true)}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 font-semibold text-sm transition hover:bg-gray-200 mr-2"
-          >
-            Mi perfil
-          </button>
-          <button
-            onClick={handleLogout}
-            className="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-[#D929AA] text-white font-bold uppercase tracking-[0.10em] transition hover:bg-[#BF2496]"
-          >
-            <LogOut size={18} />
-            Cerrar sesión
-          </button>
+<header className=" top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm py-3.5 transition-all duration-300">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between">
+          
+          {/* LADO IZQUIERDO: Indicador de sesión activa */}
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-[#05F2DB] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-400">
+              Portal Interno <span className="text-gray-900 font-bold lowercase">({user.email || "Admin"})</span>
+            </span>
+          </div>
+
+          {/* LADO DERECHO: Acciones del Usuario */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* BOTÓN: Mi Perfil */}
+            <button
+              onClick={() => setShowEditPerfil(true)}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200 text-gray-600 font-bold text-[10px] uppercase tracking-widest transition-all duration-300 hover:bg-[#BF2496]/5 hover:border-[#BF2496]/20 hover:text-[#BF2496]"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Mi perfil</span>
+            </button>
+
+            {/* BOTÓN: Cerrar Sesión */}
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#D929AA] to-[#BF2496] text-white font-bold text-[10px] uppercase tracking-widest transition-all duration-300 hover:shadow-lg hover:shadow-[#BF2496]/20 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Cerrar sesión</span>
+            </button>
+          </div>
+
         </div>
       </header>
 
@@ -124,11 +141,11 @@ export default function Header() {
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group pointer-events-auto">
               <div
                 className={`relative shrink-0 transition-all duration-300 ${
-                  scrolled ? "h-11 w-11" : "h-12 w-12 sm:h-14 sm:w-14"
+                  scrolled ? "h-11 w-16" : "h-12 w-12 sm:h-12 sm:w-20"
                 } group-hover:scale-105`}
               >
-                <Image
-                  src="/logopodocare.webp"
+                <Image 
+                  src="/logopodocare1.webp"
                   alt="PodoCare Logo"
                   fill
                   className="object-contain"

@@ -134,13 +134,13 @@ export default function LoginPage() {
       </div>
 
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-[#BF2496]/10 py-3">
+      <header className="sticky top-0 z-50  ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-              <div className="relative shrink-0 w-11 h-11 group-hover:scale-105 transition-all duration-300">
+              <div className="relative shrink-0 w-20 h-20 group-hover:scale-105 transition-all duration-300">
                 <Image
-                  src="/logopodocare.webp"
+                  src="/logopodocare1.webp"
                   alt="PodoCare Logo"
                   fill
                   className="object-contain"
