@@ -1,5 +1,6 @@
-// ─── Types ────────────────────────────────────────────────────────────────────
+import SectionDetails from "./SectionDetails";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
 export type LabResultData = {
   has_exams: boolean;
   hemoglobin_done: boolean;
@@ -113,52 +114,61 @@ export default function LabResultFields({ data, onChange }: Props) {
   const setText = (field: keyof LabResultData) => (value: string) =>
     onChange({ ...data, [field]: value });
 
+  const countLaboratorio = [
+    data.has_exams,
+    data.hemoglobin_done,
+    data.inr_value,
+    data.glucose_value,
+    data.hematocrit_value,
+  ].filter(Boolean).length;
+
   return (
     <div className="mt-6 space-y-4">
-      <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold">
-        RESULTADOS DE LABORATORIO
-      </p>
-
-      {/* Booleanos */}
-      <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
-        <YesNoToggle
-          label="¿Trae exámenes?"
-          value={data.has_exams}
-          onChange={setToggle("has_exams")}
-        />
-        <YesNoToggle
-          label="Hemoglobina realizada"
-          value={data.hemoglobin_done}
-          onChange={setToggle("hemoglobin_done")}
-        />
-      </div>
-
-      {/* Valores numéricos — solo visibles si trae exámenes */}
-      {data.has_exams && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
-          <NumericField
-            id="inr_value"
-            label="INR"
-            placeholder="Ej: 1.2"
-            value={data.inr_value}
-            onChange={setText("inr_value")}
+      <SectionDetails
+        label="Resultados de laboratorio"
+        count={countLaboratorio}
+      >
+        {/* Booleanos */}
+        <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
+          <YesNoToggle
+            label="¿Trae exámenes?"
+            value={data.has_exams}
+            onChange={setToggle("has_exams")}
           />
-          <NumericField
-            id="glucose_value"
-            label="Glucosa (mg/dL)"
-            placeholder="Ej: 95"
-            value={data.glucose_value}
-            onChange={setText("glucose_value")}
-          />
-          <NumericField
-            id="hematocrit_value"
-            label="Hematocrito (%)"
-            placeholder="Ej: 42"
-            value={data.hematocrit_value}
-            onChange={setText("hematocrit_value")}
+          <YesNoToggle
+            label="Hemoglobina realizada"
+            value={data.hemoglobin_done}
+            onChange={setToggle("hemoglobin_done")}
           />
         </div>
-      )}
+
+        {/* Valores numéricos — solo visibles si trae exámenes */}
+        {data.has_exams && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+            <NumericField
+              id="inr_value"
+              label="INR"
+              placeholder="Ej: 1.2"
+              value={data.inr_value}
+              onChange={setText("inr_value")}
+            />
+            <NumericField
+              id="glucose_value"
+              label="Glucosa (mg/dL)"
+              placeholder="Ej: 95"
+              value={data.glucose_value}
+              onChange={setText("glucose_value")}
+            />
+            <NumericField
+              id="hematocrit_value"
+              label="Hematocrito (%)"
+              placeholder="Ej: 42"
+              value={data.hematocrit_value}
+              onChange={setText("hematocrit_value")}
+            />
+          </div>
+        )}
+      </SectionDetails>
     </div>
   );
 }

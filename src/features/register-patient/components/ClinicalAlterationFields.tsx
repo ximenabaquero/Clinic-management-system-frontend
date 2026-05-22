@@ -1,9 +1,10 @@
 import ValidatedInput from "../../../components/ValidatedInput";
+import SectionDetails from "./SectionDetails";
+import DatePickerSelect from "./DataPickerSelect";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type ClinicalAlterationData = {
-  // Booleanos
   diabetes: boolean;
   cardiac: boolean;
   varicose_veins: boolean;
@@ -21,7 +22,6 @@ export type ClinicalAlterationData = {
   anxiety: boolean;
   alcohol: boolean;
   depression: boolean;
-  // Texto
   intestinal_habit: string;
   lupus_notes: string;
   allergy_notes: string;
@@ -31,7 +31,6 @@ export type ClinicalAlterationData = {
   other_skin_notes: string;
   birth_control: string;
   medications: string;
-  // Numérico / fecha
   sleep_hours: string;
   num_children: string;
   last_period: string;
@@ -127,18 +126,59 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
   const setText = (field: keyof ClinicalAlterationData) => (value: string) =>
     onChange({ ...data, [field]: value });
 
+  // Contadores por sección (campos en true)
+  const countMetabolic = [
+    data.diabetes,
+    data.cardiac,
+    data.varicose_veins,
+    data.thrombosis,
+    data.fluid_retention,
+    data.hepatitis,
+    data.surgeries,
+    data.kidney_issues,
+    data.thyroid_issues,
+  ].filter(Boolean).length;
+
+  const countDigestive =
+    [
+      data.constipation,
+      data.gastritis,
+      data.irritable_bowel,
+      data.reflux,
+    ].filter(Boolean).length + (data.intestinal_habit ? 1 : 0);
+
+  const countSkin = [
+    data.lupus_notes,
+    data.allergy_notes,
+    data.keloid_notes,
+    data.vitiligo_notes,
+    data.dermatitis_notes,
+    data.other_skin_notes,
+  ].filter(Boolean).length;
+
+  const countHabits =
+    [data.smokes, data.alcohol, data.anxiety, data.depression].filter(Boolean)
+      .length + (data.sleep_hours ? 1 : 0);
+
+  const countGyneco = [
+    data.birth_control,
+    data.last_period,
+    data.num_children,
+    data.medications,
+  ].filter(Boolean).length;
+
   return (
-    <div className="mt-6 space-y-6">
+    <div className="mt-6 space-y-4">
       <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold">
         ANTECEDENTES CLÍNICOS
       </p>
 
       {/* ── Metabólicos / Cardiovasculares ──────────────────────── */}
-      <section>
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
-          METABÓLICOS Y CARDIOVASCULARES
-        </p>
-        <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
+      <SectionDetails
+        label="Metabólicos y cardiovasculares"
+        count={countMetabolic}
+      >
+        <div className="rounded-xl border border-gray-100 bg-gray-50/50 px-4 py-2">
           <YesNoToggle
             label="Diabetes"
             value={data.diabetes}
@@ -185,36 +225,33 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             onChange={setToggle("thyroid_issues")}
           />
         </div>
-      </section>
+      </SectionDetails>
 
       {/* ── Digestivos ──────────────────────────────────────────── */}
-      <section>
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
-          DIGESTIVOS
-        </p>
-        <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
-          <YesNoToggle
-            label="Estreñimiento"
-            value={data.constipation}
-            onChange={setToggle("constipation")}
-          />
-          <YesNoToggle
-            label="Gastritis"
-            value={data.gastritis}
-            onChange={setToggle("gastritis")}
-          />
-          <YesNoToggle
-            label="Intestino irritable"
-            value={data.irritable_bowel}
-            onChange={setToggle("irritable_bowel")}
-          />
-          <YesNoToggle
-            label="Reflujo"
-            value={data.reflux}
-            onChange={setToggle("reflux")}
-          />
-        </div>
-        <div className="mt-3">
+      <SectionDetails label="Digestivos" count={countDigestive}>
+        <div className="space-y-3">
+          <div className="rounded-xl border border-gray-100 bg-gray-50/50 px-4 py-2">
+            <YesNoToggle
+              label="Estreñimiento"
+              value={data.constipation}
+              onChange={setToggle("constipation")}
+            />
+            <YesNoToggle
+              label="Gastritis"
+              value={data.gastritis}
+              onChange={setToggle("gastritis")}
+            />
+            <YesNoToggle
+              label="Intestino irritable"
+              value={data.irritable_bowel}
+              onChange={setToggle("irritable_bowel")}
+            />
+            <YesNoToggle
+              label="Reflujo"
+              value={data.reflux}
+              onChange={setToggle("reflux")}
+            />
+          </div>
           <ValidatedInput
             id="intestinal_habit"
             label="Hábito intestinal"
@@ -224,13 +261,10 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             maxLength={100}
           />
         </div>
-      </section>
+      </SectionDetails>
 
       {/* ── Piel ────────────────────────────────────────────────── */}
-      <section>
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
-          CONDICIONES DE PIEL
-        </p>
+      <SectionDetails label="Condiciones de piel" count={countSkin}>
         <div className="space-y-3">
           <ValidatedInput
             id="lupus_notes"
@@ -238,7 +272,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Observaciones sobre lupus (si aplica)"
             value={data.lupus_notes}
             onChange={setText("lupus_notes")}
-            maxLength={200}
+            maxLength={255}
           />
           <ValidatedInput
             id="allergy_notes"
@@ -246,7 +280,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Alergias conocidas"
             value={data.allergy_notes}
             onChange={setText("allergy_notes")}
-            maxLength={200}
+            maxLength={255}
           />
           <ValidatedInput
             id="keloid_notes"
@@ -254,7 +288,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Observaciones sobre queloides"
             value={data.keloid_notes}
             onChange={setText("keloid_notes")}
-            maxLength={200}
+            maxLength={255}
           />
           <ValidatedInput
             id="vitiligo_notes"
@@ -262,7 +296,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Observaciones sobre vitiligo"
             value={data.vitiligo_notes}
             onChange={setText("vitiligo_notes")}
-            maxLength={200}
+            maxLength={255}
           />
           <ValidatedInput
             id="dermatitis_notes"
@@ -270,7 +304,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Observaciones sobre dermatitis"
             value={data.dermatitis_notes}
             onChange={setText("dermatitis_notes")}
-            maxLength={200}
+            maxLength={255}
           />
           <ValidatedInput
             id="other_skin_notes"
@@ -278,39 +312,36 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Otras condiciones relevantes"
             value={data.other_skin_notes}
             onChange={setText("other_skin_notes")}
-            maxLength={200}
+            maxLength={255}
           />
         </div>
-      </section>
+      </SectionDetails>
 
       {/* ── Hábitos y salud mental ───────────────────────────────── */}
-      <section>
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
-          HÁBITOS Y SALUD MENTAL
-        </p>
-        <div className="rounded-xl border border-gray-200 bg-white px-4 py-2 shadow-sm">
-          <YesNoToggle
-            label="Fuma"
-            value={data.smokes}
-            onChange={setToggle("smokes")}
-          />
-          <YesNoToggle
-            label="Consume alcohol"
-            value={data.alcohol}
-            onChange={setToggle("alcohol")}
-          />
-          <YesNoToggle
-            label="Ansiedad"
-            value={data.anxiety}
-            onChange={setToggle("anxiety")}
-          />
-          <YesNoToggle
-            label="Depresión"
-            value={data.depression}
-            onChange={setToggle("depression")}
-          />
-        </div>
-        <div className="mt-3">
+      <SectionDetails label="Hábitos y salud mental" count={countHabits}>
+        <div className="space-y-3">
+          <div className="rounded-xl border border-gray-100 bg-gray-50/50 px-4 py-2">
+            <YesNoToggle
+              label="Fuma"
+              value={data.smokes}
+              onChange={setToggle("smokes")}
+            />
+            <YesNoToggle
+              label="Consume alcohol"
+              value={data.alcohol}
+              onChange={setToggle("alcohol")}
+            />
+            <YesNoToggle
+              label="Ansiedad"
+              value={data.anxiety}
+              onChange={setToggle("anxiety")}
+            />
+            <YesNoToggle
+              label="Depresión"
+              value={data.depression}
+              onChange={setToggle("depression")}
+            />
+          </div>
           <ValidatedInput
             id="sleep_hours"
             label="Horas de sueño"
@@ -320,15 +351,13 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             onChange={setText("sleep_hours")}
             min={0}
             max={24}
+            clampToMin
           />
         </div>
-      </section>
+      </SectionDetails>
 
       {/* ── Ginecológico / Medicación ────────────────────────────── */}
-      <section>
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
-          GINECOLÓGICO Y MEDICACIÓN
-        </p>
+      <SectionDetails label="Ginecológico y medicación" count={countGyneco}>
         <div className="space-y-3">
           <ValidatedInput
             id="birth_control"
@@ -338,23 +367,31 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             onChange={setText("birth_control")}
             maxLength={100}
           />
-          <ValidatedInput
-            id="last_period"
-            label="Última menstruación"
-            type="date"
-            value={data.last_period}
-            onChange={setText("last_period")}
-          />
-          <ValidatedInput
-            id="num_children"
-            label="Número de hijos"
-            type="number"
-            placeholder="Ej: 2"
-            value={data.num_children}
-            onChange={setText("num_children")}
-            min={0}
-            max={20}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4">
+            <div className="sm:col-span-3">
+              <DatePickerSelect
+                label="Última menstruación"
+                value={data.last_period}
+                onChange={setText("last_period")}
+                showAge={false}
+                minYear={new Date().getFullYear() - 6}
+              />
+            </div>
+            <div className="sm:col-span-1">
+              <ValidatedInput
+                id="num_children"
+                label="Número de hijos"
+                type="number"
+                placeholder="Ej: 2"
+                value={data.num_children}
+                onChange={setText("num_children")}
+                min={0}
+                max={20}
+                clampToMin
+              />
+            </div>
+          </div>
+
           <ValidatedInput
             id="medications"
             label="Medicamentos actuales"
@@ -363,10 +400,10 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             placeholder="Nombre y dosis de medicamentos que toma actualmente"
             value={data.medications}
             onChange={setText("medications")}
-            maxLength={300}
+            maxLength={255}
           />
         </div>
-      </section>
+      </SectionDetails>
     </div>
   );
 }

@@ -121,24 +121,6 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
         </div>
       </div>
 
-      {/* ── Antecedentes médicos ─────────────────────────────────── */}
-      <div className="mt-6">
-        <ValidatedInput
-          id="medical_background"
-          label="Antecedentes médicos relevantes"
-          as="textarea"
-          rows={4}
-          required
-          value={data.medicalBackground}
-          onChange={(val) => {
-            onChange("medicalBackground", val);
-            onDirty();
-          }}
-          maxLength={500}
-          placeholder="Patologías previas, intervenciones quirúrgicas, alergias, medicación actual, condiciones relevantes para el procedimiento."
-        />
-      </div>
-
       {/* ── Alteraciones clínicas ────────────────────────────────── */}
       <ClinicalAlterationFields
         data={data.clinicalAlteration}
@@ -156,6 +138,24 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
           onDirty();
         }}
       />
+
+      {/* ── Antecedentes médicos ─────────────────────────────────── */}
+      <div className="mt-6">
+        <ValidatedInput
+          id="medical_background"
+          label="Antecedentes médicos relevantes"
+          as="textarea"
+          rows={4}
+          required
+          value={data.medicalBackground}
+          onChange={(val) => {
+            onChange("medicalBackground", val);
+            onDirty();
+          }}
+          maxLength={500}
+          placeholder="Patologías previas, intervenciones quirúrgicas, alergias, medicación actual, condiciones relevantes para el procedimiento."
+        />
+      </div>
     </>
   );
 }

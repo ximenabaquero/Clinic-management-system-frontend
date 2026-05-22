@@ -1,7 +1,6 @@
 import ValidatedInput from "../../../components/ValidatedInput";
 import PhoneInputField from "../../../components/PhoneInputField";
 import SelectField from "./SelectField";
-import DateOfBirthPicker from "./DateOfBirthPicker";
 import "react-phone-input-2/lib/style.css";
 import {
   DOCUMENT_TYPE_OPTIONS,
@@ -11,6 +10,7 @@ import type {
   DocumentType,
   MaritalStatus,
 } from "../services/patientRegistrationService";
+import DatePickerSelect from "./DataPickerSelect";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -85,10 +85,12 @@ export default function PatientBasicsFields({
 
       {/* ── Fecha de nacimiento ─────────────────────────────────── */}
       <div className="mt-4">
-        <DateOfBirthPicker
+        <DatePickerSelect
+          label="Fecha de nacimiento"
           value={data.dateOfBirth}
           onChange={set("dateOfBirth")}
           onDirty={onDirty}
+          showAge={true}
         />
       </div>
 
@@ -144,14 +146,24 @@ export default function PatientBasicsFields({
 
       {/* ── Teléfono fijo (opcional) + Estado civil ──────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-        <ValidatedInput
-          id="phone"
-          label="Teléfono fijo"
-          placeholder="Teléfono fijo (opcional)"
-          value={data.phone}
-          onChange={set("phone")}
-          maxLength={20}
-        />
+        <div className="space-y-1">
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Teléfono fijo
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
+
+          <ValidatedInput
+            id="phone"
+            label=""
+            placeholder="Teléfono fijo"
+            value={data.phone}
+            onChange={set("phone")}
+            maxLength={20}
+          />
+        </div>
 
         <SelectField
           id="marital_status"
@@ -169,14 +181,14 @@ export default function PatientBasicsFields({
         </SelectField>
       </div>
 
-      {/* ── Dirección + EPS ─────────────────────────────────────── */}
+      {/* ── Ocupación + EPS ─────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <ValidatedInput
-          id="address"
-          label="Dirección"
-          placeholder="Dirección de residencia"
-          value={data.address}
-          onChange={set("address")}
+          id="occupation"
+          label="Ocupación"
+          placeholder="Ocupación del paciente"
+          value={data.occupation}
+          onChange={set("occupation")}
           required
           maxLength={100}
         />
@@ -192,14 +204,14 @@ export default function PatientBasicsFields({
         />
       </div>
 
-      {/* ── Ocupación ───────────────────────────────────────────── */}
+      {/* ── Dirección ───────────────────────────────────────────── */}
       <div className="mt-4">
         <ValidatedInput
-          id="occupation"
-          label="Ocupación"
-          placeholder="Ocupación del paciente"
-          value={data.occupation}
-          onChange={set("occupation")}
+          id="address"
+          label="Dirección"
+          placeholder="Dirección de residencia"
+          value={data.address}
+          onChange={set("address")}
           required
           maxLength={100}
         />
@@ -207,21 +219,11 @@ export default function PatientBasicsFields({
 
       {/* ══ Sección acompañante (snapshot) ══════════════════════════════ */}
       <div className="mt-6">
-        <p className="text-[10px] uppercase tracking-wider text-gray-400 mb-3">
+        <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-3">
           Datos del acompañante
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <ValidatedInput
-            id="companion_name"
-            label="Nombre del acompañante"
-            placeholder="Nombre completo"
-            value={data.companionName}
-            onChange={set("companionName")}
-            required
-            maxLength={100}
-          />
-
           <ValidatedInput
             id="companion_relationship"
             label="Parentesco"
@@ -231,14 +233,24 @@ export default function PatientBasicsFields({
             required
             maxLength={50}
           />
-        </div>
 
-        <div className="mt-4">
           <PhoneInputField
             value={data.companionCellphone}
             onChange={set("companionCellphone")}
             onDirty={onDirty}
             label="Celular del acompañante"
+          />
+        </div>
+
+        <div className="mt-4">
+          <ValidatedInput
+            id="companion_name"
+            label="Nombre del acompañante"
+            placeholder="Nombre completo"
+            value={data.companionName}
+            onChange={set("companionName")}
+            required
+            maxLength={100}
           />
         </div>
       </div>
