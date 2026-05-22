@@ -143,7 +143,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
       <div className="mt-6">
         <ValidatedInput
           id="medical_background"
-          label="Antecedentes médicos relevantes"
+          label="Observaciones de la evaluación clínica"
           as="textarea"
           rows={4}
           required

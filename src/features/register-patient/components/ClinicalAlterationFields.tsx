@@ -69,7 +69,6 @@ export const INITIAL_CLINICAL_ALTERATION: ClinicalAlterationData = {
 };
 
 // ─── Sub-componente YesNoToggle ───────────────────────────────────────────────
-
 function YesNoToggle({
   label,
   value,
@@ -88,8 +87,8 @@ function YesNoToggle({
           onClick={() => onChange(true)}
           className={`px-3 py-0.5 rounded-full text-xs font-semibold border transition ${
             value === true
-              ? "bg-[#BF2496] text-white border-[#BF2496]"
-              : "bg-white text-gray-500 border-gray-300 hover:border-[#BF2496]"
+              ? "bg-emerald-500 text-white border-emerald-500"
+              : "bg-white text-gray-500 border-gray-300 hover:border-emerald-500"
           }`}
         >
           SI

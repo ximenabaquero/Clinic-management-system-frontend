@@ -1,3 +1,15 @@
+import {
+  ClipboardDocumentListIcon,
+  UserIcon,
+  PlusCircleIcon,
+} from "@heroicons/react/24/outline";
+
+const STEP_ICONS = [
+  <UserIcon key="0" className="h-4 w-4" />,
+  <ClipboardDocumentListIcon key="1" className="h-4 w-4" />,
+  <PlusCircleIcon key="2" className="h-4 w-4" />,
+];
+
 interface SidebarStepsProps {
   steps: { label: string; completed: boolean }[];
   currentStep: number;
@@ -20,67 +32,76 @@ export default function SidebarSteps({
         </p>
       </div>
 
-      <ol className="relative space-y-6">
+      <ol className="relative space-y-0">
         {steps.map((step, index) => {
           const isActive = index === currentStep;
           const isCompleted = step.completed;
           const showConnector = index < steps.length - 1;
 
           return (
-            <li key={step.label} className="relative pl-9 pb-10 last:pb-0">
-              {/* Número o check */}
-              <span
-                className={[
-                  "absolute left-0 top-0 flex h-6 w-6 items-center justify-center rounded-full border-2 text-sm font-semibold",
-                  isCompleted
-                    ? "border-emerald-600 bg-emerald-600 text-white"
-                    : isActive
-                      ? "border-emerald-600 bg-white text-emerald-600"
-                      : "border-gray-300 bg-white text-gray-400",
-                ].join(" ")}
-              >
-                {isCompleted ? (
-                  <svg viewBox="0 0 20 20" className="h-4 w-4">
-                    <path
-                      d="M7.629 13.233 4.5 10.104l1.414-1.414 1.715 1.715L14.086 4.95l1.414 1.414-7.871 6.869z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                ) : (
-                  index + 1
-                )}
-              </span>
-
-              {/* Línea vertical */}
-              {showConnector && (
+            <li key={step.label} className="relative flex gap-4">
+              {/* Columna izquierda: círculo + línea */}
+              <div className="flex flex-col items-center">
                 <span
                   className={[
-                    "absolute left-2.5 top-6 h-8 w-0.5",
-                    steps[index + 1].completed || isCompleted
-                      ? "bg-emerald-500"
-                      : "bg-gray-200",
+                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold z-10",
+                    isCompleted
+                      ? "border-emerald-500 bg-emerald-500 text-white"
+                      : isActive
+                        ? "border-emerald-500 bg-white text-emerald-600"
+                        : "border-gray-300 bg-white text-gray-400",
                   ].join(" ")}
-                />
-              )}
-
-              {/* Encabezado del paso */}
-              <div className="mb-1 text-xs font-medium text-gray-500 uppercase tracking-wide">
-                Paso {index + 1}
+                >
+                  {isCompleted ? (
+                    <svg
+                      viewBox="0 0 20 20"
+                      className="h-4 w-4"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  ) : (
+                    index + 1
+                  )}
+                </span>
+                {showConnector && (
+                  <span
+                    className={[
+                      "w-0.5 my-2",
+                      isCompleted ? "bg-emerald-400" : "bg-gray-200",
+                    ].join(" ")}
+                    style={{ minHeight: "6rem" }}
+                  />
+                )}
               </div>
 
-              {/* Botón del paso */}
-              <button
-                type="button"
-                onClick={() => onStepClick?.(index)}
-                className={[
-                  "w-full text-left text-base font-medium rounded-lg px-3 py-2 transition",
-                  isActive
-                    ? "bg-emerald-50 text-emerald-700"
-                    : "text-gray-700 hover:bg-gray-100",
-                ].join(" ")}
-              >
-                {step.label}
-              </button>
+              {/* Columna derecha: etiqueta + botón */}
+              <div className="pb-8 flex-1">
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-2">
+                  Paso {index + 1}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => onStepClick?.(index)}
+                  className={[
+                    "w-full text-left flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition",
+                    isActive
+                      ? "bg-emerald-50 text-emerald-700"
+                      : "text-gray-600 hover:bg-gray-50",
+                  ].join(" ")}
+                >
+                  <span
+                    className={isActive ? "text-emerald-500" : "text-gray-400"}
+                  >
+                    {STEP_ICONS[index]}
+                  </span>
+                  {step.label}
+                </button>
+              </div>
             </li>
           );
         })}
