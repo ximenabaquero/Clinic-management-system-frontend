@@ -4,7 +4,7 @@ import { useState } from "react";
 import { XMarkIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import NotesField from "../../register-patient/components/NotesField";
+import ValidatedInput from "@/components/ValidatedInput";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -204,7 +204,19 @@ export default function EditarProcedimientoModal({
             </div>
           )}
 
-          <NotesField value={notes} onChange={setNotes} onDirty={() => {}} />
+          <ValidatedInput
+            id="procedure_notes"
+            label=" Observaciones clínicas del procedimiento"
+            as="textarea"
+            rows={4}
+            required
+            value={notes}
+            onChange={(val) => {
+              setNotes(val);
+            }}
+            maxLength={500}
+            placeholder="Observaciones clínicas, recomendaciones o notas adicionales sobre el procedimiento."
+          />
         </div>
 
         <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 shrink-0">

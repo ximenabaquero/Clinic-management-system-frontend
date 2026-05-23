@@ -63,6 +63,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
   return (
     <>
       {/* ── Peso y Estatura ─────────────────────────────────────── */}
+      {/* ── Peso y Estatura ─────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="col-span-2 -mb-2">
           <p className="text-[10px] uppercase tracking-wider text-gray-400">
@@ -76,10 +77,14 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
           placeholder="Peso del paciente"
           value={data.weightKg}
           onChange={set("weightKg")}
+          onBlur={() => {
+            const n = parseFloat(data.weightKg);
+            if (!isNaN(n) && n < 2) set("weightKg")("2");
+            if (!isNaN(n) && n > 400) set("weightKg")("400");
+          }}
           required
           min={2}
           max={400}
-          clampToMin
         />
         <ValidatedInput
           id="height"
@@ -88,13 +93,16 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
           placeholder="Estatura del paciente"
           value={data.heightM}
           onChange={set("heightM")}
+          onBlur={() => {
+            const n = parseFloat(data.heightM);
+            if (!isNaN(n) && n < 1.2) set("heightM")("1.2");
+            if (!isNaN(n) && n > 2.5) set("heightM")("2.5");
+          }}
           required
           min={1.2}
           max={2.5}
-          clampToMin
         />
       </div>
-
       {/* ── IMC ─────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
         <div>
@@ -139,7 +147,7 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
         }}
       />
 
-      {/* ── Antecedentes médicos ─────────────────────────────────── */}
+      {/* ── Observaciones clínicas ─────────────────────────────────── */}
       <div className="mt-6">
         <ValidatedInput
           id="medical_background"
@@ -153,8 +161,11 @@ export default function ClinicalInfoFields({ data, onChange, onDirty }: Props) {
             onDirty();
           }}
           maxLength={500}
-          placeholder="Patologías previas, intervenciones quirúrgicas, alergias, medicación actual, condiciones relevantes para el procedimiento."
+          placeholder="Observaciones relevantes sobre la evaluación clínica del paciente, como síntomas, diagnósticos previos, alergias, etc."
         />
+        <p className="text-[11px] text-gray-400 mt-1.5 pl-0.5">
+          Máximo 500 caracteres · {data.medicalBackground.length}/500
+        </p>
       </div>
     </>
   );

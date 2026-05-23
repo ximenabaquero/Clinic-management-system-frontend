@@ -1,5 +1,6 @@
 import { PROCEDURE_GROUPS, PROCEDURES } from "../data/procedures";
 import SectionDetails from "./SectionDetails";
+import ValidatedInput from "../../../components/ValidatedInput";
 
 type ProcedureItem = {
   item_name: string;
@@ -230,6 +231,25 @@ export default function ProceduresSelector({
             </div>
           </SectionDetails>
         ))}
+        <div className="mt-6">
+          <ValidatedInput
+            id="procedure_notes"
+            label="Notas clínicas del procedimiento"
+            as="textarea"
+            rows={4}
+            required
+            value={procedureNotes}
+            onChange={(val) => {
+              setProcedureNotes(val);
+              clearSubmitError();
+            }}
+            maxLength={500}
+            placeholder="Notas relevantes sobre el procedimiento, como recomendaciones o cualquier información adicional que el profesional deba tener en cuenta."
+          />
+          <p className="text-[11px] text-gray-400 mt-1.5 pl-0.5">
+            Máximo 500 caracteres · {procedureNotes.length}/500
+          </p>
+        </div>
       </div>
     </div>
   );

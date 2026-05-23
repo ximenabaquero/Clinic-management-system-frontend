@@ -13,7 +13,6 @@ import ClinicalInfoFields, {
   INITIAL_CLINICAL,
 } from "./components/ClinicalInfoFields";
 import ProceduresSelector from "./components/ProceduresSelector";
-import NotesField from "./components/NotesField";
 import StickySubmitBar from "./components/StickySubmitBar";
 import FormAlert from "./components/FormAlert";
 import SidebarSteps from "./components/SideBarSteps";
@@ -328,13 +327,7 @@ export default function RegisterPatientPage() {
                         setProcedureNotes={setProcedureNotes}
                         clearSubmitError={handleDirty}
                       />
-                      <div className="mt-6">
-                        <NotesField
-                          value={procedureNotes}
-                          onChange={setProcedureNotes}
-                          onDirty={handleDirty}
-                        />
-                      </div>
+
                       <StickySubmitBar
                         selectedCount={selectedCount}
                         stickyTotalCop={stickyTotalCop}

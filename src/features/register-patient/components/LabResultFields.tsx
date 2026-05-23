@@ -1,4 +1,5 @@
 import SectionDetails from "./SectionDetails";
+import ValidatedInput from "../../../components/ValidatedInput";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export type LabResultData = {
@@ -92,7 +93,7 @@ function NumericField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-[#BF2496] focus:outline-none focus:ring-2 focus:ring-[#BF2496]/20"
+        className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
       />
     </div>
   );
@@ -144,28 +145,75 @@ export default function LabResultFields({ data, onChange }: Props) {
 
         {/* Valores numéricos — solo visibles si trae exámenes */}
         {data.has_exams && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
-            <NumericField
-              id="inr_value"
-              label="INR"
-              placeholder="Ej: 1.2"
-              value={data.inr_value}
-              onChange={setText("inr_value")}
-            />
-            <NumericField
-              id="glucose_value"
-              label="Glucosa (mg/dL)"
-              placeholder="Ej: 95"
-              value={data.glucose_value}
-              onChange={setText("glucose_value")}
-            />
-            <NumericField
-              id="hematocrit_value"
-              label="Hematocrito (%)"
-              placeholder="Ej: 42"
-              value={data.hematocrit_value}
-              onChange={setText("hematocrit_value")}
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1 mt-2">
+            <div>
+              <label
+                htmlFor="inr_value"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700 mb-1"
+              >
+                INR
+                <span className="text-gray-400 text-[10px] font-normal">
+                  (opcional)
+                </span>
+              </label>
+              <ValidatedInput
+                id="inr_value"
+                label=""
+                type="number"
+                placeholder="Ej: 1.2"
+                value={data.inr_value}
+                onChange={setText("inr_value")}
+                min={0.1}
+                max={10.0}
+                clampToMin
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="glucose_value"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700 mb-1"
+              >
+                Glucosa (mg/dL)
+                <span className="text-gray-400 text-[10px] font-normal">
+                  (opcional)
+                </span>
+              </label>
+              <ValidatedInput
+                id="glucose_value"
+                label=""
+                type="number"
+                placeholder="Ej: 95"
+                value={data.glucose_value}
+                onChange={setText("glucose_value")}
+                min={10}
+                max={1000}
+                clampToMin
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="hematocrit_value"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700 mb-1"
+              >
+                Hematocrito (%)
+                <span className="text-gray-400 text-[10px] font-normal">
+                  (opcional)
+                </span>
+              </label>
+              <ValidatedInput
+                id="hematocrit_value"
+                label=""
+                type="number"
+                placeholder="Ej: 42"
+                value={data.hematocrit_value}
+                onChange={setText("hematocrit_value")}
+                min={0}
+                max={80}
+                clampToMin
+              />
+            </div>
           </div>
         )}
       </SectionDetails>

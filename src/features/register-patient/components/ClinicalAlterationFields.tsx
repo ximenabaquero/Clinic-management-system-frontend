@@ -251,9 +251,16 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
               onChange={setToggle("reflux")}
             />
           </div>
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Hábito intestinal
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="intestinal_habit"
-            label="Hábito intestinal"
+            label=""
             placeholder="Ej: Regular, irregular, cada 2 días..."
             value={data.intestinal_habit}
             onChange={setText("intestinal_habit")}
@@ -265,49 +272,96 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
       {/* ── Piel ────────────────────────────────────────────────── */}
       <SectionDetails label="Condiciones de piel" count={countSkin}>
         <div className="space-y-3">
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Lupus
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="lupus_notes"
-            label="Lupus"
+            label=""
             placeholder="Observaciones sobre lupus (si aplica)"
             value={data.lupus_notes}
             onChange={setText("lupus_notes")}
             maxLength={255}
           />
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Alergias
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="allergy_notes"
-            label="Alergias"
+            label=""
             placeholder="Alergias conocidas"
             value={data.allergy_notes}
             onChange={setText("allergy_notes")}
             maxLength={255}
           />
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Queloides
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="keloid_notes"
-            label="Queloides"
+            label=""
             placeholder="Observaciones sobre queloides"
             value={data.keloid_notes}
             onChange={setText("keloid_notes")}
             maxLength={255}
           />
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Vitiligo
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="vitiligo_notes"
-            label="Vitiligo"
+            label=""
             placeholder="Observaciones sobre vitiligo"
             value={data.vitiligo_notes}
             onChange={setText("vitiligo_notes")}
             maxLength={255}
           />
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Dermatitis
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="dermatitis_notes"
-            label="Dermatitis"
+            label=""
             placeholder="Observaciones sobre dermatitis"
             value={data.dermatitis_notes}
             onChange={setText("dermatitis_notes")}
             maxLength={255}
           />
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Otras condiciones de piel
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="other_skin_notes"
-            label="Otras condiciones de piel"
+            label=""
             placeholder="Otras condiciones relevantes"
             value={data.other_skin_notes}
             onChange={setText("other_skin_notes")}
@@ -341,9 +395,17 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
               onChange={setToggle("depression")}
             />
           </div>
+
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Horas de sueño
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="sleep_hours"
-            label="Horas de sueño"
+            label=""
             type="number"
             placeholder="Ej: 7"
             value={data.sleep_hours}
@@ -358,9 +420,16 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
       {/* ── Ginecológico / Medicación ────────────────────────────── */}
       <SectionDetails label="Ginecológico y medicación" count={countGyneco}>
         <div className="space-y-3">
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Método anticonceptivo
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="birth_control"
-            label="Método anticonceptivo"
+            label=""
             placeholder="Ej: Pastillas, DIU, ninguno..."
             value={data.birth_control}
             onChange={setText("birth_control")}
@@ -368,8 +437,15 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
           />
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-4">
             <div className="sm:col-span-3">
+              <label
+                htmlFor="p-description"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+              >
+                Última menstruación
+                <span className="text-gray-400 font-normal">(opcional)</span>
+              </label>
               <DatePickerSelect
-                label="Última menstruación"
+                label=""
                 value={data.last_period}
                 onChange={setText("last_period")}
                 showAge={false}
@@ -377,9 +453,16 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
               />
             </div>
             <div className="sm:col-span-1">
+              <label
+                htmlFor="p-description"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+              >
+                N° de hijos
+                <span className="text-gray-400 font-normal">(opcional)</span>
+              </label>
               <ValidatedInput
                 id="num_children"
-                label="Número de hijos"
+                label=""
                 type="number"
                 placeholder="Ej: 2"
                 value={data.num_children}
@@ -391,9 +474,16 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             </div>
           </div>
 
+          <label
+            htmlFor="p-description"
+            className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+          >
+            Medicamentos actuales
+            <span className="text-gray-400 font-normal">(opcional)</span>
+          </label>
           <ValidatedInput
             id="medications"
-            label="Medicamentos actuales"
+            label=""
             as="textarea"
             rows={3}
             placeholder="Nombre y dosis de medicamentos que toma actualmente"
@@ -402,6 +492,9 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             maxLength={255}
           />
         </div>
+        <p className="text-[11px] text-gray-400 mt-1.5 pl-0.5">
+          Máximo 255 caracteres · {data.medications.length}/255
+        </p>
       </SectionDetails>
     </div>
   );
