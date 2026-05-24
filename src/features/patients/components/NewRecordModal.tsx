@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import ProceduresSelector from "../../register-patient/components/ProceduresSelector";
-import NotesField from "../../register-patient/components/NotesField";
+
 import ValidatedInput from "@/components/ValidatedInput";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
@@ -214,12 +214,6 @@ export default function NewRecordModal({
                 procedureNotes={notes}
                 setProcedureNotes={setNotes}
                 clearSubmitError={clearSubmitError}
-              />
-
-              <NotesField
-                value={notes}
-                onChange={setNotes}
-                onDirty={clearSubmitError}
               />
 
               {items.length > 0 && (
