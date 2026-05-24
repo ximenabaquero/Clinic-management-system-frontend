@@ -111,10 +111,9 @@ export default function ClinicalImageFormModal({
       );
 
       if (!response.ok) {
-        const err = (await response.json().catch(() => ({}))) as {
-          message?: string;
-        };
-        throw new Error(err.message ?? "Error al guardar");
+        const err = await response.json().catch(() => ({})) as { error?: string; message?: string; debug?: string };
+        console.error("[ClinicalImageFormModal] Backend error:", err);
+        throw new Error(err.error ?? err.message ?? "Error al guardar");
       }
 
       toast.success(editingId ? "Imagen actualizada" : "Imagen creada");
