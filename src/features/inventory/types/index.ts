@@ -16,7 +16,7 @@ export interface InventoryProduct {
   category_id: number;
   name: string;
   description: string | null;
-  type: "insumo" | "equipo";
+  type: "INSUMO" | "EQUIPO";
   created_at: string;
   updated_at: string;
 
@@ -91,7 +91,7 @@ export interface InventoryUsage {
   user_id: number;
   medical_evaluation_id: number | null;
   quantity: number;
-  status: "con_paciente" | "sin_paciente";
+  status: "CON_PACIENTE" | "SIN_PACIENTE";
   reason: string | null;
   usage_date: string;
   created_at: string;
@@ -114,9 +114,9 @@ export interface PurchaseFormValues {
   product_id: number | null;
   name: string;
   category_id: number | "";
-  type: "insumo" | "equipo" | "";
+  type: "INSUMO" | "EQUIPO" | "";
   description: string;
-  stock_minimo: number | ""; // requerido solo si type === "insumo" y product_id === null
+  stock_minimo: number | ""; // requerido solo si type === "INSUMO" y product_id === null
 
   // ── Distribuidor ──────────────────────────────────────────────────────────
   // Caso 1: distributor_id !== null  → existente
@@ -140,7 +140,7 @@ export type UsageItem = {
 
 export interface UsageFormValues {
   items: UsageItem[];
-  status: "con_paciente" | "sin_paciente";
+  status: "CON_PACIENTE" | "SIN_PACIENTE";
   reason: string;
   medical_evaluation_id: number | null;
 }

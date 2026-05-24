@@ -10,7 +10,6 @@ import type { InventoryProduct, InventoryCategory } from "../../types";
 import { exportToCSV, exportToExcel } from "../../utils/exportUtils";
 import ExportDropdown from "@/components/ExportDropdown";
 
-
 interface ProductTabProps {
   products: InventoryProduct[];
   categories: InventoryCategory[];
@@ -45,16 +44,15 @@ export default function ProductTab({
   }, [products, search, activeCategoryId]);
 
   const insumos = useMemo(
-    () => filtered.filter((p) => p.type === "insumo"),
+    () => filtered.filter((p) => p.type === "INSUMO"),
     [filtered],
   );
   const equipos = useMemo(
-    () => filtered.filter((p) => p.type === "equipo"),
+    () => filtered.filter((p) => p.type === "EQUIPO"),
     [filtered],
   );
 
   const handleExportCSV = () => {
-
     const ok = exportToCSV(filtered, categories, "inventario_productos");
     toast[ok ? "success" : "error"](
       ok ? "CSV exportado" : "Error al exportar CSV",
@@ -62,7 +60,6 @@ export default function ProductTab({
   };
 
   const handleExportExcel = async () => {
-
     const loading = toast.loading("Generando Excel…");
     const ok = await exportToExcel(
       filtered,
@@ -115,15 +112,11 @@ export default function ProductTab({
       </div>
 
       {/* Fila 3: Tablas */}
-      <ProductTable
-        products={insumos}
-        title="Insumos Médicos"
-        type="insumo"
-      />
+      <ProductTable products={insumos} title="Insumos Médicos" type="INSUMO" />
       <ProductTable
         products={equipos}
         title="Equipos & Mobiliario"
-        type="equipo"
+        type="EQUIPO"
       />
     </div>
   );

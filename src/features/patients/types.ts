@@ -15,11 +15,11 @@ export type Appointment = {
   patient_id: number;
   appointment_datetime: string;
   duration_minutes: number;
-  procedure_type: 'concejacion' | 'sincecion';
+  procedure_type: "concejacion" | "sincecion";
   doctor_name: string | null;
   fasting_required: boolean;
   notes: string | null;
-  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  status: "pending" | "confirmed" | "completed" | "cancelled";
   created_at: string;
 };
 
@@ -50,12 +50,22 @@ export type Procedure = {
   total_amount: number | string;
 };
 
+export enum DocumentType {
+  CC = "CC", // Cédula de Ciudadanía
+  CE = "CE", // Cédula de Extranjería
+  PAS = "PAS", // Pasaporte
+  TI = "TI", // Tarjeta de Identidad
+}
+
 export type Patient = {
-  first_name: string;
-  last_name: string;
+  id: number;
+  first_name?: string;
+  last_name?: string;
+  full_name?: string;
   cedula: string;
+  document_type?: DocumentType;
   date_of_birth: string;
-  biological_sex: string;
+  biological_sex?: string;
   cellphone: string;
 };
 
@@ -74,5 +84,5 @@ export type EvaluationData = {
   user?: { brand_name?: string };
   referrer_name?: string;
   created_at?: string;
-  status?: string;
+  status: "EN_ESPERA" | "CONFIRMADO" | "CANCELADO";
 };

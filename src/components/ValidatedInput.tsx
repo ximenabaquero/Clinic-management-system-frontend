@@ -56,7 +56,16 @@ export default function ValidatedInput({
   }`;
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
+    let val = e.target.value;
+
+    // Clamp antes de validar y propagar
+    if (type === "number" && clampToMin && val !== "" && min !== undefined) {
+      const num = Number(val.replace(",", "."));
+      if (!isNaN(num) && num < min) {
+        val = String(min);
+      }
+    }
+
     validate(val);
     onChange(val);
   };
@@ -80,7 +89,6 @@ export default function ValidatedInput({
       if (isBelowMin) {
         if (clampToMin && min !== undefined) {
           setError("");
-          onChange(String(min));
           return;
         }
         const unidades: Record<string, string> = {
