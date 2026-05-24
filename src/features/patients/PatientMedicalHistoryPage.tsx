@@ -4,7 +4,7 @@ import { useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useRouter } from "next/navigation";
-import RegisterHeaderBar from "../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import BackButton from "../../components/BackButton";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
@@ -66,7 +66,10 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                   Registros Médicos
                 </h3>
-                <PatientRecordsList key={recordsKey} patientId={Number(patientId)} />
+                <PatientRecordsList
+                  key={recordsKey}
+                  patientId={Number(patientId)}
+                />
               </div>
             </div>
           </div>

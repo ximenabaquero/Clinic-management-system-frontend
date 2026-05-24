@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
 
-import RegisterHeaderBar from "../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import SummaryStats from "./components/SummaryStats";
 import ReferrerStats from "./components/ReferrerStats";
 import TopProceduresByIncome from "./components/TopProceduresByIncome";
@@ -113,7 +113,10 @@ export default function StatsPage() {
                         <TopProceduresByIncome />
                       </div>
                       <div className="md:col-span-3">
-                        <MonthComparisonChart incomeRevealed={incomeRevealed} onReveal={() => setIncomeRevealed(true)} />
+                        <MonthComparisonChart
+                          incomeRevealed={incomeRevealed}
+                          onReveal={() => setIncomeRevealed(true)}
+                        />
                       </div>
                       <div className="md:col-span-2">
                         <ConversionRateCard />
@@ -126,7 +129,10 @@ export default function StatsPage() {
                       </div>
 
                       <div className="md:col-span-5">
-                        <AnnualComparisonChart incomeRevealed={incomeRevealed} onReveal={() => setIncomeRevealed(true)} />
+                        <AnnualComparisonChart
+                          incomeRevealed={incomeRevealed}
+                          onReveal={() => setIncomeRevealed(true)}
+                        />
                       </div>
                     </div>
 

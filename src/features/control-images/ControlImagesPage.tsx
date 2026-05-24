@@ -6,7 +6,7 @@ import useSWR from "swr";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import MainLayout from "@/layouts/MainLayout";
-import RegisterHeaderBar from "../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import RoleGuard from "@/components/RoleGuard";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useAuth } from "@/features/auth/AuthContext";
@@ -25,14 +25,28 @@ export default function ControlImagesPage() {
   const router = useRouter();
   const { user } = useAuth();
   const isAdmin = user?.role === "ADMIN";
-  const { data: images, error, isLoading, mutate } = useSWR<ClinicalImage[]>(endpoints.list, fetcher);
+  const {
+    data: images,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR<ClinicalImage[]>(endpoints.list, fetcher);
 
   const [showModal, setShowModal] = useState(false);
   const [editingImage, setEditingImage] = useState<ClinicalImage | null>(null);
-  const [confirmModal, setConfirmModal] = useState<{ message: string; onConfirm: () => void } | null>(null);
+  const [confirmModal, setConfirmModal] = useState<{
+    message: string;
+    onConfirm: () => void;
+  } | null>(null);
 
-  const openCreate = () => { setEditingImage(null); setShowModal(true); };
-  const openEdit = (image: ClinicalImage) => { setEditingImage(image); setShowModal(true); };
+  const openCreate = () => {
+    setEditingImage(null);
+    setShowModal(true);
+  };
+  const openEdit = (image: ClinicalImage) => {
+    setEditingImage(image);
+    setShowModal(true);
+  };
 
   const handleDelete = (id: number) => {
     setConfirmModal({
@@ -87,7 +101,9 @@ export default function ControlImagesPage() {
                 <button
                   onClick={openCreate}
                   disabled={atLimit}
-                  title={atLimit ? "Límite de 10 imágenes alcanzado" : undefined}
+                  title={
+                    atLimit ? "Límite de 10 imágenes alcanzado" : undefined
+                  }
                   className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <PlusIcon className="h-4 w-4" />
@@ -98,12 +114,16 @@ export default function ControlImagesPage() {
                 {list.length > 0 && (
                   <div className="flex items-center gap-2 text-sm text-gray-500">
                     <PhotoIcon className="h-4 w-4" />
-                    <span>{list.length} imagen{list.length !== 1 ? "es" : ""} publicada{list.length !== 1 ? "s" : ""}</span>
+                    <span>
+                      {list.length} imagen{list.length !== 1 ? "es" : ""}{" "}
+                      publicada{list.length !== 1 ? "s" : ""}
+                    </span>
                   </div>
                 )}
                 {atLimit && (
                   <p className="text-xs text-amber-600 font-medium bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
-                    Límite máximo alcanzado (10/10). Elimina una imagen para agregar otra.
+                    Límite máximo alcanzado (10/10). Elimina una imagen para
+                    agregar otra.
                   </p>
                 )}
               </div>
@@ -111,7 +131,9 @@ export default function ControlImagesPage() {
                 {isLoading && (
                   <div className="text-center py-16">
                     <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent" />
-                    <p className="mt-3 text-sm text-gray-400">Cargando imágenes...</p>
+                    <p className="mt-3 text-sm text-gray-400">
+                      Cargando imágenes...
+                    </p>
                   </div>
                 )}
                 {error && (

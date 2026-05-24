@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import RegisterPatientPage from "@/features/post-login/RegisterPatientPage";
+import RegisterPatientPage from "@/features/register-patient/RegisterPatientPage";
 
 export default function RegisterPatient() {
   return (
@@ -8,4 +8,3 @@ export default function RegisterPatient() {
     </Suspense>
   );
 }
-
