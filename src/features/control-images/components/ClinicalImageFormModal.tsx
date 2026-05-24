@@ -196,7 +196,7 @@ export default function ClinicalImageFormModal({
               maxLength={255}
               placeholder="Breve descripción del tratamiento..."
             />
-            <p className="text-[11px] text-gray-400 mt-1.5 pl-0.5">
+            <p className="text-[11px] text-gray-400 mt-1 pl-0.5">
               Máximo 255 caracteres · {description.length}/255
             </p>
 
