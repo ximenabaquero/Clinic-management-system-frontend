@@ -14,7 +14,7 @@ type User = {
   name: string;
   email: string;
   role: "ADMIN" | "REMITENTE";
-  status: "active" | "inactive" | "fired";
+  status: "ACTIVE" | "INACTIVE" | "FIRED";
 };
 
 type AuthContextType = {

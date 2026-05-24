@@ -10,7 +10,7 @@ import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 // import { CalendarDaysIcon } from "@heroicons/react/24/outline"; // CITAS — pausado temporalmente
 // import { BeakerIcon } from "@heroicons/react/24/outline"; // ORDEN DE EXÁMENES — pausado temporalmente
 
-import RegisterHeaderBar from "../../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../../register-patient/components/RegisterHeaderBar";
 import BackButton from "../../../components/BackButton";
 import AuthGuard from "@/components/AuthGuard";
 import ClinicalRecordView from "./ClinicalRecordView";
@@ -337,7 +337,7 @@ export default function PatientRecordDetail({
         {showUsageForm && (
           <UsageForm
             products={products}
-            mode="con_paciente"
+            mode="CON_PACIENTE"
             medicalEvaluationId={evaluation.id}
             onClose={() => setShowUsageForm(false)}
             onSaved={() => mutate()} // ← refresca el registro al guardar

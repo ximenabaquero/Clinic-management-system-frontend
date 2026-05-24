@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
 
-import RegisterHeaderBar from "@/features/post-login/components/RegisterHeaderBar";
-import RegisterCard from "@/features/post-login/components/RegisterCard";
-import FormAlert from "@/features/post-login/components/FormAlert";
+import RegisterHeaderBar from "@/features/register-patient/components/RegisterHeaderBar";
+import RegisterCard from "@/features/register-patient/components/RegisterCard";
+import FormAlert from "@/features/register-patient/components/FormAlert";
 import { Eye } from "lucide-react";
 
 import AuthGuard from "@/components/AuthGuard";
@@ -93,30 +93,27 @@ export default function PatientsPage() {
   }, [apiBaseUrl, queryString]);
   function DocumentTypeBadge({ type }: { type?: string | null }) {
     const styles: Record<string, string> = {
-      "Cédula de Ciudadanía":
-        "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-      "Cédula de Extranjería": "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
-      Pasaporte: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
-      "Tarjeta de Identidad":
-        "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
+      CC: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+      CE: "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
+      PAS: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
+      TI: "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
     };
 
-    const short: Record<string, string> = {
-      "Cédula de Ciudadanía": "C.C.",
-      "Cédula de Extranjería": "C.E.",
-      Pasaporte: "PAS.",
-      "Tarjeta de Identidad": "T.I.",
+    const labels: Record<string, string> = {
+      CC: "C.C.",
+      CE: "C.E.",
+      PAS: "PAS.",
+      TI: "T.I.",
     };
 
-    const label = type ?? "—";
-    const cls =
-      styles[label] ?? "bg-gray-50 text-gray-600 ring-1 ring-gray-200";
+    const key = type ?? "";
+    const cls = styles[key] ?? "bg-gray-50 text-gray-600 ring-1 ring-gray-200";
 
     return (
       <span
         className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold ${cls}`}
       >
-        {short[label] ?? label}
+        {labels[key] ?? "—"}
       </span>
     );
   }
@@ -158,7 +155,11 @@ export default function PatientsPage() {
 
               <RegisterCard
                 title="Historial clínico"
-                subtitle={isAdmin ? "Pacientes registrados, ordenados por fecha de ingreso (más recientes primero)." : "Tus pacientes registrados, ordenados por fecha de ingreso."}
+                subtitle={
+                  isAdmin
+                    ? "Pacientes registrados, ordenados por fecha de ingreso (más recientes primero)."
+                    : "Tus pacientes registrados, ordenados por fecha de ingreso."
+                }
               >
                 {error ? <FormAlert variant="error" message={error} /> : null}
 

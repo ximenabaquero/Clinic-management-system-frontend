@@ -22,9 +22,7 @@ export default function PageHeader({
         </h1>
         <p className="mt-1 text-sm text-gray-600">{subtitle}</p>
       </div>
-      {actions.length > 0 && (
-        <div className="flex gap-2">{actions}</div>
-      )}
+      {actions.length > 0 && <div className="flex gap-2">{actions}</div>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { InventoryProduct } from "../../types";
 interface Props {
   products: InventoryProduct[];
   title: string;
-  type: "insumo" | "equipo";
+  type: "INSUMO" | "EQUIPO";
 }
 
 const STATUS_STYLES: Record<string, string> = {
@@ -49,14 +49,14 @@ function DescriptionCell({ text }: { text: string | null }) {
 }
 
 export default function ProductTable({ products, title, type }: Props) {
-  const colSpan = type === "insumo" ? 5 : 4;
+  const colSpan = type === "INSUMO" ? 5 : 4;
 
   return (
     <div className="mb-8">
       {/* Header — igual que UsageTable */}
       <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
         <span
-          className={`inline-block w-2 h-2 rounded-full ${type === "insumo" ? "bg-indigo-400" : "bg-purple-400"}`}
+          className={`inline-block w-2 h-2 rounded-full ${type === "INSUMO" ? "bg-indigo-400" : "bg-purple-400"}`}
         />
         {title}
         <span className="ml-auto text-gray-400 font-normal normal-case tracking-normal">
@@ -72,7 +72,7 @@ export default function ProductTable({ products, title, type }: Props) {
             <col style={{ width: "22%" }} />
             <col style={{ width: "30%" }} />
             <col style={{ width: "20%" }} />
-            {type === "insumo" ? (
+            {type === "INSUMO" ? (
               <>
                 <col style={{ width: "14%" }} />
                 <col style={{ width: "14%" }} />
@@ -91,7 +91,7 @@ export default function ProductTable({ products, title, type }: Props) {
                   {h}
                 </th>
               ))}
-              {type === "insumo" ? (
+              {type === "INSUMO" ? (
                 <>
                   <th className="px-4 py-3 text-right text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
                     Stock
@@ -117,7 +117,7 @@ export default function ProductTable({ products, title, type }: Props) {
                 <col style={{ width: "22%" }} />
                 <col style={{ width: "30%" }} />
                 <col style={{ width: "20%" }} />
-                {type === "insumo" ? (
+                {type === "INSUMO" ? (
                   <>
                     <col style={{ width: "14%" }} />
                     <col style={{ width: "14%" }} />
@@ -161,7 +161,7 @@ export default function ProductTable({ products, title, type }: Props) {
                           </span>
                         )}
                       </td>
-                      {type === "insumo" ? (
+                      {type === "INSUMO" ? (
                         <>
                           <td className="px-4 py-3 text-right font-bold text-gray-800 tabular-nums">
                             {p.cantidad}

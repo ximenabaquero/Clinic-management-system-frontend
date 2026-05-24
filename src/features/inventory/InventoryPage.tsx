@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import MainLayout from "@/layouts/MainLayout";
 import AuthGuard from "@/components/AuthGuard";
-import RegisterHeaderBar from "@/features/post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "@/features/register-patient/components/RegisterHeaderBar";
 import { useAuth } from "@/features/auth/AuthContext";
 
 import InventoryNav from "./components/InventoryNav";
@@ -179,7 +179,7 @@ export default function InventoryPage() {
             )}
 
             {/* Navegación por Pestañas */}
-            <InventoryNav activeTab={activeTab} onTabChange={setActiveTab} isAdmin={isAdmin} />
+            <InventoryNav activeTab={activeTab} onTabChange={setActiveTab} />
 
             {/* Área de Contenido Dinámico */}
             <div className="mt-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[500px]">
@@ -218,7 +218,7 @@ export default function InventoryPage() {
                   />
                 )}
 
-                {activeTab === "reportes" && isAdmin && (
+                {activeTab === "reportes" && (
                   <ReportesTab products={products} />
                 )}
 
@@ -263,7 +263,7 @@ export default function InventoryPage() {
         {showUsageForm && (
           <UsageForm
             products={products}
-            mode={usageEvaluationId ? "con_paciente" : "sin_paciente"}
+            mode={usageEvaluationId ? "CON_PACIENTE" : "SIN_PACIENTE"}
             medicalEvaluationId={usageEvaluationId}
             onClose={() => {
               setShowUsageForm(false);

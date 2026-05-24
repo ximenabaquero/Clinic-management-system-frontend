@@ -14,29 +14,18 @@ import {
   DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 import PhoneInputField from "../../../components/PhoneInputField";
+import { Patient, DocumentType } from "../types";
 
 interface Props {
   patientId: number;
 }
 
-interface Patient {
-  id: number;
-  first_name?: string;
-  last_name?: string;
-  full_name?: string;
-  cedula: string;
-  document_type?: string;
-  date_of_birth: string;
-  biological_sex: string;
-  cellphone: string;
-}
-
-const DOCUMENT_TYPES = [
-  "Cédula de Ciudadanía",
-  "Cédula de Extranjería",
-  "Pasaporte",
-  "Tarjeta de Identidad",
-];
+const DOCUMENT_TYPE_LABELS: Record<DocumentType, string> = {
+  [DocumentType.CC]: "Cédula de Ciudadanía",
+  [DocumentType.CE]: "Cédula de Extranjería",
+  [DocumentType.PAS]: "Pasaporte",
+  [DocumentType.TI]: "Tarjeta de Identidad",
+};
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -63,27 +52,33 @@ function capitalize(str: string) {
   return str.trim().replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function DocumentTypeBadge({ type }: { type?: string | null }) {
-  const styles: Record<string, string> = {
-    "Cédula de Ciudadanía":
-      "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-    "Cédula de Extranjería": "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
-    Pasaporte: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
-    "Tarjeta de Identidad": "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
+function DocumentTypeBadge({ type }: { type?: DocumentType | null }) {
+  const styles: Record<DocumentType, string> = {
+    [DocumentType.CC]: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    [DocumentType.CE]: "bg-blue-50 text-blue-700 ring-1 ring-blue-200",
+    [DocumentType.PAS]: "bg-violet-50 text-violet-700 ring-1 ring-violet-200",
+    [DocumentType.TI]: "bg-amber-50 text-amber-700 ring-1 ring-amber-200",
   };
-  const short: Record<string, string> = {
-    "Cédula de Ciudadanía": "C.C.",
-    "Cédula de Extranjería": "C.E.",
-    Pasaporte: "PAS.",
-    "Tarjeta de Identidad": "T.I.",
+  const short: Record<DocumentType, string> = {
+    [DocumentType.CC]: "C.C.",
+    [DocumentType.CE]: "C.E.",
+    [DocumentType.PAS]: "PAS.",
+    [DocumentType.TI]: "T.I.",
   };
-  const label = type ?? "—";
-  const cls = styles[label] ?? "bg-gray-50 text-gray-600 ring-1 ring-gray-200";
+  if (!type)
+    return (
+      <span className="bg-gray-50 text-gray-600 ring-1 ring-gray-200 inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold">
+        —
+      </span>
+    );
+
+  const cls = styles[type] ?? "bg-gray-50 text-gray-600 ring-1 ring-gray-200";
+
   return (
     <span
       className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-semibold ${cls}`}
     >
-      {short[label] ?? label}
+      {short[type] ?? type}
     </span>
   );
 }
@@ -330,16 +325,22 @@ export default function PatientInfo({ patientId }: Props) {
                   <select
                     value={form.document_type ?? ""}
                     onChange={(e) =>
-                      setForm((f) => ({ ...f, document_type: e.target.value }))
+                      setForm((f) => ({
+                        ...f,
+                        document_type: e.target.value as DocumentType,
+                      }))
                     }
                     className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none bg-white"
                   >
                     <option value="">Seleccionar</option>
-                    {DOCUMENT_TYPES.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
+                    {Object.keys(DOCUMENT_TYPE_LABELS).map((key) => {
+                      const enumValue = key as DocumentType;
+                      return (
+                        <option key={enumValue} value={enumValue}>
+                          {DOCUMENT_TYPE_LABELS[enumValue]}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 <div>

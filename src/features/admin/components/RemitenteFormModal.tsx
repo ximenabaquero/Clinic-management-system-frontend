@@ -187,7 +187,7 @@ export default function RemitenteFormModal({ remitente, onClose, onSaved }: Prop
                 type="email"
                 value={form.email}
                 onChange={(val) => setField("email", val)}
-                maxLength={150}
+                maxLength={100}
                 required
                 placeholder="correo@ejemplo.com"
               />
