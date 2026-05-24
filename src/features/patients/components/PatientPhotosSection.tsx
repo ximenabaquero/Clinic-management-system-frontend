@@ -20,30 +20,30 @@ import {
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 const STAGE_LABELS: Record<PhotoStage, string> = {
-  antes:   "Antes",
-  despues: "Después",
-  mes1:    "Control Mes 1",
-  mes2:    "Control Mes 2",
-  mes3:    "Control Mes 3",
+  ANTES:   "Antes",
+  DESPUES: "Después",
+  MES1:    "Control Mes 1",
+  MES2:    "Control Mes 2",
+  MES3:    "Control Mes 3",
 };
 
 const STAGE_SHORT: Record<PhotoStage, string> = {
-  antes:   "Antes",
-  despues: "Después",
-  mes1:    "Mes 1",
-  mes2:    "Mes 2",
-  mes3:    "Mes 3",
+  ANTES:   "Antes",
+  DESPUES: "Después",
+  MES1:    "Mes 1",
+  MES2:    "Mes 2",
+  MES3:    "Mes 3",
 };
 
-const EVOLUTION_STAGES: PhotoStage[] = ["antes", "mes1", "mes2", "mes3"];
-const ALL_STAGES: PhotoStage[] = ["antes", "despues", "mes1", "mes2", "mes3"];
+const EVOLUTION_STAGES: PhotoStage[] = ["ANTES", "MES1", "MES2", "MES3"];
+const ALL_STAGES: PhotoStage[] = ["ANTES", "DESPUES", "MES1", "MES2", "MES3"];
 
 const STAGE_COLORS: Record<PhotoStage, { pill: string; ring: string; dot: string }> = {
-  antes:   { pill: "bg-blue-100 text-blue-700",   ring: "ring-blue-300",   dot: "bg-blue-400" },
-  despues: { pill: "bg-emerald-100 text-emerald-700", ring: "ring-emerald-300", dot: "bg-emerald-400" },
-  mes1:    { pill: "bg-violet-100 text-violet-700", ring: "ring-violet-300", dot: "bg-violet-400" },
-  mes2:    { pill: "bg-amber-100 text-amber-700",  ring: "ring-amber-300",  dot: "bg-amber-400" },
-  mes3:    { pill: "bg-rose-100 text-rose-700",    ring: "ring-rose-300",   dot: "bg-rose-400" },
+  ANTES:   { pill: "bg-blue-100 text-blue-700",       ring: "ring-blue-300",    dot: "bg-blue-400" },
+  DESPUES: { pill: "bg-emerald-100 text-emerald-700", ring: "ring-emerald-300", dot: "bg-emerald-400" },
+  MES1:    { pill: "bg-violet-100 text-violet-700",   ring: "ring-violet-300",  dot: "bg-violet-400" },
+  MES2:    { pill: "bg-amber-100 text-amber-700",     ring: "ring-amber-300",   dot: "bg-amber-400" },
+  MES3:    { pill: "bg-rose-100 text-rose-700",       ring: "ring-rose-300",    dot: "bg-rose-400" },
 };
 
 const fetcher = (url: string) =>
@@ -63,11 +63,11 @@ export default function PatientPhotosSection({ evaluationId }: Props) {
   );
   const photos: PatientPhoto[] = data?.data ?? [];
 
-  const [activeStage, setActiveStage] = useState<PhotoStage>("antes");
+  const [activeStage, setActiveStage] = useState<PhotoStage>("ANTES");
   const [isUploading, setIsUploading] = useState(false);
   const [uploadNotes, setUploadNotes] = useState("");
   const [showUploadPanel, setShowUploadPanel] = useState(false);
-  const [uploadTarget, setUploadTarget] = useState<PhotoStage>("antes");
+  const [uploadTarget, setUploadTarget] = useState<PhotoStage>("ANTES");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const byStage = (stage: PhotoStage) => photos.filter((p) => p.stage === stage);

@@ -19,15 +19,14 @@ import FormAlert from "./components/FormAlert";
 import SidebarSteps from "./components/SideBarSteps";
 import ConfirmModal from "@/components/ConfirmModal";
 import { toast } from "react-hot-toast";
+import {
+  registerClinicalRecord,
+  PatientExistsError,
+  type ProcedureItem,
+  type DocumentType,
+} from "./services/patientRegistrationService";
 
 import AuthGuard from "@/components/AuthGuard";
-
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
-
-type ProcedureItem = {
-  item_name: string;
-  price: string;
-};
 
 const INITIAL_PATIENT: PatientBasicData = {
   firstName: "",
@@ -114,88 +113,40 @@ export default function RegisterPatientPage() {
     setIsSubmitting(true);
 
     try {
-      const token = Cookies.get("XSRF-TOKEN") ?? "";
-
-      const res = await fetch(`${apiBaseUrl}/api/v1/clinical-records`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "X-XSRF-TOKEN": token,
+      const { patient_id, evaluation_id } = await registerClinicalRecord({
+        patient: {
+          first_name: patientData.firstName,
+          last_name: patientData.lastName,
+          date_of_birth: patientData.dateOfBirth,
+          document_type: patientData.documentType as DocumentType,
+          cedula: patientData.cedula,
+          cellphone: patientData.cellphone,
+          biological_sex: patientData.biologicalSex,
         },
-        body: JSON.stringify({
-          patient: {
-            first_name: patientData.firstName,
-            last_name: patientData.lastName,
-            date_of_birth: patientData.dateOfBirth,
-            document_type: patientData.documentType,
-            cedula: patientData.cedula,
-            cellphone: patientData.cellphone,
-            biological_sex: patientData.biologicalSex,
-          },
-          evaluation: {
-            weight: parseFloat(clinicalData.weightKg),
-            height: parseFloat(clinicalData.heightM),
-            medical_background: clinicalData.medicalBackground,
-          },
-          procedure: {
-            notes: procedureNotes,
-            items: procedureItems.map((item) => ({
-              item_name: item.item_name,
-              price: Number((item.price || "").replace(/\D/g, "")),
-            })),
-          },
-        }),
+        evaluation: {
+          weight: parseFloat(clinicalData.weightKg),
+          height: parseFloat(clinicalData.heightM),
+          medical_background: clinicalData.medicalBackground,
+        },
+        procedure: {
+          notes: procedureNotes,
+          items: procedureItems,
+        },
       });
-
-      console.log("CREATE CLINICAL RECORD status:", res.status);
-
-      // Paciente ya existe → redirigir a su historial
-      if (res.status === 409) {
-        const errBody = await res.json();
-        if (errBody.error === "PATIENT_EXISTS" && errBody.data?.patient) {
-          const existingPatient = errBody.data.patient;
-          toast.error(
-            `El paciente ${existingPatient.full_name} ya existe. Redirigiendo...`,
-          );
-          router.push(`/patients/${existingPatient.id}/records`);
-          return;
-        }
-      }
-
-      if (res.status === 401)
-        throw new Error("Sesión expirada. Inicia sesión nuevamente.");
-      if (res.status === 403) {
-        const errJson = await res.json();
-        throw new Error(errJson.message || "Cuenta no activa.");
-      }
-
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => null);
-        console.log("CREATE CLINICAL RECORD failed", res.status, errBody);
-        const detail =
-          errBody?.message ||
-          (errBody?.errors
-            ? Object.values(errBody.errors as Record<string, string[]>)
-                .flat()
-                .join(" ")
-            : null) ||
-          errBody?.error ||
-          "Error al crear registro clínico";
-        throw new Error(detail);
-      }
-
-      const responseData = await res.json();
-      const patient_id = responseData.data.patient.id;
-      const evaluation_id = responseData.data.evaluation.id;
 
       toast.success("Registro guardado correctamente");
       router.push(`/patients/${patient_id}/records/${evaluation_id}`);
     } catch (err) {
-      setSubmitError(
-        err instanceof Error ? err.message : "No se pudo guardar el registro.",
-      );
+      if (err instanceof PatientExistsError) {
+        toast.error(
+          `El paciente ${err.patient.full_name} ya existe. Redirigiendo...`,
+        );
+        router.push(`/patients/${err.patient.id}/records`);
+        return;
+      }
+      const message =
+        err instanceof Error ? err.message : "No se pudo guardar el registro.";
+      setSubmitError(message);
       toast.error("Hubo un error al guardar el registro");
     } finally {
       setIsSubmitting(false);

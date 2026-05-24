@@ -15,7 +15,11 @@ type Props = {
   onSaved: () => void;
 };
 
-export default function ClinicalImageFormModal({ image, onClose, onSaved }: Props) {
+export default function ClinicalImageFormModal({
+  image,
+  onClose,
+  onSaved,
+}: Props) {
   const editingId = image?.id ?? null;
 
   const [title, setTitle] = useState(image?.title ?? "");
@@ -29,7 +33,7 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
     image ? getImageUrl(image.after_image) : null,
   );
   const [isUploading, setIsUploading] = useState(false);
-  
+
   // Estados para errores de validación
   const [errors, setErrors] = useState({
     title: "",
@@ -116,8 +120,12 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
       onSaved();
       onClose();
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Error al procesar la solicitud");
-      console.error("[ClinicalImageFormModal] Submit error:", error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Error al procesar la solicitud",
+      );
+      console.error(error);
     } finally {
       setIsUploading(false);
     }
@@ -138,7 +146,10 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
           <h2 className="text-lg font-bold text-gray-900">
             {editingId ? "Editar imagen" : "Nueva imagen clínica"}
           </h2>
-          <button onClick={onClose} className="rounded-full p-1.5 hover:bg-gray-100 transition">
+          <button
+            onClick={onClose}
+            className="rounded-full p-1.5 hover:bg-gray-100 transition"
+          >
             <XMarkIcon className="h-5 w-5 text-gray-500" />
           </button>
         </div>
@@ -159,17 +170,19 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
               placeholder="Ej. Liposucción abdominal"
             />
             {errors.title && (
-              <p className="text-xs text-red-600 mt-1 font-medium">{errors.title}</p>
+              <p className="text-xs text-red-600 mt-1 font-medium">
+                {errors.title}
+              </p>
             )}
 
             <ValidatedInput
               id="description"
               label="Descripción (opcional)"
               as="textarea"
-              rows={2}
+              rows={3}
               value={description}
               onChange={setDescription}
-              maxLength={300}
+              maxLength={255}
               placeholder="Breve descripción del tratamiento..."
             />
 
@@ -179,30 +192,54 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
                   Imagen Antes {!editingId && "*"}
                 </label>
-                <div 
+                <div
                   onClick={() => {
                     beforeInputRef.current?.click();
-                    if (errors.beforeImage) setErrors({ ...errors, beforeImage: "" });
-                  }} 
+                    if (errors.beforeImage)
+                      setErrors({ ...errors, beforeImage: "" });
+                  }}
                   className={`${imagePickerCls} ${errors.beforeImage ? "border-red-300" : ""}`}
                 >
                   {beforePreviewUrl ? (
                     <>
-                      <Image src={beforePreviewUrl} alt="Preview antes" fill className="object-cover" unoptimized={beforePreviewUrl.startsWith("blob:")} sizes="300px" />
+                      <Image
+                        src={beforePreviewUrl}
+                        alt="Preview antes"
+                        fill
+                        className="object-cover"
+                        unoptimized={beforePreviewUrl.startsWith("blob:")}
+                        sizes="300px"
+                      />
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition flex items-center justify-center">
-                        <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Cambiar</span>
+                        <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">
+                          Cambiar
+                        </span>
                       </div>
                     </>
                   ) : (
                     <div className="text-center p-4">
-                      <PhotoIcon className={`h-8 w-8 mx-auto mb-1 ${errors.beforeImage ? "text-red-300" : "text-gray-300"}`} />
-                      <p className={`text-xs ${errors.beforeImage ? "text-red-400" : "text-gray-400"}`}>Haz clic para seleccionar</p>
+                      <PhotoIcon
+                        className={`h-8 w-8 mx-auto mb-1 ${errors.beforeImage ? "text-red-300" : "text-gray-300"}`}
+                      />
+                      <p
+                        className={`text-xs ${errors.beforeImage ? "text-red-400" : "text-gray-400"}`}
+                      >
+                        Haz clic para seleccionar
+                      </p>
                     </div>
                   )}
                 </div>
-                <input ref={beforeInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" onChange={handleBeforeChange} className="hidden" />
+                <input
+                  ref={beforeInputRef}
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  onChange={handleBeforeChange}
+                  className="hidden"
+                />
                 {errors.beforeImage && (
-                  <p className="text-xs text-red-600 mt-1 font-medium">{errors.beforeImage}</p>
+                  <p className="text-xs text-red-600 mt-1 font-medium">
+                    {errors.beforeImage}
+                  </p>
                 )}
               </div>
 
@@ -211,30 +248,54 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                 <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">
                   Imagen Después {!editingId && "*"}
                 </label>
-                <div 
+                <div
                   onClick={() => {
                     afterInputRef.current?.click();
-                    if (errors.afterImage) setErrors({ ...errors, afterImage: "" });
-                  }} 
+                    if (errors.afterImage)
+                      setErrors({ ...errors, afterImage: "" });
+                  }}
                   className={`${imagePickerCls} ${errors.afterImage ? "border-red-300" : ""}`}
                 >
                   {afterPreviewUrl ? (
                     <>
-                      <Image src={afterPreviewUrl} alt="Preview después" fill className="object-cover" unoptimized={afterPreviewUrl.startsWith("blob:")} sizes="300px" />
+                      <Image
+                        src={afterPreviewUrl}
+                        alt="Preview después"
+                        fill
+                        className="object-cover"
+                        unoptimized={afterPreviewUrl.startsWith("blob:")}
+                        sizes="300px"
+                      />
                       <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition flex items-center justify-center">
-                        <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Cambiar</span>
+                        <span className="opacity-0 hover:opacity-100 text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">
+                          Cambiar
+                        </span>
                       </div>
                     </>
                   ) : (
                     <div className="text-center p-4">
-                      <PhotoIcon className={`h-8 w-8 mx-auto mb-1 ${errors.afterImage ? "text-red-300" : "text-gray-300"}`} />
-                      <p className={`text-xs ${errors.afterImage ? "text-red-400" : "text-gray-400"}`}>Haz clic para seleccionar</p>
+                      <PhotoIcon
+                        className={`h-8 w-8 mx-auto mb-1 ${errors.afterImage ? "text-red-300" : "text-gray-300"}`}
+                      />
+                      <p
+                        className={`text-xs ${errors.afterImage ? "text-red-400" : "text-gray-400"}`}
+                      >
+                        Haz clic para seleccionar
+                      </p>
                     </div>
                   )}
                 </div>
-                <input ref={afterInputRef} type="file" accept="image/jpeg,image/jpg,image/png,image/webp" onChange={handleAfterChange} className="hidden" />
+                <input
+                  ref={afterInputRef}
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  onChange={handleAfterChange}
+                  className="hidden"
+                />
                 {errors.afterImage && (
-                  <p className="text-xs text-red-600 mt-1 font-medium">{errors.afterImage}</p>
+                  <p className="text-xs text-red-600 mt-1 font-medium">
+                    {errors.afterImage}
+                  </p>
                 )}
               </div>
             </div>
@@ -248,28 +309,52 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
                   <div className="grid grid-cols-2 gap-0.5 bg-gray-100">
                     <div className="relative aspect-square">
                       {beforePreviewUrl ? (
-                        <Image src={beforePreviewUrl} alt="Antes" fill className="object-cover" unoptimized={beforePreviewUrl.startsWith("blob:")} sizes="150px" />
+                        <Image
+                          src={beforePreviewUrl}
+                          alt="Antes"
+                          fill
+                          className="object-cover"
+                          unoptimized={beforePreviewUrl.startsWith("blob:")}
+                          sizes="150px"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                           <PhotoIcon className="h-6 w-6 text-gray-400" />
                         </div>
                       )}
-                      <span className="absolute top-1.5 left-1.5 bg-black/60 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">ANTES</span>
+                      <span className="absolute top-1.5 left-1.5 bg-black/60 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                        ANTES
+                      </span>
                     </div>
                     <div className="relative aspect-square">
                       {afterPreviewUrl ? (
-                        <Image src={afterPreviewUrl} alt="Después" fill className="object-cover" unoptimized={afterPreviewUrl.startsWith("blob:")} sizes="150px" />
+                        <Image
+                          src={afterPreviewUrl}
+                          alt="Después"
+                          fill
+                          className="object-cover"
+                          unoptimized={afterPreviewUrl.startsWith("blob:")}
+                          sizes="150px"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                           <PhotoIcon className="h-6 w-6 text-gray-400" />
                         </div>
                       )}
-                      <span className="absolute top-1.5 left-1.5 bg-emerald-600/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">DESPUÉS</span>
+                      <span className="absolute top-1.5 left-1.5 bg-emerald-600/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                        DESPUÉS
+                      </span>
                     </div>
                   </div>
                   <div className="p-3">
-                    <p className="font-semibold text-gray-900 text-sm truncate">{title || "Título del tratamiento"}</p>
-                    {description && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{description}</p>}
+                    <p className="font-semibold text-gray-900 text-sm truncate">
+                      {title || "Título del tratamiento"}
+                    </p>
+                    {description && (
+                      <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                        {description}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -278,7 +363,11 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
         </div>
 
         <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 shrink-0">
-          <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition"
+          >
             Cancelar
           </button>
           <button
@@ -286,7 +375,11 @@ export default function ClinicalImageFormModal({ image, onClose, onSaved }: Prop
             disabled={isUploading}
             className="px-5 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition font-medium disabled:opacity-50"
           >
-            {isUploading ? "Guardando..." : editingId ? "Actualizar imagen" : "Publicar imagen"}
+            {isUploading
+              ? "Guardando..."
+              : editingId
+                ? "Actualizar imagen"
+                : "Publicar imagen"}
           </button>
         </div>
       </div>

@@ -12,15 +12,14 @@ type TabType =
 interface InventoryNavProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
-  isAdmin?: boolean;
 }
 
-const ALL_TABS: { key: TabType; label: string; adminOnly?: boolean }[] = [
+const TABS: { key: TabType; label: string }[] = [
   { key: "dashboard", label: "Dashboard" },
   { key: "compras", label: "Compras" },
   { key: "consumos", label: "Consumos" },
   { key: "distribuidores", label: "Distribuidores" },
-  { key: "reportes", label: "Reportes", adminOnly: true },
+  { key: "reportes", label: "Reportes" },
 ];
 
 const activeBtn =
@@ -32,10 +31,7 @@ const inactiveBtn =
 export default function InventoryNav({
   activeTab,
   onTabChange,
-  isAdmin = false,
 }: InventoryNavProps) {
-  const TABS = ALL_TABS.filter((t) => !t.adminOnly || isAdmin);
-
   return (
     <nav className="w-full bg-white border border-gray-200 rounded-2xl px-4 py-2.5">
       <div className="grid grid-cols-[1fr_auto_1fr] items-center">
