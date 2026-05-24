@@ -130,7 +130,9 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div>
             <h2 className="text-base font-bold text-gray-900">Editar perfil</h2>
-            <p className="text-xs text-gray-500 mt-0.5">{user?.name ?? "Administrador"}</p>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {user?.name ?? "Administrador"}
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -153,7 +155,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.first_name}
               onChange={(val) => setForm((f) => ({ ...f, first_name: val }))}
-              maxLength={50}
+              maxLength={100}
               required
               placeholder="Nombre"
             />
@@ -164,7 +166,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.last_name}
               onChange={(val) => setForm((f) => ({ ...f, last_name: val }))}
-              maxLength={50}
+              maxLength={100}
               required
               placeholder="Apellidos"
             />
@@ -198,7 +200,9 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
 
               {password && (
                 <ul className="space-y-1 text-xs mt-1">
-                  <li className={`flex items-center gap-1.5 font-medium ${password.length >= 8 ? "text-emerald-600" : "text-red-500"}`}>
+                  <li
+                    className={`flex items-center gap-1.5 font-medium ${password.length >= 8 ? "text-emerald-600" : "text-red-500"}`}
+                  >
                     <span>{password.length >= 8 ? "✓" : "✗"}</span>
                     Mínimo 8 caracteres
                   </li>
@@ -216,9 +220,13 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               />
 
               {password && passwordConfirmation && (
-                <p className={`text-xs font-medium flex items-center gap-1.5 ${password === passwordConfirmation ? "text-emerald-600" : "text-red-500"}`}>
+                <p
+                  className={`text-xs font-medium flex items-center gap-1.5 ${password === passwordConfirmation ? "text-emerald-600" : "text-red-500"}`}
+                >
                   <span>{password === passwordConfirmation ? "✓" : "✗"}</span>
-                  {password === passwordConfirmation ? "Las contraseñas coinciden" : "Las contraseñas no coinciden"}
+                  {password === passwordConfirmation
+                    ? "Las contraseñas coinciden"
+                    : "Las contraseñas no coinciden"}
                 </p>
               )}
             </div>
