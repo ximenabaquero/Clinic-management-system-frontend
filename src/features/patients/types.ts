@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 export type PhotoStage = "antes" | "despues" | "mes1" | "mes2" | "mes3";
+=======
+export type PhotoStage = "ANTES" | "DESPUES" | "MES1" | "MES2" | "MES3";
+>>>>>>> Stashed changes
 
 export type PatientPhoto = {
   id: number;
@@ -65,8 +69,14 @@ export type Patient = {
   cedula: string;
   document_type?: DocumentType;
   date_of_birth: string;
+  age?: number;
   biological_sex?: string;
   cellphone: string;
+  phone?: string;
+  address?: string;
+  marital_status?: string;
+  eps?: string;
+  occupation?: string;
 };
 
 export type EvaluationData = {
@@ -79,6 +89,7 @@ export type EvaluationData = {
   bmi_status: string;
   medical_background: string;
   procedures: Procedure[];
+  procedure_date: string;
   patient_signature?: string;
   confirmed_at?: string;
   user?: { brand_name?: string };
