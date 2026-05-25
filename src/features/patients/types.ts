@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-export type PhotoStage = "antes" | "despues" | "mes1" | "mes2" | "mes3";
-=======
 export type PhotoStage = "ANTES" | "DESPUES" | "MES1" | "MES2" | "MES3";
->>>>>>> Stashed changes
 
 export type PatientPhoto = {
   id: number;
