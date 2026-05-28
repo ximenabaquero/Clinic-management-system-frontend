@@ -1,6 +1,5 @@
 import useSWR from "swr";
-import type { Patient } from "../types";
-import type { EvaluationData } from "../types";
+import type { PatientProfile, EvaluationCard, Patient } from "../types";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -22,15 +21,8 @@ async function fetcher(url: string) {
   return res.json();
 }
 
-export type PatientProfileResponse = {
-  patient: Patient;
-  evaluations: EvaluationData[];
-};
-
 export function usePatientProfile(patientId: number) {
-  const { data, error, isLoading, mutate } = useSWR<{
-    data: PatientProfileResponse;
-  }>(
+  const { data, error, isLoading, mutate } = useSWR<{ data: PatientProfile }>(
     patientId
       ? `${apiBaseUrl}/api/v1/patients/${patientId}/clinical-records`
       : null,
@@ -38,8 +30,8 @@ export function usePatientProfile(patientId: number) {
   );
 
   return {
-    patient: data?.data?.patient,
-    evaluations: data?.data?.evaluations ?? [],
+    patient: data?.data?.patient as Patient | undefined,
+    evaluations: (data?.data?.evaluations as EvaluationCard[]) ?? [],
     isLoading,
     error,
     mutate,

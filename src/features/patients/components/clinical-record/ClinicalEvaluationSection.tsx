@@ -1,0 +1,173 @@
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
+
+import type { FullRecord, ClinicalFindings, LabResults } from "../../types";
+import { SectionHeader, ClinicalSubsectionCard, getActiveLabels } from "./ui";
+
+// ─── Label maps ───────────────────────────────────────────────────────────────
+
+const METABOLIC_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
+  diabetes: "Diabetes",
+  cardiac: "Problemas cardíacos",
+  varicose_veins: "Várices",
+  thrombosis: "Trombos",
+  fluid_retention: "Retención de líquidos",
+  hepatitis: "Hepatitis",
+  surgeries: "Cirugías realizadas",
+  kidney_issues: "Problemas renales",
+  thyroid_issues: "Problemas  de tiroides",
+};
+
+const DIGESTIVE_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
+  constipation: "Estreñimiento",
+  gastritis: "Gastritis",
+  irritable_bowel: "Colon irritable",
+  reflux: "Reflujo",
+  intestinal_habit: "Hábito intestinal",
+};
+
+const SKIN_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
+  lupus_notes: "Lupus",
+  allergy_notes: "Alergias",
+  keloid_notes: "Queloides",
+  vitiligo_notes: "Vitiligo",
+  dermatitis_notes: "Dermatitis",
+  other_skin_notes: "Otras condiciones de piel",
+};
+
+const HABITS_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
+  smokes: "Fuma",
+  alcohol: "Consume alcohol",
+  anxiety: "Ansiedad",
+  depression: "Depresión",
+  sleep_hours: "Horas de sueño",
+};
+
+const GYNECO_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
+  birth_control: "Método anticonceptivo",
+  last_period: "Última menstruación",
+  num_children: " N° de hijos",
+  medications: "Medicamentos actuales",
+};
+
+const LAB_LABELS: Partial<Record<keyof LabResults, string>> = {
+  has_exams: "¿Trae exámenes?",
+  hemoglobin_done: "Hemoglobina realizada",
+  inr_value: "INR",
+  glucose_value: "Glucosa (mg/dL)",
+  hematocrit_value: "Hematocrito (%)",
+};
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type Props = {
+  evaluation: FullRecord["evaluation"];
+  clinicalFindings: ClinicalFindings;
+  labResults: LabResults;
+  isConfirmed: boolean;
+  onEdit: () => void;
+};
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export function ClinicalEvaluationSection({
+  evaluation,
+  clinicalFindings,
+  labResults,
+  isConfirmed,
+  onEdit,
+}: Props) {
+  const metabolicItems = getActiveLabels(clinicalFindings, METABOLIC_LABELS);
+  const digestiveItems = getActiveLabels(clinicalFindings, DIGESTIVE_LABELS);
+  const skinItems = getActiveLabels(clinicalFindings, SKIN_LABELS);
+  const habitsItems = getActiveLabels(clinicalFindings, HABITS_LABELS);
+  const gynecoItems = getActiveLabels(clinicalFindings, GYNECO_LABELS);
+  const labItems = getActiveLabels(labResults, LAB_LABELS);
+
+  return (
+    <section>
+      <SectionHeader
+        color="blue"
+        title="Evaluación clínica"
+        action={
+          !isConfirmed ? (
+            <button
+              onClick={onEdit}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition print:hidden"
+            >
+              <PencilSquareIcon className="h-3.5 w-3.5" />
+              Editar
+            </button>
+          ) : undefined
+        }
+      />
+
+      {/* ── IMC metrics ──────────────────────────────────────────────── */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm mb-6">
+        {[
+          { label: "Peso", value: `${evaluation.weight} kg` },
+          { label: "Estatura", value: `${evaluation.height} m` },
+          {
+            label: "IMC",
+            value: (
+              <span className="font-semibold text-blue-600">
+                {evaluation.bmi}
+              </span>
+            ),
+          },
+          {
+            label: "Estado IMC",
+            value: (
+              <span className="inline-block rounded-full bg-blue-100 px-2 py-0.5 text-[11px] font-bold text-blue-600">
+                {evaluation.bmi_status}
+              </span>
+            ),
+          },
+        ].map(({ label, value }) => (
+          <div key={label}>
+            <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-1">
+              {label}
+            </p>
+            <p className="font-medium">{value}</p>
+            <div className="border-t border-gray-100 mt-2" />
+          </div>
+        ))}
+      </div>
+
+      {/* ── Subsection cards ─────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <ClinicalSubsectionCard
+          title="Metabólicos y cardiovasculares"
+          activeItems={metabolicItems}
+        />
+        <ClinicalSubsectionCard
+          title="Digestivos"
+          activeItems={digestiveItems}
+        />
+        <ClinicalSubsectionCard
+          title="Condiciones de piel"
+          activeItems={skinItems}
+        />
+        <ClinicalSubsectionCard
+          title="Hábitos y salud mental"
+          activeItems={habitsItems}
+        />
+        <ClinicalSubsectionCard
+          title="Ginecológico y medicación"
+          activeItems={gynecoItems}
+        />
+        <ClinicalSubsectionCard
+          title="Resultados de laboratorio"
+          activeItems={labItems}
+        />
+      </div>
+
+      {/* ── Observations ─────────────────────────────────────────────── */}
+      <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">
+        Observaciones de la evaluación clínica
+      </p>
+      <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700">
+        {evaluation.medical_background}
+      </div>
+    </section>
+  );
+}
