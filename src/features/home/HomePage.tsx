@@ -5,6 +5,7 @@ import Testimonials from "@/features/home/components/Testimonials";
 import MainLayout from "@/layouts/MainLayout";
 import Services from "@/features/home/components/Services";
 import VisionMision from "@/features/home/components/VisionMision";
+import GalleryCarousel from "@/features/home/components/GalleryCarousel";
 import Contact from "./components/Contact";
 
 export default function HomePage() {
@@ -16,6 +17,7 @@ export default function HomePage() {
         <Benefits />
         <VisionMision />
         <Education />
+        <GalleryCarousel />
         <Testimonials />
         <Contact />
       </main>
