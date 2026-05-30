@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 
 import type { FullRecord, ClinicalFindings, LabResults } from "../../types";
-import { SectionHeader, ClinicalSubsectionCard, getActiveLabels } from "./ui";
+import { SectionHeader, ClinicalSubsectionCard, getAllLabels } from "./ui";
 
 // ─── Label maps ───────────────────────────────────────────────────────────────
 
@@ -9,12 +9,12 @@ const METABOLIC_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
   diabetes: "Diabetes",
   cardiac: "Problemas cardíacos",
   varicose_veins: "Várices",
-  thrombosis: "Trombos",
+  thrombosis: "Trombosis",
   fluid_retention: "Retención de líquidos",
   hepatitis: "Hepatitis",
   surgeries: "Cirugías realizadas",
   kidney_issues: "Problemas renales",
-  thyroid_issues: "Problemas  de tiroides",
+  thyroid_issues: "Problemas de tiroides",
 };
 
 const DIGESTIVE_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
@@ -45,7 +45,7 @@ const HABITS_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
 const GYNECO_LABELS: Partial<Record<keyof ClinicalFindings, string>> = {
   birth_control: "Método anticonceptivo",
   last_period: "Última menstruación",
-  num_children: " N° de hijos",
+  num_children: "N° de hijos",
   medications: "Medicamentos actuales",
 };
 
@@ -76,12 +76,13 @@ export function ClinicalEvaluationSection({
   isConfirmed,
   onEdit,
 }: Props) {
-  const metabolicItems = getActiveLabels(clinicalFindings, METABOLIC_LABELS);
-  const digestiveItems = getActiveLabels(clinicalFindings, DIGESTIVE_LABELS);
-  const skinItems = getActiveLabels(clinicalFindings, SKIN_LABELS);
-  const habitsItems = getActiveLabels(clinicalFindings, HABITS_LABELS);
-  const gynecoItems = getActiveLabels(clinicalFindings, GYNECO_LABELS);
-  const labItems = getActiveLabels(labResults, LAB_LABELS);
+  // Use getAllLabels so every field is always shown regardless of value
+  const metabolicItems = getAllLabels(clinicalFindings, METABOLIC_LABELS);
+  const digestiveItems = getAllLabels(clinicalFindings, DIGESTIVE_LABELS);
+  const skinItems = getAllLabels(clinicalFindings, SKIN_LABELS);
+  const habitsItems = getAllLabels(clinicalFindings, HABITS_LABELS);
+  const gynecoItems = getAllLabels(clinicalFindings, GYNECO_LABELS);
+  const labItems = getAllLabels(labResults, LAB_LABELS);
 
   return (
     <section>
@@ -95,7 +96,7 @@ export function ClinicalEvaluationSection({
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition print:hidden"
             >
               <PencilSquareIcon className="h-3.5 w-3.5" />
-              Editar
+              Editar evaluación clínica
             </button>
           ) : undefined
         }
@@ -135,29 +136,39 @@ export function ClinicalEvaluationSection({
 
       {/* ── Subsection cards ─────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        {/*
+          columns=2 on boolean-heavy sections so each row is shorter
+          and the card doesn't become a tall single-column list.
+        */}
         <ClinicalSubsectionCard
           title="Metabólicos y cardiovasculares"
-          activeItems={metabolicItems}
+          items={metabolicItems}
+          columns={2}
         />
         <ClinicalSubsectionCard
           title="Digestivos"
-          activeItems={digestiveItems}
+          items={digestiveItems}
+          columns={1}
         />
         <ClinicalSubsectionCard
           title="Condiciones de piel"
-          activeItems={skinItems}
+          items={skinItems}
+          columns={1}
         />
         <ClinicalSubsectionCard
           title="Hábitos y salud mental"
-          activeItems={habitsItems}
+          items={habitsItems}
+          columns={2}
         />
         <ClinicalSubsectionCard
           title="Ginecológico y medicación"
-          activeItems={gynecoItems}
+          items={gynecoItems}
+          columns={1}
         />
         <ClinicalSubsectionCard
           title="Resultados de laboratorio"
-          activeItems={labItems}
+          items={labItems}
+          columns={1}
         />
       </div>
 

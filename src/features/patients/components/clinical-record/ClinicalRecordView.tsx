@@ -15,13 +15,12 @@ type Props = {
   currentYear: number;
   onEditEval: () => void;
   onEditProc: (proc: Procedure) => void;
-  onRegisterUsage?: () => void;
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
-  ({ record, currentYear, onEditEval, onEditProc, onRegisterUsage }, ref) => {
+  ({ record, currentYear, onEditEval, onEditProc }, ref) => {
     const { evaluation, snapshot, clinical_findings, lab_results, procedures } =
       record;
 
@@ -78,19 +77,6 @@ const ClinicalRecordView = forwardRef<HTMLDivElement, Props>(
               </p>
             </div>
           </div>
-        </div>
-
-        {/* ── Botón registrar consumo ─────────────────────────────────────────────── */}
-        <div className="flex items-center justify-end px-4 sm:px-8 py-3 border-t border-gray-100">
-          {onRegisterUsage && isConfirmed && (
-            <button
-              onClick={onRegisterUsage}
-              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-teal-500 rounded-xl shadow-md shadow-indigo-200 hover:from-indigo-700 hover:to-teal-600 transition-all duration-200"
-            >
-              <PlusIcon className="w-4 h-4" />
-              Registrar consumo
-            </button>
-          )}
         </div>
 
         {/* ── Sections ───────────────────────────────────────────────── */}

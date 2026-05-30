@@ -50,17 +50,17 @@ const STATUS_CONFIG = {
 };
 
 function formatDate(dateString: string) {
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.slice(0, 10).split("-").map(Number);
+  const date = new Date(year, month - 1, day);
   return {
-    day: date.toLocaleDateString("es-ES", { day: "2-digit" }),
+    day: String(day).padStart(2, "0"),
     month: date
       .toLocaleDateString("es-ES", { month: "short" })
       .replace(".", "")
       .toUpperCase(),
-    year: date.toLocaleDateString("es-ES", { year: "numeric" }),
+    year: String(year),
   };
 }
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function PatientRecordsList({ patientId }: Props) {

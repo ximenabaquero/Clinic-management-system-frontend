@@ -9,6 +9,17 @@ type Props = {
   evaluation: FullRecord["evaluation"];
 };
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function formatDate(isoString: string): string {
+  return new Date(isoString).toLocaleDateString("es-CO", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function Field({
@@ -55,7 +66,10 @@ export function PersonalDataSection({ snapshot, evaluation }: Props) {
             label="Documento"
             value={`${snapshot.document_type} ${snapshot.cedula}`}
           />
-          <Field label="Fecha de nacimiento" value={snapshot.date_of_birth} />
+          <Field
+            label="Fecha de nacimiento"
+            value={formatDate(snapshot.date_of_birth)}
+          />
           <Field
             label="Edad"
             value={`${evaluation.patient_age_at_evaluation} años`}

@@ -60,132 +60,173 @@ export function DataGrid({ items }: { items: DataGridItem[] }) {
   );
 }
 
-// ─── ClinicalSubsectionCard ───────────────────────────────────────────────────
+// ─── FieldItem ────────────────────────────────────────────────────────────────
 
-export type SubsectionColorKey =
-  | "rose"
-  | "amber"
-  | "violet"
-  | "indigo"
-  | "pink"
-  | "teal";
-
-type SubsectionColorConfig = {
-  border: string;
-  headerBg: string;
-  badgeBase: string;
-  badgeActive: string;
-  pill: string;
-  pillText: string;
-  dot: string;
-  bar: string;
+export type FieldItem = {
+  label: string;
+  value: string | null | undefined;
+  active: boolean;
 };
 
-const SUBSECTION_COLORS: Record<SubsectionColorKey, SubsectionColorConfig> = {
-  rose: {
-    border: "border-rose-100",
-    headerBg: "bg-rose-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-rose-100 text-rose-600",
-    pill: "bg-rose-50 border border-rose-100",
-    pillText: "text-rose-700",
-    dot: "bg-rose-400",
-    bar: "bg-rose-400",
-  },
-  amber: {
-    border: "border-amber-100",
-    headerBg: "bg-amber-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-amber-100 text-amber-600",
-    pill: "bg-amber-50 border border-amber-100",
-    pillText: "text-amber-700",
-    dot: "bg-amber-400",
-    bar: "bg-amber-400",
-  },
-  violet: {
-    border: "border-violet-100",
-    headerBg: "bg-violet-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-violet-100 text-violet-600",
-    pill: "bg-violet-50 border border-violet-100",
-    pillText: "text-violet-700",
-    dot: "bg-violet-400",
-    bar: "bg-violet-400",
-  },
-  indigo: {
-    border: "border-indigo-100",
-    headerBg: "bg-indigo-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-indigo-100 text-indigo-600",
-    pill: "bg-indigo-50 border border-indigo-100",
-    pillText: "text-indigo-700",
-    dot: "bg-indigo-400",
-    bar: "bg-indigo-400",
-  },
-  pink: {
-    border: "border-pink-100",
-    headerBg: "bg-pink-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-pink-100 text-pink-600",
-    pill: "bg-pink-50 border border-pink-100",
-    pillText: "text-pink-700",
-    dot: "bg-pink-400",
-    bar: "bg-pink-400",
-  },
-  teal: {
-    border: "border-teal-100",
-    headerBg: "bg-teal-50/60",
-    badgeBase: "bg-gray-100 text-gray-400",
-    badgeActive: "bg-teal-100 text-teal-600",
-    pill: "bg-teal-50 border border-teal-100",
-    pillText: "text-teal-700",
-    dot: "bg-teal-400",
-    bar: "bg-teal-400",
-  },
-};
+// ─── getAllLabels ─────────────────────────────────────────────────────────────
+//
+// Returns ALL fields from the label map, marking each as active or not.
+//   boolean true  → active, value = "Sí"
+//   boolean false → inactive, value = "No"
+//   string/number → active if non-empty, else inactive with value = "—"
+//   null/undefined → inactive, value = "—"
+
+export function getAllLabels<T extends object>(
+  data: T,
+  labelMap: Partial<Record<keyof T, string>>,
+): FieldItem[] {
+  return (Object.keys(labelMap) as (keyof T)[]).map((key) => {
+    const raw = data[key];
+    const label = labelMap[key] as string;
+
+    if (raw === null || raw === undefined) {
+      return { label, value: "—", active: false };
+    }
+
+    if (typeof raw === "boolean") {
+      return { label, value: raw ? "Sí" : "No", active: raw };
+    }
+
+    const str = String(raw).trim();
+    if (str === "" || str === "0") {
+      return { label, value: "—", active: false };
+    }
+
+    return { label, value: str, active: true };
+  });
+}
+
+// Backward-compatible alias for callers that still use getActiveLabels
+export type ActiveItem = { label: string; value: string };
+
+export function getActiveLabels<T extends object>(
+  data: T,
+  labelMap: Partial<Record<keyof T, string>>,
+): ActiveItem[] {
+  return getAllLabels(data, labelMap)
+    .filter((item) => item.active)
+    .map(({ label, value }) => ({ label, value: value ?? "—" }));
+}
 
 // ─── ClinicalSubsectionCard ───────────────────────────────────────────────────
+//
+// Renders ALL fields. Active findings (true / non-empty text) appear bold
+// with a colored badge. Inactive fields render in muted gray with "No" or "—".
+//
+// columns = 2 splits the list into two columns — ideal for boolean-heavy
+// sections like metabolic or habits where most fields are short one-liners.
+
+type ClinicalSubsectionCardProps = {
+  title: string;
+  items: FieldItem[];
+  columns?: 1 | 2;
+};
 
 export function ClinicalSubsectionCard({
   title,
-  activeItems,
-}: {
-  title: string;
-  colorKey?: SubsectionColorKey; // se mantiene por compatibilidad pero ya no se usa
-  activeItems: ActiveItem[];
-}) {
-  const hasItems = activeItems.length > 0;
-
+  items,
+  columns = 1,
+}: ClinicalSubsectionCardProps) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-      <div className="px-4 py-2.5 border-b border-gray-100 bg-gray-50">
-        <p className="text-[11px] uppercase font-bold text-gray-500 tracking-wide">
+    <div className="rounded-2xl border border-slate-100 bg-white overflow-hidden shadow-sm">
+      {/* ── Header ──────────────────────────────────────────────────── */}
+      <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60">
+        <p className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">
           {title}
         </p>
       </div>
 
-      <div className="px-4 py-3 min-h-[52px]">
-        {!hasItems ? (
-          <p className="text-xs text-gray-400 italic">
-            Sin alteraciones registradas
-          </p>
-        ) : (
-          <ul className="divide-y divide-gray-50">
-            {activeItems.map(({ label, value }) => (
-              <li
-                key={label}
-                className="flex items-baseline justify-between gap-4 py-1.5 first:pt-0 last:pb-0"
-              >
-                <span className="text-xs text-gray-500">{label}</span>
-                <span className="text-xs font-medium text-gray-800 text-right">
-                  {value}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
+      {/* ── Body ────────────────────────────────────────────────────── */}
+      <div
+        className={`px-4 py-2 ${
+          columns === 2 ? "grid grid-cols-2 gap-x-4" : "flex flex-col"
+        }`}
+      >
+        {items.map(({ label, value, active }) => (
+          <FieldRow key={label} label={label} value={value} active={active} />
+        ))}
       </div>
     </div>
+  );
+}
+
+// ─── FieldRow ─────────────────────────────────────────────────────────────────
+
+function FieldRow({
+  label,
+  value,
+  active,
+}: {
+  label: string;
+  value: string | null | undefined;
+  active: boolean;
+}) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 py-1.5 border-b border-slate-50 last:border-0">
+      {/* Label */}
+      <span
+        className={`text-xs leading-snug truncate ${
+          active ? "font-semibold text-slate-800" : "text-slate-400 font-normal"
+        }`}
+      >
+        {label}
+      </span>
+
+      {/* Value */}
+      <ValueBadge value={value} active={active} />
+    </div>
+  );
+}
+
+// ─── ValueBadge ──────────────────────────────────────────────────────────────
+
+function ValueBadge({
+  value,
+  active,
+}: {
+  value: string | null | undefined;
+  active: boolean;
+}) {
+  if (value === "Sí") {
+    return (
+      <span className="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-100">
+        Sí
+      </span>
+    );
+  }
+
+  if (value === "No") {
+    return (
+      <span className="shrink-0 text-[10px] text-slate-300 font-normal">
+        No
+      </span>
+    );
+  }
+
+  if (!value || value === "—") {
+    return (
+      <span className="shrink-0 text-[10px] text-slate-300 font-normal">—</span>
+    );
+  }
+
+  // Numeric or text note with active finding
+  if (active) {
+    return (
+      <span className="shrink-0 text-xs font-semibold text-slate-700 text-right max-w-[55%] leading-snug">
+        {value}
+      </span>
+    );
+  }
+
+  return (
+    <span className="shrink-0 text-xs text-slate-400 text-right max-w-[55%] leading-snug">
+      {value}
+    </span>
   );
 }
 
@@ -263,29 +304,4 @@ export function RecordAuditBanner({ record }: { record: FullRecord }) {
       )}
     </div>
   );
-}
-
-// ─── getActiveLabels ──────────────────────────────────────────────────────────
-
-/**
- * Returns the human-readable labels for fields that are active (truthy, non-empty)
- * in a given findings or lab results object.
- */
-// ─── getActiveLabels ──────────────────────────────────────────────────────────
-
-export type ActiveItem = { label: string; value: string };
-
-export function getActiveLabels<T extends object>(
-  data: T,
-  labelMap: Partial<Record<keyof T, string>>,
-): ActiveItem[] {
-  return (Object.keys(labelMap) as (keyof T)[])
-    .filter((key) => {
-      const val = data[key];
-      return val !== null && val !== undefined && val !== false && val !== "";
-    })
-    .map((key) => ({
-      label: labelMap[key] as string,
-      value: typeof data[key] === "boolean" ? "Sí" : String(data[key]),
-    }));
 }

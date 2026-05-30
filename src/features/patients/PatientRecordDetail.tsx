@@ -4,8 +4,11 @@ import { useRef, useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
-import toast from "react-hot-toast";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import {
+  CheckCircleIcon,
+  XCircleIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 
 import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import BackButton from "../../components/BackButton";
@@ -85,7 +88,7 @@ export default function PatientRecordDetail({
   );
 
   // ── Loading / error states ─────────────────────────────────────────────────
-  if (isLoading) {
+  if (isLoading || (!error && !data?.data?.evaluation)) {
     return (
       <MainLayout>
         <p className="text-center py-10">Cargando historial...</p>
@@ -171,8 +174,30 @@ export default function PatientRecordDetail({
                 </div>
               </div>
 
-              {/* ── Audit banner (confirmed / canceled) ────────────────────── */}
-              <RecordAuditBanner record={record} />
+              {/*Banner + boton registro consumo */}
+              <div className="flex items-center justify-between gap-4 mb-3 w-full">
+                <div className="flex-1 min-w-0">
+                  <RecordAuditBanner record={record} />
+                </div>
+
+                <button
+                  onClick={() => isConfirmed && setShowUsageForm(true)}
+                  disabled={!isConfirmed}
+                  title={
+                    !isConfirmed
+                      ? "Solo disponible cuando el registro está confirmado"
+                      : undefined
+                  }
+                  className={`-mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 shrink-0 ${
+                    isConfirmed
+                      ? "text-white bg-gradient-to-r from-indigo-600 to-teal-500 shadow-md shadow-indigo-200 hover:from-indigo-700 hover:to-teal-600 cursor-pointer"
+                      : "text-white bg-gradient-to-r from-indigo-600/30 to-teal-500/30 opacity-50 border border-indigo-200/30 cursor-not-allowed pointer-events-auto"
+                  }`}
+                >
+                  <PlusIcon className="w-4 h-4" />
+                  <span>Registrar consumo</span>
+                </button>
+              </div>
 
               {/* ── Main record view ─────────────────────────────────── */}
               <ClinicalRecordView
@@ -180,7 +205,6 @@ export default function PatientRecordDetail({
                 currentYear={CURRENT_YEAR}
                 onEditEval={() => setShowEditEval(true)}
                 onEditProc={(proc) => setEditingProc(proc)}
-                onRegisterUsage={() => setShowUsageForm(true)}
               />
 
               <div className="mt-6">
@@ -273,7 +297,7 @@ export default function PatientRecordDetail({
 }
 
 // ─── StatusSegmentedControl ───────────────────────────────────────────────────
-// Extracted to avoid cluttering the parent with inline ternary chains.
+// Component for confirming or canceling the evaluation, with visual feedback on the current status.
 
 type SegmentedControlProps = {
   status: FullRecord["evaluation"]["status"];

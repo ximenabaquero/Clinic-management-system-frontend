@@ -12,16 +12,19 @@ function ProcedureCard({
   onEdit,
   evaluation,
   confirmedBy,
+  showEditButton,
 }: {
   proc: Procedure;
   isConfirmed: boolean;
   onEdit: () => void;
-  evaluation: any; // O el tipo correcto heredado de FullRecord['evaluation']
+  evaluation: any;
   confirmedBy: any;
+  showEditButton: boolean; // solo false cuando el header ya tiene el botón (1 procedimiento)
 }) {
   return (
     <div className="space-y-4 mb-8">
-      {!isConfirmed && (
+      {/* Botón por procedimiento: solo visible si hay más de uno */}
+      {!isConfirmed && showEditButton && (
         <div className="flex justify-end print:hidden">
           <button
             onClick={onEdit}
@@ -61,7 +64,7 @@ function ProcedureCard({
           <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide">
             Notas clínicas del procedimiento
           </p>
-          <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm italic text-gray-600">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 text-sm italic text-gray-600 whitespace-pre-wrap">
             {proc.notes}
           </div>
         </>
@@ -70,7 +73,6 @@ function ProcedureCard({
       <div className="border-t border-gray-100 mt-1 mb-6" />
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 w-full mt-8">
-        {/* Firma de la paciente */}
         {evaluation.patient_signature ? (
           <div className="text-left max-w-xl">
             <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wide mb-2">
@@ -105,7 +107,6 @@ function ProcedureCard({
           <div />
         )}
 
-        {/* Valor clínico total */}
         <div className="text-right shrink-0 mt-0.5">
           <p className="text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-1">
             Valor clínico total
@@ -138,9 +139,26 @@ export function ProceduresSection({
   evaluation,
   confirmedBy,
 }: Props) {
+  const isSingle = procedures.length === 1;
+
   return (
     <section>
-      <SectionHeader color="emerald" title="Procedimientos y precios" />
+      <SectionHeader
+        color="emerald"
+        title="Procedimientos y precios"
+        action={
+          !isConfirmed && isSingle ? (
+            <button
+              onClick={() => onEditProc(procedures[0])}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition print:hidden"
+            >
+              <PencilSquareIcon className="h-3.5 w-3.5" />
+              Editar procedimiento
+            </button>
+          ) : undefined
+        }
+      />
+
       {procedures.map((proc) => (
         <ProcedureCard
           key={proc.id}
@@ -149,6 +167,7 @@ export function ProceduresSection({
           onEdit={() => onEditProc(proc)}
           evaluation={evaluation}
           confirmedBy={confirmedBy}
+          showEditButton={!isSingle} // si hay varios, cada card muestra su propio botón
         />
       ))}
     </section>

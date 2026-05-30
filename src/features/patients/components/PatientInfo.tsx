@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
@@ -28,9 +28,6 @@ interface Props {
 }
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
-
-// Umbral de caracteres para mostrar tooltip en InfoCard
-const TOOLTIP_THRESHOLD = 22;
 
 const DOCUMENT_TYPE_LABELS: Record<DocumentType, string> = {
   [DocumentType.CC]: "Cédula de Ciudadanía",
@@ -61,60 +58,6 @@ const MARITAL_STATUS_LABELS: Record<string, string> = {
   VIUDO: "Viudo/a",
 };
 
-// ─── TooltipPortal ────────────────────────────────────────────────────────────
-
-/**
- * Muestra un cartel flotante (via portal en document.body) al hacer hover.
- * Evita que el tooltip quede cortado por `overflow-hidden` del padre.
- */
-function TooltipPortal({
-  children,
-  text,
-}: {
-  children: React.ReactNode;
-  text: string;
-}) {
-  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const show = useCallback(() => {
-    if (!ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    setPos({ top: r.top + r.height / 2, left: r.right + 8 });
-  }, []);
-
-  const hide = useCallback(() => setPos(null), []);
-
-  return (
-    <div
-      ref={ref}
-      onMouseEnter={show}
-      onMouseLeave={hide}
-      className="block w-full overflow-hidden cursor-default"
-    >
-      {children}
-      {pos &&
-        ReactDOM.createPortal(
-          <div
-            style={{
-              position: "fixed",
-              top: pos.top,
-              left: pos.left,
-              transform: "translateY(-50%)",
-              zIndex: 9999,
-            }}
-            className="max-w-[220px] px-3 py-2 bg-gray-900 text-white text-xs font-medium rounded-lg pointer-events-none leading-relaxed break-words"
-          >
-            {text}
-            {/* Flecha izquierda */}
-            <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900" />
-          </div>,
-          document.body,
-        )}
-    </div>
-  );
-}
-
 // ─── Sub-componentes ──────────────────────────────────────────────────────────
 
 function DocumentTypeBadge({ type }: { type?: DocumentType | null }) {
@@ -133,33 +76,24 @@ function DocumentTypeBadge({ type }: { type?: DocumentType | null }) {
   );
 }
 
-/**
- * Tarjeta de dato individual.
- *
- * Si `tooltipText` está definido y supera TOOLTIP_THRESHOLD caracteres,
- * el valor se envuelve en <TooltipPortal> para mostrar el texto completo
- * al hacer hover — útil para dirección, EPS y ocupación.
- */
+// colSpan: cuántas columnas ocupa la card en el grid de 4 columnas
 function InfoCard({
   icon,
   label,
   value,
-  tooltipText,
+  colSpan = 1,
 }: {
   icon: React.ReactNode;
   label: string;
   value: React.ReactNode;
-  tooltipText?: string;
+  colSpan?: 1 | 2;
 }) {
-  const needsTooltip =
-    tooltipText !== undefined && tooltipText.length > TOOLTIP_THRESHOLD;
-
-  const valueNode = (
-    <div className="text-sm font-semibold text-gray-800 truncate">{value}</div>
-  );
-
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3">
+    <div
+      className={`flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/60 px-4 py-3 ${
+        colSpan === 2 ? "col-span-2" : ""
+      }`}
+    >
       <div className="flex items-center justify-center h-9 w-9 rounded-lg bg-white border border-gray-100 shrink-0">
         {icon}
       </div>
@@ -167,11 +101,9 @@ function InfoCard({
         <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
           {label}
         </p>
-        {needsTooltip ? (
-          <TooltipPortal text={tooltipText}>{valueNode}</TooltipPortal>
-        ) : (
-          valueNode
-        )}
+        <div className="text-sm font-semibold text-gray-800 truncate">
+          {value}
+        </div>
       </div>
     </div>
   );
@@ -196,7 +128,6 @@ export default function PatientInfo({ patientId }: Props) {
     setShowEdit(true);
   };
 
-  /** Setter genérico para campos de texto del formulario */
   const setField = (field: keyof Patient) => (val: string) =>
     setForm((f) => ({ ...f, [field]: val }));
 
@@ -279,7 +210,7 @@ export default function PatientInfo({ patientId }: Props) {
   return (
     <>
       <section className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
-        {/* Header */}
+        {/* ── Header ────────────────────────────────────────────────── */}
         <div className="px-6 py-5 border-b border-gray-100 bg-white">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -304,9 +235,9 @@ export default function PatientInfo({ patientId }: Props) {
           <div className="mt-4 h-0.5 w-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400" />
         </div>
 
-        {/* Datos */}
+        {/* ── Datos ─────────────────────────────────────────────────── */}
         <div className="p-5 space-y-3">
-          {/* Fila 1 — identidad y contacto */}
+          {/* Fila 1 — Identidad */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <InfoCard
               icon={<IdentificationIcon className="h-5 w-5 text-emerald-600" />}
@@ -320,7 +251,7 @@ export default function PatientInfo({ patientId }: Props) {
             />
             <InfoCard
               icon={<CalendarIcon className="h-5 w-5 text-emerald-600" />}
-              label="Nacimiento"
+              label="Fecha de nacimiento"
               value={new Date(patient.date_of_birth).toLocaleDateString(
                 "es-ES",
                 { day: "2-digit", month: "short", year: "numeric" },
@@ -332,21 +263,6 @@ export default function PatientInfo({ patientId }: Props) {
               value={patient.biological_sex ?? "—"}
             />
             <InfoCard
-              icon={<PhoneIcon className="h-5 w-5 text-emerald-600" />}
-              label="Celular"
-              value={patient.cellphone || "—"}
-            />
-          </div>
-
-          {/* Fila 2 — datos administrativos (con tooltip en campos largos) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <InfoCard
-              icon={<MapPinIcon className="h-5 w-5 text-emerald-600" />}
-              label="Dirección"
-              value={patient.address ?? "—"}
-              tooltipText={patient.address ?? undefined}
-            />
-            <InfoCard
               icon={<HeartIcon className="h-5 w-5 text-emerald-600" />}
               label="Estado civil"
               value={
@@ -355,36 +271,45 @@ export default function PatientInfo({ patientId }: Props) {
                 "—"
               }
             />
+          </div>
+
+          {/* Fila 2 — Contacto */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <InfoCard
+              icon={<PhoneIcon className="h-5 w-5 text-emerald-600" />}
+              label="Celular"
+              value={patient.cellphone || "—"}
+            />
+            <InfoCard
+              icon={<PhoneIcon className="h-5 w-5 text-emerald-600" />}
+              label="Teléfono fijo"
+              value={patient.phone || "—"}
+            />
             <InfoCard
               icon={<BuildingOfficeIcon className="h-5 w-5 text-emerald-600" />}
               label="EPS"
               value={patient.eps ?? "—"}
-              tooltipText={patient.eps ?? undefined}
             />
             <InfoCard
               icon={<BriefcaseIcon className="h-5 w-5 text-emerald-600" />}
               label="Ocupación"
               value={patient.occupation ?? "—"}
-              tooltipText={patient.occupation ?? undefined}
             />
           </div>
 
-          {/* Teléfono fijo — solo si existe */}
-          {patient.phone && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <InfoCard
-                icon={<PhoneIcon className="h-5 w-5 text-emerald-600" />}
-                label="Teléfono fijo"
-                value={patient.phone}
-              />
-            </div>
-          )}
+          {/* Fila 3 — Dirección ocupa 2 columnas */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <InfoCard
+              icon={<MapPinIcon className="h-5 w-5 text-emerald-600" />}
+              label="Dirección"
+              value={patient.address ?? "—"}
+              colSpan={2}
+            />
+          </div>
         </div>
       </section>
 
-      {/* ── Modal de edición ────────────────────────────────────────────────── */}
-      {/* Portal → se monta en document.body para evitar que overflow/transform
-          de cualquier ancestro rompa el backdrop fixed o el z-index */}
+      {/* ── Modal de edición ─────────────────────────────────────────────────── */}
       {showEdit &&
         ReactDOM.createPortal(
           <div
@@ -407,7 +332,7 @@ export default function PatientInfo({ patientId }: Props) {
 
               {/* Body — scrollable */}
               <div className="px-6 py-5 space-y-4 overflow-y-auto">
-                {/* ── Nombre y Apellido ── */}
+                {/* Nombre y Apellido */}
                 <div className="grid grid-cols-2 gap-4">
                   <ValidatedInput
                     id="first_name"
@@ -429,7 +354,7 @@ export default function PatientInfo({ patientId }: Props) {
                   />
                 </div>
 
-                {/* ── Fecha de nacimiento ── */}
+                {/* Fecha de nacimiento */}
                 <DatePickerSelect
                   label="Fecha de nacimiento"
                   value={form.date_of_birth ?? ""}
@@ -437,7 +362,7 @@ export default function PatientInfo({ patientId }: Props) {
                   onDirty={() => {}}
                 />
 
-                {/* ── Tipo y N° de documento ── */}
+                {/* Tipo y N° de documento */}
                 <div className="grid grid-cols-2 gap-4">
                   <SelectField
                     id="document_type"
@@ -460,7 +385,6 @@ export default function PatientInfo({ patientId }: Props) {
                       ),
                     )}
                   </SelectField>
-
                   <ValidatedInput
                     id="cedula"
                     label="N° de documento"
@@ -472,8 +396,8 @@ export default function PatientInfo({ patientId }: Props) {
                   />
                 </div>
 
+                {/* Sexo biológico + Celular */}
                 <div className="grid grid-cols-2 gap-4">
-                  {/* ── Sexo biológico ── */}
                   <SelectField
                     id="biological_sex"
                     label="Sexo biológico"
@@ -486,6 +410,26 @@ export default function PatientInfo({ patientId }: Props) {
                     <option value="Masculino">Masculino</option>
                     <option value="Otro">Otro</option>
                   </SelectField>
+                  <SelectField
+                    id="marital_status"
+                    label="Estado civil"
+                    value={form.marital_status ?? ""}
+                    onChange={setField("marital_status")}
+                    required
+                  >
+                    <option value="">Seleccionar</option>
+                    {Object.entries(MARITAL_STATUS_LABELS).map(
+                      ([val, label]) => (
+                        <option key={val} value={val}>
+                          {label}
+                        </option>
+                      ),
+                    )}
+                  </SelectField>
+                </div>
+
+                {/* Celular + Teléfono fijo */}
+                <div className="grid grid-cols-2 gap-4">
                   <PhoneInputField
                     label="Celular"
                     variant="modal"
@@ -494,10 +438,6 @@ export default function PatientInfo({ patientId }: Props) {
                       setForm((f) => ({ ...f, cellphone: val }))
                     }
                   />
-                </div>
-
-                {/* ── Celular + Teléfono fijo ── */}
-                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label
                       htmlFor="phone"
@@ -517,36 +457,10 @@ export default function PatientInfo({ patientId }: Props) {
                       maxLength={20}
                     />
                   </div>
-                  {/* ── Estado civil ── */}
-                  <SelectField
-                    id="marital_status"
-                    label="Estado civil"
-                    value={form.marital_status ?? ""}
-                    onChange={setField("marital_status")}
-                    required
-                  >
-                    <option value="">Seleccionar</option>
-                    {Object.entries(MARITAL_STATUS_LABELS).map(
-                      ([val, label]) => (
-                        <option key={val} value={val}>
-                          {label}
-                        </option>
-                      ),
-                    )}
-                  </SelectField>
                 </div>
 
-                {/* ── Ocupación + EPS ── */}
+                {/* EPS + Ocupación */}
                 <div className="grid grid-cols-2 gap-4">
-                  <ValidatedInput
-                    id="occupation"
-                    label="Ocupación"
-                    placeholder="Ocupación del paciente"
-                    value={form.occupation ?? ""}
-                    onChange={setField("occupation")}
-                    required
-                    maxLength={100}
-                  />
                   <ValidatedInput
                     id="eps"
                     label="EPS"
@@ -556,9 +470,18 @@ export default function PatientInfo({ patientId }: Props) {
                     required
                     maxLength={100}
                   />
+                  <ValidatedInput
+                    id="occupation"
+                    label="Ocupación"
+                    placeholder="Ocupación del paciente"
+                    value={form.occupation ?? ""}
+                    onChange={setField("occupation")}
+                    required
+                    maxLength={100}
+                  />
                 </div>
 
-                {/* ── Dirección ── */}
+                {/* Dirección */}
                 <ValidatedInput
                   id="address"
                   label="Dirección"
