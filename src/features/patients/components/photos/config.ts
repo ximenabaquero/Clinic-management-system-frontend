@@ -23,7 +23,10 @@ export const STAGE_SHORT: Record<PhotoStage, string> = {
   ANTES: "A", DESPUES: "D", MES1: "C1", MES2: "C2", MES3: "C3",
 };
 
-export { photosFetcher as fetcher } from "../../services/patientPhotosService";
+export const fetcher = (url: string) =>
+  fetch(url, { credentials: "include", headers: { Accept: "application/json" } }).then((r) =>
+    r.json(),
+  );
 
 export function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("es-CO", {
