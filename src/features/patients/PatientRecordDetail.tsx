@@ -14,15 +14,15 @@ import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar"
 import BackButton from "../../components/BackButton";
 import AuthGuard from "@/components/AuthGuard";
 import ClinicalRecordView from "./components/clinical-record/ClinicalRecordView";
-import ConfirmacionModal from "./components/ConfirmacionModal";
-import EditarEvaluacionModal from "./components/EditarEvaluacionModal";
-import EditarProcedimientoModal from "./components/EditarProcedimientoModal";
+import ConfirmacionModal from "./components/modals/ConfirmacionModal";
+import EditarEvaluacionModal from "./components/modals/EditarEvaluacionModal";
+import EditarProcedimientoModal from "./components/modals/EditarProcedimientoModal";
 import PatientPhotosSection from "./components/PatientPhotosSection";
 import UsageForm from "@/features/inventory/components/usage/UsageForm";
-import InvoicePdf from "./components/InvoicePdf";
-import HistoriaClinicaPdf from "./components/HistoriaClinicaPdf";
+import InvoicePdf from "./components/pdf/InvoicePdf";
+import HistoriaClinicaPdf from "./components/pdf/HistoriaClinicaPdf";
 import ExportDropdown from "@/components/ExportDropdown";
-import CancelRecordModal from "./components/CancelRecordModal";
+import CancelRecordModal from "./components/modals/CancelRecordModal";
 
 import { useEvaluationStatus } from "./hooks/useEvaluationStatus";
 import { exportElementToPDF } from "@/utils/exportPDF";

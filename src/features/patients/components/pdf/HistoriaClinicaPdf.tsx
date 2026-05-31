@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
-import type { FullRecord } from "../types";
+import type { FullRecord } from "../../types";
 import {
   MARITAL_STATUS_LABELS,
   LAB_LABELS,
   FINDING_LABELS,
-} from "../services/constants";
-import { formatDateTime, formatCOP, fullName } from "../services/utils";
+} from "../../services/constants";
+import { formatDateTime, formatCOP, fullName } from "../../services/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
-import type { FullRecord } from "../types";
-import { formatDateTime, formatCOP } from "../services/utils";
+import type { FullRecord } from "../../types";
+import { formatDateTime, formatCOP } from "../../services/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

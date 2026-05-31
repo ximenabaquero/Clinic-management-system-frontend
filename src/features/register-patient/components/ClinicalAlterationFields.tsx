@@ -457,7 +457,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
                 htmlFor="p-description"
                 className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
               >
-                N° de hijos
+                N° hijos
                 <span className="text-gray-400 font-normal">(opcional)</span>
               </label>
               <ValidatedInput
