@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { XMarkIcon, UserCircleIcon, EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@/features/auth/AuthContext";
+import ValidatedInput from "@/components/ValidatedInput";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -129,7 +130,9 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div>
             <h2 className="text-base font-bold text-gray-900">Editar perfil</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Administrador</p>
+            <p className="text-xs text-gray-500 mt-0.5">
+              {user?.name ?? "Administrador"}
+            </p>
           </div>
           <button
             onClick={onClose}
@@ -146,49 +149,38 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
-            {/* Nombre y apellidos */}
-            <div>
-              <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
-                <UserCircleIcon className="h-3.5 w-3.5" />
-                Nombre
-              </label>
-              <input
-                type="text"
-                value={form.first_name}
-                onChange={(e) => setForm((f) => ({ ...f, first_name: e.target.value }))}
-                placeholder="Nombre"
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-              />
-            </div>
+            <ValidatedInput
+              id="first_name"
+              label="Nombre *"
+              type="text"
+              value={form.first_name}
+              onChange={(val) => setForm((f) => ({ ...f, first_name: val }))}
+              maxLength={100}
+              required
+              placeholder="Nombre"
+            />
 
-            <div>
-              <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
-                <UserCircleIcon className="h-3.5 w-3.5" />
-                Apellidos
-              </label>
-              <input
-                type="text"
-                value={form.last_name}
-                onChange={(e) => setForm((f) => ({ ...f, last_name: e.target.value }))}
-                placeholder="Apellidos"
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-              />
-            </div>
+            <ValidatedInput
+              id="last_name"
+              label="Apellidos *"
+              type="text"
+              value={form.last_name}
+              onChange={(val) => setForm((f) => ({ ...f, last_name: val }))}
+              maxLength={100}
+              required
+              placeholder="Apellidos"
+            />
 
-            {/* Correo */}
-            <div>
-              <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
-                <EnvelopeIcon className="h-3.5 w-3.5" />
-                Correo electrónico
-              </label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                placeholder="correo@ejemplo.com"
-                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-              />
-            </div>
+            <ValidatedInput
+              id="email"
+              label="Correo electrónico *"
+              type="email"
+              value={form.email}
+              onChange={(val) => setForm((f) => ({ ...f, email: val }))}
+              maxLength={100}
+              required
+              placeholder="correo@ejemplo.com"
+            />
 
             {/* Contraseña */}
             <div className="border-t border-gray-100 pt-4 space-y-3">
@@ -196,35 +188,47 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
                 Deja la contraseña en blanco si no deseas cambiarla.
               </p>
 
-              <div>
-                <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
-                  <LockClosedIcon className="h-3.5 w-3.5" />
-                  Nueva contraseña
-                </label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Mínimo 8 caracteres"
-                  autoComplete="new-password"
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                />
-              </div>
+              <ValidatedInput
+                id="password"
+                label="Nueva contraseña"
+                type="password"
+                showToggle
+                value={password}
+                onChange={setPassword}
+                placeholder="Nueva contraseña"
+              />
 
-              <div>
-                <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 mb-1">
-                  <LockClosedIcon className="h-3.5 w-3.5" />
-                  Confirmar contraseña
-                </label>
-                <input
-                  type="password"
-                  value={passwordConfirmation}
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
-                  placeholder="Repite la contraseña"
-                  autoComplete="new-password"
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                />
-              </div>
+              {password && (
+                <ul className="space-y-1 text-xs mt-1">
+                  <li
+                    className={`flex items-center gap-1.5 font-medium ${password.length >= 8 ? "text-emerald-600" : "text-red-500"}`}
+                  >
+                    <span>{password.length >= 8 ? "✓" : "✗"}</span>
+                    Mínimo 8 caracteres
+                  </li>
+                </ul>
+              )}
+
+              <ValidatedInput
+                id="password_confirmation"
+                label="Confirmar contraseña"
+                type="password"
+                showToggle
+                value={passwordConfirmation}
+                onChange={setPasswordConfirmation}
+                placeholder="Repite la contraseña"
+              />
+
+              {password && passwordConfirmation && (
+                <p
+                  className={`text-xs font-medium flex items-center gap-1.5 ${password === passwordConfirmation ? "text-emerald-600" : "text-red-500"}`}
+                >
+                  <span>{password === passwordConfirmation ? "✓" : "✗"}</span>
+                  {password === passwordConfirmation
+                    ? "Las contraseñas coinciden"
+                    : "Las contraseñas no coinciden"}
+                </p>
+              )}
             </div>
 
             {/* Footer */}
