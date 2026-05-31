@@ -1,4 +1,4 @@
-import PatientRecordDetail from "@/features/patients/components/PatientRecordDetail";
+import PatientRecordDetail from "@/features/patients/PatientRecordDetail";
 
 interface Props {
   params: Promise<{

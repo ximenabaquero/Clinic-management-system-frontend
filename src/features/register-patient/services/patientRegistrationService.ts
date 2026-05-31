@@ -214,6 +214,6 @@ export async function registerClinicalRecord(
   const json = await res.json();
   return {
     patient_id: json.data.patient.id as number,
-    evaluation_id: json.data.evaluation.id as number,
+    evaluation_id: json.data.evaluation_id as number,
   };
 }

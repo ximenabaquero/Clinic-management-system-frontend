@@ -194,7 +194,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             onChange={setToggle("varicose_veins")}
           />
           <YesNoToggle
-            label="Trombosis"
+            label="Trombos"
             value={data.thrombosis}
             onChange={setToggle("thrombosis")}
           />
@@ -209,7 +209,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
             onChange={setToggle("hepatitis")}
           />
           <YesNoToggle
-            label="Cirugías previas"
+            label="Cirugías realizadas"
             value={data.surgeries}
             onChange={setToggle("surgeries")}
           />
@@ -241,7 +241,7 @@ export default function ClinicalAlterationFields({ data, onChange }: Props) {
               onChange={setToggle("gastritis")}
             />
             <YesNoToggle
-              label="Intestino irritable"
+              label="Colon irritable"
               value={data.irritable_bowel}
               onChange={setToggle("irritable_bowel")}
             />
