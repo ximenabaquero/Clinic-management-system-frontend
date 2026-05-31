@@ -7,6 +7,15 @@ export function photosKey(evaluationId: number): string {
   return `${apiBaseUrl}/api/v1/medical-evaluations/${evaluationId}/photos`;
 }
 
+// El backend almacena los stages en minúsculas (enum MySQL).
+// Estas helpers convierten en la frontera del servicio.
+const toApiStage  = (stage: PhotoStage): string => stage.toLowerCase();
+const fromApiStage = (raw: string): PhotoStage  => raw.toUpperCase() as PhotoStage;
+
+function normalizePhoto(raw: Record<string, unknown>): PatientPhoto {
+  return { ...(raw as PatientPhoto), stage: fromApiStage(raw.stage as string) };
+}
+
 export async function uploadPatientPhoto(
   evaluationId: number,
   stage: PhotoStage,
@@ -14,7 +23,7 @@ export async function uploadPatientPhoto(
   notes?: string,
 ): Promise<PatientPhoto> {
   const form = new FormData();
-  form.append("stage", stage);
+  form.append("stage", toApiStage(stage));
   form.append("image", file);
   if (notes) form.append("notes", notes);
 
@@ -33,7 +42,7 @@ export async function uploadPatientPhoto(
     throw new Error((err as { error?: string }).error ?? "Error al subir la foto");
   }
   const json = await res.json();
-  return json.data;
+  return normalizePhoto(json.data);
 }
 
 export async function deletePatientPhoto(
@@ -50,3 +59,12 @@ export async function deletePatientPhoto(
   );
   if (!res.ok) throw new Error("Error al eliminar la foto");
 }
+
+// Fetcher para SWR — normaliza los stages a mayúsculas al recibir del backend
+export const photosFetcher = (url: string) =>
+  fetch(url, { credentials: "include", headers: { Accept: "application/json" } })
+    .then((r) => r.json())
+    .then((json: { data: Record<string, unknown>[] }) => ({
+      ...json,
+      data: Array.isArray(json.data) ? json.data.map(normalizePhoto) : json.data,
+    }));
