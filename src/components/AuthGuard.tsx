@@ -14,25 +14,27 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { user, authChecked, isLoggingOut } = useAuth();
   const alertShown = useRef(false);
+  const loggedOutIntentionally = useRef(false);
   const [showAlert, setShowAlert] = useState(false);
-
-  const showAlertOnce = () => {
-    if (!alertShown.current && !isLoggingOut) {
-      alertShown.current = true;
-      setShowAlert(true);
-    }
-  };
 
   const handleAlertClose = () => {
     setShowAlert(false);
-    router.replace("/");
+    router.replace("/login");
   };
 
   useEffect(() => {
-    if (!authChecked || isLoggingOut) return;
-
+    if (isLoggingOut) {
+      loggedOutIntentionally.current = true;
+      return;
+    }
+    if (!authChecked) return;
     if (!user) {
-      showAlertOnce();
+      if (loggedOutIntentionally.current) {
+        router.replace("/login");
+      } else if (!alertShown.current) {
+        alertShown.current = true;
+        setShowAlert(true);
+      }
     }
   }, [authChecked, user, isLoggingOut, router]);
 
