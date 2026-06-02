@@ -43,6 +43,14 @@ type TabType =
   | "consumos"
   | "reportes";
 
+const TABS: { key: TabType; label: string }[] = [
+  { key: "dashboard", label: "Dashboard" },
+  { key: "compras", label: "Compras" },
+  { key: "consumos", label: "Consumos" },
+  { key: "distribuidores", label: "Distribuidores" },
+  { key: "reportes", label: "Reportes" },
+];
+
 export default function InventoryPage() {
   const router = useRouter();
   const { user } = useAuth();
@@ -57,11 +65,12 @@ export default function InventoryPage() {
 
   // Estados de UI
   const [loadingUsages, setLoadingUsages] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>("dashboard"); // Valor inicial corregido
+  const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<
     InventoryProduct | undefined
   >();
+  const visibleTabs = isAdmin ? TABS : TABS.filter((t) => t.key !== "reportes");
 
   // Estado adicional para el ID de evaluación
   const [usageEvaluationId, setUsageEvaluationId] = useState<
@@ -129,6 +138,12 @@ export default function InventoryPage() {
     loadDistributors,
   ]);
 
+  useEffect(() => {
+    if (!isAdmin && activeTab === "reportes") {
+      setActiveTab("dashboard");
+    }
+  }, [activeTab, isAdmin]);
+
   // Handlers
   const handleOpenPurchase = (product?: InventoryProduct) => {
     setSelectedProduct(product);
@@ -179,7 +194,11 @@ export default function InventoryPage() {
             )}
 
             {/* Navegación por Pestañas */}
-            <InventoryNav activeTab={activeTab} onTabChange={setActiveTab} />
+            <InventoryNav
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              tabs={visibleTabs}
+            />
 
             {/* Área de Contenido Dinámico */}
             <div className="mt-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[500px]">
@@ -201,8 +220,8 @@ export default function InventoryPage() {
                     loading={false}
                     isAdmin={isAdmin}
                     onOpenPurchase={handleOpenPurchase}
-                    onRefreshCategories={loadCategories} // AGREGAR
-                    onRefreshProducts={loadProducts} // AGREGAR
+                    onRefreshCategories={loadCategories}
+                    onRefreshProducts={loadProducts}
                   />
                 )}
 
@@ -218,7 +237,7 @@ export default function InventoryPage() {
                   />
                 )}
 
-                {activeTab === "reportes" && (
+                {isAdmin && activeTab === "reportes" && (
                   <ReportesTab products={products} />
                 )}
 

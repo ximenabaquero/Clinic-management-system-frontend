@@ -56,20 +56,44 @@ function buildCategoryMap(
   return new Map(categories.map((c) => [c.id, c.name]));
 }
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function parseDate(
   value: string | number | Date | null | undefined,
 ): Date | null {
   if (!value) return null;
-  const normalized =
-    typeof value === "string" ? value.replace(" ", "T") : value;
 
-  const date = new Date(normalized);
-  return isNaN(date.getTime()) ? null : date;
+  if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+
+  if (typeof value === "number") {
+    const date = new Date(value);
+    return isNaN(date.getTime()) ? null : date;
+  }
+
+  if (typeof value === "string") {
+    const normalized = value.replace(" ", "T");
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+      const date = new Date(`${normalized}T00:00:00`);
+      return isNaN(date.getTime()) ? null : date;
+    }
+
+    const date = new Date(normalized);
+    return isNaN(date.getTime()) ? null : date;
+  }
+
+  return null;
 }
 
 function formatDate(value: string | number | Date | null | undefined): string {
   const date = parseDate(value);
-  return date ? date.toLocaleDateString(LOCALE) : "Sin fecha";
+  if (!date) return "Sin fecha";
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
 }
 
 function mapProductToRow(
