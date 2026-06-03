@@ -7,7 +7,13 @@ type RegisterHeaderBarProps = {
   onImagesClick?: () => void;
   onRemitentesClick?: () => void;
   onInventoryClick?: () => void;
-  active?: "register" | "patients" | "stats" | "images" | "remitentes" | "inventory";
+  active?:
+    | "register"
+    | "patients"
+    | "stats"
+    | "images"
+    | "remitentes"
+    | "inventory";
 };
 
 export default function RegisterHeaderBar({
@@ -84,7 +90,7 @@ export default function RegisterHeaderBar({
           </button>
         )}
 
-        {user?.role === "ADMIN" && onInventoryClick && (
+        {onInventoryClick && (
           <button
             type="button"
             onClick={onInventoryClick}

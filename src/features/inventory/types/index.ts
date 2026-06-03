@@ -17,8 +17,7 @@ export interface InventoryProduct {
   name: string;
   description: string | null;
   type: "INSUMO" | "EQUIPO";
-  created_at: string;
-  updated_at: string;
+  last_purchase_date: string | null;
 
   // Accessors del modelo — siempre presentes en la respuesta
   estado: "Disponible" | "Crítico" | "Agotado" | null; // null si es equipo

@@ -7,7 +7,7 @@ import CategoryManager from "../CategoryManager";
 import InventorySearchBar from "../InventorySearchBar";
 import ProductTable from "./ProductTable";
 import type { InventoryProduct, InventoryCategory } from "../../types";
-import { exportToCSV, exportToExcel } from "../../utils/exportUtils";
+import { exportToExcel } from "../../utils/exportUtils";
 import ExportDropdown from "@/components/ExportDropdown";
 
 interface ProductTabProps {
@@ -33,6 +33,7 @@ export default function ProductTab({
 }: ProductTabProps) {
   const [search, setSearch] = useState("");
   const [activeCategoryId, setActiveCategoryId] = useState<number | null>(null);
+
   const filtered = useMemo(() => {
     const q = normalize(search);
     return products.filter((p) => {
@@ -52,13 +53,6 @@ export default function ProductTab({
     [filtered],
   );
 
-  const handleExportCSV = () => {
-    const ok = exportToCSV(filtered, categories, "inventario_productos");
-    toast[ok ? "success" : "error"](
-      ok ? "CSV exportado" : "Error al exportar CSV",
-    );
-  };
-
   const handleExportExcel = async () => {
     const loading = toast.loading("Generando Excel…");
     const ok = await exportToExcel(
@@ -68,7 +62,7 @@ export default function ProductTab({
     );
     toast.dismiss(loading);
     toast[ok ? "success" : "error"](
-      ok ? "Excel exportado" : "Error al exportar Excel",
+      ok ? "Excel exportado correctamente" : "Error al exportar Excel",
     );
   };
 
@@ -102,12 +96,9 @@ export default function ProductTab({
             onSearch={setSearch}
           />
         </div>
-        {/* Export */}
+
         <ExportDropdown
-          items={[
-            { label: "Exportar como CSV", onClick: handleExportCSV },
-            { label: "Exportar como Excel", onClick: handleExportExcel },
-          ]}
+          items={[{ label: "Exportar como Excel", onClick: handleExportExcel }]}
         />
       </div>
 
