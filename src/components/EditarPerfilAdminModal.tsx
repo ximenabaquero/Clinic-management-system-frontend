@@ -158,7 +158,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.first_name}
               onChange={(val) => setForm((f) => ({ ...f, first_name: val }))}
-              maxLength={50}
+              maxLength={100}
               required
               placeholder="Nombre"
             />
@@ -169,7 +169,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.last_name}
               onChange={(val) => setForm((f) => ({ ...f, last_name: val }))}
-              maxLength={50}
+              maxLength={100}
               required
               placeholder="Apellidos"
             />

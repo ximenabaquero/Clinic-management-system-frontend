@@ -4,7 +4,7 @@ import { useState } from "react";
 import MainLayout from "@/layouts/MainLayout";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useRouter } from "next/navigation";
-import RegisterHeaderBar from "../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import BackButton from "../../components/BackButton";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
@@ -54,7 +54,7 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
                 <BackButton />
                 <button
                   onClick={() => setShowNewRecord(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-500 rounded-xl shadow-md shadow-emerald-200 hover:from-emerald-700 hover:to-teal-600 hover:shadow-lg hover:shadow-emerald-200 active:translate-y-[1px] transition-all duration-200"
                 >
                   <PlusIcon className="h-4 w-4" />
                   Nuevo registro
@@ -66,7 +66,10 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
                 <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-800">
                   Registros Médicos
                 </h3>
-                <PatientRecordsList key={recordsKey} patientId={Number(patientId)} />
+                <PatientRecordsList
+                  key={recordsKey}
+                  patientId={Number(patientId)}
+                />
               </div>
             </div>
           </div>

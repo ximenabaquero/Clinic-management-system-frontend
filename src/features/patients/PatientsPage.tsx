@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import MainLayout from "@/layouts/MainLayout";
 
-import RegisterHeaderBar from "@/features/post-login/components/RegisterHeaderBar";
-import RegisterCard from "@/features/post-login/components/RegisterCard";
-import FormAlert from "@/features/post-login/components/FormAlert";
+import RegisterHeaderBar from "@/features/register-patient/components/RegisterHeaderBar";
+import RegisterCard from "@/features/register-patient/components/RegisterCard";
+import FormAlert from "@/features/register-patient/components/FormAlert";
 import { Eye } from "lucide-react";
 
 import AuthGuard from "@/components/AuthGuard";

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import MainLayout from "@/layouts/MainLayout";
 import AuthGuard from "@/components/AuthGuard";
-import RegisterHeaderBar from "@/features/post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "@/features/register-patient/components/RegisterHeaderBar";
 import { useAuth } from "@/features/auth/AuthContext";
 
 import InventoryNav from "./components/InventoryNav";

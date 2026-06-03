@@ -6,7 +6,7 @@ import useSWR from "swr";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import MainLayout from "@/layouts/MainLayout";
-import RegisterHeaderBar from "../post-login/components/RegisterHeaderBar";
+import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import AuthGuard from "@/components/AuthGuard";
 import RoleGuard from "@/components/RoleGuard";
 import ConfirmModal from "@/components/ConfirmModal";

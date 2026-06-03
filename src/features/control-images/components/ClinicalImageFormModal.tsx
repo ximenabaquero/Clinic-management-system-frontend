@@ -112,9 +112,12 @@ export default function ClinicalImageFormModal({
 
       if (!response.ok) {
         const err = (await response.json().catch(() => ({}))) as {
+          error?: string;
           message?: string;
+          debug?: string;
         };
-        throw new Error(err.message ?? "Error al guardar");
+        console.error("[ClinicalImageFormModal] Backend error:", err);
+        throw new Error(err.error ?? err.message ?? "Error al guardar");
       }
 
       toast.success(editingId ? "Imagen actualizada" : "Imagen creada");
@@ -176,9 +179,16 @@ export default function ClinicalImageFormModal({
               </p>
             )}
 
+            <label
+              htmlFor="p-description"
+              className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+            >
+              Descripción
+              <span className="text-gray-400 font-normal">(opcional)</span>
+            </label>
             <ValidatedInput
               id="description"
-              label="Descripción (opcional)"
+              label=""
               as="textarea"
               rows={3}
               value={description}
@@ -186,6 +196,9 @@ export default function ClinicalImageFormModal({
               maxLength={255}
               placeholder="Breve descripción del tratamiento..."
             />
+            <p className="text-[11px] text-gray-400 mt-1 pl-0.5">
+              Máximo 255 caracteres · {description.length}/255
+            </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Antes */}
