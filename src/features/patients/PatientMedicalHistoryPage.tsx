@@ -10,7 +10,8 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 
 import PatientInfo from "./components/PatientInfo";
 import PatientRecordsList from "./components/PatientRecordsList";
-import NewRecordModal from "./components/NewRecordModal";
+import NewRecordModal from "./components/modals/NewRecordModal";
+import { usePatientProfile } from "./hooks/usePatientProfile";
 
 import AuthGuard from "@/components/AuthGuard";
 
@@ -24,6 +25,8 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
   const isAdmin = user?.role === "ADMIN";
   const [showNewRecord, setShowNewRecord] = useState(false);
   const [recordsKey, setRecordsKey] = useState(0);
+
+  const { patient, isLoading, mutate } = usePatientProfile(Number(patientId));
 
   return (
     <AuthGuard>
@@ -76,9 +79,10 @@ export default function PatientMedicalHistoryPage({ patientId }: Props) {
         </div>
       </MainLayout>
 
-      {showNewRecord && (
+      {showNewRecord && patient && (
         <NewRecordModal
           patientId={Number(patientId)}
+          patient={patient}
           onClose={() => setShowNewRecord(false)}
           onSuccess={() => setRecordsKey((k) => k + 1)}
         />

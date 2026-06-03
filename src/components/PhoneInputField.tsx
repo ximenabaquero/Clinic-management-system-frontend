@@ -58,7 +58,7 @@ export default function PhoneInputField({
   const isModal = variant === "modal";
 
   return (
-    <div style={{ position: "relative", zIndex: 99999 }}>
+    <div style={{ position: "relative", zIndex: 999999 }}>
       {isModal ? (
         <label className="block text-sm font-medium text-gray-700 mb-1">
           {label}
@@ -102,8 +102,8 @@ export default function PhoneInputField({
         dropdownStyle={{
           borderRadius: "0.75rem",
           fontSize: "0.875rem",
-          zIndex: 99999,
-          position: "fixed",
+          zIndex: 999999, // ← más alto
+          position: "absolute",
           width: "280px",
           maxHeight: "180px",
           overflowY: "auto",
