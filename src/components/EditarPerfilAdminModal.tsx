@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@/features/auth/AuthContext";
 import ValidatedInput from "@/components/ValidatedInput";
+import PasswordFields from "@/components/PasswordFields";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -131,7 +132,9 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
           <div>
             <h2 className="text-base font-bold text-gray-900">Editar perfil</h2>
             <p className="text-xs text-gray-500 mt-0.5">
-              {user?.name ?? "Administrador"}
+              {loadingProfile
+                ? (user?.name ?? "Administrador")
+                : `${form.first_name} ${form.last_name}`.trim() || (user?.name ?? "Administrador")}
             </p>
           </div>
           <button
@@ -183,53 +186,12 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
             />
 
             {/* Contraseña */}
-            <div className="border-t border-gray-100 pt-4 space-y-3">
-              <p className="text-xs text-gray-400">
-                Deja la contraseña en blanco si no deseas cambiarla.
-              </p>
-
-              <ValidatedInput
-                id="password"
-                label="Nueva contraseña"
-                type="password"
-                showToggle
-                value={password}
-                onChange={setPassword}
-                placeholder="Nueva contraseña"
-              />
-
-              {password && (
-                <ul className="space-y-1 text-xs mt-1">
-                  <li
-                    className={`flex items-center gap-1.5 font-medium ${password.length >= 8 ? "text-emerald-600" : "text-red-500"}`}
-                  >
-                    <span>{password.length >= 8 ? "✓" : "✗"}</span>
-                    Mínimo 8 caracteres
-                  </li>
-                </ul>
-              )}
-
-              <ValidatedInput
-                id="password_confirmation"
-                label="Confirmar contraseña"
-                type="password"
-                showToggle
-                value={passwordConfirmation}
-                onChange={setPasswordConfirmation}
-                placeholder="Repite la contraseña"
-              />
-
-              {password && passwordConfirmation && (
-                <p
-                  className={`text-xs font-medium flex items-center gap-1.5 ${password === passwordConfirmation ? "text-emerald-600" : "text-red-500"}`}
-                >
-                  <span>{password === passwordConfirmation ? "✓" : "✗"}</span>
-                  {password === passwordConfirmation
-                    ? "Las contraseñas coinciden"
-                    : "Las contraseñas no coinciden"}
-                </p>
-              )}
-            </div>
+            <PasswordFields
+              password={password}
+              passwordConfirmation={passwordConfirmation}
+              onPasswordChange={setPassword}
+              onConfirmChange={setPasswordConfirmation}
+            />
 
             {/* Footer */}
             <div className="flex justify-end gap-3 pt-2">
