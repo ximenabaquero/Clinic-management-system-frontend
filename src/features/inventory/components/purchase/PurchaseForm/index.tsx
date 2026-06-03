@@ -14,6 +14,7 @@ import type {
   Distributor,
   PurchaseFormValues,
 } from "../../../types";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const INITIAL_FORM: PurchaseFormValues = {
   product_id: null,
@@ -82,6 +83,30 @@ function isFormComplete(form: PurchaseFormValues): boolean {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+function SuccessScreen({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center text-center">
+        <div className="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center mb-5">
+          <CheckCircleIcon className="w-9 h-9 text-purple-600" />
+        </div>
+        <h2 className="text-xl font-bold text-gray-900 mb-2">
+          Compra registrada
+        </h2>
+        <p className="text-sm text-gray-500 mb-7">
+          La compra fue guardada correctamente en el inventario.
+        </p>
+        <button
+          onClick={onClose}
+          className="w-full rounded-xl bg-purple-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-purple-700 transition-colors"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function PurchaseForm({
   categories,
   products,
@@ -93,6 +118,7 @@ export default function PurchaseForm({
   const [form, setForm] = useState<PurchaseFormValues>(INITIAL_FORM);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const patch = (values: Partial<PurchaseFormValues>) => {
     setForm((prev) => ({ ...prev, ...values }));
@@ -119,9 +145,10 @@ export default function PurchaseForm({
     setError(null);
     try {
       await createPurchase(form);
-      toast.success("Compra registrada correctamente");
+
       onSaved();
-      onClose();
+
+      setShowSuccess(true);
     } catch (e: unknown) {
       setError(
         e instanceof Error ? e.message : "Error al registrar la compra.",
@@ -130,6 +157,10 @@ export default function PurchaseForm({
       setSaving(false);
     }
   };
+
+  if (showSuccess) {
+    return <SuccessScreen onClose={onClose} />;
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
