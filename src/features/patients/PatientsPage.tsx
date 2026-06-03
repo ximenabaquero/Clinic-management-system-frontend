@@ -13,6 +13,7 @@ import AuthGuard from "@/components/AuthGuard";
 import PaginationBar from "@/components/PaginationBar";
 import { usePagination } from "@/utils/usePagination";
 import { useAuth } from "@/features/auth/AuthContext";
+import { ROUTES } from "@/lib/routes";
 
 type PatientRow = {
   id: number;
@@ -135,12 +136,14 @@ export default function PatientsPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
-                onStatsClick={() => router.push("/stats")}
-                onImagesClick={() => router.push("/control-images")}
-                onPatientsClick={() => router.push("/patients")}
-                onBackToRegisterClick={() => router.push("/register-patient")}
-                onRemitentesClick={() => router.push("/admin/remitentes")}
-                onInventoryClick={() => router.push("/inventory")}
+                onStatsClick={() => router.push(ROUTES.stats)}
+                onImagesClick={() => router.push(ROUTES.controlImages)}
+                onPatientsClick={() => router.push(ROUTES.patients)}
+                onBackToRegisterClick={() =>
+                  router.push(ROUTES.registerPatient)
+                }
+                onRemitentesClick={() => router.push(ROUTES.adminRemitentes)}
+                onInventoryClick={() => router.push(ROUTES.inventory)}
                 active="patients"
               />
 

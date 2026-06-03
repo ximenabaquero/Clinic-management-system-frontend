@@ -26,6 +26,7 @@ import {
   type MaritalStatus,
 } from "./services/patientRegistrationService";
 import AuthGuard from "@/components/AuthGuard";
+import { ROUTES } from "@/lib/routes";
 
 // ─── Estado inicial ───────────────────────────────────────────────────────────
 
@@ -258,12 +259,14 @@ export default function RegisterPatientPage() {
               {/* ── Main ─────────────────────────────────────────── */}
               <main className="col-span-12 lg:col-span-8">
                 <RegisterHeaderBar
-                  onStatsClick={() => router.push("/stats")}
-                  onImagesClick={() => router.push("/control-images")}
-                  onPatientsClick={() => router.push("/patients")}
-                  onBackToRegisterClick={() => router.push("/register-patient")}
-                  onRemitentesClick={() => router.push("/admin/remitentes")}
-                  onInventoryClick={() => router.push("/inventory")}
+                  onStatsClick={() => router.push(ROUTES.stats)}
+                  onImagesClick={() => router.push(ROUTES.controlImages)}
+                  onPatientsClick={() => router.push(ROUTES.patients)}
+                  onBackToRegisterClick={() =>
+                    router.push(ROUTES.registerPatient)
+                  }
+                  onRemitentesClick={() => router.push(ROUTES.adminRemitentes)}
+                  onInventoryClick={() => router.push(ROUTES.inventory)}
                   active="register"
                 />
 
