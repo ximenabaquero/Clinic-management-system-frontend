@@ -1,8 +1,12 @@
 import LoginPage from "@/features/auth/LoginPage";
 
 export const metadata = {
-  title: 'Acceso Admin - Coldesthetic',
-  description: 'Inicio de sesión para administración de Coldesthetic',
+  title: "Acceso al Sistema",
+  description: "",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function Login() {
