@@ -19,6 +19,10 @@ export const metadata: Metadata = {
     apple: "/coldestheticlogo.png",
     shortcut: "/coldestheticlogo.png",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({

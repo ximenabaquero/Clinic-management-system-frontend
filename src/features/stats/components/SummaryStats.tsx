@@ -294,7 +294,7 @@ export default function SummaryStats() {
 
         <StatCard
           label="Nuevos Pacientes"
-          tooltip="cantidad de pacientes que tuvieron su primera consulta en este periodo."
+          tooltip="pacientes únicos cuya primera sesión confirmada ocurrió en este periodo."
           value={data.this_month_patients}
           variation={data.patients_variation}
         />
