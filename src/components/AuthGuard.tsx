@@ -9,6 +9,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/solid";
 import AlertModal from "./AlertModal";
+import { ROUTES } from "@/lib/routes";
 
 export default function AuthGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
 
   const handleAlertClose = () => {
     setShowAlert(false);
-    router.replace("/login");
+    router.replace(ROUTES.login);
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
     if (!authChecked) return;
     if (!user) {
       if (loggedOutIntentionally.current) {
-        router.replace("/login");
+        router.replace(ROUTES.login);
       } else if (!alertShown.current) {
         alertShown.current = true;
         setShowAlert(true);
@@ -66,7 +67,8 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
             </h1>
 
             <p className="text-gray-600 mb-15">
-              Solo personas autorizadas pueden acceder a esta sección del sistema.
+              Solo personas autorizadas pueden acceder a esta sección del
+              sistema.
             </p>
 
             <div className="flex items-center w-full max-w-xs mx-auto uppercase tracking-wider text-gray-400 text-sm">

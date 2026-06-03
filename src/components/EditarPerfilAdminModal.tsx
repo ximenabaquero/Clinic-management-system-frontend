@@ -134,7 +134,8 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
             <p className="text-xs text-gray-500 mt-0.5">
               {loadingProfile
                 ? (user?.name ?? "Administrador")
-                : `${form.first_name} ${form.last_name}`.trim() || (user?.name ?? "Administrador")}
+                : `${form.first_name} ${form.last_name}`.trim() ||
+                  (user?.name ?? "Administrador")}
             </p>
           </div>
           <button
@@ -158,7 +159,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.first_name}
               onChange={(val) => setForm((f) => ({ ...f, first_name: val }))}
-              maxLength={100}
+              maxLength={50}
               required
               placeholder="Nombre"
             />
@@ -169,7 +170,7 @@ export default function EditarPerfilAdminModal({ onClose }: Props) {
               type="text"
               value={form.last_name}
               onChange={(val) => setForm((f) => ({ ...f, last_name: val }))}
-              maxLength={100}
+              maxLength={50}
               required
               placeholder="Apellidos"
             />
