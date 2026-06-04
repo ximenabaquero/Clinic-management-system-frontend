@@ -12,15 +12,8 @@ type TabType =
 interface InventoryNavProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
+  tabs: { key: TabType; label: string }[];
 }
-
-const TABS: { key: TabType; label: string }[] = [
-  { key: "dashboard", label: "Dashboard" },
-  { key: "compras", label: "Compras" },
-  { key: "consumos", label: "Consumos" },
-  { key: "distribuidores", label: "Distribuidores" },
-  { key: "reportes", label: "Reportes" },
-];
 
 const activeBtn =
   "rounded-xl px-4 py-2 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold shrink-0 transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-200";
@@ -31,6 +24,7 @@ const inactiveBtn =
 export default function InventoryNav({
   activeTab,
   onTabChange,
+  tabs,
 }: InventoryNavProps) {
   return (
     <nav className="w-full bg-white border border-gray-200 rounded-2xl px-4 py-2.5">
@@ -38,9 +32,9 @@ export default function InventoryNav({
         {/* Columna Izquierda (Espaciador) */}
         <div />
 
-        {/* Columna Central: Tabs centrados */}
+        {/* Columna Central: Pestañas controladas externamente */}
         <div className="flex items-center gap-2 sm:gap-5 flex-wrap justify-center">
-          {TABS.map(({ key, label }) => (
+          {tabs.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => onTabChange(key)}

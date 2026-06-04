@@ -35,6 +35,7 @@ import type {
   InventoryUsage,
   Distributor,
 } from "./types";
+import { ROUTES } from "@/lib/routes";
 
 type TabType =
   | "dashboard"
@@ -42,6 +43,14 @@ type TabType =
   | "compras"
   | "consumos"
   | "reportes";
+
+const TABS: { key: TabType; label: string }[] = [
+  { key: "dashboard", label: "Dashboard" },
+  { key: "compras", label: "Compras" },
+  { key: "consumos", label: "Consumos" },
+  { key: "distribuidores", label: "Distribuidores" },
+  { key: "reportes", label: "Reportes" },
+];
 
 export default function InventoryPage() {
   const router = useRouter();
@@ -57,11 +66,12 @@ export default function InventoryPage() {
 
   // Estados de UI
   const [loadingUsages, setLoadingUsages] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabType>("dashboard"); // Valor inicial corregido
+  const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   const [showPurchaseForm, setShowPurchaseForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<
     InventoryProduct | undefined
   >();
+  const visibleTabs = isAdmin ? TABS : TABS.filter((t) => t.key !== "reportes");
 
   // Estado adicional para el ID de evaluación
   const [usageEvaluationId, setUsageEvaluationId] = useState<
@@ -129,6 +139,12 @@ export default function InventoryPage() {
     loadDistributors,
   ]);
 
+  useEffect(() => {
+    if (!isAdmin && activeTab === "reportes") {
+      setActiveTab("dashboard");
+    }
+  }, [activeTab, isAdmin]);
+
   // Handlers
   const handleOpenPurchase = (product?: InventoryProduct) => {
     setSelectedProduct(product);
@@ -150,12 +166,12 @@ export default function InventoryPage() {
         <div className="bg-gradient-to-b from-emerald-50 via-white to-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <RegisterHeaderBar
-              onBackToRegisterClick={() => router.push("/register-patient")}
-              onImagesClick={() => router.push("/control-images")}
-              onPatientsClick={() => router.push("/patients")}
-              onStatsClick={() => router.push("/stats")}
-              onRemitentesClick={() => router.push("/admin/remitentes")}
-              onInventoryClick={() => router.push("/inventory")}
+              onBackToRegisterClick={() => router.push(ROUTES.registerPatient)}
+              onImagesClick={() => router.push(ROUTES.controlImages)}
+              onPatientsClick={() => router.push(ROUTES.patients)}
+              onStatsClick={() => router.push(ROUTES.stats)}
+              onRemitentesClick={() => router.push(ROUTES.adminRemitentes)}
+              onInventoryClick={() => router.push(ROUTES.inventory)}
               active="inventory"
             />
 
@@ -179,7 +195,11 @@ export default function InventoryPage() {
             )}
 
             {/* Navegación por Pestañas */}
-            <InventoryNav activeTab={activeTab} onTabChange={setActiveTab} />
+            <InventoryNav
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              tabs={visibleTabs}
+            />
 
             {/* Área de Contenido Dinámico */}
             <div className="mt-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[500px]">
@@ -201,8 +221,8 @@ export default function InventoryPage() {
                     loading={false}
                     isAdmin={isAdmin}
                     onOpenPurchase={handleOpenPurchase}
-                    onRefreshCategories={loadCategories} // AGREGAR
-                    onRefreshProducts={loadProducts} // AGREGAR
+                    onRefreshCategories={loadCategories}
+                    onRefreshProducts={loadProducts}
                   />
                 )}
 
@@ -218,7 +238,7 @@ export default function InventoryPage() {
                   />
                 )}
 
-                {activeTab === "reportes" && (
+                {isAdmin && activeTab === "reportes" && (
                   <ReportesTab products={products} />
                 )}
 

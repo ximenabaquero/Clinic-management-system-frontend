@@ -9,16 +9,18 @@ import {
 } from "@heroicons/react/24/outline";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
-import type { Appointment } from "../types";
+import type { Appointment } from "../../types";
 import {
   appointmentKey,
   createAppointment,
   cancelAppointment,
-} from "../services/agendamientoService";
+} from "../../services/agendamientoService";
 
 const fetcher = (url: string) =>
-  fetch(url, { credentials: "include", headers: { Accept: "application/json" } })
-    .then((r) => r.json());
+  fetch(url, {
+    credentials: "include",
+    headers: { Accept: "application/json" },
+  }).then((r) => r.json());
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -62,7 +64,11 @@ interface Props {
 
 // ─── Componente ───────────────────────────────────────────────────────────────
 
-export default function AgendamientoModal({ evaluationId, patientName, onClose }: Props) {
+export default function AgendamientoModal({
+  evaluationId,
+  patientName,
+  onClose,
+}: Props) {
   // ── Remoto ────────────────────────────────────────────────────────────────
   const { data, mutate, isLoading } = useSWR<{ data: Appointment | null }>(
     appointmentKey(evaluationId),
@@ -72,7 +78,9 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
 
   // ── Local ─────────────────────────────────────────────────────────────────
   const [editMode, setEditMode] = useState(false);
-  const [procedureType, setProcedureType] = useState<"concejacion" | "sincecion">("concejacion");
+  const [procedureType, setProcedureType] = useState<
+    "concejacion" | "sincecion"
+  >("concejacion");
   const [datetime, setDatetime] = useState("");
   const [doctorName, setDoctorName] = useState("");
   const [notes, setNotes] = useState("");
@@ -85,7 +93,10 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
   // ── Acciones ──────────────────────────────────────────────────────────────
 
   const handleSave = async () => {
-    if (!datetime) { toast.error("Selecciona fecha y hora"); return; }
+    if (!datetime) {
+      toast.error("Selecciona fecha y hora");
+      return;
+    }
     setIsSaving(true);
     try {
       await createAppointment(evaluationId, {
@@ -150,31 +161,35 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <div className="flex items-center gap-2">
             <CalendarDaysIcon className="w-5 h-5 text-teal-500" />
             <h2 className="text-base font-bold text-gray-900">Agendamiento</h2>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-full hover:bg-gray-100 transition">
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-full hover:bg-gray-100 transition"
+          >
             <XMarkIcon className="w-5 h-5 text-gray-500" />
           </button>
         </div>
 
         {/* Paciente */}
         <div className="px-6 py-3 bg-gray-50 border-b border-gray-100 text-sm text-gray-600">
-          Paciente: <span className="font-semibold text-gray-800">{patientName}</span>
+          Paciente:{" "}
+          <span className="font-semibold text-gray-800">{patientName}</span>
         </div>
 
         {/* Body */}
         <div className="flex-1 overflow-y-auto">
           {isLoading ? (
-            <div className="flex items-center justify-center py-16 text-gray-400 text-sm">Cargando...</div>
+            <div className="flex items-center justify-center py-16 text-gray-400 text-sm">
+              Cargando...
+            </div>
           ) : showCreateView ? (
             /* ── Vista: Crear / Editar ──────────────────────────── */
             <div className="px-6 py-5 space-y-5">
-
               {/* Tipo de procedimiento */}
               <div>
                 <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">
@@ -193,14 +208,17 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
                     >
                       {type === "concejacion" ? "Concejación" : "Sinceción"}
                       <p className="text-xs font-normal mt-0.5 opacity-70">
-                        {type === "concejacion" ? "Requiere 8h de ayuno" : "Sin restricción"}
+                        {type === "concejacion"
+                          ? "Requiere 8h de ayuno"
+                          : "Sin restricción"}
                       </p>
                     </button>
                   ))}
                 </div>
                 {fastingRequired && (
                   <div className="mt-2 flex items-center gap-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700 font-medium">
-                    ⚠ La paciente debe llegar con <strong>8 horas de ayuno</strong> previas al procedimiento.
+                    ⚠ La paciente debe llegar con{" "}
+                    <strong>8 horas de ayuno</strong> previas al procedimiento.
                   </div>
                 )}
               </div>
@@ -222,7 +240,8 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
               {/* Médico */}
               <div>
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
-                  Médico asignado <span className="font-normal normal-case">(opcional)</span>
+                  Médico asignado{" "}
+                  <span className="font-normal normal-case">(opcional)</span>
                 </label>
                 <input
                   type="text"
@@ -237,7 +256,8 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
               {/* Notas */}
               <div>
                 <label className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-1">
-                  Notas adicionales <span className="font-normal normal-case">(opcional)</span>
+                  Notas adicionales{" "}
+                  <span className="font-normal normal-case">(opcional)</span>
                 </label>
                 <textarea
                   value={notes}
@@ -255,26 +275,39 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
               {/* Badge estado */}
               <div className="flex items-center gap-2 px-4 py-3 rounded-xl border bg-emerald-50 border-emerald-200">
                 <CheckCircleIcon className="w-5 h-5 text-emerald-600" />
-                <span className="text-sm font-semibold text-emerald-700">Cita confirmada</span>
+                <span className="text-sm font-semibold text-emerald-700">
+                  Cita confirmada
+                </span>
               </div>
 
               {/* Detalles */}
               <div className="space-y-3 text-sm">
                 <Row label="Fecha y hora">
-                  {new Date(appointment.appointment_datetime).toLocaleString("es-CO", {
-                    weekday: "long", day: "2-digit", month: "long",
-                    year: "numeric", hour: "2-digit", minute: "2-digit",
-                  })}
+                  {new Date(appointment.appointment_datetime).toLocaleString(
+                    "es-CO",
+                    {
+                      weekday: "long",
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
                 </Row>
                 <Row label="Procedimiento">
-                  {appointment.procedure_type === "concejacion" ? "Concejación" : "Sinceción"}
+                  {appointment.procedure_type === "concejacion"
+                    ? "Concejación"
+                    : "Sinceción"}
                 </Row>
                 {appointment.doctor_name && (
                   <Row label="Médico">{appointment.doctor_name}</Row>
                 )}
                 <Row label="Ayuno">
                   {appointment.fasting_required ? (
-                    <span className="text-amber-600 font-semibold">Sí — 8 horas previas</span>
+                    <span className="text-amber-600 font-semibold">
+                      Sí — 8 horas previas
+                    </span>
                   ) : (
                     <span className="text-gray-500">No requerido</span>
                   )}
@@ -359,7 +392,13 @@ export default function AgendamientoModal({ evaluationId, patientName, onClose }
 }
 
 // ── Sub-componente fila de detalle ────────────────────────────────────────────
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
+function Row({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex gap-3">
       <span className="text-gray-400 w-28 shrink-0 font-medium">{label}</span>

@@ -13,6 +13,7 @@ type ProceduresSelectorProps = {
   procedureNotes: string;
   setProcedureNotes: React.Dispatch<React.SetStateAction<string>>;
   clearSubmitError: () => void;
+  compact?: boolean; // ← nueva prop, false por defecto
 };
 
 export default function ProceduresSelector({
@@ -21,7 +22,12 @@ export default function ProceduresSelector({
   procedureNotes,
   setProcedureNotes,
   clearSubmitError,
+  compact = false,
 }: ProceduresSelectorProps) {
+  const gridCols = compact
+    ? "grid-cols-[20px_1fr_180px]"
+    : "sm:grid-cols-[28px_1fr_260px_220px]";
+
   const isSelected = (label: string) =>
     procedureItems.some((item) => item.item_name === label);
 
@@ -108,7 +114,13 @@ export default function ProceduresSelector({
             label={group.label}
             count={getGroupCount(group.procedureIds)}
           >
-            <div className="hidden sm:grid sm:grid-cols-[28px_1fr_260px_220px] gap-3 border-y border-gray-100 py-2 text-xs font-semibold text-gray-500">
+            <div
+              className={`grid gap-3 border-y border-gray-100 py-2 text-xs font-semibold text-gray-500 ${
+                compact
+                  ? "grid-cols-[20px_1fr_160px_130px]"
+                  : "hidden sm:grid sm:grid-cols-[28px_1fr_260px_220px]"
+              }`}
+            >
               <div />
               <div>Procedimiento</div>
               <div>Detalles</div>
@@ -142,7 +154,11 @@ export default function ProceduresSelector({
                 return (
                   <div
                     key={procedure.id}
-                    className="grid grid-cols-1 sm:grid-cols-[28px_1fr_260px_220px] gap-3 py-3"
+                    className={`grid gap-3 py-3 items-center ${
+                      compact
+                        ? "grid-cols-[20px_1fr_160px_130px]"
+                        : "grid-cols-1 sm:grid-cols-[28px_1fr_260px_220px]"
+                    }`}
                   >
                     <div className="pt-1">
                       <input
@@ -161,53 +177,55 @@ export default function ProceduresSelector({
                       {procedure.label}
                     </label>
 
-                    {checked ? (
-                      <>
-                        {isFaja ? (
-                          <input
-                            type="text"
-                            onChange={(e) => handleFajaChange(e.target.value)}
-                            className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900"
-                            placeholder="Talla (Ej. S / M / L)"
-                          />
-                        ) : isPierna ? (
-                          <div className="flex gap-4">
-                            <label className="flex items-center gap-2 text-sm text-gray-700">
-                              <input
-                                type="checkbox"
-                                checked={piernaInterna || piernaAmbas}
-                                onChange={(e) =>
-                                  handlePiernaChange(
-                                    e.target.checked,
-                                    piernaExterna,
-                                  )
-                                }
-                                className="h-4 w-4 rounded border-gray-300"
-                              />
-                              Interna
-                            </label>
-                            <label className="flex items-center gap-2 text-sm text-gray-700">
-                              <input
-                                type="checkbox"
-                                checked={piernaExterna || piernaAmbas}
-                                onChange={(e) =>
-                                  handlePiernaChange(
-                                    piernaInterna,
-                                    e.target.checked,
-                                  )
-                                }
-                                className="h-4 w-4 rounded border-gray-300"
-                              />
-                              Externa
-                            </label>
-                          </div>
-                        ) : (
-                          <div className="text-sm text-gray-500">—</div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="text-sm text-gray-400">—</div>
-                    )}
+                    <>
+                      {checked ? (
+                        <>
+                          {isFaja ? (
+                            <input
+                              type="text"
+                              onChange={(e) => handleFajaChange(e.target.value)}
+                              className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900"
+                              placeholder="Talla (Ej. S / M / L)"
+                            />
+                          ) : isPierna ? (
+                            <div className="flex gap-4">
+                              <label className="flex items-center gap-2 text-sm text-gray-700">
+                                <input
+                                  type="checkbox"
+                                  checked={piernaInterna || piernaAmbas}
+                                  onChange={(e) =>
+                                    handlePiernaChange(
+                                      e.target.checked,
+                                      piernaExterna,
+                                    )
+                                  }
+                                  className="h-4 w-4 rounded border-gray-300"
+                                />
+                                Interna
+                              </label>
+                              <label className="flex items-center gap-2 text-sm text-gray-700">
+                                <input
+                                  type="checkbox"
+                                  checked={piernaExterna || piernaAmbas}
+                                  onChange={(e) =>
+                                    handlePiernaChange(
+                                      piernaInterna,
+                                      e.target.checked,
+                                    )
+                                  }
+                                  className="h-4 w-4 rounded border-gray-300"
+                                />
+                                Externa
+                              </label>
+                            </div>
+                          ) : (
+                            <div className="text-sm text-gray-500">—</div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="text-sm text-gray-400">—</div>
+                      )}
+                    </>
 
                     {checked ? (
                       <input
@@ -215,7 +233,7 @@ export default function ProceduresSelector({
                         value={priceValue}
                         onChange={handlePriceChange(procedure.label)}
                         disabled={disablePrice}
-                        className={`rounded-xl border px-3 py-2 text-sm ${
+                        className={`rounded-xl border px-3 py-2 text-sm min-w-0 w-full ${
                           disablePrice
                             ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
                             : "bg-white border-gray-200 text-gray-900"

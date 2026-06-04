@@ -14,6 +14,8 @@ import PhoneInputField from "@/components/PhoneInputField";
 import InventorySearchBar from "../InventorySearchBar";
 import type { Distributor } from "../../types";
 import PaginationBar from "@/components/PaginationBar";
+import { useAuth } from "@/features/auth/AuthContext";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -40,12 +42,35 @@ interface FormState {
 
 const EMPTY_FORM: FormState = { name: "", cellphone: "", email: "" };
 
-// Normaliza tildes para búsqueda sin acento
 const normalize = (str: string) =>
   str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
+
+function SuccessScreen({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 flex flex-col items-center text-center">
+        <div className="w-16 h-16 rounded-full bg-indigo-50 flex items-center justify-center mb-5">
+          <CheckCircleIcon className="w-9 h-9 text-indigo-600" />
+        </div>
+        <h2 className="text-xl font-bold text-gray-900 mb-2">
+          Distribuidor registrado
+        </h2>
+        <p className="text-sm text-gray-500 mb-7">
+          El distribuidor fue guardado correctamente en el inventario.
+        </p>
+        <button
+          onClick={onClose}
+          className="w-full rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function DistribuidorTab({
   distributors,
@@ -54,6 +79,9 @@ export default function DistribuidorTab({
   onCreate,
   onUpdate,
 }: DistribuidorTabProps) {
+  const { user } = useAuth();
+  const isAdmin = user?.role === "ADMIN";
+
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState<Distributor | null>(null);
@@ -61,8 +89,8 @@ export default function DistribuidorTab({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showSuccess, setShowSuccess] = useState(false);
 
-  // Búsqueda local — no requiere llamada extra al backend
   const filtered = useMemo(() => {
     const q = normalize(search);
     if (!q) return distributors;
@@ -85,6 +113,7 @@ export default function DistribuidorTab({
   );
 
   function openCreate() {
+    if (!isAdmin) return;
     setEditing(null);
     setForm(EMPTY_FORM);
     setError(null);
@@ -92,6 +121,7 @@ export default function DistribuidorTab({
   }
 
   function openEdit(dist: Distributor) {
+    if (!isAdmin) return;
     setEditing(dist);
     setForm({
       name: dist.name,
@@ -110,6 +140,7 @@ export default function DistribuidorTab({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!isAdmin) return;
     if (!form.name.trim()) return setError("El nombre es obligatorio.");
 
     setSaving(true);
@@ -124,15 +155,27 @@ export default function DistribuidorTab({
     try {
       if (editing) {
         onUpdated(await onUpdate(editing.id, payload));
+        closeModal();
       } else {
         onCreated(await onCreate(payload));
+        setShowSuccess(true);
       }
-      closeModal();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Error al guardar");
     } finally {
       setSaving(false);
     }
+  }
+
+  if (showSuccess) {
+    return (
+      <SuccessScreen
+        onClose={() => {
+          setShowSuccess(false);
+          closeModal();
+        }}
+      />
+    );
   }
 
   return (
@@ -143,7 +186,6 @@ export default function DistribuidorTab({
         subtitle="Directorio detallado de distribuidores y aliados comerciales. Mantén toda la información de contacto organizada y accesible para optimizar tus compras y relaciones comerciales."
       />
 
-      {/* Buscador + boton nuevo distribuidor*/}
       <div className="flex items-end gap-3 mb-5">
         <div className="flex-1">
           <InventorySearchBar
@@ -152,27 +194,27 @@ export default function DistribuidorTab({
             onSearch={handleSearch}
           />
         </div>
-        <div className="relative shrink-0">
-          <button
-            key="new"
-            onClick={openCreate}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold
-        text-white
-        bg-gradient-to-r from-indigo-600 to-cyan-500
-        rounded-xl
-        shadow-md shadow-indigo-200
-        hover:from-indigo-700 hover:to-cyan-600
-        hover:shadow-lg hover:shadow-indigo-200
-        active:translate-y-[1px]
-        transition-all duration-200"
-          >
-            <PlusIcon className="w-4 h-4" />
-            Nuevo distribuidor
-          </button>
-        </div>
+        {isAdmin && (
+          <div className="relative shrink-0">
+            <button
+              onClick={openCreate}
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold
+                  text-white
+                  bg-gradient-to-r from-indigo-600 to-cyan-500
+                  rounded-xl
+                  shadow-md shadow-indigo-200
+                  hover:from-indigo-700 hover:to-cyan-600
+                  hover:shadow-lg hover:shadow-indigo-200
+                  active:translate-y-[1px]
+                  transition-all duration-200"
+            >
+              <PlusIcon className="w-4 h-4" />
+              Nuevo distribuidor
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Grilla */}
       {filtered.length > 0 ? (
         <div className="border border-gray-200 rounded-xl overflow-hidden">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-white">
@@ -190,13 +232,15 @@ export default function DistribuidorTab({
                       {dist.name}
                     </h4>
                   </div>
-                  <button
-                    onClick={() => openEdit(dist)}
-                    className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                    title="Editar"
-                  >
-                    <PencilSquareIcon className="w-4 h-4" />
-                  </button>
+                  {isAdmin && (
+                    <button
+                      onClick={() => openEdit(dist)}
+                      className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      title="Editar distribuidor"
+                    >
+                      <PencilSquareIcon className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
 
                 <div className="space-y-1.5 pt-2 border-t border-gray-100">
@@ -250,8 +294,8 @@ export default function DistribuidorTab({
         </div>
       )}
 
-      {/* Modal */}
-      {showModal && (
+      {/* Modal — solo accesible para admins */}
+      {showModal && isAdmin && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md border border-gray-100">
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
@@ -286,13 +330,12 @@ export default function DistribuidorTab({
 
               <div className="space-y-1">
                 <label
-                  htmlFor="p-description"
+                  htmlFor="distributor-email"
                   className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
                 >
                   Correo electrónico
                   <span className="text-gray-400 font-normal">(opcional)</span>
                 </label>
-
                 <ValidatedInput
                   id="distributor-email"
                   label=""

@@ -14,6 +14,7 @@ import { PlusIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import RemitenteFormModal from "./components/RemitenteFormModal";
 import RemitentesTable from "./components/RemitentesTable";
 import type { Remitente } from "./types";
+import { ROUTES } from "@/lib/routes";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
@@ -116,12 +117,14 @@ export default function RemitentesPage() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
               <div className="max-w-6xl mx-auto">
                 <RegisterHeaderBar
-                  onBackToRegisterClick={() => router.push("/register-patient")}
-                  onImagesClick={() => router.push("/control-images")}
-                  onPatientsClick={() => router.push("/patients")}
-                  onStatsClick={() => router.push("/stats")}
-                  onRemitentesClick={() => router.push("/admin/remitentes")}
-                  onInventoryClick={() => router.push("/inventory")}
+                  onBackToRegisterClick={() =>
+                    router.push(ROUTES.registerPatient)
+                  }
+                  onImagesClick={() => router.push(ROUTES.controlImages)}
+                  onPatientsClick={() => router.push(ROUTES.patients)}
+                  onStatsClick={() => router.push(ROUTES.stats)}
+                  onRemitentesClick={() => router.push(ROUTES.adminRemitentes)}
+                  onInventoryClick={() => router.push(ROUTES.inventory)}
                   active="remitentes"
                 />
 

@@ -14,15 +14,15 @@ import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar"
 import BackButton from "../../components/BackButton";
 import AuthGuard from "@/components/AuthGuard";
 import ClinicalRecordView from "./components/clinical-record/ClinicalRecordView";
-import ConfirmacionModal from "./components/ConfirmacionModal";
-import EditarEvaluacionModal from "./components/EditarEvaluacionModal";
-import EditarProcedimientoModal from "./components/EditarProcedimientoModal";
+import ConfirmacionModal from "./components/modals/ConfirmacionModal";
+import EditarEvaluacionModal from "./components/modals/EditarEvaluacionModal";
+import EditarProcedimientoModal from "./components/modals/EditarProcedimientoModal";
 import PatientPhotosSection from "./components/PatientPhotosSection";
 import UsageForm from "@/features/inventory/components/usage/UsageForm";
-import InvoicePdf from "./components/InvoicePdf";
-import HistoriaClinicaPdf from "./components/HistoriaClinicaPdf";
+import InvoicePdf from "./components/pdf/InvoicePdf";
+import HistoriaClinicaPdf from "./components/pdf/HistoriaClinicaPdf";
 import ExportDropdown from "@/components/ExportDropdown";
-import CancelRecordModal from "./components/CancelRecordModal";
+import CancelRecordModal from "./components/modals/CancelRecordModal";
 
 import { useEvaluationStatus } from "./hooks/useEvaluationStatus";
 import { exportElementToPDF } from "@/utils/exportPDF";
@@ -30,6 +30,7 @@ import { STATUS_CONFIG } from "./services/constants";
 import type { InventoryProduct } from "@/features/inventory/types";
 import type { Procedure, FullRecord } from "./types";
 import { RecordAuditBanner } from "./components/clinical-record/ui";
+import { ROUTES } from "@/lib/routes";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -143,12 +144,14 @@ export default function PatientRecordDetail({
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div className="max-w-5xl mx-auto">
               <RegisterHeaderBar
-                onStatsClick={() => router.push("/stats")}
-                onImagesClick={() => router.push("/control-images")}
-                onPatientsClick={() => router.push("/patients")}
-                onBackToRegisterClick={() => router.push("/register-patient")}
-                onRemitentesClick={() => router.push("/admin/remitentes")}
-                onInventoryClick={() => router.push("/inventory")}
+                onStatsClick={() => router.push(ROUTES.stats)}
+                onImagesClick={() => router.push(ROUTES.controlImages)}
+                onPatientsClick={() => router.push(ROUTES.patients)}
+                onBackToRegisterClick={() =>
+                  router.push(ROUTES.registerPatient)
+                }
+                onRemitentesClick={() => router.push(ROUTES.adminRemitentes)}
+                onInventoryClick={() => router.push(ROUTES.inventory)}
                 active="patients"
               />
 
