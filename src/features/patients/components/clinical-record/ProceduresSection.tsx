@@ -28,10 +28,10 @@ function ProcedureCard({
         <div className="flex justify-end print:hidden">
           <button
             onClick={onEdit}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-emerald-600 to-teal-500 rounded-lg shadow-sm shadow-emerald-200 hover:from-emerald-700 hover:to-teal-600 hover:shadow-md hover:shadow-emerald-200 active:translate-y-[1px] transition-all duration-200 print:hidden"
           >
             <PencilSquareIcon className="h-3.5 w-3.5" />
-            Editar procedimiento
+            Editar proooooo
           </button>
         </div>
       )}
@@ -150,7 +150,7 @@ export function ProceduresSection({
           !isConfirmed && isSingle ? (
             <button
               onClick={() => onEditProc(procedures[0])}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition print:hidden"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-gradient-to-r from-emerald-600 to-teal-500 rounded-lg shadow-sm shadow-emerald-200 hover:from-emerald-700 hover:to-teal-600 hover:shadow-md hover:shadow-emerald-200 active:translate-y-[1px] transition-all duration-200 print:hidden"
             >
               <PencilSquareIcon className="h-3.5 w-3.5" />
               Editar procedimiento
