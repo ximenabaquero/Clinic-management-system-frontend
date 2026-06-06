@@ -34,8 +34,7 @@ export default function CancelRecordModal({
 
         <div className="px-6 py-5">
           <p className="text-sm text-gray-600">
-            ¿Está seguro que desea cancelar este registro clínico? Esta acción
-            no se puede deshacer.
+            ¿Está seguro que desea cancelar este registro clínico?
           </p>
         </div>
 
