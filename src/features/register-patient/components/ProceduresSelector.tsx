@@ -13,7 +13,7 @@ type ProceduresSelectorProps = {
   procedureNotes: string;
   setProcedureNotes: React.Dispatch<React.SetStateAction<string>>;
   clearSubmitError: () => void;
-  compact?: boolean; // ← nueva prop, false por defecto
+  compact?: boolean;
 };
 
 export default function ProceduresSelector({

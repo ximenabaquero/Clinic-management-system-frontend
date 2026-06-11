@@ -253,11 +253,7 @@ export default function PatientRecordDetail({
         {showEditEval && (
           <EditarEvaluacionModal
             evaluationId={evaluationId}
-            initialData={{
-              weight: String(record.evaluation.weight ?? ""),
-              height: String(record.evaluation.height ?? ""),
-              medical_background: record.evaluation.medical_background ?? "",
-            }}
+            record={record}
             onClose={() => setShowEditEval(false)}
             onSaved={mutate}
           />

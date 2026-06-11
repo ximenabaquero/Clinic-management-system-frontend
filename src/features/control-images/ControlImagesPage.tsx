@@ -107,7 +107,7 @@ export default function ControlImagesPage() {
                   title={
                     atLimit ? "Límite de 10 imágenes alcanzado" : undefined
                   }
-                  className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-500 rounded-xl shadow-md shadow-emerald-200 hover:from-emerald-700 hover:to-teal-600 hover:shadow-lg hover:shadow-emerald-200 active:translate-y-[1px] transition-all duration-200"
                 >
                   <PlusIcon className="h-4 w-4" />
                   Nueva imagen

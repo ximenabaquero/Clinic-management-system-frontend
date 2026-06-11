@@ -282,7 +282,7 @@ export default function NewRecordModal({
                 procedureNotes={procedureNotes}
                 setProcedureNotes={setProcedureNotes}
                 clearSubmitError={clearSubmitError}
-                compact={true} // ← solo esto
+                compact={true}
               />
 
               <StickySubmitBar
