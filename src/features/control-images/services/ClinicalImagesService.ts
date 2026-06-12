@@ -1,7 +1,4 @@
-export const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(
-  /\/+$/,
-  "",
-);
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, "");
 
 export const endpoints = {
   list: `${apiBaseUrl}/api/v1/clinical-images`,
@@ -10,7 +7,18 @@ export const endpoints = {
   delete: (id: number) => `${apiBaseUrl}/api/v1/clinical-images/${id}`,
 };
 
-export const getImageUrl = (path: string) => {
+export const getImageUrl = (path: string): string => {
+  if (!path) return "";
   if (path.startsWith("http")) return path;
   return `${apiBaseUrl}/storage/${path}`;
+};
+
+export const getCsrfToken = (): string => {
+  if (typeof document === "undefined") return "";
+  const raw =
+    document.cookie
+      .split("; ")
+      .find((c) => c.startsWith("XSRF-TOKEN="))
+      ?.split("=")[1] ?? "";
+  return decodeURIComponent(raw);
 };

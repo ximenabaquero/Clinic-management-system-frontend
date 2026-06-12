@@ -3,9 +3,12 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { XMarkIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import { endpoints, getImageUrl } from "../services/ClinicalImagesService";
+import {
+  endpoints,
+  getImageUrl,
+  getCsrfToken,
+} from "../services/ClinicalImagesService";
 import type { ClinicalImage } from "../types/ClinicalImage";
 import ValidatedInput from "@/components/ValidatedInput";
 
@@ -58,32 +61,23 @@ export default function ClinicalImageFormModal({
     if (errors.afterImage) setErrors({ ...errors, afterImage: "" });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
 
-    // Limpiar errores previos
     setErrors({ title: "", beforeImage: "", afterImage: "" });
 
-    // Validar campos
-    const newErrors = {
-      title: "",
-      beforeImage: "",
-      afterImage: "",
-    };
+    const newErrors = { title: "", beforeImage: "", afterImage: "" };
 
     if (!title.trim()) {
       newErrors.title = "Faltó rellenar el campo del título";
     }
-
-    if (!editingId && !beforeImage && !beforePreviewUrl) {
+    if (!editingId && !beforeImage) {
       newErrors.beforeImage = "Faltó rellenar el campo de imagen Antes";
     }
-
-    if (!editingId && !afterImage && !afterPreviewUrl) {
+    if (!editingId && !afterImage) {
       newErrors.afterImage = "Faltó rellenar el campo de imagen Después";
     }
 
-    // Si hay errores, mostrarlos y detener
     if (newErrors.title || newErrors.beforeImage || newErrors.afterImage) {
       setErrors(newErrors);
       toast.error("Por favor completa todos los campos requeridos");
@@ -91,45 +85,63 @@ export default function ClinicalImageFormModal({
     }
 
     setIsUploading(true);
-    const token = Cookies.get("XSRF-TOKEN") ?? "";
 
     try {
       const formData = new FormData();
-      formData.append("title", title);
-      if (description) formData.append("description", description);
+      formData.append("title", title.trim());
+
+      formData.append("description", description.trim());
+
       if (beforeImage) formData.append("before_image", beforeImage);
       if (afterImage) formData.append("after_image", afterImage);
 
-      const response = await fetch(
-        editingId ? endpoints.update(editingId) : endpoints.create,
-        {
-          method: editingId ? "PUT" : "POST",
-          headers: { "X-XSRF-TOKEN": token },
-          body: formData,
-          credentials: "include",
-        },
-      );
+      if (editingId) formData.append("_method", "PATCH");
+
+      const url = editingId ? endpoints.update(editingId) : endpoints.create;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "X-XSRF-TOKEN": getCsrfToken() },
+        body: formData,
+        credentials: "include",
+      });
 
       if (!response.ok) {
-        const err = (await response.json().catch(() => ({}))) as {
+        const rawText = await response.text();
+
+        let parsed: {
           error?: string;
           message?: string;
-          debug?: string;
-        };
-        console.error("[ClinicalImageFormModal] Backend error:", err);
-        throw new Error(err.error ?? err.message ?? "Error al guardar");
+          errors?: Record<string, string[]>;
+        } = {};
+
+        try {
+          parsed = JSON.parse(rawText);
+        } catch {
+          throw new Error(`Error del servidor (${response.status})`);
+        }
+
+        if (parsed.errors) {
+          const first = Object.values(parsed.errors).flat()[0];
+          throw new Error(first ?? "Error de validación");
+        }
+
+        throw new Error(
+          parsed.error ??
+            parsed.message ??
+            `Error del servidor (${response.status})`,
+        );
       }
 
       toast.success(editingId ? "Imagen actualizada" : "Imagen creada");
       onSaved();
       onClose();
     } catch (error) {
-      toast.error(
+      const message =
         error instanceof Error
           ? error.message
-          : "Error al procesar la solicitud",
-      );
-      console.error(error);
+          : "Error al procesar la solicitud";
+      toast.error(message);
     } finally {
       setIsUploading(false);
     }
@@ -179,26 +191,28 @@ export default function ClinicalImageFormModal({
               </p>
             )}
 
-            <label
-              htmlFor="p-description"
-              className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
-            >
-              Descripción
-              <span className="text-gray-400 font-normal">(opcional)</span>
-            </label>
-            <ValidatedInput
-              id="description"
-              label=""
-              as="textarea"
-              rows={3}
-              value={description}
-              onChange={setDescription}
-              maxLength={255}
-              placeholder="Breve descripción del tratamiento..."
-            />
-            <p className="text-[11px] text-gray-400 mt-1 pl-0.5">
-              Máximo 255 caracteres · {description.length}/255
-            </p>
+            <div className="space-y-1">
+              <label
+                htmlFor="p-description"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-700"
+              >
+                Descripción
+                <span className="text-gray-400 font-normal">(opcional)</span>
+              </label>
+              <ValidatedInput
+                id="description"
+                label=""
+                as="textarea"
+                rows={3}
+                value={description}
+                onChange={setDescription}
+                maxLength={255}
+                placeholder="Breve descripción del tratamiento..."
+              />
+              <p className="text-[11px] text-gray-400 pl-0.5">
+                Máximo 255 caracteres · {description.length}/255
+              </p>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Antes */}

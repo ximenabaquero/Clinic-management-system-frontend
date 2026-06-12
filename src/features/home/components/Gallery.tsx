@@ -5,8 +5,17 @@ import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import useSWR from "swr";
 import Image from "next/image";
-import { CheckCircle, Camera, ChevronLeft, ChevronRight, Target } from "lucide-react";
-import { endpoints, getImageUrl } from "../../control-images/services/ClinicalImagesService";
+import {
+  CheckCircle,
+  Camera,
+  ChevronLeft,
+  ChevronRight,
+  Target,
+} from "lucide-react";
+import {
+  endpoints,
+  getImageUrl,
+} from "../../control-images/services/ClinicalImagesService";
 import type { ClinicalImage } from "../../control-images/types/ClinicalImage";
 
 const fetcher = (url: string) =>
@@ -30,13 +39,16 @@ function mulberry32(seed: number) {
 }
 
 export default function Gallery() {
-  const { data: images, isLoading } = useSWR<ClinicalImage[]>(endpoints.list, fetcher);
+  const { data: images, isLoading } = useSWR<ClinicalImage[]>(
+    endpoints.list,
+    fetcher,
+  );
 
   const autoplay = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "center", slidesToScroll: 1 },
-    [autoplay.current]
+    [autoplay.current],
   );
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
@@ -67,7 +79,11 @@ export default function Gallery() {
       {/* Floating blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatStyles.map((style, i) => (
-          <div key={i} className="absolute rounded-full bg-emerald-300/10" style={style} />
+          <div
+            key={i}
+            className="absolute rounded-full bg-emerald-300/10"
+            style={style}
+          />
         ))}
       </div>
 
@@ -87,8 +103,8 @@ export default function Gallery() {
             </span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-            Descubre las transformaciones increíbles que hemos logrado con nuestros pacientes
-            mediante tecnología láser de precisión.
+            Descubre las transformaciones increíbles que hemos logrado con
+            nuestros pacientes mediante tecnología láser de precisión.
           </p>
         </div>
 
@@ -109,8 +125,8 @@ export default function Gallery() {
               ¡Pronto verás resultados increíbles aquí!
             </h3>
             <p className="text-gray-500 max-w-md mx-auto mb-8">
-              Estamos documentando las transformaciones de nuestros pacientes. ¡Sé la próxima
-              historia de éxito!
+              Estamos documentando las transformaciones de nuestros pacientes.
+              ¡Sé la próxima historia de éxito!
             </p>
             <a
               href="https://wa.me/573004108199?text=Hola,%20quiero%20agendar%20mi%20valoración%20médica"
@@ -203,11 +219,15 @@ export default function Gallery() {
                         <div className="pt-4 border-t border-gray-100 flex items-center justify-center gap-2">
                           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 rounded-full border border-emerald-100">
                             <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
-                            <span className="text-xs font-medium text-emerald-700">Verificado</span>
+                            <span className="text-xs font-medium text-emerald-700">
+                              Verificado
+                            </span>
                           </div>
                           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 rounded-full border border-blue-100">
                             <Camera className="w-3.5 h-3.5 text-blue-500" />
-                            <span className="text-xs font-medium text-blue-700">Sin edición</span>
+                            <span className="text-xs font-medium text-blue-700">
+                              Sin edición
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -244,7 +264,8 @@ export default function Gallery() {
                 ¿Lista para ver tu propio resultado?
               </h3>
               <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-                Agenda tu valoración médica y descubre el plan personalizado para tu transformación.
+                Agenda tu valoración médica y descubre el plan personalizado
+                para tu transformación.
               </p>
               <a
                 href="https://wa.me/573004108199?text=Hola,%20quiero%20agendar%20mi%20valoración%20médica"
