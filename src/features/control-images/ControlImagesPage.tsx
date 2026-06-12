@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
-import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import MainLayout from "@/layouts/MainLayout";
 import RegisterHeaderBar from "../register-patient/components/RegisterHeaderBar";
 import RoleGuard from "@/components/RoleGuard";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useAuth } from "@/features/auth/AuthContext";
-import { endpoints } from "./services/ClinicalImagesService";
+import { endpoints, getCsrfToken } from "./services/ClinicalImagesService";
 import type { ClinicalImage } from "./types/ClinicalImage";
 import { PlusIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import ClinicalImageFormModal from "./components/ClinicalImageFormModal";
@@ -51,22 +50,35 @@ export default function ControlImagesPage() {
 
   const handleDelete = (id: number) => {
     setConfirmModal({
-      message: "Esta accion eliminara la imagen permanentemente.",
+      message: "Esta acción eliminará la imagen permanentemente.",
       onConfirm: async () => {
         setConfirmModal(null);
-        const token = Cookies.get("XSRF-TOKEN") ?? "";
         try {
           const response = await fetch(endpoints.delete(id), {
             method: "DELETE",
-            headers: { "X-XSRF-TOKEN": token },
+            headers: { "X-XSRF-TOKEN": getCsrfToken() },
             credentials: "include",
           });
-          if (!response.ok) throw new Error("Error al eliminar");
+
+          if (!response.ok) {
+            const rawText = await response.text();
+            let parsed: { error?: string; message?: string } = {};
+            try {
+              parsed = JSON.parse(rawText);
+            } catch {
+              /* no-json */
+            }
+            throw new Error(
+              parsed.error ?? parsed.message ?? "Error al eliminar",
+            );
+          }
+
           toast.success("Imagen eliminada");
           mutate();
         } catch (error) {
-          toast.error("Error al eliminar");
-          console.error(error);
+          const message =
+            error instanceof Error ? error.message : "Error al eliminar";
+          toast.error(message);
         }
       },
     });
